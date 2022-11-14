@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('identity_card', 200);
             $table->date('birthday')->nullable();
             $table->string('password',200);
+            $table->unsignedInteger('prefecture_id')->nullable();
+            $table->unsignedInteger('district_id')->nullable();
+            $table->unsignedInteger('commune_id')->nullable();
+            $table->unsignedInteger('language_id')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

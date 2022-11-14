@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use Exception;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +18,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        DB::beginTransaction();
+        try{
+            $this->call(AdminSeeder::class);
+            $this->call(LanguageSeeder::class);
+            DB::commit();
+        }catch(Exception $e){
+            DB::rollBack();
+            Log::error('[DatabaseSeeder][run] error '. $e->getMessage());
+        }
     }
 }
