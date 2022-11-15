@@ -1,16 +1,16 @@
 
 @if (isset($datepicker) && $datepicker)
-    <link rel="stylesheet" href="{{asset('"be-assets/css/bootstrap-datepicker.min.css')}}">
+    <link rel="stylesheet" href="{{asset("be-assets/css/bootstrap-datepicker.min.css")}}">
 @endif
 @if (isset($icheck) && $icheck)
-    <link rel="stylesheet" href="{{asset('"be-assets/css/icheck-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset("be-assets/css/icheck-bootstrap.min.css')}}">
 @endif
 @if (isset($select2) && $select2)
-    <link rel="stylesheet" href="{{asset('"be-assets/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('"be-assets/css/select2-bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset("be-assets/css/select2.min.css")}}">
+    <link rel="stylesheet" href="{{asset'"be-assets/css/select2-bootstrap4.min.css")}}">
 @endif
 @if (isset($fancybox) && $fancybox)
-    <link rel="stylesheet" href="{{asset('"be-assets/css/jquery.fancybox.css')}}">
+    <link rel="stylesheet" href="{{asset("be-assets/css/jquery.fancybox.css")}}">
 @endif
 @if (isset($clockpicker) && $clockpicker)
     <link rel="stylesheet" href="{{asset('plugins/clockpicker-seconds/dist/jquery-clockpicker.css')}}">
