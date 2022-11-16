@@ -36,8 +36,8 @@ Route::middleware('web')->group(function () {
 
             // profile
             Route::prefix('/profile')->group(function(){
-               Route::get('/', [AdminController::class, 'index'])->name('admin.profile');
-               Route::put('/edit', [AdminController::class, 'edit'])->name('admin.profile.edit');
+               Route::get('/', [AdminController::class, 'adminProfile'])->name('admin.profile');
+               Route::put('/{id}', [AdminController::class, 'update'])->name('admin.profile.update');
             });
         });
     });

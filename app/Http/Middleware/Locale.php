@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
+use App\Models\Language;
 
 class Locale
 {
@@ -16,6 +19,17 @@ class Locale
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        $admin = Auth::guard('admin')->user();
+        if($admin){
+            $language = Language::find($admin->language_id);
+            if($language){
+                $locale = $language->name;
+                App::setLocale($locale);
+                session()->put('locale', $locale);
+            }
+        } else {
+            App::setLocale(session()->get('locale'));
+        }
+        return $next($request); 
     }
 }

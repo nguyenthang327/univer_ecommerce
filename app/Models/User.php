@@ -8,6 +8,29 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * Class Admin
+ * @property integer $id
+ * @property string $email
+ * @property string $avatar
+ * @property string $user_name
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $password
+ * @property integer $gender
+ * @property string $phone
+ * @property string $identity_card
+ * @property date $birthday
+ * @property integer $prefecture_id
+ * @property integer $district_id
+ * @property integer $commune_id
+ * @property integer $language_id
+ * @property string $remember_token
+ * @property timestamp $deleted_at
+ * @property timestamp $created_at
+ * @property timestamp $updated_at
+ */
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="{{ asset("be-assets/css/all.min.css") }}">
 
     <!-- import CSS Library -->
-@yield('css_library')
+    @yield('css_library')
 
-<!-- Theme style -->
+    <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("be-assets/css/adminlte.min.css") }}">
     <link rel="stylesheet" href="{{ asset("be-assets/css/OverlayScrollbars.min.css") }}">
     <link rel="stylesheet" href="{{ asset("be-assets/css/sweetalert2.min.css") }}">
@@ -24,6 +24,8 @@
 
     <!-- Page style -->
     @yield('css_page')
+    <!-- common js -->
+    <link rel="stylesheet" href="{{ asset("common/css/common.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" data-locales="{{app()->getLocale()}}">
 <div class="wrapper">
@@ -56,10 +58,13 @@
 <!-- Page script -->
 @yield('js_page')
 
+<!-- common js -->
+<script src="{{ asset("common/js/common.js") }}"></script>
+
 <script type="module">
     // Show alert
-    @if(session('status_succeed'))
-    toastr.success('{{session('status_succeed')}}', {timeOut: 5000})
+    @if(session('status_successed'))
+    toastr.success('{{session('status_successed')}}', {timeOut: 5000})
     @elseif(session('status_failed'))
     toastr.error('{{session('status_failed')}}', {timeOut: 5000})
     @endif
