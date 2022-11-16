@@ -17,7 +17,7 @@
 @stop
 
 @section('content')
-    <section class="content pb-4 mt-3">
+    <section class="content pb-4 pt-3">
         <div class="container-fluid">
             @include('Backend.Admin.Profile.partials.form-user-information',[
                     'admin' => $admin,

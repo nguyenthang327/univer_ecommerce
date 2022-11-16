@@ -17,6 +17,12 @@ return [
     'first_name' => 'Họ',
     'last_name' => 'Tên',
     'birthday' => 'Ngày sinh',
+    'gender' => 'Giới tính',
+    'genders' => ['Nam', 'Nữ', 'Khác'],
+    'email' => 'Email',
+    'enter_email' => 'Nhập email',
+    'phone' => 'Điện thoại',
+    'enter_phone' => 'Nhập số diện thoại',
 
     // button
     'save' => 'Lưu',

@@ -42,3 +42,9 @@ Route::middleware('web')->group(function () {
         });
     });
 });
+
+Route::group(['middleware' => ['auth']], function () {
+ // Get administrative units
+ Route::get('getDistrictList', 'AddressController@getDistrictList')->name('getDistrictList');
+ Route::get('getCommuneList', 'AddressController@getCommuneList')->name('getCommuneList');
+});

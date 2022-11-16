@@ -20,6 +20,12 @@ return [
     'enter_last_name' => 'Enter last name',
     'birthday' => 'Birthday',
     'enter_birthday' => 'Choose birthday',
+    'gender' =>' Gender',
+    'genders' => ['Male', 'Female', 'Other'],
+    'email' => 'Email',
+    'enter_email' => 'Enter email',
+    'phone' => 'Phone',
+    'enter_phone' => 'Enter cell phone',
 
     // button
     'save' => 'Save',

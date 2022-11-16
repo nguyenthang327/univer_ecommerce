@@ -73,4 +73,31 @@ class Admin extends Authenticatable
             $data->updated_at = Carbon::now();
         });
     }
+
+     /**
+     * Get the prefecture for the user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function prefecture()
+    {
+        return $this->belongsTo('App\Models\Prefecture');
+    }
+
+    /**
+     * Get the district for the user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function district()
+    {
+        return $this->belongsTo('App\Models\District');
+    }
+
+    /**
+     * Get the commune for the user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function commune()
+    {
+        return $this->belongsTo('App\Models\Commune');
+    }
 }
