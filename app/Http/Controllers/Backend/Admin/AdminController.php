@@ -53,15 +53,21 @@ class AdminController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateAdminRequest $request, $id){
-        // dd($request->all());
         DB::beginTransaction();
         try{
             $params = [
+                'email' => $request->email,
                 'user_name' => $request->user_name,
                 'language_id' => $request->language_id,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'birthday' => isset($request->birthday) ? Carbon::createFromFormat('d/m/Y', $request->birthday) : $request->birthday,
+                'phone' => $request->phone,
+                'gender' => $request->gender,
+                'prefecture_id' => $request->prefecture_id,
+                'district_id' => $request->district_id,
+                'commune_id' => $request->commune_id,
+                'identity_card' => $request->identity_card,
             ];
 
             $this->adminService->updateAdminProfile($id, $params);

@@ -8,7 +8,7 @@
             <div class="card mb-1">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="">{{trans('language.avatar')}}</label>
                                 <div class="text-center">
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="">{{trans('language.user_name')}} <span class="text-red">*</span></label>
                                 <input type="text" class="form-control {{$errors->first('user_name') ? 'is-invalid' : ''}}" name="user_name" placeholder="{{trans('language.enter_user_name')}}" required
@@ -77,7 +77,9 @@
                                 <label for="">{{trans('language.birthday')}}</label>
                                 <label class="input-group mb-0 ">
                                     <input type="text" class="form-control {{$errors->first('birthday') ? 'is-invalid' : ''}}" data-picker="date" autocomplete="off" name="birthday" placeholder="{{trans('language.enter_birthday')}}"
-                                           value="{{old('birthday') ? old('birthday') : (isset($admin->birthday) ? (new App\Services\DateFormatService())->dateFormatLanguage($admin->birthday,'d/m/Y') : '') }}" >
+                                           value="{{old('birthday') ? old('birthday') : (isset($admin->birthday) ? (new App\Services\DateFormatService())->dateFormatLanguage($admin->birthday,'d/m/Y') : '') }}"
+                                            >
+                                           
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="far fa-calendar-alt"></span>
@@ -146,11 +148,11 @@
                             <div class="row">
                                 @php
                                     $prefectures = \App\Models\Prefecture::orderBy('name')->get();
-                                    $choose_prefecture = old('prefecture_id')?old('prefecture_id'):(isset($user->prefecture_id)?$user->prefecture_id:'');
+                                    $choose_prefecture = old('prefecture_id')?old('prefecture_id'):(isset($admin->prefecture_id)?$admin->prefecture_id:'');
                                     $districts = \App\Models\District::where('prefecture_id', $choose_prefecture)->orderBy('name')->get();
-                                    $choose_district = old('district_id')?old('district_id'):(isset($user->district_id)?$user->district_id:'');
+                                    $choose_district = old('district_id')?old('district_id'):(isset($admin->district_id)?$admin->district_id:'');
                                     $communes = \App\Models\Commune::where('district_id', $choose_district)->orderBy('name')->get();
-                                    $choose_commune = old('commune_id')?old('commune_id'):(isset($user->commune_id)?$user->commune_id:'');
+                                    $choose_commune = old('commune_id')?old('commune_id'):(isset($admin->commune_id)?$admin->commune_id:'');
                                 @endphp
                                 <div class="col-sm-4">
                                     <div class="form-group">
@@ -158,7 +160,7 @@
                                                 style="width: 100%"
                                                 data-child="#select_district"
                                                 data-url="{{ route('getDistrictList') }}"
-                                                data-placeholder="{{trans('language.choose_a_province')}}"
+                                                data-placeholder="{{trans('language.choose_a_prefecture')}}"
                                                 name="prefecture_id"
                                                 >
                                             <option value="" disabled selected style="display: none">{{trans('language.choose_prefecture')}}</option>
@@ -222,6 +224,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <label for="">{{trans('language.identity_card')}}</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control {{$errors->first('identity_card') ? 'is-invalid' : ''}}" name="identity_card" placeholder="{{trans('language.enter_identity_card')}}"
+                                               value="{{old('identity_card') ? old('identity_card') : (isset($admin->identity_card) ? $admin->identity_card : '') }}">
+                                        @if ($errors->first('identity_card'))
+                                            <div class="error">{{ $errors->first('identity_card') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -229,8 +245,8 @@
         <div class="col-xl-3 theia-sidebar">
             <div class="card">
                 <div class="card-body align-items-start flex-wrap">
-                    <button type="submit" class="btn btn-primary mr-2 my-1" {{(isset($deleted) && $deleted==true) ? 'disabled'  :  ''}}><i class="far fa-save"></i> {{trans('language.save')}}</button>
-                    <button type="reset" class="btn btn-outline-secondary" {{(isset($deleted) && $deleted==true) ? 'disabled'  :  ''}}><i class="far fa-undo"></i> {{trans('language.reset')}}</button>
+                    <button type="submit" class="btn btn-primary mr-2 my-1"><i class="far fa-save"></i> {{trans('language.save')}}</button>
+                    <button type="reset" class="btn btn-outline-secondary"><i class="far fa-undo"></i> {{trans('language.reset')}}</button>
                 </div>
             </div>
         </div>

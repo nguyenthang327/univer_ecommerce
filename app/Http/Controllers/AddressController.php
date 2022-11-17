@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Commune;
 use App\Models\District;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AddressController extends Controller
 {
@@ -24,8 +25,9 @@ class AddressController extends Controller
                'text' => $district->name
            ];
        }
+
        return [
-         'status' => 200,
+         'status' => Response::HTTP_OK,
          'options' => $options
        ];
    }
@@ -49,7 +51,7 @@ class AddressController extends Controller
        }
 
        return [
-           'status' => 200,
+           'status' => Response::HTTP_OK,
            'options' => $options
        ];
    }

@@ -26,6 +26,12 @@ return [
     'enter_email' => 'Enter email',
     'phone' => 'Phone',
     'enter_phone' => 'Enter cell phone',
+    'hometown' => 'Hometown',
+    'choose_a_prefecture' => 'Choose a prefecture',
+    'choose_a_district' => 'Choose a district',
+    'choose_a_commune' => 'Choose a commune',
+    'identity_card' => 'Identity card',
+    'enter_identity_card' => 'Enter identity card',
 
     // button
     'save' => 'Save',

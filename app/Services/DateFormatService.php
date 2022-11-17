@@ -12,6 +12,7 @@ class DateFormatService
     public function dateFormatLanguage($date = null, $format)
     {
         $language = App::getLocale();
+        $language = 'vi';
 
         // format time
         if($date){   

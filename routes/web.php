@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminLogin;
 use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +44,7 @@ Route::middleware('web')->group(function () {
     });
 });
 
-Route::group(['middleware' => ['auth']], function () {
- // Get administrative units
- Route::get('getDistrictList', 'AddressController@getDistrictList')->name('getDistrictList');
- Route::get('getCommuneList', 'AddressController@getCommuneList')->name('getCommuneList');
-});
+
+// Get administrative units
+Route::get('getDistrictList', [AddressController::class, 'getDistrictList'])->name('getDistrictList');
+Route::get('getCommuneList', [AddressController::class, 'getCommuneList'])->name('getCommuneList');
