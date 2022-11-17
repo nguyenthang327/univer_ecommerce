@@ -54,6 +54,7 @@ class AdminController extends Controller
      */
     public function update(UpdateAdminRequest $request, $id){
         DB::beginTransaction();
+        $admin = $this->checkAdminExist($id);
         try{
             $params = [
                 'email' => $request->email,
@@ -70,7 +71,7 @@ class AdminController extends Controller
                 'identity_card' => $request->identity_card,
             ];
 
-            $this->adminService->updateAdminProfile($id, $params);
+            $this->adminService->updateAdminProfile($admin, $params, $request->avatar);
             
             DB::commit();
             return back()->with([
@@ -83,5 +84,41 @@ class AdminController extends Controller
                 'status_failed' => trans('message.update_profile_failed'),
             ]);
         }
+    }
+
+    /**
+     * Check if admin exist then return ADmin, else return error message
+     *
+     * @param $admin_id
+     * @param bool $deleted
+     * @return array|Admin
+     */
+    private function checkAdminExist($admin_id, $deleted=false) {
+        if ($deleted) {
+            $admin = Admin::onlyTrashed()->find($admin_id);
+        } else {
+            $admin = Admin::find($admin_id);
+        }
+
+        if ($admin == null) {
+            return [
+                'status' => 302,
+                'msg' => trans('message.admin_not_exist'),
+                'url_callback' => back()->getTargetUrl(),
+            ];
+        }
+
+        return $admin;
+    }
+
+    /**
+     * Get avatar admin
+     * @param $id
+     * @return mixed
+     */
+    public function getAvatar($id)
+    {
+        $image = $userManager->getImage($id, 'avatar');
+        return $image;
     }
 }
