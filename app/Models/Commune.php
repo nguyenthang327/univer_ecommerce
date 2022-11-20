@@ -43,4 +43,13 @@ class Commune extends Model
     {
     	return $this->hasMany('App\Admin');
     }
+
+    /**
+     * Get users for the prefecture
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+    	return $this->hasMany('App\User');
+    }
 }

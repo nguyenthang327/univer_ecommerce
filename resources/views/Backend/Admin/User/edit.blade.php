@@ -1,5 +1,5 @@
 @extends('Backend.Admin.Layout.master')
-@section('title',trans('language.admin_info'))
+@section('title',trans('language.user_info'))
 
 @section('header')
     <li class="nav-item d-none d-sm-inline-block">

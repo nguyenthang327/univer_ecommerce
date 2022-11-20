@@ -118,7 +118,7 @@ class AdminController extends Controller
      */
     public function getAvatar($id)
     {
-        $image = $userManager->getImage($id, 'avatar');
+        $image = $this->adminService->getImage($id, 'avatar');
         return $image;
     }
 }

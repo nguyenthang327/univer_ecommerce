@@ -108,10 +108,39 @@ function readFileImage() {
     }
 }
 
+//hanlding reset form
+function handleResetForm(){
+    $('form').each(function () {
+        let form = $(this),
+            reset = form.find(':reset');
+
+        let resetForm = () => {
+            setTimeout(function () {
+                let inputs = form.find(':input');
+
+                if (form.find('.summernote').length){
+                    form.find('.summernote').each(function (){
+                        $(this).summernote("code", $(this).val());
+                    })
+                }
+                form.find('input[type="text"]').val('');
+                form.find('textarea').val('');
+                form.find('input[type="email"]').val('');
+                inputs.trigger('change');
+            }, 50);
+        }
+        reset.on('click', resetForm);
+    });
+}
+
 $(function (){
     $(document).on('change', '.form-image__file', readFileImage);
 
     select2Base('.select2-base');
     datePicker('[data-picker="date"]');
     $(document).on('change', '.dynamic-select-option', dynamicSelectOption);
+
+
+    //reset Form
+    handleResetForm();
 })

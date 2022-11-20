@@ -5,38 +5,39 @@ namespace App\Services\Admin;
 use App\Models\Admin;
 use Illuminate\Support\Facades\App;
 use App\Models\Language;
+use App\Models\User;
 use App\Traits\StorageTrait;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
-class AdminService
+class UserService
 {
     use StorageTrait;
     use ImageTrait;
 
     /**
-     * Update admin profile
-     * @param mixed $admin
+     * Update user profile
+     * @param mixed $user
      * @param mixed $parameters
      * @param mixed $avatar
      * @return void
      */
-    public function updateAdminProfile($admin, $parameters, $avatar = null){
+    public function updateAdminProfile($user, $parameters, $avatar = null){
         $old_avatar_path = null;
-        $avatar_path = $admin->avatar;
+        $avatar_path = $user->avatar;
         if($avatar) {
-            $old_avatar_path = $admin->avatar;
+            $old_avatar_path = $user->avatar;
             $avatar = $this->resizeImage($avatar->getRealPath(), AVATAR_WIDTH);
-            $avatar_path = $this->uploadFileByStream($avatar, ADMIN_DIR.'/'.$admin->id.'/'.Str::random(25).'.jpg');
+            $avatar_path = $this->uploadFileByStream($avatar, USER_DIR.'/'.$user->id.'/'.Str::random(25).'.jpg');
         }
 
         $parameters += [
             'avatar' => $avatar_path
         ];
 
-        $admin->update($parameters);
+        $user->update($parameters);
 
         if($old_avatar_path) {
             // Remove old file
@@ -59,15 +60,15 @@ class AdminService
      */
     public function getImage($id, $typeImage = 'avatar'){
         try {
-            $admin = Admin::withTrashed()->find($id,[$typeImage.' as image','gender']);
-            if (empty($admin)){
+            $user = User::withTrashed()->find($id,[$typeImage.' as image','gender']);
+            if (empty($user)){
                 return response()->file(base_path() . '/public/images/user-default.png');
             }
 
-            if (empty($admin->image)){
+            if (empty($user->image)){
                 $image = response()->file(base_path() . '/public/images/user-default.png');
             } else {
-                $image = Storage::disk(FILESYSTEM)->response($admin->image);
+                $image = Storage::disk(FILESYSTEM)->response($user->image);
             }
             return $image;
         } catch(Exception $e) {

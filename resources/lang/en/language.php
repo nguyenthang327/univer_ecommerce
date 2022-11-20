@@ -9,7 +9,7 @@ return [
 
     // profile
     'profile' => 'Profile',
-    'user_info' => 'User information',
+    'admin_info' => 'Administrative information',
     'avatar' => 'Avatar',
     'lang' => 'Language',
     'user_name' => 'User name',
@@ -32,6 +32,9 @@ return [
     'choose_a_commune' => 'Choose a commune',
     'identity_card' => 'Identity card',
     'enter_identity_card' => 'Enter identity card',
+
+    // User
+    'user_info' => 'User information',
 
     // button
     'save' => 'Save',
