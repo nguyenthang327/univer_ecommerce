@@ -1,5 +1,5 @@
 @extends('Backend.Admin.Layout.master')
-@section('title',trans('language.admin_info'))
+@section('title',trans('language.user_info'))
 
 @section('header')
     <li class="nav-item d-none d-sm-inline-block">
@@ -19,9 +19,9 @@
 @section('content')
     <section class="content pb-4 pt-3">
         <div class="container-fluid">
-            @include('Backend.Admin.Profile.partials.form-user-information',[
-                    'admin' => $admin,
-                    'action' => route('admin.profile.update' , ['id' => $admin->id]),
+            @include('Backend.Admin.User.partials.form-user-information',[
+                    'user' => $user,
+                    'action' => route('admin.user.update' , ['id' => $user->id]),
                     'method' => 'PUT',
                 ]
             )

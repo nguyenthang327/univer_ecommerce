@@ -197,6 +197,10 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
 
+         /*
+         * Third Party Service Providers...
+         */
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
     ],
 
     /*

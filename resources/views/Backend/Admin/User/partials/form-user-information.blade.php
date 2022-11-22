@@ -13,12 +13,12 @@
                                 <label for="">{{trans('language.avatar')}}</label>
                                 <div class="text-center">
                                     <div class="form-image">
-                                        <img src="{{ route('admin.avatar', ['id' => isset($admin) ? $admin->id : -1]) }}" class="form-image__view" id="avatar_view" alt="preview image">
+                                        <img src="{{ route('admin.user.avatar', ['id' => isset($user) ? $user->id : -1]) }}" class="form-image__view" id="avatar_view" alt="preview image">
                                         <input type="file"
                                                 class="form-image__file"
                                                 id="avatar"
                                                 accept=".png, .jpg, .jpeg, .gif"
-                                                data-origin="{{isset($admin)?route('admin.avatar',['id'=>$admin->id]):asset('images/user-default.png')}}"
+                                                data-origin="{{isset($user)?route('admin.user.avatar',['id'=>$user->id]):asset('images/user-default.png')}}"
                                                 name="avatar"
                                                 {{(isset($deleted) && $deleted==true) ? 'disabled'  :  ''}}>
                                         <label for="avatar" class="form-image__label"><i class="fas fa-pen"></i></label>
@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <label for="">{{trans('language.user_name')}} <span class="text-red">*</span></label>
                                 <input type="text" class="form-control {{$errors->first('user_name') ? 'is-invalid' : ''}}" name="user_name" placeholder="{{trans('language.enter_user_name')}}" required
-                                        value="{{old('user_name') ? old('user_name') : (isset($admin->user_name) ? $admin->user_name : '') }}">
+                                        value="{{old('user_name') ? old('user_name') : (isset($user->user_name) ? $user->user_name : '') }}">
                                 @if ($errors->first('user_name'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('user_name') }}</div>
                                 @endif
@@ -42,7 +42,7 @@
                                 <label for="">{{trans('language.lang')}} <span class="text-red"></span></label>
                                     <select class="select2-base " name="language_id"  style="width: 100%">
                                         @php
-                                            $choose_language = old('language') ? old('language') : (isset($admin->language_id)?$admin->language_id:'');
+                                            $choose_language = old('language') ? old('language') : (isset($user->language_id)?$user->language_id:'');
                                         @endphp
                                         @foreach ($languages as $language)
                                             <option value="{{ $language->id }}" {{ ($language->id==$choose_language )?'selected':'' }}>{{ $language->display_name }}</option>
@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <label for="">{{trans('language.first_name')}} <span class="text-red">*</span></label>
                                 <input type="text" class="form-control {{$errors->first('first_name') ? 'is-invalid' : ''}}" name="first_name" placeholder="{{trans('language.enter_first_name')}}" required
-                                       value="{{old('first_name') ? old('first_name') : (isset($admin->first_name) ? $admin->first_name : '') }}" >
+                                       value="{{old('first_name') ? old('first_name') : (isset($user->first_name) ? $user->first_name : '') }}" >
                                 @if ($errors->first('first_name'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('first_name') }}</div>
                                 @endif
@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <label for="">{{trans('language.last_name')}} <span class="text-red">*</span></label>
                                 <input type="text" class="form-control {{$errors->first('last_name') ? 'is-invalid' : ''}}" name="last_name" placeholder="{{trans('language.enter_last_name')}}" required
-                                       value="{{old('last_name') ? old('last_name') : (isset($admin->last_name) ? $admin->last_name : '') }}" >
+                                       value="{{old('last_name') ? old('last_name') : (isset($user->last_name) ? $user->last_name : '') }}" >
                                 @if ($errors->first('last_name'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('last_name') }}</div>
                                 @endif
@@ -77,7 +77,7 @@
                                 <label for="">{{trans('language.birthday')}}</label>
                                 <label class="input-group mb-0 ">
                                     <input type="text" class="form-control {{$errors->first('birthday') ? 'is-invalid' : ''}}" data-picker="date" autocomplete="off" name="birthday" placeholder="{{trans('language.enter_birthday')}}"
-                                           value="{{old('birthday') ? old('birthday') : (isset($admin->birthday) ? (new App\Services\DateFormatService())->dateFormatLanguage($admin->birthday,'d/m/Y') : '') }}"
+                                           value="{{old('birthday') ? old('birthday') : (isset($user->birthday) ? (new App\Services\DateFormatService())->dateFormatLanguage($user->birthday,'d/m/Y') : '') }}"
                                             >
                                            
                                     <div class="input-group-append">
@@ -96,7 +96,7 @@
                                 <label for="">{{trans('language.email')}} <span class="text-red">*</span></label>
                                 <label class="input-group mb-0">
                                     <input type="email" class="form-control {{$errors->first('email') ? 'is-invalid' : ''}}" name="email" placeholder="{{trans('language.enter_email')}}" required
-                                           value="{{old('email') ? old('email') : (isset($admin->email) ? $admin->email : '') }}">
+                                           value="{{old('email') ? old('email') : (isset($user->email) ? $user->email : '') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="far fa-envelope"></span>
@@ -113,7 +113,7 @@
                                 <label for="">{{trans('language.phone')}}</label>
                                 <label class="input-group mb-0">
                                     <input type="text" class="form-control {{$errors->first('phone') ? 'is-invalid' : ''}}" name="phone" placeholder="{{trans('language.enter_phone')}}"
-                                           value="{{old('phone') ? old('phone') : (isset($admin->phone) ? $admin->phone : '') }}">
+                                           value="{{old('phone') ? old('phone') : (isset($user->phone) ? $user->phone : '') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="far fa-phone"></span>
@@ -131,7 +131,7 @@
                                 <br>
                                 @php
                                     $genders = trans('language.genders');
-                                    $choose_gender = old('gender') ? old('gender') : (isset($admin->gender)?$admin->gender:0);
+                                    $choose_gender = old('gender') ? old('gender') : (isset($user->gender)?$user->gender:0);
                                 @endphp
                                 @for($i=0;$i<count($genders);$i++)
                                     <div class="icheck-primary d-inline mr-4">
@@ -148,11 +148,11 @@
                             <div class="row">
                                 @php
                                     $prefectures = \App\Models\Prefecture::orderBy('name')->get();
-                                    $choose_prefecture = old('prefecture_id')?old('prefecture_id'):(isset($admin->prefecture_id)?$admin->prefecture_id:'');
+                                    $choose_prefecture = old('prefecture_id')?old('prefecture_id'):(isset($user->prefecture_id)?$user->prefecture_id:'');
                                     $districts = \App\Models\District::where('prefecture_id', $choose_prefecture)->orderBy('name')->get();
-                                    $choose_district = old('district_id')?old('district_id'):(isset($admin->district_id)?$admin->district_id:'');
+                                    $choose_district = old('district_id')?old('district_id'):(isset($user->district_id)?$user->district_id:'');
                                     $communes = \App\Models\Commune::where('district_id', $choose_district)->orderBy('name')->get();
-                                    $choose_commune = old('commune_id')?old('commune_id'):(isset($admin->commune_id)?$admin->commune_id:'');
+                                    $choose_commune = old('commune_id')?old('commune_id'):(isset($user->commune_id)?$user->commune_id:'');
                                 @endphp
                                 <div class="col-sm-4">
                                     <div class="form-group">
@@ -230,7 +230,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <input type="text" class="form-control {{$errors->first('identity_card') ? 'is-invalid' : ''}}" name="identity_card" placeholder="{{trans('language.enter_identity_card')}}"
-                                               value="{{old('identity_card') ? old('identity_card') : (isset($admin->identity_card) ? $admin->identity_card : '') }}">
+                                               value="{{old('identity_card') ? old('identity_card') : (isset($user->identity_card) ? $user->identity_card : '') }}">
                                         @if ($errors->first('identity_card'))
                                             <div class="error">{{ $errors->first('identity_card') }}</div>
                                         @endif

@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminLogin;
 use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Backend\Admin\UserController as BeUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,17 @@ Route::middleware('web')->group(function () {
             Route::prefix('/profile')->group(function(){
                Route::get('/', [AdminController::class, 'adminProfile'])->name('admin.profile');
                Route::put('/{id}', [AdminController::class, 'update'])->name('admin.profile.update');
-               Route::get('/{id}/avatar', [AdminController::class, 'getAvatar'])->name('admin.avatar');
+               Route::get('{id}/avatar', [AdminController::class, 'getAvatar'])->name('admin.avatar');
+
+            });
+
+            // user
+            Route::prefix('/user')->group(function(){
+                Route::get('/', [BeUser::class, 'index'])->name('admin.user.index');
+                Route::get('/create', [BeUser::class, 'create'])->name('admin.user.create');
+                Route::get('/{id}/edit', [BeUser::class, 'edit'])->name('admin.user.edit');
+                Route::delete('/{id}/destroy', [BeUser::class, 'destroy'])->name('admin.user.destroy');
+                Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('admin.user.avatar');
             });
         });
     });

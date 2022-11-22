@@ -43,4 +43,13 @@ class District extends Model
     {
     	return $this->hasMany('App\Admin');
     }
+
+     /**
+     * Get users for the district
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+    	return $this->hasMany('App\User');
+    }
 }
