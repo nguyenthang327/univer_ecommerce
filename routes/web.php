@@ -39,6 +39,7 @@ Route::middleware('web')->group(function () {
             Route::prefix('/profile')->group(function(){
                Route::get('/', [AdminController::class, 'adminProfile'])->name('admin.profile');
                Route::put('/{id}', [AdminController::class, 'update'])->name('admin.profile.update');
+               Route::get('/{id}/avatar', [AdminController::class, 'getAvatar'])->name('admin.avatar');
             });
         });
     });

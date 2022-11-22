@@ -9,8 +9,6 @@ use App\Traits\StorageTrait;
 use App\Traits\ImageTrait;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-// use League\Flysystem\FileNotFoundException;
-use App\Enums\GenderEnum;
 use Exception;
 
 class AdminService
@@ -53,6 +51,13 @@ class AdminService
         }
     }
 
+    /**
+     * get image path
+     * @param mixed $id
+     * @param string $typeImage
+     * @return mixed
+     */
+
     public function getImage($id, $typeImage = 'avatar'){
         try {
             $admin = Admin::withTrashed()->find($id,[$typeImage.' as image','gender']);
@@ -61,13 +66,7 @@ class AdminService
             }
 
             if (empty($admin->image)){
-                if ($admin->gender == GenderEnum::MALE){
-                    $image = response()->file(base_path() . '/public/images/default-male.jpg');
-                }else if ($admin->gender == GenderEnum::FEMALE){
-                    $image = response()->file(base_path() . '/public/images/default-female.jpg');
-                }else{
-                    $image = response()->file(base_path() . '/public/images/user-default.png');
-                }
+                $image = response()->file(base_path() . '/public/images/user-default.png');
             } else {
                 $image = Storage::disk(FILESYSTEM)->response($admin->image);
             }

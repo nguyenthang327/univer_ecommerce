@@ -13,7 +13,7 @@
                                 <label for="">{{trans('language.avatar')}}</label>
                                 <div class="text-center">
                                     <div class="form-image">
-                                        <img src="{{asset('images/user-default.png')}}" class="form-image__view" id="avatar_view" alt="preview image">
+                                        <img src="{{ route('admin.avatar',['id'=>isset($admin)?$admin->id:-1]) }}" class="form-image__view" id="avatar_view" alt="preview image">
                                         <input type="file"
                                                 class="form-image__file"
                                                 id="avatar"
