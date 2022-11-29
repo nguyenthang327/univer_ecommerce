@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Admin\UserService;
 use App\Helpers\StringHelper;
+use App\Models\User;
+use Illuminate\Http\Response;
+use App\Models\Language;
+use App\Helpers\RequestHelper;
 
 class UserController extends Controller
 {
@@ -30,6 +34,12 @@ class UserController extends Controller
      */
     protected $pathView = 'Backend.Admin.User.';
 
+
+    /**
+     * display user list
+     * @param \Illuminate\Http\Request $request
+     * @return View
+     */
     public function index(Request $request){
         $users = $this->userService->getUserList($request);
 
@@ -77,7 +87,60 @@ class UserController extends Controller
         ]);
     }
 
-    public function edit(){
+     /**
+     * Check if user exist then return User, else return error message
+     *
+     * @param $user_id
+     * @param bool $deleted
+     * @return array|User
+     */
+    private function checkUserExist($user_id, $deleted=false) {
+        if ($deleted) {
+            $user = User::withTrashed()->find($user_id);
+        } else {
+            $user = User::find($user_id);
+        }
+
+        if ($user == null) {
+            return [
+                'status' => Response::HTTP_NOT_FOUND,
+                'msg' => trans('message.user_not_exist'),
+                'url_callback' => back()->getTargetUrl(),
+            ];
+        }
+        return $user;
+    }
+
+    public function edit($id){
+        $user = $this->checkUserExist($id, true);
+        
+        // Return error message if user not exist
+        if (!$user instanceof User) {
+            dd((new RequestHelper())->parseRequestUri(url()->previous()));
+            return back()->with([
+                'status_failed' => isset($user['msg']) ? $user['msg'] : ''
+            ]);
+        }
+
+        $deleted = false;
+        // Check user deleted
+        if ($user->deleted_at != null) {
+            $deleted = true;
+        }
+
+        // Store redirect url in session
+        if((new RequestHelper())->parseRequestUri(url()->previous()) == route('admin.user.index')) {
+            session(['redirect.admin.user.edit' => url()->previous()]);
+        }
+        $languages = Language::select('id','name','display_name')->get();
+        return view($this->pathView . 'edit', [
+            'user' => $user,
+            'deleted' => $deleted,
+            'languages' => $languages,
+        ]);
+    }
+
+    public function update(){
 
     }
 
@@ -86,6 +149,10 @@ class UserController extends Controller
     }
 
     public function destroy(){
+
+    }
+
+    public function getAvatar(){
 
     }
 

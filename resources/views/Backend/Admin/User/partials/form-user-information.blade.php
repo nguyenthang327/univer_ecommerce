@@ -79,7 +79,6 @@
                                     <input type="text" class="form-control {{$errors->first('birthday') ? 'is-invalid' : ''}}" data-picker="date" autocomplete="off" name="birthday" placeholder="{{trans('language.enter_birthday')}}"
                                            value="{{old('birthday') ? old('birthday') : (isset($user->birthday) ? (new App\Services\DateFormatService())->dateFormatLanguage($user->birthday,'d/m/Y') : '') }}"
                                             >
-                                           
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="far fa-calendar-alt"></span>

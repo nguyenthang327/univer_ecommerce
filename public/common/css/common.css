@@ -3,14 +3,6 @@
     padding: 0.6rem;
 }
 
-/* {
-    color: #333 !important;
-} */
-
-/* table th, table th a, table th a:hover{
-    color: #333 ;
-    font-weight: 700;
-} */
 table thead{
     background: #e9ecef;
 }
@@ -44,10 +36,6 @@ table thead{
 
 .table-custom{
     font-size: 14px;
-}
-
-.table.table-valign-middle tbody>tr>td, .table.table-valign-middle tbody>tr>th, .table.table-valign-middle thead>tr>td, .table.table-valign-middle thead>tr>th {
-    vertical-align: middle;
 }
 
 .table td, .table th {

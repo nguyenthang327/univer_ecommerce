@@ -49,6 +49,7 @@ Route::middleware('web')->group(function () {
                 Route::get('/', [BeUser::class, 'index'])->name('admin.user.index');
                 Route::get('/create', [BeUser::class, 'create'])->name('admin.user.create');
                 Route::get('/{id}/edit', [BeUser::class, 'edit'])->name('admin.user.edit');
+                Route::put('/{id}/update', [BeUser::class, 'update'])->name('admin.user.update');
                 Route::delete('/{id}/destroy', [BeUser::class, 'destroy'])->name('admin.user.destroy');
                 Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('admin.user.avatar');
             });

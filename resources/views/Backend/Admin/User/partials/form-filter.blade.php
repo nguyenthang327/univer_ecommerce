@@ -34,7 +34,7 @@
             @php
                 $genders = trans('language.genders');
             @endphp
-            <select class="select2-noSearch" data-placeholder="{{ trans('language.by_gender') }}" name="gender[]" multiple="multiple">
+            <select class="select2-base" data-placeholder="{{ trans('language.by_gender') }}" name="gender[]" multiple="multiple">
                 <option value=""></option>
                 @for($i=0;$i<count($genders);$i++)
                     <option value="{{ $i }}"
