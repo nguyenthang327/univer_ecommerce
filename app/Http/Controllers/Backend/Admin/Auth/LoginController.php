@@ -3,84 +3,59 @@
 namespace App\Http\Controllers\Backend\Admin\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var string
+     */
+    protected $pathView = 'Backend.Admin.';
+
+    /**
+     * return login page
+     * @return View
      */
     public function index()
     {
-        //
+        if (Auth::guard('admin')->check()) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        return view($this->pathView . 'Auth.Login');
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * admin auth
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create()
+    public function authenticate(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::guard('admin')->attempt($credentials, $request->has('remember_me'))) {
+            $request->session()->regenerate();
+            return redirect()->route('admin.dashboard');
+        }
+
+        return back()->withErrors([
+            'error' => trans('message.error_login')
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * admin logout
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function logout()
     {
-        //
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin.login');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Admin $admin)
-    {
-        //
-    }
 }

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('created_by')->nullable();
             $table->unsignedTinyInteger('updated_by')->nullable();
             $table->unsignedInteger('category_id');
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });

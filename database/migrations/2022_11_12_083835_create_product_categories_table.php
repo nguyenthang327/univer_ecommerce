@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name',255);
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedInteger('admin_id');
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });
