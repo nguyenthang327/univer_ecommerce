@@ -48,9 +48,11 @@ Route::middleware('web')->group(function () {
             Route::prefix('/user')->group(function(){
                 Route::get('/', [BeUser::class, 'index'])->name('admin.user.index');
                 Route::get('/create', [BeUser::class, 'create'])->name('admin.user.create');
+                Route::post('/store', [BeUser::class, 'store'])->name('admin.user.store');
                 Route::get('/{id}/edit', [BeUser::class, 'edit'])->name('admin.user.edit');
                 Route::put('/{id}/update', [BeUser::class, 'update'])->name('admin.user.update');
                 Route::delete('/{id}/destroy', [BeUser::class, 'destroy'])->name('admin.user.destroy');
+                Route::post('/{id}/restore', [BeUser::class, 'restore'])->name('admin.user.restore');
                 Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('admin.user.avatar');
             });
         });

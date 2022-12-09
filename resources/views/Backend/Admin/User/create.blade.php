@@ -1,5 +1,5 @@
 @extends('Backend.Admin.Layout.master')
-@section('title',trans('language.update_user_info'))
+@section('title',trans('language.create_new_user'))
 
 @section('header')
     <li class="nav-item d-none d-sm-inline-block">
@@ -20,9 +20,8 @@
     <section class="content pb-4 pt-3">
         <div class="container-fluid">
             @include('Backend.Admin.User.partials.form-user-information',[
-                    'user' => $user,
-                    'action' => route('admin.user.update' , ['id' => $user->id]),
-                    'method' => 'PUT',
+                    'action' => route('admin.user.store'),
+                    'method' => 'POST',
                 ]
             )
         </div>

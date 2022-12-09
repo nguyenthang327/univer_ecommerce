@@ -47,6 +47,10 @@
     </div>
     <div class="row">
         <div class="col-sm-6 col-md-6 mb-3 icheck-bee">
+            <div class="checkbox icheck-danger">
+                <input type="checkbox" name="deleted" id="deleted" @if($request->has('deleted')) checked @endif/>
+                <label for="deleted">{{trans('language.filter_by_retired_user')}}</label>
+            </div>
         </div>
         <div class="col-sm-6 col-md-6 mb-3 text-right">
             <button type="submit" class="btn btn-primary"><i class="fas fa-filter"></i> {{ trans('language.filter') }}</button>

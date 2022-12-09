@@ -13,7 +13,12 @@
                                 <label for="">{{trans('language.avatar')}}</label>
                                 <div class="text-center">
                                     <div class="form-image">
-                                        <img src="{{ route('admin.user.avatar', ['id' => isset($user) ? $user->id : -1]) }}" class="form-image__view" id="avatar_view" alt="preview image">
+                                        <img
+                                            src="{{ isset($user->avatar) ? asset('storage/'. $user->avatar) : asset('images/user-default.png')  }}"
+                                            class="form-image__view"
+                                            id="avatar_view"
+                                            alt="preview image"
+                                        >
                                         <input type="file"
                                                 class="form-image__file"
                                                 id="avatar"
@@ -76,7 +81,7 @@
                             <div class="form-group">
                                 <label for="">{{trans('language.birthday')}}</label>
                                 <label class="input-group mb-0 ">
-                                    <input type="text" class="form-control {{$errors->first('birthday') ? 'is-invalid' : ''}}" data-picker="date" autocomplete="off" name="birthday" placeholder="{{trans('language.enter_birthday')}}"
+                                    <input type="text" class="form-control {{$errors->first('birthday') ? 'is-invalid' : ''}}" data-picker="date" autocomplete="off" name="birthday" placeholder="{{trans('language.choose_birthday')}}"
                                            value="{{old('birthday') ? old('birthday') : (isset($user->birthday) ? (new App\Services\DateFormatService())->dateFormatLanguage($user->birthday,'d/m/Y') : '') }}"
                                             >
                                     <div class="input-group-append">
@@ -109,10 +114,11 @@
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
-                                <label for="">{{trans('language.phone')}}</label>
+                                <label for="">{{trans('language.phone')}} <span class="text-red">*</span></label>
                                 <label class="input-group mb-0">
                                     <input type="text" class="form-control {{$errors->first('phone') ? 'is-invalid' : ''}}" name="phone" placeholder="{{trans('language.enter_phone')}}"
-                                           value="{{old('phone') ? old('phone') : (isset($user->phone) ? $user->phone : '') }}">
+                                        required
+                                        value="{{old('phone') ? old('phone') : (isset($user->phone) ? $user->phone : '') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="far fa-phone"></span>
@@ -224,12 +230,13 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <label for="">{{trans('language.identity_card')}}</label>
+                            <label for="">{{trans('language.identity_card')}} <span class="text-red">*</span></label>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <input type="text" class="form-control {{$errors->first('identity_card') ? 'is-invalid' : ''}}" name="identity_card" placeholder="{{trans('language.enter_identity_card')}}"
-                                               value="{{old('identity_card') ? old('identity_card') : (isset($user->identity_card) ? $user->identity_card : '') }}">
+                                            required
+                                            value="{{old('identity_card') ? old('identity_card') : (isset($user->identity_card) ? $user->identity_card : '') }}">
                                         @if ($errors->first('identity_card'))
                                             <div class="error">{{ $errors->first('identity_card') }}</div>
                                         @endif

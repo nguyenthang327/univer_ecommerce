@@ -64,7 +64,7 @@
                         <li class="nav-item">
                             <a href="{{ route("admin.profile") }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>{{ trans('language.user_info') }}</p>
+                                <p>{{ trans('language.profile_info') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">

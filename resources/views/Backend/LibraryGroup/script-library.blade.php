@@ -14,7 +14,7 @@
     <script src="{{asset("be-assets/js/summernote-vi-VN.min.js")}}"></script>
 @endif
 @if (isset($swal) && $swal)
-    <script src="{{asset("be-assets/js/sweetalert2.all.min.js")}}"></script>
+    <script src="{{asset("be-assets/js/sweetalert2.min.js")}}"></script>
 @endif
 @if (isset($dropzone) && $dropzone)
     <script src="{{asset("be-assets/js/dropzone.min.js")}}"></script>

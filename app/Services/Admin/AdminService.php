@@ -28,8 +28,9 @@ class AdminService
         $avatar_path = $admin->avatar;
         if($avatar) {
             $old_avatar_path = $admin->avatar;
+            $extention = $avatar->getClientOriginalExtension();
             $avatar = $this->resizeImage($avatar->getRealPath(), AVATAR_WIDTH);
-            $avatar_path = $this->uploadFileByStream($avatar, ADMIN_DIR.'/'.$admin->id.'/'.Str::random(25).'.jpg');
+            $avatar_path = $this->uploadFileByStream($avatar, ADMIN_DIR.'/'.$admin->id.'/'.Str::random(25).'.' . $extention);
         }
 
         $parameters += [

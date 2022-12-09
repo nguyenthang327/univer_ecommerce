@@ -76,7 +76,7 @@
                             <div class="form-group">
                                 <label for="">{{trans('language.birthday')}}</label>
                                 <label class="input-group mb-0 ">
-                                    <input type="text" class="form-control {{$errors->first('birthday') ? 'is-invalid' : ''}}" data-picker="date" autocomplete="off" name="birthday" placeholder="{{trans('language.enter_birthday')}}"
+                                    <input type="text" class="form-control {{$errors->first('birthday') ? 'is-invalid' : ''}}" data-picker="date" autocomplete="off" name="birthday" placeholder="{{trans('language.choose_birthday')}}"
                                            value="{{old('birthday') ? old('birthday') : (isset($admin->birthday) ? (new App\Services\DateFormatService())->dateFormatLanguage($admin->birthday,'d/m/Y') : '') }}"
                                             >
                                            
@@ -110,10 +110,11 @@
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="form-group">
-                                <label for="">{{trans('language.phone')}}</label>
+                                <label for="">{{trans('language.phone')}} <span class="text-red">*</span></label>
                                 <label class="input-group mb-0">
                                     <input type="text" class="form-control {{$errors->first('phone') ? 'is-invalid' : ''}}" name="phone" placeholder="{{trans('language.enter_phone')}}"
-                                           value="{{old('phone') ? old('phone') : (isset($admin->phone) ? $admin->phone : '') }}">
+                                        required
+                                        value="{{old('phone') ? old('phone') : (isset($admin->phone) ? $admin->phone : '') }}">
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="far fa-phone"></span>
@@ -225,12 +226,13 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <label for="">{{trans('language.identity_card')}}</label>
+                            <label for="">{{trans('language.identity_card')}} <span class="text-red">*</span></label>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <input type="text" class="form-control {{$errors->first('identity_card') ? 'is-invalid' : ''}}" name="identity_card" placeholder="{{trans('language.enter_identity_card')}}"
-                                               value="{{old('identity_card') ? old('identity_card') : (isset($admin->identity_card) ? $admin->identity_card : '') }}">
+                                            required
+                                            value="{{old('identity_card') ? old('identity_card') : (isset($admin->identity_card) ? $admin->identity_card : '') }}">
                                         @if ($errors->first('identity_card'))
                                             <div class="error">{{ $errors->first('identity_card') }}</div>
                                         @endif

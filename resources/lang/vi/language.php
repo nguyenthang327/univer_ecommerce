@@ -3,22 +3,25 @@
 return [
 
     'logout' => 'Đăng xuất',
+    'success' => 'Thành công',
 
     // dashboard
     'dashboard' => 'Bảng tính',
 
     // filter
     'filter' => 'Lọc',
-    'filter_mode' => 'Chế độ lọc: ',
+    'filter_mode' => 'Chế độ lọc',
     'refresh' => 'Làm mới',
     'add_new' => 'Thêm mới',
 
     'delete' => 'Xóa',
     'edit' => 'Sửa',
+    'restore' => 'Khôi phục',
     'display' => 'Hiển thị',
 
     // profile
     'profile' => 'Hồ sơ',
+    'profile_info' => 'Thông tin cá nhân',
     'admin_info' => 'Thông tin quản trị',
     'avatar' => 'Ảnh đại diện',
     'lang' => 'Ngôn ngữ',
@@ -29,7 +32,7 @@ return [
     'last_name' => 'Tên',
     'enter_last_name' => 'Nhập tên',
     'birthday' => 'Ngày sinh',
-    'choose_birthday' => 'chọn ngày sinh',
+    'choose_birthday' => 'Chọn ngày sinh',
     'gender' => 'Giới tính',
     'genders' => ['Nam', 'Nữ', 'Khác'],
     'email' => 'Email',
@@ -40,8 +43,8 @@ return [
     'choose_a_prefecture' => 'Chọn Tỉnh/Thành phố',
     'choose_a_district' => 'Chọn Quận/Huyện',
     'choose_a_commune' => 'Chọn Xã/Phường',
-    'identity_card' => 'Identity card',
-    'enter_identity_card' => 'Enter identity card',
+    'identity_card' => 'Số CMT/CCCD',
+    'enter_identity_card' => 'Nhập số CMT/CCCD',
 
     'id' => 'ID',
     'full_name' => 'Họ và tên',
@@ -51,12 +54,18 @@ return [
     'user_list' => 'Danh sách người dùng',
     'user_info' => 'Thông tin người dùng',
     'user_management' => 'Quản lý người dùng',
+    'update_user_info' => 'Cập nhật thông tin người dùng',
+    'create_new_user' => 'Thêm mới người dùng',
 
     'by_id' => 'Theo ID',
     'by_fullname' => 'Theo họ và tên',
     'by_email' => 'Theo email',
     'by_phone' => 'Theo số điện thoại',
     'by_gender' => 'Theo giới tính',
+
+    'delete_user' => 'Bạn có muốn xóa người dùng này?',
+
+    'filter_by_retired_user' => 'Lọc theo người dùng đã bị xóa.',
 
     // button
     'save' => 'Lưu',

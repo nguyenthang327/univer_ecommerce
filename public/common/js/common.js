@@ -68,7 +68,7 @@ function dynamicSelectOption(){
                 selectChild.select2('destroy');
                 select2Base(child);
             }else {
-                console.log(data.msg);
+                // console.log(data.msg);
             }
         },
         error: function (err){
@@ -133,6 +133,53 @@ function handleResetForm(){
     });
 }
 
+// fancybox
+function fancybox2(selector){
+    if($(selector).length){
+        $(selector).fancybox({
+            cyclic: true,
+            padding: 5,
+            transitionIn: 'elastic',
+            transitionOut: 'elastic',
+        });
+    }
+}
+
+function deleteOrRestoreRowTable(e, btn){
+    e.preventDefault();
+    swal({
+        title: btn.data('title'),
+        html: btn.data('text'),
+        type: btn.data('icon'),
+        showCancelButton: true,
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Hủy bỏ',
+    }).then((result) => {
+        if (result.value) {
+            let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': token
+                },
+                url: btn.data('url'),
+                type: btn.data('method'),
+                dataType: "JSON",
+                data: btn.data('id'),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (response){
+                    $(".table-responsive").load(location.href + " .table-responsive");
+                    toastr.success(response.message.text, {timeOut: 5000})
+                },
+                error: function (err){
+                    toastr.error('Có lỗi xảy ra', {timeOut: 5000})
+                }
+            })
+        }
+    })
+}
+
 $(function (){
     $(document).on('change', '.form-image__file', readFileImage);
 
@@ -140,7 +187,15 @@ $(function (){
     datePicker('[data-picker="date"]');
     $(document).on('change', '.dynamic-select-option', dynamicSelectOption);
 
-
     //reset Form
     handleResetForm();
+
+    // fancybox2 plugin
+    fancybox2('.fancybox2');
+
+    $(document).on('click', '.delete-row-table', function(e){
+        let btn = $(this);
+        deleteOrRestoreRowTable(e, btn);
+    })
+
 })

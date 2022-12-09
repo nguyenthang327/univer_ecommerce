@@ -50,7 +50,7 @@
 <!-- import JS Library -->
 <script src="{{asset("be-assets/js/jquery.validate.min.js")}}"></script>
 <!--sweetalert2-->
-<script src="{{asset("be-assets/js/sweetalert2.all.min.js")}}"></script>
+<script src="{{asset("be-assets/js/sweetalert2.min.js")}}"></script>
 <!-- toastr -->
 <script src="{{asset("be-assets/js/toastr.min.js")}}"></script>
 

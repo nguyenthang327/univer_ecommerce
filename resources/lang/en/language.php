@@ -3,22 +3,25 @@
 return [
 
     'logout' => 'Logout',
+    'success' => 'Success',
 
     // dashboard
     'dashboard' => 'Dashboard',
 
     // filter
     'filter' => 'Filter',
-    'filter_mode' => 'Filter mode: ',
+    'filter_mode' => 'Filter mode',
     'refresh' => 'Refresh',
     'add_new' => 'Add new',
 
     'delete' => 'Delete',
     'edit' => 'Edit',
+    'restore' => 'Restore',
     'display' => 'Display',
 
     // profile
     'profile' => 'Profile',
+    'profile_info' => 'Profile information',
     'admin_info' => 'Administrative information',
     'avatar' => 'Avatar',
     'lang' => 'Language',
@@ -29,7 +32,7 @@ return [
     'last_name' => 'Last name',
     'enter_last_name' => 'Enter last name',
     'birthday' => 'Birthday',
-    'enter_birthday' => 'Choose birthday',
+    'choose_birthday' => 'Choose birthday',
     'gender' =>' Gender',
     'genders' => ['Male', 'Female', 'Other'],
     'email' => 'Email',
@@ -51,12 +54,18 @@ return [
     'user_list' => 'User list',
     'user_info' => 'User information',
     'user_management' => 'User management',
+    'update_user_info' => 'Update user information',
+    'create_new_user' => 'Create new user',
 
     'by_id' => 'By ID',
     'by_fullname' => 'By fullname',
     'by_email' => 'By email',
     'by_phone' => 'By number phone',
     'by_gender' => 'By gender',
+
+    'delete_user' => 'Do you want to delete this user?',
+
+    'filter_by_retired_user' => 'Filter by retired user.',
 
     // button
     'save' => 'Save',

@@ -31,26 +31,20 @@ class UserService
         $avatar_path = $user->avatar;
         if($avatar) {
             $old_avatar_path = $user->avatar;
+            $extention = $avatar->getClientOriginalExtension();
             $avatar = $this->resizeImage($avatar->getRealPath(), AVATAR_WIDTH);
-            $avatar_path = $this->uploadFileByStream($avatar, USER_DIR.'/'.$user->id.'/'.Str::random(25).'.jpg');
+            $avatar_path = $this->uploadFileByStream($avatar, USER_DIR.'/'.$user->id.'/'.Str::random(25).'.' . $extention);
         }
 
         $parameters += [
             'avatar' => $avatar_path
         ];
 
-        $user->update($parameters);
+        User::where('id', $user->id)->update($parameters);
 
         if($old_avatar_path) {
             // Remove old file
             $this->deleteFile($old_avatar_path);
-        }
-
-        $language = Language::find($parameters['language_id']);
-        if($language){
-            $locale = $language->name;
-            App::setLocale($locale);
-            session()->put('locale', $locale);
         }
     }
 
@@ -78,6 +72,11 @@ class UserService
         }
     }
 
+    /**
+     * get all user
+     * @param $request
+     * @return $users
+     */
     public function getUserList($request){
         $columns = [
             'users.*',
@@ -127,6 +126,27 @@ class UserService
                             ->orderBy('communes.name', $request->direction);
             }
         return $users;
+    }
+
+    /**
+     * create user profile
+     * @param $parameters
+     * @param $avatar
+     */
+    public function createUserProfile($parameters, $avatar = null){
+        // create user
+        $user = User::create($parameters);
+
+        $avatar_path = null;
+        if($avatar) {
+            $extention = $avatar->getClientOriginalExtension();
+            $avatar = $this->resizeImage($avatar->getRealPath(), AVATAR_WIDTH);
+            $avatar_path = $this->uploadFileByStream($avatar, USER_DIR.'/'.$user->id.'/'.Str::random(25).'.' . $extention);
+        }
+
+        $user->update([
+            'avatar' => $avatar_path
+        ]);
     }
 }
 

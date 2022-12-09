@@ -44,10 +44,10 @@ class UserSeeder extends Seeder
         for($i=1; $i<15; ++$i){
             User::create([
                 'email' => "User$i@gmail.com",
-                'user_name' => 'User Thang Dz',
+                'user_name' => "User Thang Dz$i",
                 'first_name' => 'Thang',
                 'last_name' => 'Nguyen',
-                'phone' => "01234567$",
+                'phone' => "01234567$i",
                 'identity_card' => "0011011012$i",
                 'password' => Hash::make('!Abc123'),
             ]);

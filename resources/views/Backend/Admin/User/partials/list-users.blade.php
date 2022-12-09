@@ -22,10 +22,10 @@
                         $full_name = $user->first_name.' '.$user->last_name;
                     @endphp
                     <td class="text-center">
-                        <a href="#" class="fancybox2" data-fancybox-group="avatar-employees" title="ID: {{$user->id}} - {{ $full_name }}">
-                            <img src="{{ route('admin.user.avatar', ['id'=>$user->id]) }}"
+                        <a href="{{ isset($user->avatar) ? asset('storage/'. $user->avatar) : asset('images/user-default.png')  }}" class="fancybox2" data-fancybox-group="avatar-list-user" title="ID: {{$user->id}} - {{ $full_name }}">
+                            <img src="{{ isset($user->avatar) ? asset('storage/'. $user->avatar) : asset('images/user-default.png')  }}"
                                  alt="{{ $full_name }} Avatar"
-                                 class="avatar-employees">
+                                 class="default-img">
                         </a>
                     </td>
                     <td>{{ $full_name }}</td>
@@ -47,7 +47,7 @@
                     @endphp
                     <td title="{{$hometown}}">{{$hometown}}</td>
                     <td class="text-center"><a href="tel:{{$user->phone}}" class="text-nowrap text-dark">{{(new \App\Helpers\StringHelper())->phoneNumberFormat($user->phone)}}</a></td>
-                    <td class="text-center">{{ empty($user->birthday)?'':(new App\Logics\DateFormatManager())->dateFormatLanguage($user->birthday,'d/m/Y')}}</td>
+                    <td class="text-center">{{ empty($user->birthday)?'': (new App\Services\DateFormatService())->dateFormatLanguage($user->birthday,'d/m/Y')}}</td>
                     <td class="text-center text-nowrap">
                         @if($user->deleted_at == null)
                             <a href="{{ route('admin.user.edit',['id'=>$user->id]) }}" data-toggle='tooltip' title="{{trans('language.edit')}}" class="text-md text-primary mr-2"><i class="far fa-pen-alt"></i></a>
@@ -56,11 +56,22 @@
                                title="{{trans('language.delete')}}"
                                class="text-md text-danger delete-row-table"
                                data-id="{{ $user->id }}"
-                               data-title="{{trans('language.delete_employee')}}"
+                               data-title="{{trans('language.delete_user')}}"
                                data-text="<span class='text-bee'>ID: {{$user->id}}</span> - <strong>{{ $full_name }}</strong>"
                                data-url="{{ route('admin.user.destroy', ['id'=>$user->id]) }}"
                                data-method="DELETE"
                                data-icon="question"><i class="far fa-trash-alt"></i></a>
+                        @else
+                            <a href="{{ route('admin.user.restore', ['id'=>$user->id]) }}"
+                                data-toggle='tooltip'
+                                title="{{trans('language.restore')}}"
+                                class="text-md text-warning delete-row-table"
+                                data-id="{{ $user->id }}"
+                                data-title="{{ trans('language.restore_employee') }}"
+                                data-text="<span class='text-bee'>ID: {{$user->id}}</span> - <strong>{{ $full_name }}</strong>"
+                                data-method="POST"
+                                data-url="{{ route('admin.user.restore', ['id'=>$user->id]) }}"
+                                data-icon="question"><i class="far fa-redo"></i></a>
                         @endif
                     </td>
                 </tr>

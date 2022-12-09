@@ -38,7 +38,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials, $request->has('remember_me'))) {
             $request->session()->regenerate();
             return redirect()->route('admin.dashboard');
         }

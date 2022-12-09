@@ -38,7 +38,7 @@ trait ImageTrait
                 $constraint->upsize();
             });
         }
-
-        return $img->encode();
+        //dump($img->encode());
+        return $img->stream();
     }
 }
