@@ -72,6 +72,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * Append attribute full_name
+     * @var array
+     */
+    protected $appends = [
+        'full_name',
+    ];
+
+    /**
      * Save id user created or updated
      */
     protected static function boot()
@@ -113,5 +121,13 @@ class User extends Authenticatable
     public function commune()
     {
         return $this->belongsTo('App\Models\Commune');
+    }
+
+    /**
+     * Get fullname
+     * @return string
+     */
+    function getFullNameAttribute() {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

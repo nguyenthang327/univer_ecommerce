@@ -1,4 +1,14 @@
 let language = $("body").data('locales');
+const trans = {
+    'vi' : {
+        'agree' : 'Đồng ý',
+        'cancel' : 'Hủy bỏ',
+    },
+    'en' : {
+        'agree' : 'Agree',
+        'cancel' : 'Cancel',
+    },
+}
 
 function select2Base(selector){
     if ($(selector).length){
@@ -152,8 +162,8 @@ function deleteOrRestoreRowTable(e, btn){
         html: btn.data('text'),
         type: btn.data('icon'),
         showCancelButton: true,
-        confirmButtonText: 'Đồng ý',
-        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: trans[language].agree,
+        cancelButtonText: trans[language].cancel,
     }).then((result) => {
         if (result.value) {
             let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';

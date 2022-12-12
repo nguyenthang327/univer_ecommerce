@@ -64,12 +64,21 @@ return [
     'by_gender' => 'By gender',
 
     'delete_user' => 'Do you want to delete this user?',
+    'restore_user' => 'Do you want to restore this user?',
 
     'filter_by_retired_user' => 'Filter by retired user.',
 
     // button
     'save' => 'Save',
-    'reset' => 'Reset'
+    'reset' => 'Reset',
+    'cancel' => 'Cancel',
+
+    // product category
+    'product_category' => 'Product category',
+        
+    // product
+    'product' => 'Product',
+    'product_list' => 'Product category',
 
 ];
 ?>

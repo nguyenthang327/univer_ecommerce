@@ -64,12 +64,21 @@ return [
     'by_gender' => 'Theo giới tính',
 
     'delete_user' => 'Bạn có muốn xóa người dùng này?',
+    'restore_user' => 'Bạn có muốn khôi phục người dùng này?',
 
     'filter_by_retired_user' => 'Lọc theo người dùng đã bị xóa.',
 
     // button
     'save' => 'Lưu',
-    'reset' => 'Đặt lại'
+    'reset' => 'Đặt lại',
+    'cancel' => 'Hủy bỏ',
+
+    // product category
+    'product_category' => 'Danh mục sản phẩm',
+
+    // product
+    'product' => 'Sản phẩm',
+    'product_list' => 'Danh sách sản phẩm',
 
 ];
 ?>

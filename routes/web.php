@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Backend\Admin\UserController as BeUser;
+use App\Http\Controllers\Backend\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,11 @@ Route::middleware('web')->group(function () {
                 Route::delete('/{id}/destroy', [BeUser::class, 'destroy'])->name('admin.user.destroy');
                 Route::post('/{id}/restore', [BeUser::class, 'restore'])->name('admin.user.restore');
                 Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('admin.user.avatar');
+            });
+
+            // Product category
+            Route::prefix('/product-category')->group(function(){
+                Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
             });
         });
     });
