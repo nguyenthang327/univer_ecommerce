@@ -186,8 +186,6 @@ return [
          * Package Service Providers...
          */
 
-        Cviebrock\EloquentSluggable\ServiceProvider::class,
-
         /*
          * Application Service Providers...
          */
@@ -197,12 +195,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Intervention\Image\ImageServiceProvider::class,
-
-         /*
-         * Third Party Service Providers...
-         */
-        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
     ],
 
     /*
@@ -218,7 +210,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];
