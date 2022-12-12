@@ -169,20 +169,6 @@ return [
     |
     */
 
-    'attributes' => [
-        'first_name' => 'First name',
-        'last_name' => 'Last name',
-        'email' => 'Email',
-        'identity_card' => 'Identify card',
-        'prefecture_id' => 'Prefecture',
-        'district_id' => 'District',
-        'commune_id' => 'Commune',
-        'birthday' => 'Date of birth',
-        'avatar' => 'Avatar',
-        'gender' => 'Gender',
-        'address' => 'Adress',
-        'phone' => 'Cell phone',
-        'password' => 'Password',
-    ],
+    'attributes' => [],
 
 ];
