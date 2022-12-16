@@ -60,6 +60,7 @@ Route::middleware('web')->group(function () {
             // Product category
             Route::prefix('/product-category')->group(function(){
                 Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
+                Route::post('/store', [CategoryController::class, 'store'])->name('admin.productCategory.store');
             });
         });
     });

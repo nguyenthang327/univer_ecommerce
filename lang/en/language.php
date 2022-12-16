@@ -75,6 +75,10 @@ return [
 
     // product category
     'product_category' => 'Product category',
+    'add_product_category' => 'Add new product category',
+    'category_name' => 'Category name',
+    'choose_parent_category' => 'Choose parent category',
+    'enter_category_name' => 'Enter category name',
         
     // product
     'product' => 'Product',

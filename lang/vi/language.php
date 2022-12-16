@@ -75,6 +75,11 @@ return [
 
     // product category
     'product_category' => 'Danh mục sản phẩm',
+    'add_product_category' => 'Thêm mới danh mục sản phẩm',
+    'category_name' => 'Tên danh mục',
+    'choose_parent_category' => 'Chọn danh mục cha',
+    'enter_category_name' => 'Nhập tên danh mục',
+    'is_parent_category' => 'Là danh mục cha',
 
     // product
     'product' => 'Sản phẩm',
