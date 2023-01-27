@@ -80,6 +80,7 @@ return [
     'choose_parent_category' => 'Chọn danh mục cha',
     'enter_category_name' => 'Nhập tên danh mục',
     'is_parent_category' => 'Là danh mục cha',
+    'thumbnail' => 'Ảnh nhỏ',
 
     // product
     'product' => 'Sản phẩm',

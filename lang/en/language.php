@@ -79,6 +79,7 @@ return [
     'category_name' => 'Category name',
     'choose_parent_category' => 'Choose parent category',
     'enter_category_name' => 'Enter category name',
+    'thumbnail' => 'Thumbnail',
         
     // product
     'product' => 'Product',

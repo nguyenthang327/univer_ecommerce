@@ -40,3 +40,14 @@
     -webkit-transition: all .2s linear;
     transition: all .2s linear;
 }
+
+.form-thumbnail__view{
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    -o-object-fit: cover;
+    object-fit: cover;
+    padding: 3px;
+    display: block;
+}

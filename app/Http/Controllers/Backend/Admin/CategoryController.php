@@ -21,6 +21,11 @@ class CategoryController extends Controller
         return view($this->pathView . 'index', compact('is_filter'));
     }
 
+    public function create(){
+        $parentCategory = ProductCategories::whereNull('parent_id')->pluck('id', 'name');
+        return view($this->pathView . 'create', compact('parentCategory'));
+    }
+
     public function store(CreateCategoryRequest $request){
         DB::beginTransaction();
         try{

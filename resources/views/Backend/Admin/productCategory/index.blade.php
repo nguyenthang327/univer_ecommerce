@@ -27,7 +27,7 @@
                     <a href="#collapseFilter" class="btn btn-default text-primary" data-toggle="collapse"><i class="far fa-filter"></i> {{trans('language.filter')}}</a>
                 </div>
                 <div class="actions mb-2">
-                    <a href="#" class="btn btn-primary ml-2" id="butonAddCategory"  data-toggle="modal" data-target="#modalAddCategory">
+                    <a href="{{ route('admin.productCategory.create') }}" class="btn btn-primary ml-2" id="butonAddCategory">
                         <i class="fas fa-plus"></i><span class="d-none d-sm-inline"> {{ trans('language.add_new') }}</span>
                     </a>
                 </div>

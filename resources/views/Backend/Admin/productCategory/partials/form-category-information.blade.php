@@ -10,22 +10,22 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="">{{trans('language.image')}}</label>
+                                <label for="">{{trans('language.thumbnail')}}</label>
                                 <div class="text-center">
                                     <div class="form-image">
                                         <img
-                                            src="{{ isset($category->thumbnail) ? asset('storage/'. $category->thumbnail) : asset('images/user-default.png')  }}"
-                                            class="form-image__view"
+                                            src="{{ isset($category->thumbnail) ? asset('storage/'. $category->thumbnail) : asset('images/no-image.png')  }}"
+                                            class="form-image__view form-thumbnail__view"
                                             id="avatar_view"
                                             alt="preview image"
                                         >
                                         <input type="file"
-                                                class="form-image__file"
-                                                id="avatar"
-                                                accept=".png, .jpg, .jpeg, .gif"
-                                                data-origin="{{isset($category)?route('admin.user.avatar',['id'=>$category->id]) : asset('images/user-default.png')}}"
-                                                name="avatar"
-                                                {{(isset($deleted) && $deleted==true) ? 'disabled'  :  ''}}>
+                                            class="form-image__file"
+                                            id="avatar"
+                                            accept=".png, .jpg, .jpeg, .gif"
+                                            data-origin="{{isset($category)?route('admin.user.avatar',['id'=>$category->id]) : asset('images/no-image.png')}}"
+                                            name="avatar"
+                                            {{(isset($deleted) && $deleted==true) ? 'disabled'  :  ''}}>
                                         <label for="avatar" class="form-image__label"><i class="fas fa-pen"></i></label>
                                     </div>
                                     @if ($errors->first('avatar'))
@@ -36,17 +36,24 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="">{{trans('language.user_name')}} <span class="text-red">*</span></label>
-                                <input type="text" class="form-control {{$errors->first('name') ? 'is-invalid' : ''}}" name="name" placeholder="{{trans('language.enter_user_name')}}" required
-                                        value="{{old('name') ? old('name') : (isset($category->name) ? $category->name : '') }}">
-                                @if ($errors->first('name'))
-                                    <div class="invalid-alert text-danger">{{ $errors->first('name') }}</div>
-                                @endif
+                                <label>{{ trans('language.category_name') }} <span class="text-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="{{ trans('language.enter_category_name') }}" name="category_name" required autocomplete="off">
                             </div>
                             <div class="form-group">
-                                <label for="">{{trans('language.lang')}} <span class="text-red"></span></label>
-                                    <select class="select2-base " name="language_id"  style="width: 100%">
-                                       
+                                <label for="">{{trans('language.choose_parent_category')}} <span class="text-red"></span></label>
+                                <select class="select2-base dynamic-select-option {{$errors->first('category_id') ? 'is-invalid' : ''}}"
+                                    style="width: 100%"
+                                    data-placeholder="{{trans('language.is_parent_category')}}"
+                                    name="category_id"
+                                    >
+                                <option value="" disabled selected style="display: none">{{trans('language.is_parent_category')}}</option>
+                                @if(isset($categories))
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" {{ $chooseCategory == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                @endif
                                 </select>
                             </div>
                         </div>
