@@ -18,5 +18,9 @@ return [
     'create_user_failed' => 'Create user failed!',
     'delete_user_successed' => 'Delete user successed!',
     'restore_user_successed' => 'Restore user successed!',
+
+    // Category
+    'create_category_successed' => 'Create product category successed!',
+    'create_category_failed' => 'Create product category failed!',
 ]
 ?>

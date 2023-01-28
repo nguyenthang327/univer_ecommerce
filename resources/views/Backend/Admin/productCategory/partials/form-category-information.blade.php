@@ -16,20 +16,20 @@
                                         <img
                                             src="{{ isset($category->thumbnail) ? asset('storage/'. $category->thumbnail) : asset('images/no-image.png')  }}"
                                             class="form-image__view form-thumbnail__view"
-                                            id="avatar_view"
+                                            id="thumbnail_view"
                                             alt="preview image"
                                         >
                                         <input type="file"
                                             class="form-image__file"
-                                            id="avatar"
+                                            id="thumbnail"
                                             accept=".png, .jpg, .jpeg, .gif"
                                             data-origin="{{isset($category)?route('admin.user.avatar',['id'=>$category->id]) : asset('images/no-image.png')}}"
-                                            name="avatar"
+                                            name="thumbnail"
                                             {{(isset($deleted) && $deleted==true) ? 'disabled'  :  ''}}>
-                                        <label for="avatar" class="form-image__label"><i class="fas fa-pen"></i></label>
+                                        <label for="thumbnail" class="form-image__label"><i class="fas fa-pen"></i></label>
                                     </div>
-                                    @if ($errors->first('avatar'))
-                                        <div class="invalid-alert text-danger">{{ $errors->first('avatar') }}</div>
+                                    @if ($errors->first('thumbnail'))
+                                        <div class="invalid-alert text-danger">{{ $errors->first('thumbnail') }}</div>
                                     @endif
                                 </div>
                             </div>
@@ -38,23 +38,32 @@
                             <div class="form-group">
                                 <label>{{ trans('language.category_name') }} <span class="text-red">*</span></label>
                                 <input type="text" class="form-control" placeholder="{{ trans('language.enter_category_name') }}" name="category_name" required autocomplete="off">
+                                @if ($errors->first('category_name'))
+                                    <div class="invalid-alert text-danger">{{ $errors->first('category_name') }}</div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="">{{trans('language.choose_parent_category')}} <span class="text-red"></span></label>
-                                <select class="select2-base dynamic-select-option {{$errors->first('category_id') ? 'is-invalid' : ''}}"
+                                <select class="select2-base dynamic-select-option {{$errors->first('category_parent_id') ? 'is-invalid' : ''}}"
                                     style="width: 100%"
                                     data-placeholder="{{trans('language.is_parent_category')}}"
-                                    name="category_id"
+                                    name="category_parent_id"
                                     >
-                                <option value="" disabled selected style="display: none">{{trans('language.is_parent_category')}}</option>
-                                @if(isset($categories))
-                                    @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ $chooseCategory == $category->id ? 'selected' : '' }}>
-                                            {{ $category->name }}
+                                <option value="" >{{trans('language.is_parent_category')}}</option>
+                                @php
+                                    $chooseCategory = old('category_parent_id') ? old('category_parent_id') : (isset($category->parent_id) ? $category->parent_id:'');
+                                @endphp
+                                @if(isset($parentCategory))
+                                    @foreach($parentCategory as $key => $val)
+                                        <option value="{{ $key }}" {{ $chooseCategory == $key ? 'selected' : '' }}>
+                                            {{ $val }}
                                         </option>
                                     @endforeach
                                 @endif
                                 </select>
+                                @if ($errors->first('category_parent_id'))
+                                    <div class="invalid-alert text-danger">{{ $errors->first('category_parent_id') }}</div>
+                                @endif
                             </div>
                         </div>
                     </div>

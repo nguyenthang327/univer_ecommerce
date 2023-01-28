@@ -79,7 +79,9 @@ return [
     'category_name' => 'Category name',
     'choose_parent_category' => 'Choose parent category',
     'enter_category_name' => 'Enter category name',
+    'is_parent_category' => 'Is the parent category',
     'thumbnail' => 'Thumbnail',
+    'custom_validate_parent_id' => '',
         
     // product
     'product' => 'Product',

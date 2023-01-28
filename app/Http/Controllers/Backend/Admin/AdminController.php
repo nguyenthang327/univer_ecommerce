@@ -23,7 +23,7 @@ class AdminController extends Controller
     protected $adminService;
 
     /**
-     * @param \App\Services\AdminService $adminService
+     * @param \App\Services\Admin\AdminService $adminService
      */
     public function __construct(AdminService $adminService)
     {

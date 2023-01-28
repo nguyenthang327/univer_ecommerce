@@ -18,5 +18,9 @@ return [
     'create_user_failed' => 'Thêm mới người dùng thất bại!',
     'delete_user_successed' => 'Xóa người dùng thành công!',
     'restore_user_successed' => 'Khôi phục người dùng thành công!',
+
+    // Category
+    'create_category_successed' => 'Thêm mới danh mục thành công!',
+    'create_category_failed' => 'Thêm mới danh mục thất bại!',
 ]
 ?>

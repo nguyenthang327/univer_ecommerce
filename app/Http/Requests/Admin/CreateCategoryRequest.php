@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\ProductCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateCategoryRequest extends FormRequest
@@ -24,9 +25,14 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|max:200|unique:product_categories',
+            'category_name' => 'required|max:200|unique:product_categories,name',
             'thumbnail' => 'nullable|mimes:jpeg,png,jpg|max:10240',
-            'parent_id' => 'nullable|exists:product_categories,id',
+            'category_parent_id' => ['nullable', function($attribute, $value, $fail){
+                $isParent = ProductCategory::where('id', $value)->whereNull('parent_id')->first();
+                if(!$isParent){
+                    return $fail(trans('validation.enum', ['attribute' => trans("validation.attributes.$attribute")]));
+                }
+            }]
         ];
 
         return $rules;
