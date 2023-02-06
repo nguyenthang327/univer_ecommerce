@@ -13,6 +13,7 @@ const trans = {
 function select2Base(selector){
     if ($(selector).length){
         $(selector).select2({
+            allowClear: true,
             theme: 'bootstrap4',
             addCssClass : "error",
             language,

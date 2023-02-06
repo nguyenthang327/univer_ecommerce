@@ -44,12 +44,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="">{{trans('language.choose_parent_category')}} <span class="text-red"></span></label>
-                                <select class="select2-base dynamic-select-option {{$errors->first('category_parent_id') ? 'is-invalid' : ''}}"
+                                <select class="select2-base {{$errors->first('category_parent_id') ? 'is-invalid' : ''}}"
                                     style="width: 100%"
                                     data-placeholder="{{trans('language.is_parent_category')}}"
                                     name="category_parent_id"
                                     >
-                                <option value="" >{{trans('language.is_parent_category')}}</option>
+                                <option value="">{{trans('language.is_parent_category')}}</option>
                                 @php
                                     $chooseCategory = old('category_parent_id') ? old('category_parent_id') : (isset($category->parent_id) ? $category->parent_id:'');
                                 @endphp

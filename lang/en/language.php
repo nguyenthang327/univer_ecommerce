@@ -80,6 +80,8 @@ return [
     'choose_parent_category' => 'Choose parent category',
     'enter_category_name' => 'Enter category name',
     'is_parent_category' => 'Is the parent category',
+    'id_parent_category' => 'ID parent category',
+    'slug' => 'Slug',
     'thumbnail' => 'Thumbnail',
     'custom_validate_parent_id' => '',
         

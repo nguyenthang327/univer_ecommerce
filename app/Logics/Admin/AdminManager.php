@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Logics\Admin;
 
 use App\Models\Admin;
 use Illuminate\Support\Facades\App;
@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
-class AdminService
+class AdminManager
 {
     use StorageTrait;
     use ImageTrait;

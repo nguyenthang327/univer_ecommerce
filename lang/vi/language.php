@@ -80,6 +80,8 @@ return [
     'choose_parent_category' => 'Chọn danh mục cha',
     'enter_category_name' => 'Nhập tên danh mục',
     'is_parent_category' => 'Là danh mục cha',
+    'id_parent_category' => 'Mã danh mục cha',
+    'slug' => 'Slug',
     'thumbnail' => 'Ảnh nhỏ',
     'custom_validate_parent_id' => 'Vui lòng chọn lại ảnh',
 

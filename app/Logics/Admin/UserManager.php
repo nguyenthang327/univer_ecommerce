@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Logics\Admin;
 
 use Illuminate\Support\Facades\App;
 use App\Models\Language;
@@ -14,7 +14,7 @@ use App\Helpers\StringHelper;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class UserService
+class UserManager
 {
     use StorageTrait;
     use ImageTrait;

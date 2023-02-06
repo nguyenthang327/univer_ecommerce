@@ -11,23 +11,23 @@ use App\Http\Requests\Admin\UpdateAdminRequest;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Services\Admin\AdminService;
+use App\Logics\Admin\AdminManager;
 use Carbon\Carbon;
 
 class AdminController extends Controller
 {
 
     /**
-     * @var AdminService
+     * @var AdminManager
      */
-    protected $adminService;
+    protected $adminManager;
 
     /**
-     * @param \App\Services\Admin\AdminService $adminService
+     * @param \App\Logics\Admin\AdminManager $adminManager
      */
-    public function __construct(AdminService $adminService)
+    public function __construct(AdminManager $adminManager)
     {
-        $this->adminService = $adminService;
+        $this->adminManager = $adminManager;
     }
     
     /**
@@ -71,7 +71,7 @@ class AdminController extends Controller
                 'identity_card' => $request->identity_card,
             ];
 
-            $this->adminService->updateAdminProfile($admin, $params, $request->avatar);
+            $this->adminManager->updateAdminProfile($admin, $params, $request->avatar);
             
             DB::commit();
             return back()->with([
@@ -118,7 +118,7 @@ class AdminController extends Controller
      */
     public function getAvatar($id)
     {
-        $image = $this->adminService->getImage($id, 'avatar');
+        $image = $this->adminManager->getImage($id, 'avatar');
         return $image;
     }
 }
