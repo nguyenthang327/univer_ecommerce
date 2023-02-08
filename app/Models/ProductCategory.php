@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductCategory extends Model
 {
@@ -41,6 +42,16 @@ class ProductCategory extends Model
     }
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
      * Save id admin created or updated
      */
     protected static function boot()
@@ -69,11 +80,15 @@ class ProductCategory extends Model
             'product_categories.created_by_admin_id',
             'product_categories.updated_by_admin_id',
             'product_categories.deleted_at',
+            DB::raw('CONCAT_WS(" " , created.first_name, created.last_name) as created_name'),
+            DB::raw('CONCAT_WS(" " , updated.first_name, updated.last_name) as updated_name'),
         ];
 
         return $this->hasMany(ProductCategory::class, 'parent_id')->select(
                 $columns
-            );
+            )
+            ->leftJoin('admins as created','product_categories.created_by_admin_id', 'created.id')
+            ->leftJoin('admins as updated','product_categories.updated_by_admin_id', 'updated.id');
     }
 
      /**

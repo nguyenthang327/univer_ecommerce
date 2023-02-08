@@ -20,9 +20,9 @@
     <section class="content pb-4 pt-3">
         <div class="container-fluid">
             @include('backend.admin.productCategory.partials.form-category-information',[
-                    // 'user' => $user,
-                    // 'action' => route('admin.user.update' , ['id' => $user->id]),
-                    // 'method' => 'PUT',
+                    'category' => $category,
+                    'action' => route('admin.productCategory.update' , ['category' => $category->slug]),
+                    'method' => 'PUT',
                 ]
             )
         </div>

@@ -83,7 +83,9 @@ return [
     'id_parent_category' => 'Mã danh mục cha',
     'slug' => 'Slug',
     'thumbnail' => 'Ảnh nhỏ',
-    'custom_validate_parent_id' => 'Vui lòng chọn lại ảnh',
+    'custom_validate_parent_id' => 'Vui lòng chọn lại danh mục cha',
+    'created_by' => 'Tạo bởi',
+    'updated_by' => 'Cập nhật bởi',
 
     // product
     'product' => 'Sản phẩm',

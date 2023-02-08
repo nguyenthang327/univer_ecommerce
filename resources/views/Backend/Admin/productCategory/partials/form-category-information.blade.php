@@ -23,7 +23,7 @@
                                             class="form-image__file"
                                             id="thumbnail"
                                             accept=".png, .jpg, .jpeg, .gif"
-                                            data-origin="{{isset($category)?route('admin.user.avatar',['id'=>$category->id]) : asset('images/no-image.png')}}"
+                                            data-origin="{{isset($category->thumbnail)? asset('storage/'. $category->thumbnail) : asset('images/no-image.png')}}"
                                             name="thumbnail"
                                             {{(isset($deleted) && $deleted==true) ? 'disabled'  :  ''}}>
                                         <label for="thumbnail" class="form-image__label"><i class="fas fa-pen"></i></label>
@@ -37,7 +37,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>{{ trans('language.category_name') }} <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="{{ trans('language.enter_category_name') }}" name="category_name" required autocomplete="off">
+                                <input type="text" class="form-control" placeholder="{{ trans('language.enter_category_name') }}" name="category_name" required autocomplete="off" value="{{ old('category_name') ? old('category_name') : (isset($category->name) ? $category->name : '')}}">
                                 @if ($errors->first('category_name'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('category_name') }}</div>
                                 @endif

@@ -83,7 +83,9 @@ return [
     'id_parent_category' => 'ID parent category',
     'slug' => 'Slug',
     'thumbnail' => 'Thumbnail',
-    'custom_validate_parent_id' => '',
+    'custom_validate_parent_id' => 'Please select parent category again',
+    'created_by' => 'Created by',
+    'updated_by' => 'Updated by',
         
     // product
     'product' => 'Product',
