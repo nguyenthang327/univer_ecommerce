@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_options', function (Blueprint $table) {
+        Schema::create('product_skus', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->enum('visual', ['text', 'color', 'image'])->default('text');
+            $table->string('name')->unique()->nullable();
+            $table->string('barcode')->unique()->nullable();
+            $table->decimal('price', 12)->default(0);
+            $table->unsignedInteger('stock')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_options');
+        Schema::dropIfExists('product_skus');
     }
 };
