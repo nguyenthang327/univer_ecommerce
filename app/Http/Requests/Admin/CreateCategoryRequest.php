@@ -24,9 +24,8 @@ class CreateCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($this->category);
         $rules = [
-            'category_name' => 'required|max:200|unique:product_categories,name,'. $this->category,
+            'category_name' => 'required|max:200|unique:product_categories,name,'. $this->id,
             'thumbnail' => 'nullable|mimes:jpeg,png,jpg|max:10240',
             'category_parent_id' => ['nullable', function($attribute, $value, $fail){
                 $isParent = ProductCategory::where('id', $value)->whereNull('parent_id')->first();

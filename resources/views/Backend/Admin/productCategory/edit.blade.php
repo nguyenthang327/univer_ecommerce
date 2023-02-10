@@ -21,7 +21,7 @@
         <div class="container-fluid">
             @include('backend.admin.productCategory.partials.form-category-information',[
                     'category' => $category,
-                    'action' => route('admin.productCategory.update' , ['category' => $category->slug]),
+                    'action' => route('admin.productCategory.update' , ['id' => $category->id]),
                     'method' => 'PUT',
                 ]
             )

@@ -135,8 +135,7 @@ class CategoryController extends Controller
      * @param \App\Http\Requests\Admin\CreateCategoryRequest $request
      * 
      */
-    public function update(CreateCategoryRequest $request){
-        dd(1);
+    public function update(CreateCategoryRequest $request, $id){
         DB::beginTransaction();
         try{
             $params = [
@@ -144,9 +143,11 @@ class CategoryController extends Controller
                 'parent_id' => $request->category_parent_id,
             ];
 
-            // dd($category);
+            $category = ProductCategory::where('id', $id)->get();
             
-            // $this->categoryManager->updateProductCategory($category, $params, $request->thumbnail);
+            // if($category->parent_id == null && )
+            
+            $this->categoryManager->updateProductCategory($category, $params, $request->thumbnail);
 
             DB::commit();
             return back()->with([

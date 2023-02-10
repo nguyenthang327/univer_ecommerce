@@ -63,7 +63,7 @@ Route::middleware('web')->group(function () {
                 Route::get('/create', [CategoryController::class, 'create'])->name('admin.productCategory.create');
                 Route::post('/store', [CategoryController::class, 'store'])->name('admin.productCategory.store');
                 Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('admin.productCategory.edit');
-                Route::put('/update/{category}', [CategoryController::class, 'update'])->name('admin.productCategory.update');
+                Route::put('/update/{id}', [CategoryController::class, 'update'])->name('admin.productCategory.update');
             });
         });
     });
