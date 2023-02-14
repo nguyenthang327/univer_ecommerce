@@ -18,6 +18,7 @@ return [
     'edit' => 'Edit',
     'restore' => 'Restore',
     'display' => 'Display',
+    'agree' => 'Agree',
 
     // profile
     'profile' => 'Profile',
@@ -86,6 +87,7 @@ return [
     'custom_validate_parent_id' => 'Please select parent category again',
     'created_by' => 'Created by',
     'updated_by' => 'Updated by',
+    'convert_child_cate_1' => 'Convert all existing subcategories into subcategories of another parent category.',
         
     // product
     'product' => 'Product',

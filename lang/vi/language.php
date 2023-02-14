@@ -18,6 +18,7 @@ return [
     'edit' => 'Sửa',
     'restore' => 'Khôi phục',
     'display' => 'Hiển thị',
+    'agree' => 'Đồng ý',
 
     // profile
     'profile' => 'Hồ sơ',
@@ -86,6 +87,7 @@ return [
     'custom_validate_parent_id' => 'Vui lòng chọn lại danh mục cha',
     'created_by' => 'Tạo bởi',
     'updated_by' => 'Cập nhật bởi',
+    'convert_child_cate_1' => 'Chuyển tất cả danh mục con hiện có thành danh mục con của danh mục cha khác.',
 
     // product
     'product' => 'Sản phẩm',

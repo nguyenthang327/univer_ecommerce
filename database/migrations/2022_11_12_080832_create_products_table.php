@@ -24,12 +24,12 @@ return new class extends Migration
             $table->double('price')->nullable();
             $table->json("gallery")->nullable();
             $table->date('expired_at')->nullable();
-            $table->json('category_id')->nullable();
+            $table->unsignedInteger('category_id')->nullable();
             $table->string('slug')->unique();
             $table->tinyInteger('status')->default(1);
             $table->tinyInteger('is_featured')->default(0);
-            $table->unsignedTinyInteger('created_by')->nullable();
-            $table->unsignedTinyInteger('updated_by')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

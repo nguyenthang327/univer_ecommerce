@@ -27,8 +27,16 @@
             )
         </div>
     </section>
+    @include('backend.admin.productCategory.partials.modal-category',[
+        'action' => route('admin.productCategory.update' , ['id' => $category->id]),
+        'method' => 'PUT',
+    ])
 @stop
 
 @section('js_library')
     @include('Backend.LibraryGroup.script-library', ['datepicker' => true, 'select2' => true])
+@stop
+
+@section('js_page')
+    <script src="{{ asset("admin-assets/js/editCategory.js") }}"></script>
 @stop

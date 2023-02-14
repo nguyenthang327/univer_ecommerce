@@ -1,4 +1,11 @@
-<form method="POST" enctype="multipart/form-data" action="{{ $action }}">
+@php
+    $canShow = 'notShow';
+    if(isset($category) && $category->parent_id == null && count($cateHasChild) > 0){
+        $canShow = 'canShowSubModal';
+    }
+@endphp
+
+<form method="POST" enctype="multipart/form-data" action="{{ $action }}" class="{{ $canShow }}" id="formCategory">
     @if(isset($method))
         @method($method)
     @endif
@@ -73,7 +80,11 @@
         <div class="col-xl-3 theia-sidebar">
             <div class="card">
                 <div class="card-body align-items-start flex-wrap">
-                    <button type="submit" class="btn btn-primary mr-2 my-1"><i class="far fa-save"></i> {{trans('language.save')}}</button>
+                    {{-- @if(!isset($cateHasChild)) --}}
+                        <button type="submit" class="btn btn-primary mr-2 my-1"><i class="far fa-save"></i> {{trans('language.save')}}</button>
+                    {{-- @else
+                        <a class="btn btn-primary mr-2 my-1" data-toggle="modal" data-target="#modalCategory"><i class="far fa-save"></i> {{trans('language.save')}}</a>
+                    @endif --}}
                     <button type="reset" class="btn btn-outline-secondary"><i class="far fa-undo"></i> {{trans('language.reset')}}</button>
                 </div>
             </div>

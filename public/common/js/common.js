@@ -102,7 +102,7 @@ function readFileImage() {
         checkType = checkTypeFileImage(that),
         img = $('#' + $that.attr('id') + '_view'),
         imgDefault = $that.data('origin') ? $that.data('origin') : '/images/placeholder.png';
-    console.log(imgDefault);
+
     if($that.val()){
         if (that.files && that.files[0]) {
             let reader = new FileReader();

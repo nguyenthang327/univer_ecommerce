@@ -127,13 +127,15 @@ class CategoryController extends Controller
         $parentCategory = ProductCategory::whereNull('parent_id')
             ->where('slug', '<>', $category->slug)
             ->pluck('name', 'id');
-        return view($this->pathView . 'edit', compact('parentCategory', 'category'));
+
+        $cateHasChild = ProductCategory::where('parent_id', $category->id)->get();
+        return view($this->pathView . 'edit', compact('parentCategory', 'category', 'cateHasChild'));
     }
 
     /**
      * store new product category
      * @param \App\Http\Requests\Admin\CreateCategoryRequest $request
-     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(CreateCategoryRequest $request, $id){
         DB::beginTransaction();
@@ -143,21 +145,23 @@ class CategoryController extends Controller
                 'parent_id' => $request->category_parent_id,
             ];
 
-            $category = ProductCategory::where('id', $id)->get();
-            
-            // if($category->parent_id == null && )
-            
+            $category = ProductCategory::where('id', $id)->first();
+            $cateHasChild = ProductCategory::where('parent_id', $category->id)->get();
+
             $this->categoryManager->updateProductCategory($category, $params, $request->thumbnail);
+            if($category->parent_id == null && count($cateHasChild) > 0 && $params['parent_id'] != null){
+                ProductCategory::where('parent_id', $category->id)->update(["parent_id" => $request->category_parent_id_new]);
+            }
 
             DB::commit();
             return back()->with([
-                'status_successed' => trans('message.create_category_successed')
+                'status_successed' => trans('message.edit_category_successed')
             ]);
         }catch(Exception $e){
             DB::rollBack();
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
             return back()->with([
-                'status_failed' => trans('message.create_category_failed'),
+                'status_failed' => trans('message.edit_category_failed'),
             ]);
         }
     }

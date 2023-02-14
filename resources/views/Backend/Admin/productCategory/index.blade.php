@@ -49,7 +49,7 @@
             </div>
         </div>
     </section>
-    @include('backend.admin.productCategory.partials.modal-add-category')
+    {{-- @include('backend.admin.productCategory.partials.modal-category') --}}
 @stop
 
 @section('js_library')
