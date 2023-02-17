@@ -115,6 +115,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try{
             $passwordService = new RandomPasswordService();
+            $password = $passwordService->randomPassword(self::PASSWORD_LENGTH);
             $params = [
                 'email' => $request->email,
                 'user_name' => $request->user_name,
@@ -128,9 +129,9 @@ class UserController extends Controller
                 'district_id' => $request->district_id,
                 'commune_id' => $request->commune_id,
                 'identity_card' => $request->identity_card,
-                'password' => bcrypt($passwordService->randomPassword(self::PASSWORD_LENGTH)),
+                'password' => bcrypt($password),
             ];
-            $this->userManager->createUserProfile($params, $request->avatar);
+            $this->userManager->createUserProfile($params, $request->avatar, $password);
 
             DB::commit();
             return back()->with([

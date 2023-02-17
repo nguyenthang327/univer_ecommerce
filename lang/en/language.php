@@ -93,5 +93,23 @@ return [
     'product' => 'Product',
     'product_list' => 'Product category',
 
+    // mail register
+    'mail' => [
+        'register' => [
+            'subject' => '',
+            'title' => 'Hello :fullName joined us!',
+            'content' => [
+                'content_1' => 'Below are the basic information for logging into our service.',
+                'created_at' => 'Your account was created on:',
+                'mail_adress'=> 'Email address:',
+                'password' => 'Password:',
+                'user_name' => 'Username:',
+                'link' => 'Click the link to go to the login page',
+                'content_2' => 'Information such as address, phone number, date of birth,... will be easily updated as soon as you log in to our service.',
+            ]
+        ],
+    ],
+    'author' => 'Author',
+    'website' => 'Website shopping vip pro',
 ];
 ?>

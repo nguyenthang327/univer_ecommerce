@@ -93,5 +93,22 @@ return [
     'product' => 'Sản phẩm',
     'product_list' => 'Danh sách sản phẩm',
 
+    // mail register
+    'mail' => [
+        'register' => [
+            'title' => 'Xin chào :fullName đã tham gia cùng chúng tôi!',
+            'content' => [
+                'content_1' => 'Dưới đây là những thông tin cơ bản để phục vụ việc đăng nhập vào dịch vụ của chúng tôi.',
+                'created_at' => 'Tài khoản của bạn được tạo vào:',
+                'mail_adress'=> 'Địa chỉ email:',
+                'password' => 'Mật khẩu:',
+                'user_name' => 'Tên người dùng:',
+                'link' => 'Click vào đường trang đăng nhập',
+                'content_2' => 'Các thông tin như địa chỉ, số điện thoại, ngày sinh,... sẽ dễ dàng được cập nhật ngay khi bạn đăng nhập vào dịch vụ của chúng tôi.',
+            ]
+        ],
+    ],
+    'author' => 'Tác giả',
+    'website' => 'Website bán hàng vip pro',
 ];
 ?>
