@@ -149,9 +149,8 @@ class UserManager
         $user->update([
             'avatar' => $avatar_path
         ]);
-
         $user->password = $password;
-        event(new RegisterUser($user));
+        event(new RegisterUser($user, $password));
     }
 }
 

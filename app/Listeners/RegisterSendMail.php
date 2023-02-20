@@ -28,7 +28,7 @@ class RegisterSendMail
      */
     public function handle(RegisterUser $event)
     {
-        $sendEmail = new Register($event->user);
+        $sendEmail = new Register($event->user, $event->password);
         $sendJob = new RegisterEmail($event->user, $sendEmail);
 
         dispatch($sendJob);

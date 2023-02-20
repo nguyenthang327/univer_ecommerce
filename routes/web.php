@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\Admin\CategoryController;
 
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
+use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,9 @@ Route::get('/', function () {
 });
 
 
-// Backend admin
 Route::middleware('web')->group(function () {
+
+    // Backend admin
     Route::prefix('/admin')->group(function(){
 
         // auth
@@ -72,6 +74,7 @@ Route::middleware('web')->group(function () {
         });
     });
 
+    // Backend user
     Route::prefix('/user')->group(function(){
 
         // auth
@@ -81,7 +84,7 @@ Route::middleware('web')->group(function () {
 
         Route::group(['middleware' => ['auth.user']], function(){
             // dashboard
-            Route::get('/', [AdminDashboard::class, 'index'])->name('user.dashboard');
+            Route::get('/', [UserDashboard::class, 'index'])->name('user.dashboard');
 
             // profile
             Route::prefix('/profile')->group(function(){

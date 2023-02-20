@@ -96,7 +96,7 @@ return [
     // mail register
     'mail' => [
         'register' => [
-            'subject' => '',
+            'subject' => ':website congratulates you on your successful account registration.',
             'title' => 'Hello :fullName joined us!',
             'content' => [
                 'content_1' => 'Below are the basic information for logging into our service.',

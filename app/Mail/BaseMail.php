@@ -15,7 +15,6 @@ class BaseMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $language_id;
     /**
      * Create a new message instance.
      *
@@ -23,8 +22,7 @@ class BaseMail extends Mailable
      */
     public function __construct($language_id = null)
     {
-        $this->language_id = $language_id;
-        $language =  Language::find($this->language_id);
+        $language =  Language::find($language_id);
         $name = isset($language) ? $language->name : null;
         if($name){
             App::setLocale($name);

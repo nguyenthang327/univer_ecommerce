@@ -22,7 +22,7 @@ class RegisterEmail implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(User $user, $mail)
+    public function __construct($user, $mail)
     {
         $this->user = $user;
         $this->mail = $mail;

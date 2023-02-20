@@ -24,10 +24,10 @@
                 <tr>
                     <td style="padding: 20px 0 30px 0;">
                         {{ trans('language.mail.register.content.content_1') }}
-                        <p>{{ trans('language.mail.register.content.created_at') }} <b>{{ $user->created_at ? $user->created_at : ''}}</b></p>
+                        <p>{{ trans('language.mail.register.content.created_at') }} <b>{{ $user->created_at ?  (new App\Services\DateFormatService())->dateFormatLanguage($user->created_at,'H:i d/m/Y') : ''}}</b></p>
                         <p>{{ trans('language.mail.register.content.mail_adress') }} <b>{{ $user->email ?? 'example@gmail.com' }}</b></p>
                         <p>{{ trans('language.mail.register.content.user_name') }} <b>{{ isset($user->user_name) ? $user->user_name : '' }}</b></p>
-                        <p>{{ trans('language.mail.register.content.password') }} <b>{{ isset($user->password) ? $user->password : '' }}</b></p>
+                        <p>{{ trans('language.mail.register.content.password') }} <b>{{ isset($password) ? $password : '' }}</b></p>
                         <p>{{ trans('language.mail.register.content.link')}} <a href="{{route('user.login')}}">{{route('user.login')}}</a></p>
                         <p>
                             {{ trans('language.mail.register.content.content_2') }}
@@ -49,7 +49,7 @@
                         &reg; 2023 Nguyễn Đức Thắng<br/>
                         {{ trans('language.author') }} 
                         <a href="" style="color: #ffffff;">
-                            <font color="#ffffff"{{ trans('language.website') }} </font>
+                            <font color="#ffffff"> {{ trans('language.website') }} </font>
                         </a>
                        </td>
                 </tr>

@@ -96,6 +96,7 @@ return [
     // mail register
     'mail' => [
         'register' => [
+            'subject' => ':website chúc mừng quý khách đã đăng ký tài khoản thành công.',
             'title' => 'Xin chào :fullName đã tham gia cùng chúng tôi!',
             'content' => [
                 'content_1' => 'Dưới đây là những thông tin cơ bản để phục vụ việc đăng nhập vào dịch vụ của chúng tôi.',

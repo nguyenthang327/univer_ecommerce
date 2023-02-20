@@ -15,18 +15,19 @@ class Register extends BaseMail
     use Queueable, SerializesModels;
 
     public $user;
+    public $password;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($user, $password)
     {
         $language_id = isset($user->language_id) ? $user->language_id : null;
-        dd($language_id);
         parent::__construct($language_id);
         $this->user = $user;
+        $this->password = $password;
     }
 
     /**
@@ -37,7 +38,7 @@ class Register extends BaseMail
     public function envelope()
     {
         return new Envelope(
-            subject: 'Register',
+            subject: trans('language.mail.register.subject', ['website' =>  trans('language.website')]),
         );
     }
 
