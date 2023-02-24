@@ -69,3 +69,12 @@ table thead{
     width: 20px;
     height: 20px;
 }
+
+.user-panel img{
+    width: 2.8rem;
+    height: 2.8rem;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    -o-object-fit: cover;
+    object-fit: cover;
+}

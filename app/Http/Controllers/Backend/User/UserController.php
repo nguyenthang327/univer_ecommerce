@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\UpdateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Logics\Admin\UserManager;
 use App\Models\Language;
 use App\Models\User;
@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -53,26 +54,26 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateUserRequest $request, $id){
-        $user = $this->checkUserExist($id, true);
+    public function update(UpdateUserRequest $request){
+        $user = Auth::guard('user')->user();
 
         DB::beginTransaction();
         try{
             $params = [
-                'user_name' => $request->user_name,
                 'language_id' => $request->language_id,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
                 'birthday' => isset($request->birthday) ? Carbon::createFromFormat('d/m/Y', $request->birthday) : $request->birthday,
                 'phone' => $request->phone,
-                'gender' => $request->gender,
                 'prefecture_id' => $request->prefecture_id,
                 'district_id' => $request->district_id,
                 'commune_id' => $request->commune_id,
-                'identity_card' => $request->identity_card,
             ];
-            $this->userManager->updateUserProfile($user, $params, $request->avatar);
+            $this->userManager->updateUserProfile($user, $params, null);
 
+            if(isset($request->language_id) && ($user->language_id != $request->language_id)){
+                $language = Language::where('id', $request->language_id)->first();
+                App::setLocale($language->name);
+                session()->put('locale', $language->name);
+            }
             DB::commit();
             return back()->with([
                 'status_successed' => trans('message.update_user_successed')
@@ -86,27 +87,14 @@ class UserController extends Controller
         }
     }
 
-     /**
-     * Check if user exist then return User, else return error message
-     *
-     * @param $user_id
-     * @param bool $deleted
-     * @return array|User
+    /**
+     * Get avatar admin
+     * @param $id
+     * @return mixed
      */
-    private function checkUserExist($user_id, $deleted=false) {
-        if ($deleted) {
-            $user = User::withTrashed()->find($user_id);
-        } else {
-            $user = User::find($user_id);
-        }
-
-        if ($user == null) {
-            return [
-                'status' => Response::HTTP_NOT_FOUND,
-                'msg' => trans('message.user_not_exist'),
-                'url_callback' => back()->getTargetUrl(),
-            ];
-        }
-        return $user;
+    public function getAvatar($id)
+    {
+        $image = $this->userManager->getImage($id, 'avatar');
+        return $image;
     }
 }

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('barcode')->unique()->nullable();
             $table->decimal('price', 12)->default(0);
             $table->unsignedInteger('stock')->default(0);
-            $table->softDeletes();
             $table->timestamps();
         });
     }

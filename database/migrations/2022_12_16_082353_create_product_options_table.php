@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->enum('visual', ['text', 'color', 'image'])->default('text');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

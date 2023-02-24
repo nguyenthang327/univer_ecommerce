@@ -6,12 +6,14 @@ use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminAuth;
 use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\AddressController;
-use App\Http\Controllers\Backend\Admin\UserController as BeUser;
+use App\Http\Controllers\Backend\Admin\UserController as BeAdminUser;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
+use App\Http\Controllers\Backend\User\ProductController;
+use App\Http\Controllers\Backend\User\UserController as BeUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,14 +55,14 @@ Route::middleware('web')->group(function () {
 
             // user
             Route::prefix('/user')->group(function(){
-                Route::get('/', [BeUser::class, 'index'])->name('admin.user.index');
-                Route::get('/create', [BeUser::class, 'create'])->name('admin.user.create');
-                Route::post('/store', [BeUser::class, 'store'])->name('admin.user.store');
-                Route::get('/{id}/edit', [BeUser::class, 'edit'])->name('admin.user.edit');
-                Route::put('/{id}/update', [BeUser::class, 'update'])->name('admin.user.update');
-                Route::delete('/{id}/destroy', [BeUser::class, 'destroy'])->name('admin.user.destroy');
-                Route::post('/{id}/restore', [BeUser::class, 'restore'])->name('admin.user.restore');
-                Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('admin.user.avatar');
+                Route::get('/', [BeAdminUser::class, 'index'])->name('admin.user.index');
+                Route::get('/create', [BeAdminUser::class, 'create'])->name('admin.user.create');
+                Route::post('/store', [BeAdminUser::class, 'store'])->name('admin.user.store');
+                Route::get('/{id}/edit', [BeAdminUser::class, 'edit'])->name('admin.user.edit');
+                Route::put('/{id}/update', [BeAdminUser::class, 'update'])->name('admin.user.update');
+                Route::delete('/{id}/destroy', [BeAdminUser::class, 'destroy'])->name('admin.user.destroy');
+                Route::post('/{id}/restore', [BeAdminUser::class, 'restore'])->name('admin.user.restore');
+                Route::get('{id}/avatar', [BeAdminUser::class, 'getAvatar'])->name('admin.user.avatar');
             });
 
             // Product category
@@ -88,14 +90,19 @@ Route::middleware('web')->group(function () {
 
             // profile
             Route::prefix('/profile')->group(function(){
-               Route::get('/', [AdminController::class, 'userProfile'])->name('user.profile');
-               Route::put('/{id}', [AdminController::class, 'update'])->name('user.profile.update');
-               Route::get('{id}/avatar', [AdminController::class, 'getAvatar'])->name('user.avatar');
+               Route::get('/', [BeUser::class, 'userProfile'])->name('user.profile');
+               Route::put('/', [BeUser::class, 'update'])->name('user.profile.update');
+               Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('user.avatar');
             });
 
             // Product category
             Route::prefix('/product-category')->group(function(){
                 Route::get('/', [CategoryController::class, 'index'])->name('user.productCategory.index');
+            });
+
+            // Product
+            Route::prefix('/product')->group(function(){
+                Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
             });
         });
     });

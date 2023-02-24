@@ -56,8 +56,8 @@ class ProductCategory extends Model
      */
     protected static function boot()
     {
-        if(Auth::guard('admin')->user()->id){
-            parent::boot();
+        parent::boot();
+        if(Auth::guard('admin')->user() && Auth::guard('admin')->user()->id){
             self::creating(function ($data) {
                 $data->created_by_admin_id =  Auth::guard('admin')->user()->id;
             });

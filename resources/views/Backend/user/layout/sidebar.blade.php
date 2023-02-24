@@ -1,3 +1,7 @@
+@php
+    $user = Auth::guard('user')->user();
+@endphp
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -7,14 +11,14 @@
     </a>
 
     <!-- Sidebar -->
-    {{-- <div class="sidebar">
+    <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ route('user.avatar',['id'=> $user->id]) }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="{{ route('user.profile') }}" class="d-block">Alexander Pierce</a>
+                <a href="{{ route('user.profile') }}" class="d-block">{{ $user->user_name}}</a>
             </div>
         </div>
 
@@ -42,38 +46,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route("admin.profile") }}" class="nav-link">
+                            <a href="{{ route("user.profile") }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.profile_info') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/charts/flot.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Flot</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            {{ trans('language.user_management') }}
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route("admin.user.index") }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>{{ trans('language.user_list') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/tables/data.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>DataTables</p>
                             </a>
                         </li>
                     </ul>
@@ -88,7 +63,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.productCategory.index')}}" class="nav-link">
+                            <a href="{{ route('user.productCategory.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.product_category') }}</p>
                             </a>
@@ -96,7 +71,7 @@
                         <li class="nav-item">
                             <a href="{{ route('user.product.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>{{ trans('language.product_category') }}</p>
+                                <p>{{ trans('language.product') }}</p>
                             </a>
                         </li>
                     </ul>
@@ -104,6 +79,6 @@
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
-    </div> --}}
+    </div>
     <!-- /.sidebar -->
 </aside>

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignId('sku_id')->constrained('product_skus');
             $table->foreignId('product_option_id')->constrained('product_options');
             $table->foreignId('product_option_value_id')->constrained('product_option_values');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

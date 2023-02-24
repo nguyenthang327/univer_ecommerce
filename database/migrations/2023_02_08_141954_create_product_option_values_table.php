@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignId('product_option_id')->constrained('product_options')->cascadeOnDelete();
             $table->string('value');
             $table->string('label')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
