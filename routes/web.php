@@ -103,6 +103,7 @@ Route::middleware('web')->group(function () {
             // Product
             Route::prefix('/product')->group(function(){
                 Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
+                Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
             });
         });
     });

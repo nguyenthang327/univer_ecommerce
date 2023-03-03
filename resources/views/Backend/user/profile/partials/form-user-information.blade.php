@@ -244,11 +244,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 theia-sidebar">
-            <div class="card">
-                <div class="card-body align-items-start flex-wrap">
-                    <button type="submit" class="btn btn-primary mr-2 my-1"><i class="far fa-save"></i> {{trans('language.save')}}</button>
-                    <button type="reset" class="btn btn-outline-secondary"><i class="far fa-undo"></i> {{trans('language.reset')}}</button>
+        <div class="col-xl-3">
+            <div class="theia-sidebar">
+                <div class="card">
+                    <div class="card-body align-items-start flex-wrap">
+                        <button type="submit" class="btn btn-primary mr-2 my-1"><i class="far fa-save"></i> {{trans('language.save')}}</button>
+                        <button type="reset" class="btn btn-outline-secondary"><i class="far fa-undo"></i> {{trans('language.reset')}}</button>
+                    </div>
                 </div>
             </div>
         </div>
