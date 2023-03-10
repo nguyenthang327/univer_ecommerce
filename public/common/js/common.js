@@ -192,6 +192,49 @@ function deleteOrRestoreRowTable(e, btn){
     })
 }
 
+let langSummernote = (language) => {
+    let lang;
+    switch (language){
+        case 'en':
+            lang = 'es-ES'
+            break;
+        default:
+            lang = 'vi-VN'
+    }
+
+    return lang;
+}
+
+function summernote(selector){
+    if ($(selector).length){
+        $(selector).summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['help']]
+              ],
+            height: 200,
+            lang: langSummernote(language),
+            styleTags: [
+                'p',
+                    { title: 'Blockquote', tag: 'blockquote', className: 'blockquote', value: 'blockquote' },
+                    'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+                ],
+            callbacks: {
+                onImageUpload: function(images) {
+                    
+                }
+            },
+            codeviewFilter: true,
+            codeviewIframeFilter: true
+        });
+    }
+}
+
 $(function (){
     $(document).on('change', '.form-image__file', readFileImage);
 
@@ -204,6 +247,9 @@ $(function (){
 
     // fancybox2 plugin
     fancybox2('.fancybox2');
+
+    // summernote plugin
+    summernote('.summernote');
 
     $(document).on('click', '.delete-row-table', function(e){
         let btn = $(this);

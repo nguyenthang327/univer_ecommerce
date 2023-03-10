@@ -1,4 +1,4 @@
-@extends('backend.admin.layout.master')
+@extends('backend.user.layout.master')
 @section('title',trans('language.product_category_list'))
 @section('meta')
 @stop

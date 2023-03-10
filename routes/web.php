@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Backend\User\ProductController;
 use App\Http\Controllers\Backend\User\UserController as BeUser;
+use App\Http\Controllers\UploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,6 +107,10 @@ Route::middleware('web')->group(function () {
                 Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
             });
         });
+    });
+
+    Route::group(['middleware' => ['auth:admin,user']], function(){
+        Route::post('files/uploadTemp', [UploadController::class, 'uploadTemp'])->name('tmp.uploadTemp');
     });
 });
 

@@ -92,6 +92,16 @@ return [
     // product
     'product' => 'Product',
     'product_list' => 'Product category',
+    'add_product' => 'Add product',
+    'product_name' => 'Product name',
+    'enter_product_name' => 'Enter product name',
+    'slug' => 'Slug',
+    'sku' => 'Sku',
+    'price' => 'Price',
+    'description' => 'Description',
+    'choose_category' => 'Choose category',
+    'gallery' => 'Gallery',
+    'upload_img' => 'Upload image',
 
     // mail register
     'mail' => [

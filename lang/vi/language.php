@@ -92,6 +92,16 @@ return [
     // product
     'product' => 'Sản phẩm',
     'product_list' => 'Danh sách sản phẩm',
+    'add_product' => 'Thêm sản phẩm',
+    'product_name' => 'Tên sản phẩm',
+    'enter_product_name' => 'Nhập tên sản phẩm',
+    'slug' => 'Slug',
+    'sku' => 'Sku',
+    'price' => 'Giá',
+    'description' => 'Mô tả',
+    'choose_category' => 'Chọn danh mục',
+    'gallery' => 'Gallery',
+    'upload_img' => 'Tải ảnh',
 
     // mail register
     'mail' => [

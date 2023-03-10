@@ -9,7 +9,7 @@
 
 
 @section('css_library')
-    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
+    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true, 'summernote' => true, 'dropzone' => true])
 @stop
 
 @section('css_page')
@@ -29,9 +29,9 @@
 @stop
 
 @section('js_library')
-    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true])
+    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true, 'summernote' => true, 'dropzone' => true])
 @stop
 
 @section('js_page')
-    <script href="{{ asset("user-assets/js/product.js")  }}"></script>
+    <script src="{{ asset("user-assets/js/product.js") }}"></script>
 @stop
