@@ -22,5 +22,9 @@ return [
     // Category
     'create_category_successed' => 'Thêm mới danh mục thành công!',
     'create_category_failed' => 'Thêm mới danh mục thất bại!',
+
+    //file
+    'remove_file_successed' => 'Xóa file thành công!',
+    'remove_file_failed' => 'Xóa file thất bại!',
 ]
 ?>

@@ -22,5 +22,9 @@ return [
     // Category
     'create_category_successed' => 'Create product category successed!',
     'create_category_failed' => 'Create product category failed!',
+
+    //file
+    'remove_file_successed' => 'Remove file successed!',
+    'remove_file_failed' => 'Remove file failed!',
 ]
 ?>

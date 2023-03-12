@@ -87,7 +87,7 @@
                                     style="width: 100%"
                                     data-placeholder="{{trans('language.choose_category')}}"
                                     name="category_id"
-                                    required
+                                    {{-- required --}}
                                     >
                                 <option value=""></option>
                                 @php
@@ -157,7 +157,7 @@
                                         </div>
                                         <div class="col-auto d-flex align-items-center">
                                             <div class="btn-group">
-                                                <div class="btn btn-danger delete xxxccc">
+                                                <div data-dz-remove class="btn btn-danger delete">
                                                     <i class="fas fa-trash"></i>
                                                     <span>{{ trans('language.delete') }}</span>
                                                 </div>

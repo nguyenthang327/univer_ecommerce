@@ -20,8 +20,8 @@
     <section class="content pb-4 pt-3">
         <div class="container-fluid">
             @include('backend.user.product.partials.form-product-information',[
-                    'action' => route('user.profile.update'),
-                    'method' => 'PUT',
+                    'action' => route('user.product.store'),
+                    'method' => 'POST',
                 ]
             )
         </div>

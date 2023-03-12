@@ -37,6 +37,7 @@ $(document).ready(function () {
         paramName: "gallery",
         autoProcessQueue: false,
         uploadMultiple: true,
+        acceptedFiles: ".jpeg,.jpg,.png,.gif,.svg",
         parallelUploads: 100,
         maxFiles: 20,
         previewTemplate: previewTemplate,
@@ -62,17 +63,44 @@ $(document).ready(function () {
             processData: false, ///required to upload file
             contentType: false, /// required
             success: function (response) {
-                console.log(response.data);
-                $(filePreview).find("input").val(response.data);
-                console.log($(filePreview).find("input").val());
+                $(filePreview).find("input").val(JSON.stringify(response.data));
             },
+            error: function(){
+                toastr.error('Có lỗi xảy ra', {timeOut: 5000});
+            }
         });
     }),
-        $(document).on("click", ".delete", function () {
-            var $ele = $(this).parent().parent().parent();
-            var file_name = $(this).closest(".file-row").find("input").val();
-            $ele.fadeOut().remove();
+
+    // $(document).on("click", ".delete", function () {
+    //     var $ele = $(this).parent().parent().parent();
+    //     var file_name = $(this).closest(".file-row").find("input").val();
+    //     $ele.fadeOut().remove();
+    // });
+    myDropzone.on("removedfile", function (file) {
+        let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+        let document_value = $(file.previewElement).find('input').val();
+        let file_path = JSON.parse(document_value).file_path;
+        console.log(file_path);
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": token,
+            },
+            url: "/files/removeFile?" + $.param({
+                'file_path': file_path
+            }),
+            cache: false,
+            type: "DELETE",
+            processData: false, ///required to upload file
+            contentType: false, /// required
+            success: function (response) {
+                // console.log(response);
+            },
+            error: function(xhr){
+                // console.log(xhr);
+                // toastr.error('Có lỗi xảy ra', {timeOut: 5000});
+            }
         });
+    })
 
     // DropzoneJS Demo Code End
 });
