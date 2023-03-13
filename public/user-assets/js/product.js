@@ -66,6 +66,7 @@ $(document).ready(function () {
                 $(filePreview).find("input").val(JSON.stringify(response.data));
             },
             error: function(){
+                dropzone.removeFile(file);
                 toastr.error('Có lỗi xảy ra', {timeOut: 5000});
             }
         });
@@ -80,26 +81,25 @@ $(document).ready(function () {
         let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
         let document_value = $(file.previewElement).find('input').val();
         let file_path = JSON.parse(document_value).file_path;
-        console.log(file_path);
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": token,
-            },
-            url: "/files/removeFile?" + $.param({
-                'file_path': file_path
-            }),
-            cache: false,
-            type: "DELETE",
-            processData: false, ///required to upload file
-            contentType: false, /// required
-            success: function (response) {
-                // console.log(response);
-            },
-            error: function(xhr){
-                // console.log(xhr);
-                // toastr.error('Có lỗi xảy ra', {timeOut: 5000});
-            }
-        });
+        // $.ajax({
+        //     headers: {
+        //         "X-CSRF-TOKEN": token,
+        //     },
+        //     url: "/files/removeFile?" + $.param({
+        //         'file_path': file_path
+        //     }),
+        //     cache: false,
+        //     type: "DELETE",
+        //     processData: false, ///required to upload file
+        //     contentType: false, /// required
+        //     success: function (response) {
+        //         // console.log(response);
+        //     },
+        //     error: function(xhr){
+        //         // console.log(xhr);
+        //         // toastr.error('Có lỗi xảy ra', {timeOut: 5000});
+        //     }
+        // });
     })
 
     // DropzoneJS Demo Code End
