@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\User;
 
 use App\Http\Controllers\Controller;
 use App\Logics\User\ProductManager;
+use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,13 +34,10 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-        
-// dd($data[0]);
-//         dd($data);
         DB::beginTransaction();
         try{
             $params = [
-                'name' => $request->name,
+                'name' => $request->product_name,
                 'sku' => $request->sku,
                 'slug' => $request->slug,
                 'price' => $request->price,
@@ -47,7 +45,8 @@ class ProductController extends Controller
                 'description' => $request->description,
             ];
 
-            $this->productManager->createProduct($params, $request->gallery);
+            $product = $this->productManager->createProduct($params, $request->gallery);
+            return route('user.product.edit', ['slug' => $product->slug]);
             DB::commit();
         }catch(Exception $e){
             DB::rollBack();
@@ -56,5 +55,10 @@ class ProductController extends Controller
                 'status_failed' => trans('message.update_user_failed'),
             ]);
         }
+    }
+
+    public function edit($slug){
+        $product = Product::where('slug', $slug)->first;
+        return view($this->pathView. 'edit', compact('product'));
     }
 }

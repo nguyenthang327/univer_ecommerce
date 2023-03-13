@@ -106,6 +106,8 @@ Route::middleware('web')->group(function () {
                 Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
                 Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
                 Route::post('/store', [ProductController::class, 'store'])->name('user.product.store');
+                Route::get('/edit/{slug}', [ProductController::class, 'create'])->name('user.product.edit');
+                Route::put('/update/{slug}', [ProductController::class, 'update'])->name('user.product.update');
             });
         });
     });

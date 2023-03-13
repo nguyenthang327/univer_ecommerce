@@ -1,11 +1,11 @@
 @php
-    $canShow = 'notShow';
-    if(isset($category) && $category->parent_id == null && count($cateHasChild) > 0){
-        $canShow = 'canShowSubModal';
+    $checkCreate = false;
+    if(Route::is('user.product.create')){
+        $checkCreate = true;
     }
 @endphp
 
-<form method="POST" enctype="multipart/form-data" action="{{ $action }}" class="{{ $canShow }}" id="formCategory">
+<form method="POST" enctype="multipart/form-data" action="{{ $action }}" id="">
     @if(isset($method))
         @method($method)
     @endif
@@ -15,37 +15,11 @@
             <div class="card mb-1">
                 <div class="card-header d-none d-xl-block">
                     <h3 class="card-title">
-                        {{ trans('language.add_product') }}
+                        {{ $checkCreate ? trans('language.add_product') : trans('language.edit_product') }}
                     </h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="">{{trans('language.thumbnail')}}</label>
-                                <div class="text-center">
-                                    <div class="form-image">
-                                        <img
-                                            src="{{ isset($product->thumbnail) ? asset('storage/'. $product->thumbnail) : asset('images/no-image.png')  }}"
-                                            class="form-image__view form-thumbnail__view"
-                                            id="thumbnail_view"
-                                            alt="preview image"
-                                        >
-                                        <input type="file"
-                                            class="form-image__file"
-                                            id="thumbnail"
-                                            accept=".png, .jpg, .jpeg, .gif"
-                                            data-origin="{{isset($product->thumbnail)? asset('storage/'. $product->thumbnail) : asset('images/no-image.png')}}"
-                                            name="thumbnail"
-                                            {{(isset($deleted) && $deleted==true) ? 'disabled'  :  ''}}>
-                                        <label for="thumbnail" class="form-image__label"><i class="fas fa-pen"></i></label>
-                                    </div>
-                                    @if ($errors->first('thumbnail'))
-                                        <div class="invalid-alert text-danger">{{ $errors->first('thumbnail') }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>{{ trans('language.product_name') }} <span class="text-red">*</span></label>
@@ -166,14 +140,17 @@
                                         <input type="hidden" name="gallery[]">
                                     </div>
                                 </div>
-                                @if ($errors->first('description'))
-                                    <div class="invalid-alert text-danger">{{ $errors->first('description') }}</div>
+                                @if ($errors->first('gallery'))
+                                    <div class="invalid-alert text-danger">{{ $errors->first('gallery') }}</div>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @if(!$checkCreate)
+                @include('backend.user.product.partials.form-variation')
+            @endif
         </div>
         <div class="col-xl-3 theia-sidebar">
             <div class="card">

@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('sku')->nullable();
             $table->decimal('price', 12)->default(0);
             $table->string('name',255);
-            $table->string('thumbnail',255);
-            $table->text('desciption')->nullable();
+            $table->text('description')->nullable();
             $table->json("gallery")->nullable();
             $table->date('expired_at')->nullable();
             $table->unsignedInteger('category_id')->nullable();
