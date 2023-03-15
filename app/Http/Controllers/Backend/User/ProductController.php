@@ -58,7 +58,7 @@ class ProductController extends Controller
     }
 
     public function edit($slug){
-        $product = Product::where('slug', $slug)->first;
+        $product = Product::where('slug', $slug)->first();
         return view($this->pathView. 'edit', compact('product'));
     }
 }

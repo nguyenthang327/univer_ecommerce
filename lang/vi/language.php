@@ -13,6 +13,7 @@ return [
     'filter_mode' => 'Chế độ lọc',
     'refresh' => 'Làm mới',
     'add_new' => 'Thêm mới',
+    'add' => 'Thêm',
 
     'delete' => 'Xóa',
     'edit' => 'Sửa',
@@ -102,6 +103,8 @@ return [
     'choose_category' => 'Chọn danh mục',
     'gallery' => 'Gallery',
     'upload_img' => 'Tải ảnh',
+    'options' => 'Chọn thuộc tính',
+    'variations' => 'Biến thể',
 
     // mail register
     'mail' => [

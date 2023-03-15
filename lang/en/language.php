@@ -13,6 +13,7 @@ return [
     'filter_mode' => 'Filter mode',
     'refresh' => 'Refresh',
     'add_new' => 'Add new',
+    'add' => 'Add',
 
     'delete' => 'Delete',
     'edit' => 'Edit',
@@ -102,6 +103,8 @@ return [
     'choose_category' => 'Choose category',
     'gallery' => 'Gallery',
     'upload_img' => 'Upload image',
+    'options' => 'Options',
+    'variations' => 'Variations',
 
     // mail register
     'mail' => [

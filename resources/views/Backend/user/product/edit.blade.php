@@ -33,5 +33,6 @@
 @stop
 
 @section('js_page')
+    @include('backend.user.product.script')
     <script src="{{ asset("user-assets/js/product.js") }}"></script>
 @stop
