@@ -42,7 +42,14 @@
                                 </div>
                             </div>
                             <div class="col-2 align-self-end mb-3">
-                                <button>{{ trans('language.save') }}</button>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary">{{ trans('language.save') }}</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-danger">{{ trans('language.delete') }}</button>
+                                    </div>
+                                </div>
                             </div>
                         </div> --}}
                     </div>
