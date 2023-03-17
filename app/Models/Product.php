@@ -23,5 +23,7 @@ class Product extends Model
      */
     protected $guarded = [];
 
-    
+    protected $casts = [
+        'gallery' => 'array',
+    ];
 }

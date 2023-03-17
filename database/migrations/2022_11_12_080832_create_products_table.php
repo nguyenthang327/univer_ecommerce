@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->string('sku')->nullable();
             $table->decimal('price', 12)->default(0);
+            $table->unsignedInteger('stock')->default(0);
             $table->string('name',255);
             $table->text('description')->nullable();
             $table->json("gallery")->nullable();

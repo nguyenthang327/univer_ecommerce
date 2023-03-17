@@ -15,7 +15,7 @@
                     <div id="option" class="tab-pane fade in active show">
                         <h4>{{ trans('language.options') }} <a href="#" id="option_add">{{ trans('language.add') }}</a>
                         </h4>
-                        {{-- <div class="row">
+                        <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>{{ trans('language.option_name') }} <span class="text-red">*</span></label>
@@ -41,17 +41,13 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-2 align-self-end mb-3">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <button class="btn btn-primary">{{ trans('language.save') }}</button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-danger">{{ trans('language.delete') }}</button>
-                                    </div>
+                            <div class="col-4 align-self-end mb-3">
+                                <div class="row d-flex justify-content-end">
+                                    <button class="btn btn-primary mr-2">{{ trans('language.save') }}</button>
+                                    <button class="btn btn-danger">{{ trans('language.delete') }}</button>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                     <div id="variation" class="tab-pane fade">
                         <h4>{{ trans('language.variations') }}</h4>

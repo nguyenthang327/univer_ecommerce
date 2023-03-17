@@ -125,7 +125,7 @@
                                         <div class="col d-flex align-items-center">
                                             <p class="mb-0">
                                                 <span class="lead" data-dz-name></span>
-                                                (<span data-dz-size></span>)
+                                                {{-- (<span data-dz-size></span>) --}}
                                             </p>
                                             <strong class="error text-danger" data-dz-errormessage></strong>
                                         </div>
@@ -139,6 +139,34 @@
                                         </div>
                                         <input type="hidden" name="gallery[]">
                                     </div>
+                                    @if (isset($product->gallery))
+                                        @foreach ($product->gallery as $item)
+                                            <div class="table table-striped files">
+                                                <div class="row mt-2 file-row">
+                                                    <div class="col-auto">
+                                                        <span class="preview"><img class="img_gallery" src="{{ asset('storage/'.$item['file_path']) }}"
+                                                                alt="" data-dz-thumbnail /></span>
+                                                    </div>
+                                                    <div class="col d-flex align-items-center">
+                                                        <p class="mb-0">
+                                                            <span class="lead" data-dz-name>{{ $item['file_name'] }}</span>
+                                                            {{-- <span data-dz-size></span> --}}
+                                                        </p>
+                                                        <strong class="error text-danger" data-dz-errormessage></strong>
+                                                    </div>
+                                                    <div class="col-auto d-flex align-items-center">
+                                                        <div class="btn-group">
+                                                            <div class="btn btn-danger delete">
+                                                                <i class="fas fa-trash"></i>
+                                                                <span>{{ trans('language.delete') }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" value="{{ json_encode($item) }}" name="gallery[]">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 @if ($errors->first('gallery'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('gallery') }}</div>
@@ -147,22 +175,23 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            @if(!$checkCreate)
-                @include('backend.user.product.partials.form-variation')
-            @endif
+            </div>            
         </div>
         <div class="col-xl-3 theia-sidebar">
             <div class="card">
                 <div class="card-body align-items-start flex-wrap">
-                    {{-- @if(!isset($cateHasChild)) --}}
-                        <button type="submit" class="btn btn-primary mr-2 my-1"><i class="far fa-save"></i> {{trans('language.save')}}</button>
-                    {{-- @else
-                        <a class="btn btn-primary mr-2 my-1" data-toggle="modal" data-target="#modalCategory"><i class="far fa-save"></i> {{trans('language.save')}}</a>
-                    @endif --}}
+                    <button type="submit" class="btn btn-primary mr-2 my-1"><i class="far fa-save"></i> {{trans('language.save')}}</button>
                     <button type="reset" class="btn btn-outline-secondary"><i class="far fa-undo"></i> {{trans('language.reset')}}</button>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+@if(!$checkCreate)
+<div class="row">
+    <div class="col-xl-9 theia-content">
+        @include('backend.user.product.partials.variation')
+    </div>
+</div>
+@endif

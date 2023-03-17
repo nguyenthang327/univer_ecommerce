@@ -7,6 +7,7 @@ use App\Logics\User\ProductManager;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -46,8 +47,8 @@ class ProductController extends Controller
             ];
 
             $product = $this->productManager->createProduct($params, $request->gallery);
-            return route('user.product.edit', ['slug' => $product->slug]);
             DB::commit();
+            return redirect()->route('user.product.edit', ['slug' => $product->slug]);
         }catch(Exception $e){
             DB::rollBack();
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
@@ -59,6 +60,9 @@ class ProductController extends Controller
 
     public function edit($slug){
         $product = Product::where('slug', $slug)->first();
+        if(!$product){
+            abort(Response::HTTP_NOT_FOUND);
+        }
         return view($this->pathView. 'edit', compact('product'));
     }
 }
