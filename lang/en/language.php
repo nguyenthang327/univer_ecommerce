@@ -105,6 +105,10 @@ return [
     'upload_img' => 'Upload image',
     'options' => 'Options',
     'variations' => 'Variations',
+    'option_name' => 'Attribute Name',
+    'enter_option_name' => 'Enter attribute name',
+    'option_value' => 'Value',
+    'enter_option_value' => 'Enter values separated by "|"',
 
     // mail register
     'mail' => [

@@ -103,6 +103,7 @@ Route::middleware('web')->group(function () {
 
             // Product
             Route::prefix('/product')->group(function(){
+                Route::post('/option', [ProductController::class, 'option'])->name('user.product.option');
                 Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
                 Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
                 Route::post('/store', [ProductController::class, 'store'])->name('user.product.store');

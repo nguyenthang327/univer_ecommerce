@@ -65,4 +65,13 @@ class ProductController extends Controller
         }
         return view($this->pathView. 'edit', compact('product'));
     }
+
+    public function option(Request $request){
+        dd($request->all());
+        // $product = Product::where('slug', $slug)->first();
+        // if(!$product){
+        //     abort(Response::HTTP_NOT_FOUND);
+        // }
+        // return view($this->pathView. 'edit', compact('product'));
+    }
 }

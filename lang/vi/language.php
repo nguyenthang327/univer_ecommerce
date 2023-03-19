@@ -105,6 +105,10 @@ return [
     'upload_img' => 'Tải ảnh',
     'options' => 'Chọn thuộc tính',
     'variations' => 'Biến thể',
+    'option_name' => 'Tên thuộc tính',
+    'enter_option_name' => 'Nhập tên thuộc tính',
+    'option_value' => 'Giá trị',
+    'enter_option_value' => 'Nhập giá trị phân cách nhau bởi dấu "|"',
 
     // mail register
     'mail' => [
