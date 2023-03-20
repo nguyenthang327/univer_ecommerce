@@ -1,8 +1,12 @@
 <script type="text/javascript">
     $(document).ready(function() {
         // product option
+        if($("#form_option_add .num_option").length === 0){
+            $("#form_option_add .btn-primary ").css('display', 'none');
+        }
         let option_html = `
             <div class="row num_option">
+                <input type="hidden" name="option_id[]" value="" >
                 <div class="col-4">
                     <div class="form-group">
                         <label>{{ trans('language.option_name') }} <span class="text-red">*</span></label>
@@ -30,6 +34,7 @@
         `;
         $("#option_add").on('click', function(e) {
             e.preventDefault();
+            $("#form_option_add .btn-primary ").css('display', 'block');
             if ($("#option .num_option").length < 2) {
                 $("#option  #wrap_data_option").append(option_html);
             } else {
@@ -41,42 +46,84 @@
 
         $(document).on('click', '#form_option_add .option_delete', function(e) {
             e.preventDefault();
-            console.log($(this).closest('.num_option').find('input[name="option_name[]"]').val());
-            $(this).closest('.num_option').remove();
+            // console.log($(this).closest('.num_option').find('input[name="option_name[]"]').val());
+            let url =  $(this).data('url') ?? '';
+            if(url.length > 0){
+                swal({
+                    title: 'Bạn có muốn xóa thuộc tính này không?',
+                    type: "question",
+                    showCancelButton: true,
+                    confirmButtonText:'đồng ý',
+                    cancelButtonText: 'hủy bỏ',
+                }).then((result) => {
+                    if (result.value) {
+                        let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+                        loaderStart();
+                        $.ajax({
+                            headers: {
+                                "X-CSRF-TOKEN": token,
+                            },
+                            url: url,
+                            type: "DELETE",
+                            dataType: "JSON",
+                            success: function(response) {
+                                toastr.success(response.message, {timeOut: 5000});
+                                $('#form_option_add').load(location.href + ' #form_option_add');
+                                loaderEnd();
+                            },
+                            error: function(xhr){
+                                console.log(xhr);
+                                toastr.error('', {timeOut: 5000});
+                                loaderEnd();
+                            }
+                        });
+                    }
+                })
+            }else{
+                $(this).closest('.num_option').remove();
+            }
+                
         });
 
         $(document).on('change', '.num_option input[name="option_name[]"]', function() {
             let html = ` <span class="text-red">*</span>`;
             $(this).closest('.form-group').find('label').html($(this).val() + html);
         });
-        $(document).on('change', '.num_option input[name="option_value[]"]', function() {
-            let convertValue = $(this).val().split("|");
-            convertValue = convertValue.map(function(item) {
-                return item.trim();
-            }).filter(function(item) {
-                return item !== null && item !== undefined && item !== '';
-            });
-            $(this).val(JSON.stringify(convertValue));
-        });
+        // $(document).on('change', '.num_option input[name="option_value[]"]', function() {
+        //     let convertValue = $(this).val().split("|");
+        //     convertValue = convertValue.map(function(item) {
+        //         return item.trim();
+        //     }).filter(function(item) {
+        //         return item !== null && item !== undefined && item !== '';
+        //     });
+        //     $(this).val(JSON.stringify(convertValue));
+        // });
 
         $(document).on('submit', "#form_option_add", function(e) {
             e.preventDefault();
             let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
-            console.log(token);
             var formData = $(this).serialize();
+            loaderStart();
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": token,
                 },
-                url: '/user/product/option', // URL endpoint để xử lý yêu cầu
-                type: "POST", // Phương thức yêu cầu HTTP
-                data: formData, // Dữ liệu gửi đến máy chủ
+                url: '/user/product/option/' + {{$product->id}},
+                type: "POST",
+                data: formData,
                 dataType: "JSON",
                 success: function(response) {
-                    // Xử lý phản hồi từ máy chủ
                     console.log(response);
+                    toastr.success(response.message, {timeOut: 5000});
+                    $('#form_option_add').load(location.href + ' #form_option_add');
+                    loaderEnd();
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                    $('#form_option_add').load(location.href + ' #form_option_add');
+                    loaderEnd();
                 }
-            })
+            });
             // var input = $("#form_option_add :input[name='option_name']"); 
             // var input2 = $("#form_option_add :input[name='option_value']"); 
             // console.log(input, input2);

@@ -103,12 +103,13 @@ Route::middleware('web')->group(function () {
 
             // Product
             Route::prefix('/product')->group(function(){
-                Route::post('/option', [ProductController::class, 'option'])->name('user.product.option');
                 Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
                 Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
                 Route::post('/store', [ProductController::class, 'store'])->name('user.product.store');
                 Route::get('/edit/{slug}', [ProductController::class, 'edit'])->name('user.product.edit');
                 Route::put('/update/{id}', [ProductController::class, 'update'])->name('user.product.update');
+                Route::post('/option/{id}', [ProductController::class, 'option'])->name('user.product.option');
+                Route::delete('/{productId}/option/{id}', [ProductController::class, 'deleteOption'])->name('user.product.deleteOption');
             });
         });
     });
