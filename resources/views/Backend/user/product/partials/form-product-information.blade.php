@@ -5,7 +5,7 @@
     }
 @endphp
 
-<form method="POST" enctype="multipart/form-data" action="{{ $action }}" id="">
+<form method="POST" enctype="multipart/form-data" action="{{ $action }}" id="form_product">
     @if(isset($method))
         @method($method)
     @endif
@@ -131,7 +131,7 @@
                                         </div>
                                         <div class="col-auto d-flex align-items-center">
                                             <div class="btn-group">
-                                                <div data-dz-remove class="btn btn-danger delete">
+                                                <div data-dz-remove class="btn btn-danger delete_gallery">
                                                     <i class="fas fa-trash"></i>
                                                     <span>{{ trans('language.delete') }}</span>
                                                 </div>
@@ -141,8 +141,8 @@
                                     </div>
                                     @if (isset($product->gallery))
                                         @foreach ($product->gallery as $item)
-                                            <div class="table table-striped files">
-                                                <div class="row mt-2 file-row">
+                                            {{-- <div class="row mt-2 file-row "> --}}
+                                                <div class="row mt-2 file-row dz-image-preview">
                                                     <div class="col-auto">
                                                         <span class="preview"><img class="img_gallery" src="{{ asset('storage/'.$item['file_path']) }}"
                                                                 alt="" data-dz-thumbnail /></span>
@@ -156,7 +156,7 @@
                                                     </div>
                                                     <div class="col-auto d-flex align-items-center">
                                                         <div class="btn-group">
-                                                            <div class="btn btn-danger delete">
+                                                            <div data-dz-remove class="btn btn-danger delete_gallery">
                                                                 <i class="fas fa-trash"></i>
                                                                 <span>{{ trans('language.delete') }}</span>
                                                             </div>
@@ -164,7 +164,7 @@
                                                     </div>
                                                     <input type="hidden" value="{{ json_encode($item) }}" name="gallery[]">
                                                 </div>
-                                            </div>
+                                            {{-- </div> --}}
                                         @endforeach
                                     @endif
                                 </div>

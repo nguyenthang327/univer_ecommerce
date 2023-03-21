@@ -72,15 +72,16 @@ $(document).ready(function () {
         });
     }),
 
-    // $(document).on("click", ".delete", function () {
+    $(document).on("click", ".delete_gallery", function () {
     //     var $ele = $(this).parent().parent().parent();
     //     var file_name = $(this).closest(".file-row").find("input").val();
     //     $ele.fadeOut().remove();
     // });
-    myDropzone.on("removedfile", function (file) {
-        let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+    // $.on("removedfile", function (file) {
         let document_value = $(file.previewElement).find('input').val();
         let file_path = JSON.parse(document_value).file_path;
+        let html = `<input type="hidden" name="gallery_remove[]" value="${file_path}"></input>`;
+        $('#form_product').append(html);
         // $.ajax({
         //     headers: {
         //         "X-CSRF-TOKEN": token,

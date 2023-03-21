@@ -67,7 +67,9 @@ trait StorageTrait
      * @param string
      */
     public function deleteFile($filePath) {
-        Storage::disk(FILESYSTEM)->delete($filePath);
+        if(Storage::disk()->exists($filePath)){
+            Storage::disk(FILESYSTEM)->delete($filePath);
+        }
     }
 
     /**

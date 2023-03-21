@@ -7,16 +7,17 @@ use App\Logics\User\ProductManager;
 use App\Models\Product;
 use App\Models\ProductOption;
 use App\Models\ProductOptionValue;
+use App\Traits\StorageTrait;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use PhpOption\Option;
 
 class ProductController extends Controller
 {
-    //
+    use StorageTrait;
+
     protected $pathView = 'backend.user.product.';
 
     /**
@@ -50,6 +51,11 @@ class ProductController extends Controller
             ];
 
             $product = $this->productManager->createProduct($params, isset($request->gallery) ? $request->gallery : []);
+            if(isset($request->gallery_remove) && !empty($request->gallery_remove)){
+                foreach($request->gallery_remove as $file){
+                    $this->deleteFile($file);
+                }
+            }
             DB::commit();
             return redirect()->route('user.product.edit', ['slug' => $product->slug])->with(['status_successed' => trans('message.create_product_successed')]);
         }catch(Exception $e){
@@ -77,6 +83,42 @@ class ProductController extends Controller
             ->get();
             // dd($options);
         return view($this->pathView. 'edit', compact('product', 'options'));
+    }
+
+    public function update(Request $request, $id){
+        $product = Product::where('id', $id)->first();
+        if(!$product){
+            return back()->with([
+                'status_failed' => trans('message.product_not_found'),
+            ]);
+        }
+        DB::beginTransaction();
+        try{
+            $params = [
+                'name' => $request->product_name,
+                'sku' => $request->sku,
+                'slug' => $request->slug,
+                'price' => $request->price,
+                'category_id' => $request->category_id,
+                'description' => $request->description,
+            ];
+
+            $product = $this->productManager->updateProduct($product, $params, isset($request->gallery) ? $request->gallery : []);
+
+            if(isset($request->gallery_remove) && !empty($request->gallery_remove)){
+                foreach($request->gallery_remove as $file){
+                    $this->deleteFile($file);
+                }
+            }
+            DB::commit();
+            return redirect()->route('user.product.edit', ['slug' => $params['slug']])->with(['status_successed' => trans('message.update_product_successed')]);
+        }catch(Exception $e){
+            DB::rollBack();
+            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            return back()->with([
+                'status_failed' => trans('message.update_user_failed'),
+            ]);
+        }
     }
 
     public function option(Request $request, $id){

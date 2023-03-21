@@ -34,6 +34,28 @@ class ProductManager
         return $product;
     }
 
+    public function updateProduct($product, $parameters, $gallery = []){
+        $parameters['gallery'] = null;
+        if($gallery && !empty($gallery)){
+            $path = PRODUCT_DIR. '/'. $product->id. '/';
+            $oldGallery = $product->gallery ?? [];
+            foreach($gallery as $key => $value){
+                $file = json_decode($value, true);
+                $destination = $path . basename($file['file_path']);
+                if(!in_array($file['file_path'], $oldGallery)){
+                    $this->moveFile($file['file_path'], $destination);
+                }
+
+                $parameters['gallery'][] = [
+                    'file_name' => $file['file_name'],
+                    'file_path' => $destination,
+                ];
+            }
+        }
+
+        Product::where('products.id', $product->id)->update($parameters);
+    }
+
     /**
      * process when create or update option
      * @param $request
