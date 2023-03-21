@@ -110,6 +110,7 @@ Route::middleware('web')->group(function () {
                 Route::put('/update/{id}', [ProductController::class, 'update'])->name('user.product.update');
                 Route::post('/option/{id}', [ProductController::class, 'option'])->name('user.product.option');
                 Route::delete('/{productId}/option/{id}', [ProductController::class, 'deleteOption'])->name('user.product.deleteOption');
+                Route::post('/{productId}/generate-variation', [ProductController::class, 'generateVariation'])->name('user.product.generateVariation');
             });
         });
     });

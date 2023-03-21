@@ -1,6 +1,8 @@
 @foreach ($data as $idx => $category)
     <tr>
-        <td class="text-center">1</td>
+        <td class="text-center">
+            
+        </td>
         <td>
             <div class="form-group mb-1">
                 <label class="input-group mb-1 ">
@@ -41,16 +43,8 @@
                 @endif
             </div>
         </td>
-        <td >
-            <div class="form-group mb-1">
-                <input type="text" class="form-control" placeholder="{{ trans('language.enter_barcode') }}"
-                    name="variant_barcode[]" autocomplete="off"
-                    value="{{ old('variant_barcode') ? old('variant_barcode') : (isset($product->name) ? $product->name : '') }}">
-                @if ($errors->first('variant_barcode'))
-                    <div class="invalid-alert text-danger">
-                        {{ $errors->first('variant_barcode') }}</div>
-                @endif
-            </div>
+        <td class="text-center">
+            <a href="#" class="btn bg-danger delete-variation">{{ trans('language.delete')}}</a>
         </td>
     </tr>
 @endforeach

@@ -20,6 +20,8 @@ return [
     'restore' => 'Restore',
     'display' => 'Display',
     'agree' => 'Agree',
+    'cancel' => 'Cancel',
+    'action' => 'Action',
 
     // profile
     'profile' => 'Profile',
@@ -105,10 +107,14 @@ return [
     'upload_img' => 'Upload image',
     'options' => 'Options',
     'variations' => 'Variations',
+    'variation' => 'Variation',
     'option_name' => 'Attribute Name',
     'enter_option_name' => 'Enter attribute name',
     'option_value' => 'Value',
     'enter_option_value' => 'Enter values separated by "|"',
+    'max_option' => 'Only 2 attributes can be selected',
+    'QA_delete_option' => 'Are you sure you want to delete this attribute?',
+    'variation_generate' => 'Create variations from existing options',
 
     // mail register
     'mail' => [

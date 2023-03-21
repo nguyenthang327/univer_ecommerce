@@ -21,6 +21,9 @@ class ProductOption extends Model
      */
     protected $guarded = [];
 
+    /**
+     * get option values by option
+     */
     public function optionValues(){
         return $this->hasMany(ProductOptionValue::class);
     }

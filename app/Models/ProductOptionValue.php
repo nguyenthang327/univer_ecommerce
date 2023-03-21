@@ -21,6 +21,9 @@ class ProductOptionValue extends Model
      */
     protected $guarded = [];
 
+    /**
+     * get option by option value
+     */
     public function option(){
         return $this->belongsTo(ProductOption::class);
     }

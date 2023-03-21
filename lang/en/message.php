@@ -26,5 +26,10 @@ return [
     //file
     'remove_file_successed' => 'Remove file successed!',
     'remove_file_failed' => 'Remove file failed!',
+
+    // Product
+    'create_product_successed' => 'Create product successed!',
+    'save_option_successed' => 'Save option successed!',
+    'save_option_failed' => 'Save option failed!',
 ]
 ?>

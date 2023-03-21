@@ -107,6 +107,10 @@ table thead{
     padding: 0 15px;
 } */
 
+.min_w_120{
+    min-width: 120px;
+}
+
 #loader {
     display: none;
     position: fixed;
@@ -139,4 +143,22 @@ table thead{
     100% {
         transform: rotate(360deg);
     }
+}
+
+.nav-tabs>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.nav-tabs>li>a.active{
+    background-color: #343a40;
+    border-radius: 4px 4px 0 0;
+    color: #fff;
 }

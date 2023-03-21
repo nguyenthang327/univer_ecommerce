@@ -26,5 +26,11 @@ return [
     //file
     'remove_file_successed' => 'Xóa file thành công!',
     'remove_file_failed' => 'Xóa file thất bại!',
+
+    // Product
+    'create_product_successed' => 'Tạo sản phẩm thành công!',
+    'save_option_successed' => 'Lưu option thành công!',
+    'save_option_failed' => 'Lưu option thất bại!',
+
 ]
 ?>

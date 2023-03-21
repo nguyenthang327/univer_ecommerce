@@ -20,6 +20,8 @@ return [
     'restore' => 'Khôi phục',
     'display' => 'Hiển thị',
     'agree' => 'Đồng ý',
+    'cancel' => 'Hủy bỏ',
+    'action' => 'Thao tác',
 
     // profile
     'profile' => 'Hồ sơ',
@@ -99,16 +101,21 @@ return [
     'slug' => 'Slug',
     'sku' => 'Sku',
     'price' => 'Giá',
+    'stock' => 'Số lượng đang có hàng',
     'description' => 'Mô tả',
     'choose_category' => 'Chọn danh mục',
     'gallery' => 'Gallery',
     'upload_img' => 'Tải ảnh',
     'options' => 'Chọn thuộc tính',
-    'variations' => 'Biến thể',
+    'variations' => 'Những biến thể',
+    'variation' => 'Biến thể',
     'option_name' => 'Tên thuộc tính',
     'enter_option_name' => 'Nhập tên thuộc tính',
     'option_value' => 'Giá trị',
     'enter_option_value' => 'Nhập giá trị phân cách nhau bởi dấu "|"',
+    'max_option' => 'Chỉ được chọn tối đa 2 thuộc tính',
+    'QA_delete_option' => 'Bạn có chắc chắn muốn xóa thuộc tính này không?',
+    'variation_generate' => 'Tạo biến thể từ thuộc tính hiện có',
 
     // mail register
     'mail' => [

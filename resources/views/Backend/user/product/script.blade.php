@@ -38,7 +38,7 @@
             if ($("#option .num_option").length < 2) {
                 $("#option  #wrap_data_option").append(option_html);
             } else {
-                toastr.error('Không được chọn quá 2 option', {
+                toastr.error(`{{ trans('language.max_option') }}`, {
                     timeOut: 5000
                 })
             }
@@ -46,15 +46,14 @@
 
         $(document).on('click', '#form_option_add .option_delete', function(e) {
             e.preventDefault();
-            // console.log($(this).closest('.num_option').find('input[name="option_name[]"]').val());
             let url =  $(this).data('url') ?? '';
             if(url.length > 0){
                 swal({
-                    title: 'Bạn có muốn xóa thuộc tính này không?',
+                    title: `{{ trans('language.QA_delete_option') }}`,
                     type: "question",
                     showCancelButton: true,
-                    confirmButtonText:'đồng ý',
-                    cancelButtonText: 'hủy bỏ',
+                    confirmButtonText: `{{ trans('language.agree') }}`,
+                    cancelButtonText: `{{ trans('language.cancel') }}`,
                 }).then((result) => {
                     if (result.value) {
                         let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
@@ -68,7 +67,7 @@
                             dataType: "JSON",
                             success: function(response) {
                                 toastr.success(response.message, {timeOut: 5000});
-                                $('#form_option_add').load(location.href + ' #form_option_add');
+                                $('#wrap_form_option').load(location.href + ' #form_option_add');
                                 loaderEnd();
                             },
                             error: function(xhr){
@@ -81,8 +80,12 @@
                 })
             }else{
                 $(this).closest('.num_option').remove();
-            }
                 
+            }
+
+            if($("#form_option_add .num_option").length === 0){
+                $("#form_option_add .btn-primary ").css('display', 'none');
+            }
         });
 
         $(document).on('change', '.num_option input[name="option_name[]"]', function() {
@@ -115,20 +118,43 @@
                 success: function(response) {
                     console.log(response);
                     toastr.success(response.message, {timeOut: 5000});
-                    $('#form_option_add').load(location.href + ' #form_option_add');
+                    $('#wrap_form_option').html(response.html);
                     loaderEnd();
                 },
                 error: function(xhr){
                     console.log(xhr);
-                    $('#form_option_add').load(location.href + ' #form_option_add');
+                    $('#wrap_form_option').load(location.href + ' #form_option_add');
                     loaderEnd();
                 }
             });
-            // var input = $("#form_option_add :input[name='option_name']"); 
-            // var input2 = $("#form_option_add :input[name='option_value']"); 
-            // console.log(input, input2);
-        })
+        });
 
         // product variants
+
+        $(document).on('click', '#variation_generate', function(e){
+            e.preventDefault();
+            let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+            // loaderStart();
+            let url = $(this).data('url');
+            console.log(url);
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": token,
+                },
+                url: url,
+                type: "POST",
+                success: function(response) {
+                    console.log(response);
+                    // toastr.success(response.message, {timeOut: 5000});
+                    // $('#wrap_form_option').html(response.html);
+                    loaderEnd();
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                    // $('#wrap_form_option').load(location.href + ' #form_option_add');
+                    loaderEnd();
+                }
+            });
+        });
     });
 </script>

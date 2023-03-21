@@ -26,4 +26,18 @@ class Product extends Model
     protected $casts = [
         'gallery' => 'array',
     ];
+
+    /**
+     * get options by product
+     */
+    public function options(){
+        return $this->hasMany(ProductOption::class);
+    }
+
+    /**
+     * get option values by product
+     */
+    public function optionValues(){
+        return $this->hasMany(ProductOptionValue::class);
+    }
 }
