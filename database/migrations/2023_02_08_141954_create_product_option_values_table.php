@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('product_option_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->foreignId('product_option_id')->constrained('product_options')->cascadeOnDelete();
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('product_option_id');
             $table->string('value');
             $table->timestamps();
         });

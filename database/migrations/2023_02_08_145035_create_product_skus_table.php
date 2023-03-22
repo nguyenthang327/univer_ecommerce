@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('product_skus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->unsignedInteger('product_id');
             $table->string('name')->unique()->nullable();
             // $table->string('barcode')->unique()->nullable();
             $table->decimal('price', 12)->default(0);

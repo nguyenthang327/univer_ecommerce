@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('sku_id')->constrained('product_skus');
-            $table->foreignId('product_option_id')->constrained('product_options');
-            $table->foreignId('product_option_value_id')->constrained('product_option_values');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('sku_id');
+            $table->unsignedInteger('product_option_id');
+            $table->unsignedInteger('product_option_value_id');
             $table->timestamps();
         });
     }

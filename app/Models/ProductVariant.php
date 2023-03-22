@@ -28,12 +28,12 @@ class ProductVariant extends Model
         return $this->belongsTo(ProductOption::class);
     }
 
-    /**
-     * get option value by variant
-     */
-    public function optionValue(){
-        return $this->belongsTo(ProductOptionValue::class);
-    }
+    // /**
+    //  * get option value by variant
+    //  */
+    // public function optionValue(){
+    //     return $this->belongsTo(ProductOptionValue::class);
+    // }
 
     /**
      * get product value by variant

@@ -5,6 +5,8 @@ namespace App\Logics\User;
 use App\Models\Product;
 use App\Models\ProductOption;
 use App\Models\ProductOptionValue;
+use App\Models\ProductSku;
+use App\Models\ProductVariant;
 use App\Traits\StorageTrait;
 use App\Traits\ImageTrait;
 
@@ -62,6 +64,7 @@ class ProductManager
      * @param $product
      */
     public function createOrUpdateOption($request, $product){
+        $checkChange = false;
         if(isset($request->option_id) && isset($request->option_name)  && isset($request->option_value)){
             foreach($request->option_id as $key => $value){
                 $optionValue = array_map('trim', explode("|", $request->option_value[$key]));
@@ -91,6 +94,7 @@ class ProductManager
                     }
                     if(count($data) > 0){
                         ProductOptionValue::insert($data);
+                        $checkChange = true;
                     }
                 }else{
                     $option = ProductOption::with('optionValues')
@@ -109,6 +113,7 @@ class ProductManager
                             ->where('product_option_id', $option->id)
                             ->where('product_id', $product->id)
                             ->delete();
+                        $checkChange = true;
                     }
                     if(count($diffNew) > 0){
                         $data = [];
@@ -121,14 +126,43 @@ class ProductManager
                         }
                         if(count($data) > 0){
                             ProductOptionValue::insert($data);
+                            $checkChange = true;
                         }
                     }
                 }
             }
             return [
                 'status' => true,
+                'checkChange' => $checkChange,
             ];
         }
+    }
+
+    public function generateAllVariation($input, $product){
+            $result = [[]];
+
+            foreach ($input as $key => $values) {
+                $append = [];
+                foreach ($values as $value) { 
+                    foreach ($result as $data) {
+                        $append[] = $data + [$key => $value];
+                    }
+                }
+                $result = $append;
+            }
+            // dd($result);
+
+            foreach($result as $skuItem){
+                $productSku = ProductSku::create(['product_id' => $product->id]);
+                foreach($skuItem as $variantItem){
+                    ProductVariant::create([
+                        'product_id' => $product->id,
+                        'product_option_id' => $variantItem['product_option_id'],
+                        'product_option_value_id' => $variantItem['id'],
+                        'sku_id' => $productSku->id,
+                    ]);
+                }
+            }
     }
 }
 

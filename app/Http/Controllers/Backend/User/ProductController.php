@@ -124,7 +124,7 @@ class ProductController extends Controller
     }
 
     public function option(Request $request, $id){
-        $product = Product::where('id', $id)->first();
+        $product = Product::with('optionValues', 'options', 'skus', 'variants')->where('id', $id)->first();
         if(!$product){
             return response()->json([
                 'status' => Response::HTTP_NOT_FOUND,
@@ -140,6 +140,14 @@ class ProductController extends Controller
                     'status' => Response::HTTP_FORBIDDEN,
                     'message' => trans('message.please_enter_option_value', ['position' =>  $check['position']]),
                 ], Response::HTTP_FORBIDDEN);
+            }
+
+            // option value change
+            if(isset($check['checkChange']) && is_array($check) && $check['checkChange'] == true){
+                $product->variants()->delete();
+                $product->skus()->delete();
+                $input = $product->optionValues->groupBy('product_option_id')->values()->toArray();
+                $this->productManager->generateAllVariation($input, $product);
             }
             $options = ProductOption::select(
                     'product_options.id',
