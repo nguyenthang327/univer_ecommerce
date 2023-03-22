@@ -29,8 +29,9 @@ return [
 
     // Product
     'create_product_successed' => 'Tạo sản phẩm thành công!',
-    'save_option_successed' => 'Lưu option thành công!',
-    'save_option_failed' => 'Lưu option thất bại!',
+    'save_option_successed' => 'Lưu thuộc tính thành công!',
+    'save_option_failed' => 'Lưu thuộc tính thất bại!',
+    'please_enter_option_value' => 'Vui lòng nhập giá trị của thuộc tính tại vị trí :position!',
 
 ]
 ?>

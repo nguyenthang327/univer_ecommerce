@@ -6,9 +6,12 @@ $(document).ready(function () {
         // Chuyển đổi các ký tự viết hoa thành ký tự viết thường
         text = text.toLowerCase();
         // Loại bỏ các ký tự không phải chữ cái và số
-        text = text.replace(/[^a-z0-9\s]/g, "");
+        text = text.replace(/[^a-z0-9\s-]/g, "");
+        // trim text
+        text = text.trim();
         // Thay thế khoảng trắng bằng dấu gạch ngang
         text = text.replace(/[\s]+/g, "-");
+
         return text;
     }
 
@@ -19,6 +22,11 @@ $(document).ready(function () {
             var slug = slugify(text);
             document.getElementById("slug").value = slug;
         });
+
+    $(document).on('focusout', '#slug', function(){
+        var slug = slugify($(this).val());
+        $(this).val(slug);
+    })
 
     // DropzoneJS Demo Code Start
     Dropzone.autoDiscover = false;
@@ -78,7 +86,8 @@ $(document).ready(function () {
     //     $ele.fadeOut().remove();
     // });
     // $.on("removedfile", function (file) {
-        let document_value = $(file.previewElement).find('input').val();
+        let document_value = $(this).closest('.file-row').find('input').val();
+        $(this).closest('.file-row').remove();
         let file_path = JSON.parse(document_value).file_path;
         let html = `<input type="hidden" name="gallery_remove[]" value="${file_path}"></input>`;
         $('#form_product').append(html);

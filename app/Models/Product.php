@@ -40,4 +40,18 @@ class Product extends Model
     public function optionValues(){
         return $this->hasMany(ProductOptionValue::class);
     }
+
+    /**
+     * get sku by product
+     */
+    public function skus(){
+        return $this->hasMany(ProductSku::class);
+    }
+
+    /**
+     * get variants by product
+     */
+    public function variants(){
+        return $this->hasMany(ProductVariant::class);
+    }
 }

@@ -31,5 +31,6 @@ return [
     'create_product_successed' => 'Create product successed!',
     'save_option_successed' => 'Save option successed!',
     'save_option_failed' => 'Save option failed!',
+    'please_enter_option_value' => 'Please enter option value at position :position!',
 ]
 ?>

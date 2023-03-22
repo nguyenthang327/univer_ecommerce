@@ -42,7 +42,7 @@ class ProductManager
             foreach($gallery as $key => $value){
                 $file = json_decode($value, true);
                 $destination = $path . basename($file['file_path']);
-                if(!in_array($file['file_path'], $oldGallery)){
+                if(!in_array($file, $oldGallery)){
                     $this->moveFile($file['file_path'], $destination);
                 }
 
@@ -64,12 +64,23 @@ class ProductManager
     public function createOrUpdateOption($request, $product){
         if(isset($request->option_id) && isset($request->option_name)  && isset($request->option_value)){
             foreach($request->option_id as $key => $value){
+                $optionValue = array_map('trim', explode("|", $request->option_value[$key]));
+                $optionValue = array_filter($optionValue, function($opVal) {
+                    return strlen($opVal) > 0 && $opVal !== null;
+                });
+                $optionValue = array_values($optionValue);
+                $optionValue = array_unique($optionValue);
+                if(empty($optionValue)){
+                    return [
+                        'status' => false,
+                        'position' => ++$key,
+                    ];
+                }
                 if($value == null){
                     $option = ProductOption::create([
                         'name' => $request->option_name[$key],
                         'product_id' => $product->id,
                     ]);
-                    $optionValue = array_map('trim', explode("|", $request->option_value[$key]));
                     $data = [];
                     foreach($optionValue as $val){
                         $data[] = [
@@ -86,10 +97,9 @@ class ProductManager
                         ->where('id', $value)
                         ->where('product_id', $product->id)
                         ->first();
-                    $option->name =  $request->option_name[$key];
+                    $option->name = $request->option_name[$key];
                     $option->save();
 
-                    $optionValue = array_map('trim', explode("|", $request->option_value[$key]));
                     $optionValueOld = $option->optionValues->pluck('value')->toArray();
                     $diffOld = array_diff($optionValueOld, $optionValue);
                     $diffNew = array_diff($optionValue, $optionValueOld);
@@ -115,6 +125,9 @@ class ProductManager
                     }
                 }
             }
+            return [
+                'status' => true,
+            ];
         }
     }
 }

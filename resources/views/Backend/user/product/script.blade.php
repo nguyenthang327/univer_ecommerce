@@ -116,14 +116,12 @@
                 data: formData,
                 dataType: "JSON",
                 success: function(response) {
-                    console.log(response);
                     toastr.success(response.message, {timeOut: 5000});
                     $('#wrap_form_option').html(response.html);
                     loaderEnd();
                 },
                 error: function(xhr){
-                    console.log(xhr);
-                    $('#wrap_form_option').load(location.href + ' #form_option_add');
+                    toastr.error(xhr.responseJSON.message, {timeOut: 5000});
                     loaderEnd();
                 }
             });

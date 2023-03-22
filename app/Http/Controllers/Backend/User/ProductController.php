@@ -7,6 +7,8 @@ use App\Logics\User\ProductManager;
 use App\Models\Product;
 use App\Models\ProductOption;
 use App\Models\ProductOptionValue;
+use App\Models\ProductSku;
+use App\Models\ProductVariant;
 use App\Traits\StorageTrait;
 use Exception;
 use Illuminate\Http\Request;
@@ -122,10 +124,6 @@ class ProductController extends Controller
     }
 
     public function option(Request $request, $id){
-        // foreach($request->all() as $key => $request){
-        //     // dd($request);
-        // }
-
         $product = Product::where('id', $id)->first();
         if(!$product){
             return response()->json([
@@ -135,8 +133,14 @@ class ProductController extends Controller
         }
         DB::beginTransaction();
         try{
-            $this->productManager->createOrUpdateOption($request, $product);
-
+            $check = $this->productManager->createOrUpdateOption($request, $product);
+            if(isset($check) && is_array($check) && $check['status'] == false){
+                DB::rollBack();
+                return response()->json([
+                    'status' => Response::HTTP_FORBIDDEN,
+                    'message' => trans('message.please_enter_option_value', ['position' =>  $check['position']]),
+                ], Response::HTTP_FORBIDDEN);
+            }
             $options = ProductOption::select(
                     'product_options.id',
                     'product_options.name',
@@ -172,14 +176,6 @@ class ProductController extends Controller
                 'message' => trans('message.save_option_failed'),
             ], Response::HTTP_NOT_FOUND);
         }
-
-        // $request->
-        // Option::create();
-        // $product = Product::where('slug', $slug)->first();
-        // if(!$product){
-        //     abort(Response::HTTP_NOT_FOUND);
-        // }
-        // return view($this->pathView. 'edit', compact('product'));
     }
 
     /**
@@ -221,7 +217,8 @@ class ProductController extends Controller
     }
 
     public function generateVariation($productId){
-        $product = Product::with('optionValues')->where('id', $productId)->first();
+        $product = Product::with('optionValues', 'options', 'skus', 'variants')->where('id', $productId)->first();
+
         if(!$product){
             return response()->json([
                 'status' => Response::HTTP_NOT_FOUND,
@@ -234,7 +231,62 @@ class ProductController extends Controller
                 'message' => trans('message.option_not_exists'),
             ], Response::HTTP_NOT_FOUND);
         }
+    //    dd($product->optionValues, $product->options);
 
-        dd($product->optionValues());
+        // dd($product->options, $product->optionValues);
+        // $productOptions = ProductOption::with('optionValues')->where('product_id', $productId)->get();
+        // dd($productOptions->optionValues);
+        // dd($product->optionValues->groupBy('product_option_id')->values()->toArray());
+
+        DB::beginTransaction();
+        try{
+            // foreach($productOptions as $productOption){
+            //     if($productOption->optionValues->isNotEmpty()){
+            //         dd($productOption->optionValues);
+            //     }
+            // }
+            $input = $product->optionValues->groupBy('product_option_id')->values()->toArray();
+            $result = [[]];
+
+            foreach ($input as $key => $values) {
+                $append = [];
+                foreach ($values as $value) { 
+                    foreach ($result as $data) {
+                        $append[] = $data + [$key => $value];
+                    }
+                }
+                $result = $append;
+            }
+            dd($result);
+
+            // foreach($result as $skuItem){
+            //     $productSku = ProductSku::create(['product_id' => $product->id]);
+            //     foreach($skuItem as $variantItem){
+            //         ProductVariant::create([
+            //             'product_id' => $product->id,
+            //             'product_option_id' => $variantItem['product_option_id'],
+            //             'product_option_value_id' => $variantItem['id'],
+            //             'sku_id' => $productSku->id,
+            //         ]);
+            //     }
+            // }
+
+            // if(!empty($productOptionValue)){
+            //     if(count())
+            // }
+
+            DB::commit();
+            return response()->json([
+                'status' => Response::HTTP_OK,
+                'message' => trans('message.remove_option_successed'),
+            ], Response::HTTP_OK);
+        }catch(Exception $e){
+            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            DB::rollBack();
+            return response()->json([
+                'status' => Response::HTTP_NOT_FOUND,
+                'message' => trans('message.option_not_found'),
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 }
