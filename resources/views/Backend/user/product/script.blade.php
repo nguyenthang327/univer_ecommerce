@@ -106,7 +106,7 @@
             e.preventDefault();
             let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
             var formData = $(this).serialize();
-            loaderStart();
+            // loaderStart();
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": token,
@@ -118,11 +118,11 @@
                 success: function(response) {
                     toastr.success(response.message, {timeOut: 5000});
                     $('#wrap_form_option').html(response.html);
-                    loaderEnd();
+                    // loaderEnd();
                 },
                 error: function(xhr){
                     toastr.error(xhr.responseJSON.message, {timeOut: 5000});
-                    loaderEnd();
+                    // loaderEnd();
                 }
             });
         });

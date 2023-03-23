@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('product_id');
-            $table->unsignedInteger('sku_id');
+            $table->foreignId('sku_id')->constrained('product_skus')->cascadeOnDelete();
             $table->unsignedInteger('product_option_id');
             $table->unsignedInteger('product_option_value_id');
             $table->timestamps();

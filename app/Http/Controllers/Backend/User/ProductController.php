@@ -143,12 +143,16 @@ class ProductController extends Controller
             }
 
             // option value change
-            if(isset($check['checkChange']) && is_array($check) && $check['checkChange'] == true){
-                $product->variants()->delete();
-                $product->skus()->delete();
-                $input = $product->optionValues->groupBy('product_option_id')->values()->toArray();
-                $this->productManager->generateAllVariation($input, $product);
-            }
+            // if(isset($check['checkChange']) && is_array($check) && $check['checkChange'] == true){
+            //     // $product->variants()->delete();
+            //     $product->skus()->delete();
+            //     $product = Product::with('optionValues', '')->where('id', $id)->first();
+            //     $optionValues = $product->optionValues->groupBy('product_option_id')->values()->toArray();
+            //     dump($optionValues);
+            //     // $this->productManager->generateAllVariation($input, $product);
+            //     $variants = Product::generateVariant($optionValues);
+            //     dd($variants);
+            // }
             $options = ProductOption::select(
                     'product_options.id',
                     'product_options.name',

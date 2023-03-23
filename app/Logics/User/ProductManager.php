@@ -9,6 +9,7 @@ use App\Models\ProductSku;
 use App\Models\ProductVariant;
 use App\Traits\StorageTrait;
 use App\Traits\ImageTrait;
+use Carbon\Carbon;
 
 class ProductManager
 {
@@ -65,6 +66,7 @@ class ProductManager
      */
     public function createOrUpdateOption($request, $product){
         $checkChange = false;
+        // dd($product->options->count(), $product->optionValues->count());
         if(isset($request->option_id) && isset($request->option_name)  && isset($request->option_value)){
             foreach($request->option_id as $key => $value){
                 $optionValue = array_map('trim', explode("|", $request->option_value[$key]));
@@ -90,11 +92,12 @@ class ProductManager
                             'value' => $val,
                             'product_id' => $product->id,
                             'product_option_id' => $option->id,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
                         ];
                     }
                     if(count($data) > 0){
                         ProductOptionValue::insert($data);
-                        $checkChange = true;
                     }
                 }else{
                     $option = ProductOption::with('optionValues')
@@ -122,6 +125,8 @@ class ProductManager
                                 'value' => $val,
                                 'product_id' => $product->id,
                                 'product_option_id' => $option->id,
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now(),
                             ];
                         }
                         if(count($data) > 0){
@@ -131,6 +136,17 @@ class ProductManager
                     }
                 }
             }
+
+            $productNow = Product::with('optionValues', 'options', 'skus', 'variants')->where('id', $product->id)->first();
+            if($product->options->count() != $productNow->options->count()){
+                $product->skus()->delete(); // tạo db khi sku delete thì delete variants tương ứng với sku đó.
+                $optionValues = $productNow->optionValues->groupBy('product_option_id')->values()->toArray();
+                $variants = Product::generateVariant($optionValues);
+                $productNow->saveVariant($variants);
+            }else{
+                // th thêm mới
+                $optionValueOld = $product->optionValues->pluck('value')->toArray();
+            }
             return [
                 'status' => true,
                 'checkChange' => $checkChange,
@@ -138,32 +154,35 @@ class ProductManager
         }
     }
 
-    public function generateAllVariation($input, $product){
-            $result = [[]];
+    // public function generateAllVariation($input, $product){
+    //     if (! count($input)){
+    //         return [];
+    //     }
+    //         $result = [[]];
 
-            foreach ($input as $key => $values) {
-                $append = [];
-                foreach ($values as $value) { 
-                    foreach ($result as $data) {
-                        $append[] = $data + [$key => $value];
-                    }
-                }
-                $result = $append;
-            }
-            // dd($result);
+    //         foreach ($input as $key => $values) {
+    //             $append = [];
+    //             foreach ($values as $value) { 
+    //                 foreach ($result as $data) {
+    //                     $append[] = $data + [$key => $value];
+    //                 }
+    //             }
+    //             $result = $append;
+    //         }
+    //         // dd($result);
 
-            foreach($result as $skuItem){
-                $productSku = ProductSku::create(['product_id' => $product->id]);
-                foreach($skuItem as $variantItem){
-                    ProductVariant::create([
-                        'product_id' => $product->id,
-                        'product_option_id' => $variantItem['product_option_id'],
-                        'product_option_value_id' => $variantItem['id'],
-                        'sku_id' => $productSku->id,
-                    ]);
-                }
-            }
-    }
+    //         foreach($result as $skuItem){
+    //             $productSku = ProductSku::create(['product_id' => $product->id]);
+    //             foreach($skuItem as $variantItem){
+    //                 ProductVariant::create([
+    //                     'product_id' => $product->id,
+    //                     'product_option_id' => $variantItem['product_option_id'],
+    //                     'product_option_value_id' => $variantItem['id'],
+    //                     'sku_id' => $productSku->id,
+    //                 ]);
+    //             }
+    //         }
+    // }
 }
 
 ?>
