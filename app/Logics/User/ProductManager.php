@@ -16,11 +16,12 @@ class ProductManager
     use StorageTrait;
     use ImageTrait;
 
-    public function createProduct($parameters, $gallery = []){
+    public function createProduct($parameters, $gallery = [])
+    {
         $product = Product::create($parameters);
-        if($gallery && !empty($gallery)){
-            $path = PRODUCT_DIR. '/'. $product->id. '/';
-            foreach($gallery as $key => $value){
+        if ($gallery && !empty($gallery)) {
+            $path = PRODUCT_DIR . '/' . $product->id . '/';
+            foreach ($gallery as $key => $value) {
                 $file = json_decode($value, true);
                 $destination = $path . basename($file['file_path']);
                 $this->moveFile($file['file_path'], $destination);
@@ -31,21 +32,22 @@ class ProductManager
                 ];
             }
         }
-        if(isset($parameters['gallery']) && !empty($parameters['gallery'])){
+        if (isset($parameters['gallery']) && !empty($parameters['gallery'])) {
             $product->update(['gallery' => $parameters['gallery']]);
         }
         return $product;
     }
 
-    public function updateProduct($product, $parameters, $gallery = []){
+    public function updateProduct($product, $parameters, $gallery = [])
+    {
         $parameters['gallery'] = null;
-        if($gallery && !empty($gallery)){
-            $path = PRODUCT_DIR. '/'. $product->id. '/';
+        if ($gallery && !empty($gallery)) {
+            $path = PRODUCT_DIR . '/' . $product->id . '/';
             $oldGallery = $product->gallery ?? [];
-            foreach($gallery as $key => $value){
+            foreach ($gallery as $key => $value) {
                 $file = json_decode($value, true);
                 $destination = $path . basename($file['file_path']);
-                if(!in_array($file, $oldGallery)){
+                if (!in_array($file, $oldGallery)) {
                     $this->moveFile($file['file_path'], $destination);
                 }
 
@@ -64,30 +66,30 @@ class ProductManager
      * @param $request
      * @param $product
      */
-    public function createOrUpdateOption($request, $product){
+    public function createOrUpdateOption($request, $product)
+    {
         $checkChange = false;
-        // dd($product->options->count(), $product->optionValues->count());
-        if(isset($request->option_id) && isset($request->option_name)  && isset($request->option_value)){
-            foreach($request->option_id as $key => $value){
+        if (isset($request->option_id) && isset($request->option_name)  && isset($request->option_value)) {
+            foreach ($request->option_id as $key => $value) {
                 $optionValue = array_map('trim', explode("|", $request->option_value[$key]));
-                $optionValue = array_filter($optionValue, function($opVal) {
+                $optionValue = array_filter($optionValue, function ($opVal) {
                     return strlen($opVal) > 0 && $opVal !== null;
                 });
                 $optionValue = array_values($optionValue);
                 $optionValue = array_unique($optionValue);
-                if(empty($optionValue)){
+                if (empty($optionValue)) {
                     return [
                         'status' => false,
                         'position' => ++$key,
                     ];
                 }
-                if($value == null){
+                if ($value == null) {
                     $option = ProductOption::create([
                         'name' => $request->option_name[$key],
                         'product_id' => $product->id,
                     ]);
                     $data = [];
-                    foreach($optionValue as $val){
+                    foreach ($optionValue as $val) {
                         $data[] = [
                             'value' => $val,
                             'product_id' => $product->id,
@@ -96,10 +98,10 @@ class ProductManager
                             'updated_at' => Carbon::now(),
                         ];
                     }
-                    if(count($data) > 0){
+                    if (count($data) > 0) {
                         ProductOptionValue::insert($data);
                     }
-                }else{
+                } else {
                     $option = ProductOption::with('optionValues')
                         ->where('id', $value)
                         ->where('product_id', $product->id)
@@ -111,16 +113,16 @@ class ProductManager
                     $diffOld = array_diff($optionValueOld, $optionValue);
                     $diffNew = array_diff($optionValue, $optionValueOld);
 
-                    if(count($diffOld) > 0){
+                    if (count($diffOld) > 0) {
                         ProductOptionValue::whereIn('value', $diffOld)
                             ->where('product_option_id', $option->id)
                             ->where('product_id', $product->id)
                             ->delete();
                         $checkChange = true;
                     }
-                    if(count($diffNew) > 0){
+                    if (count($diffNew) > 0) {
                         $data = [];
-                        foreach($diffNew as $key => $val){
+                        foreach ($diffNew as $key => $val) {
                             $data[] = [
                                 'value' => $val,
                                 'product_id' => $product->id,
@@ -129,7 +131,7 @@ class ProductManager
                                 'updated_at' => Carbon::now(),
                             ];
                         }
-                        if(count($data) > 0){
+                        if (count($data) > 0) {
                             ProductOptionValue::insert($data);
                             $checkChange = true;
                         }
@@ -138,14 +140,60 @@ class ProductManager
             }
 
             $productNow = Product::with('optionValues', 'options', 'skus', 'variants')->where('id', $product->id)->first();
-            if($product->options->count() != $productNow->options->count()){
+            // case add option value
+            if ($product->options->count() != $productNow->options->count()) {
                 $product->skus()->delete(); // tạo db khi sku delete thì delete variants tương ứng với sku đó.
-                $optionValues = $productNow->optionValues->groupBy('product_option_id')->values()->toArray();
-                $variants = Product::generateVariant($optionValues);
+                $optionValuesNow = $productNow->optionValues->groupBy('product_option_id')->values()->toArray();
+                $variants = Product::generateVariant($optionValuesNow);
                 $productNow->saveVariant($variants);
-            }else{
-                // th thêm mới
-                $optionValueOld = $product->optionValues->pluck('value')->toArray();
+            } else {
+                // Case change option value
+                if ($checkChange) {
+                    $optionValuesOld = $product->optionValues->values()->toArray();
+                    $optionValuesNow = $productNow->optionValues->values()->toArray();
+
+                    $diffOld = array_udiff(
+                        $optionValuesOld,
+                        $optionValuesNow,
+                        fn ($a, $b) => $a <=> $b
+                    );
+                    $diffNow = array_udiff(
+                        $optionValuesNow,
+                        $optionValuesOld,
+                        fn ($a, $b) => $a <=> $b
+                    );
+
+                    // $diffOld = array_diff(array_column($optionValuesOld, 'id'), array_column($optionValuesNow, 'id'));
+                    // $diffNow = array_diff(array_column($optionValuesNow, 'id'), array_column($optionValuesOld, 'id'));
+                    if (!empty($diffOld)) {
+                        $idSku = ProductVariant::whereIn('product_option_value_id', array_column($diffOld, 'id'))->pluck('sku_id');
+                        ProductSku::whereIn('id', $idSku)->delete();
+                    }
+                    if (!empty($diffNow)) {
+                        $groupedDataDiff = array_reduce($diffNow, function($result, $item) {
+                            $result[$item['product_option_id']][] = $item;
+                            return $result;
+                        }, []);
+
+                        $variants = Product::generateVariant($groupedDataDiff);
+                        // dd($variants);
+                        $dataOption = $productNow->optionValues->whereNotIn('id', array_column($diffNow, 'id'))->groupBy('product_option_id')->values()->toArray();
+                        $result = [];
+                        // dd($diffNow);
+                        foreach($diffNow as $val1){
+                            foreach($dataOption as $val2){
+                                if($val1['product_option_id'] != $val2[0]['product_option_id']){
+                                    foreach($val2 as $value){
+                                        $result[] = [$val1, $value];
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        $variants = array_merge($variants, $result);
+                        $productNow->saveVariant($variants);
+                    }
+                }
             }
             return [
                 'status' => true,
@@ -184,5 +232,3 @@ class ProductManager
     //         }
     // }
 }
-
-?>

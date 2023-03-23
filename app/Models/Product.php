@@ -78,7 +78,6 @@ class Product extends Model
 
     public function saveVariant(array $variants)
     {
-        // dd($this->skus());
         $skus = $this->skus()->createMany(array_fill(0, count($variants), []));
 
         $variantOptions = [];
