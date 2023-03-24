@@ -83,8 +83,19 @@ class ProductController extends Controller
             ->where('product_options.product_id', $product->id)
             ->groupBy('product_options.id')
             ->get();
-            // dd($options);
-        return view($this->pathView. 'edit', compact('product', 'options'));
+        
+        $skus = ProductSku::with(['variants' => function($query) {
+                $query->select([
+                    DB::raw("GROUP_CONCAT( CONCAT(product_option_values.value, '') SEPARATOR ' | ' ) AS optionValue"),
+                    'product_variants.*',
+                ])
+                ->leftJoin('product_option_values', 'product_option_values.id', '=', 'product_variants.product_option_value_id')
+                ->groupBy('product_variants.sku_id');
+            }])
+            ->where('product_id', $product->id)
+            ->get();
+
+        return view($this->pathView. 'edit', compact('product', 'options', 'skus'));
     }
 
     public function update(Request $request, $id){
@@ -142,17 +153,6 @@ class ProductController extends Controller
                 ], Response::HTTP_FORBIDDEN);
             }
 
-            // option value change
-            // if(isset($check['checkChange']) && is_array($check) && $check['checkChange'] == true){
-            //     // $product->variants()->delete();
-            //     $product->skus()->delete();
-            //     $product = Product::with('optionValues', '')->where('id', $id)->first();
-            //     $optionValues = $product->optionValues->groupBy('product_option_id')->values()->toArray();
-            //     dump($optionValues);
-            //     // $this->productManager->generateAllVariation($input, $product);
-            //     $variants = Product::generateVariant($optionValues);
-            //     dd($variants);
-            // }
             $options = ProductOption::select(
                     'product_options.id',
                     'product_options.name',
@@ -170,8 +170,21 @@ class ProductController extends Controller
                     'message' => trans('language.max_option'),
                 ], Response::HTTP_FORBIDDEN);
             }
-            $html = view('backend.user.product.partials.form-option',[
+
+            $skus = ProductSku::with(['variants' => function($query) {
+                    $query->select([
+                        DB::raw("GROUP_CONCAT( CONCAT(product_option_values.value, '') SEPARATOR ' | ' ) AS optionValue"),
+                        'product_variants.*',
+                    ])
+                    ->leftJoin('product_option_values', 'product_option_values.id', '=', 'product_variants.product_option_value_id')
+                    ->groupBy('product_variants.sku_id');
+                }])
+                ->where('product_id', $product->id)
+                ->get();
+
+            $html = view('backend.user.product.partials.variant-content',[
                     'options' => $options,
+                    'skus' => $skus,
                     'product' => $product,
                 ])->render();
             DB::commit();

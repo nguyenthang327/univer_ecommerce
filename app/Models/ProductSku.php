@@ -32,7 +32,7 @@ class ProductSku extends Model
      * get variants by sku
      */
     public function variants(){
-        return $this->hasMany(ProductVariant::class);
+        return $this->hasMany(ProductVariant::class, 'sku_id');
     }
 
 }

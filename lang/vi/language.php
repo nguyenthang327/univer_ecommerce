@@ -116,6 +116,10 @@ return [
     'max_option' => 'Chỉ được chọn tối đa 2 thuộc tính',
     'QA_delete_option' => 'Bạn có chắc chắn muốn xóa thuộc tính này không?',
     'variation_generate' => 'Tạo biến thể từ thuộc tính hiện có',
+    'QA_save_option' => 'Bạn có muốn lưu các thuộc tính hiện tại không?',
+    'QA_save_option_2' => 'Nếu lưu thì các biến thể sản phẩm cũng sẽ bị thay đổi theo với thuộc tính hiện tại.',
+    'product_variation' => 'Có biến thể sản phẩm',
+    'product_not_variation' => 'Là sản phẩm thường',
 
     // mail register
     'mail' => [

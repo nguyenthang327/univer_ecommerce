@@ -1,7 +1,4 @@
-@php
-    $data = [1, 2, 3, 4, 1];
-@endphp
-@if (isset($data))
+@if ($skus->isNotEmpty())
     <form method="POST" enctype="multipart/form-data" id="" class="mt-3">
         <div id="wrap_data_variation">
             <div class="table-responsive">

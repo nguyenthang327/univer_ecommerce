@@ -176,10 +176,11 @@ class ProductManager
                         }, []);
 
                         $variants = Product::generateVariant($groupedDataDiff);
-                        // dd($variants);
+                        $variants = array_filter($variants, function($item) {
+                            return count($item) > 1;
+                         });
                         $dataOption = $productNow->optionValues->whereNotIn('id', array_column($diffNow, 'id'))->groupBy('product_option_id')->values()->toArray();
                         $result = [];
-                        // dd($diffNow);
                         foreach($diffNow as $val1){
                             foreach($dataOption as $val2){
                                 if($val1['product_option_id'] != $val2[0]['product_option_id']){
@@ -197,7 +198,6 @@ class ProductManager
             }
             return [
                 'status' => true,
-                'checkChange' => $checkChange,
             ];
         }
     }

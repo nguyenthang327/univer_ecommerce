@@ -104,27 +104,38 @@
 
         $(document).on('submit', "#form_option_add", function(e) {
             e.preventDefault();
-            let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
-            var formData = $(this).serialize();
-            // loaderStart();
-            $.ajax({
-                headers: {
-                    "X-CSRF-TOKEN": token,
-                },
-                url: '/user/product/option/' + {{$product->id}},
-                type: "POST",
-                data: formData,
-                dataType: "JSON",
-                success: function(response) {
-                    toastr.success(response.message, {timeOut: 5000});
-                    $('#wrap_form_option').html(response.html);
-                    // loaderEnd();
-                },
-                error: function(xhr){
-                    toastr.error(xhr.responseJSON.message, {timeOut: 5000});
-                    // loaderEnd();
-                }
-            });
+            swal({
+                    title: `{{ trans('language.QA_save_option') }}`,
+                    html: `{{ trans('language.QA_save_option_2') }}`,
+                    type: "question",
+                    showCancelButton: true,
+                    confirmButtonText: `{{ trans('language.agree') }}`,
+                    cancelButtonText: `{{ trans('language.cancel') }}`,
+                }).then((result) => {
+                    if (result.value) {
+                        let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+                        var formData = $(this).serialize();
+                        loaderStart();
+                        $.ajax({
+                            headers: {
+                                "X-CSRF-TOKEN": token,
+                            },
+                            url: '/user/product/option/' + {{$product->id}},
+                            type: "POST",
+                            data: formData,
+                            dataType: "JSON",
+                            success: function(response) {
+                                toastr.success(response.message, {timeOut: 5000});
+                                $('#wrap_option_and_variant').html(response.html);
+                                loaderEnd();
+                            },
+                            error: function(xhr){
+                                toastr.error(xhr.responseJSON.message, {timeOut: 5000});
+                                loaderEnd();
+                            }
+                        });
+                    }
+                })
         });
 
         // product variants

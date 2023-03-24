@@ -115,6 +115,10 @@ return [
     'max_option' => 'Only 2 attributes can be selected',
     'QA_delete_option' => 'Are you sure you want to delete this attribute?',
     'variation_generate' => 'Create variations from existing options',
+    'QA_save_option' => 'Do you want to save the current properties?',
+    'QA_save_option_2' => 'If saved, product variations will also be changed with the current attribute.',
+    'product_variation' => 'There are product variations',
+    'product_not_variation' => "It's a regular product",
 
     // mail register
     'mail' => [
