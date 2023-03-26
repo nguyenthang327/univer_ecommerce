@@ -49,7 +49,7 @@
             </div>
         </td>
         <td class="text-center">
-            <a href="#" class="btn bg-danger delete-variation">{{ trans('language.delete')}}</a>
+            <a href="#" class="btn bg-danger delete-sku">{{ trans('language.delete')}}</a>
         </td>
     </tr>
 @endforeach

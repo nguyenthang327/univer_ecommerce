@@ -121,6 +121,9 @@ return [
     'product_variation' => 'Có biến thể sản phẩm',
     'product_not_variation' => 'Là sản phẩm thường',
     'product_type' => 'Loại sản phẩm',
+    'enter_price' => 'Nhập giá',
+    'enter_stock' => 'Nhập số lượng',
+    'enter_sku' => 'Nhập sku',
 
     // mail register
     'mail' => [

@@ -24,14 +24,16 @@ class UpdateSkuRequest extends FormRequest
     public function rules()
     {
         return [
-            'sku_id' => 'required|array',
-            'sku_id.*' => 'required|exists:product_skus,id',
+            'sku_id' => 'nullable|array',
+            'sku_id.*' => 'nullable|exists:product_skus,id',
             'sku_price' => 'nullable|array',
             'sku_price.*' => 'nullable|numeric|min:0',
             'sku_stock' => 'nullable|array',
             'sku_stock.*' => 'nullable|numeric|min:0',
             'sku_name' => 'nullable|array',
             'sku_name.*' => 'nullable|string|max:255',
+            'remove_sku_id' => 'nullable|array',
+            'remove_sku_id.*' => 'nullable|exists:product_skus,id',
         ];
     }
 }

@@ -164,7 +164,7 @@
             let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
             let url = $(this).attr('action');
     
-            if(url && $(this).valid()){
+            if(url){
                 var formData = $(this).serialize();
                 loaderStart();
                 $.ajax({
@@ -177,7 +177,8 @@
                     dataType: "JSON",
                     success: function(response) {
                         toastr.success(response.message, {timeOut: 5000});
-                        $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
+                        // $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
+                        $('#wrap_option_and_variant').html(response.html);
                         loaderEnd();
                     },
                     error: function(xhr){
@@ -186,13 +187,53 @@
                             $.each(value, function(index, item) {
                                 errors += '<p>' + item + '</p>'
                             });
-                        })
-                        toastr.error(errors, {timeOut: 5000});
+                        });
+                        if($errors){
+                            toastr.error(errors, {timeOut: 5000});
+                        }else{
+                            toastr.error(xhr.responseJSON.message, {timeOut: 5000});
+                        }
                         $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
                         loaderEnd();
                     }
                 });
             }
+        });
+
+        $(document).on('click', '.delete-sku', function(e){
+            e.preventDefault();
+            let tRow = $(this).closest('tr');
+            let value = tRow.find("input[name='sku_id[]']").val();
+            let html = `<input type="hidden" name="remove_sku_id[]" value="${value}" >`;
+            $('#form_update_sku').append(html);
+            tRow.remove();
+        });
+
+        $(document).on('change', '#choose_type', function(){
+            let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+            // loaderStart();
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": token,
+                },
+                url: $(this).data('url'),
+                type: "PUT",
+                data: {'product_type' : $(this).val()},
+                dataType: "JSON",
+                success: function(response) {
+                    toastr.success(response.message, {timeOut: 5000});
+                    if($('#choose_type').val() == 1){
+                        $('.card_product_type').find('.card-body').removeClass('d-none').addClass('d-block');
+                    }else{
+                        $('.card_product_type').find('.card-body').removeClass('d-block').addClass('d-none');
+                    }
+                    loaderEnd();
+                },
+                error: function(xhr){
+                    toastr.error(xhr.responseJSON.message, {timeOut: 5000});
+                    loaderEnd();
+                }
+            });
         });
     });
 </script>

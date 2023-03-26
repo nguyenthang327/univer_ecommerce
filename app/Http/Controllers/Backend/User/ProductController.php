@@ -72,6 +72,11 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * edit product screen
+     * @param $slug
+     * @return View
+     */
     public function edit($slug){
         $product = Product::where('slug', $slug)->first();
         if(!$product){
@@ -101,6 +106,11 @@ class ProductController extends Controller
         return view($this->pathView. 'edit', compact('product', 'options', 'skus'));
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id){
         $product = Product::where('id', $id)->first();
         if(!$product){
@@ -302,7 +312,7 @@ class ProductController extends Controller
     }
 
     public function updateSku(UpdateSkuRequest $request, $productId){
-        $product = Product::with('skus')->where('id', $productId)->first();
+        $product = Product::where('id', $productId)->first();
         if(!$product){
             return response()->json([
                 'status' => Response::HTTP_NOT_FOUND,
@@ -311,6 +321,10 @@ class ProductController extends Controller
         }
         DB::beginTransaction();
         try{
+            if(isset($request->remove_sku_id) && is_array($request->remove_sku_id)){
+                ProductSku::whereIn('id', $request->remove_sku_id)->delete();
+            }
+            $product = Product::with('skus')->where('id', $productId)->first();
             if(isset($request->sku_id)){
                 $skus = $product->skus;
                 foreach ($skus as $key => $sku) {
@@ -346,10 +360,37 @@ class ProductController extends Controller
                     $sku->save();
                 }
             }
+
+            $options = ProductOption::select(
+                'product_options.id',
+                'product_options.name',
+                DB::raw("GROUP_CONCAT( CONCAT(product_option_values.value, '') SEPARATOR '|' ) AS optionValue"),
+            )
+            ->leftJoin('product_option_values', 'product_option_values.product_option_id', '=', 'product_options.id')
+            ->where('product_options.product_id', $product->id)
+            ->groupBy('product_options.id')
+            ->get();
+
+            $skus = ProductSku::with(['variants' => function($query) {
+                    $query->select([
+                        DB::raw("GROUP_CONCAT( CONCAT(product_option_values.value, '') SEPARATOR ' | ' ) AS optionValue"),
+                        'product_variants.*',
+                    ])
+                    ->leftJoin('product_option_values', 'product_option_values.id', '=', 'product_variants.product_option_value_id')
+                    ->groupBy('product_variants.sku_id');
+                }])
+                ->where('product_id', $product->id)
+                ->get();
+            $html = view('backend.user.product.partials.variant-content',[
+                'options' => $options,
+                'skus' => $skus,
+                'product' => $product,
+            ])->render();
             DB::commit();
             return response()->json([
                 'status' => Response::HTTP_OK,
                 'message' => trans('message.update_sku_successed'),
+                'html' => $html,
             ], Response::HTTP_OK);
         }catch(Exception $e){
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
@@ -434,4 +475,35 @@ class ProductController extends Controller
     //         ], Response::HTTP_NOT_FOUND);
     //     }
     // }
+
+    public function updateTypeProduct(Request $request, $id){
+        $product = Product::where('id', $id)->first();
+        if(!$product){
+            return response()->json([
+                'status' => Response::HTTP_NOT_FOUND,
+                'message' => trans('message.product_not_exists'),
+            ], Response::HTTP_NOT_FOUND);
+        }
+        DB::beginTransaction();
+        try{
+            if(isset($request->product_type) && $request->product_type == Product::TYPE_VARIANT){
+                $product->product_type = Product::TYPE_VARIANT;
+            }else{
+                $product->product_type = Product::TYPE_REGULAR;
+            }
+            $product->save();
+            DB::commit();
+            return response()->json([
+                'status' => Response::HTTP_OK,
+                'message' => trans('message.update_type_product_successed'),
+            ], Response::HTTP_OK);
+        }catch(Exception $e){
+            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            DB::rollBack();
+            return response()->json([
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => trans('message.server_error'),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

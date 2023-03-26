@@ -121,6 +121,9 @@ return [
     'product_variation' => 'There are product variations',
     'product_not_variation' => "It's a regular product",
     'product_type' => 'Product type',
+    'enter_price' => 'Enter price',
+    'enter_stock' => 'Enter stock',
+    'enter_sku' => 'Enter sku',
 
     // mail register
     'mail' => [
