@@ -27,4 +27,11 @@ class ProductOption extends Model
     public function optionValues(){
         return $this->hasMany(ProductOptionValue::class);
     }
+
+     /**
+     * get option values by option
+     */
+    public function variants(){
+        return $this->hasMany(ProductVariant::class);
+    }
 }

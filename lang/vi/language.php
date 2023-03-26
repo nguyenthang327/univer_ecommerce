@@ -101,7 +101,7 @@ return [
     'slug' => 'Slug',
     'sku' => 'Sku',
     'price' => 'Giá',
-    'stock' => 'Số lượng đang có hàng',
+    'stock' => 'Số lượng',
     'description' => 'Mô tả',
     'choose_category' => 'Chọn danh mục',
     'gallery' => 'Gallery',
@@ -120,6 +120,7 @@ return [
     'QA_save_option_2' => 'Nếu lưu thì các biến thể sản phẩm cũng sẽ bị thay đổi theo với thuộc tính hiện tại.',
     'product_variation' => 'Có biến thể sản phẩm',
     'product_not_variation' => 'Là sản phẩm thường',
+    'product_type' => 'Loại sản phẩm',
 
     // mail register
     'mail' => [

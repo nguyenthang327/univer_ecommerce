@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_option_values', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_option_id');
-            $table->string('value');
+        Schema::create('product_category_relation', function (Blueprint $table) {
+            $table->foreignId('category_id')->constrained('product_categories')->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_option_values');
+        Schema::dropIfExists('product_category_relation');
     }
 };

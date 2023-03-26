@@ -27,6 +27,10 @@ $(document).ready(function () {
         var slug = slugify($(this).val());
         $(this).val(slug);
     })
+    $(document).on('focusout', '.slug_sku', function(){
+        var slug = slugify($(this).val());
+        $(this).val(slug);
+    })
 
     // DropzoneJS Demo Code Start
     Dropzone.autoDiscover = false;

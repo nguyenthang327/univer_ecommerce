@@ -176,9 +176,11 @@ class ProductManager
                         }, []);
 
                         $variants = Product::generateVariant($groupedDataDiff);
-                        $variants = array_filter($variants, function($item) {
-                            return count($item) > 1;
-                         });
+                        if($productNow->options->count()>1){
+                            $variants = array_filter($variants, function($item) {
+                                return count($item) > 1;
+                            });
+                        }
                         $dataOption = $productNow->optionValues->whereNotIn('id', array_column($diffNow, 'id'))->groupBy('product_option_id')->values()->toArray();
                         $result = [];
                         foreach($diffNow as $val1){
@@ -194,8 +196,47 @@ class ProductManager
                         $variants = array_merge($variants, $result);
                         $productNow->saveVariant($variants);
                     }
+                }else{
+                    $optionValuesNow = $productNow->optionValues->groupBy('product_option_id')->values()->toArray();
+                    $variantsNew = Product::generateVariant($optionValuesNow);
+                    // dump( $optionValuesNow);
+                    $variantsNow = $productNow->variants->groupBy('sku_id')->values()->toArray();
+                    // dd($variantsNow, $variantsNew);
+                    
+                    // $arrDimention = 0;
+                    $append = [];
+                    if(!empty($variantsNew)){
+                        $arrDimention = count($variantsNew[0]);
+                        foreach($variantsNew as $variantNew){
+                            $check = false;
+                            foreach($variantsNow as $variantNow){
+                                $count = 0;
+                                for($i = 0; $i < $arrDimention; ++$i){
+                                    for($j = 0; $j < $arrDimention; ++$j){
+                                        if($variantNew[$i]['id'] == $variantNow[$j]['product_option_value_id'] && $variantNew[$i]['product_option_id'] == $variantNow[$j]['product_option_id']){
+                                            ++$count;
+                                        }
+                                    }
+                                }
+                                if($count == $arrDimention){
+                                    // $append[] = $variantNew;
+                                    $check = true;
+                                    break;
+                                }
+                            }
+                            if($check == false){
+                                $append[] = $variantNew;
+                            }
+                        }
+                    }
+                    if(!empty($append)){
+                        // $variants = Product::generateVariant($append);
+                        // dd($variants);
+                        $productNow->saveVariant($append);
+                    }
                 }
             }
+            // dd(1);
             return [
                 'status' => true,
             ];

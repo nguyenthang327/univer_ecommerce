@@ -111,6 +111,7 @@ Route::middleware('web')->group(function () {
                 Route::post('/option/{id}', [ProductController::class, 'option'])->name('user.product.option');
                 Route::delete('/{productId}/option/{id}', [ProductController::class, 'deleteOption'])->name('user.product.deleteOption');
                 Route::post('/{productId}/generate-variation', [ProductController::class, 'generateVariation'])->name('user.product.generateVariation');
+                Route::put('/{productId}/update-sku', [ProductController::class, 'updateSku'])->name('user.product.updateSku');
             });
         });
     });

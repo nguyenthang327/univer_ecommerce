@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\UpdateSkuRequest;
 use App\Logics\User\ProductManager;
 use App\Models\Product;
 use App\Models\ProductOption;
@@ -15,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -48,7 +51,7 @@ class ProductController extends Controller
                 'sku' => $request->sku,
                 'slug' => $request->slug,
                 'price' => $request->price,
-                'category_id' => $request->category_id,
+                'stock' => $request->stock,
                 'description' => $request->description,
             ];
 
@@ -112,7 +115,7 @@ class ProductController extends Controller
                 'sku' => $request->sku,
                 'slug' => $request->slug,
                 'price' => $request->price,
-                'category_id' => $request->category_id,
+                'stock' => $request->stock,
                 'description' => $request->description,
             ];
 
@@ -134,6 +137,12 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * Process save option
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function option(Request $request, $id){
         $product = Product::with('optionValues', 'options', 'skus', 'variants')->where('id', $id)->first();
         if(!$product){
@@ -197,9 +206,9 @@ class ProductController extends Controller
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
             DB::rollBack();
             return response()->json([
-                'status' => Response::HTTP_NOT_FOUND,
-                'message' => trans('message.save_option_failed'),
-            ], Response::HTTP_NOT_FOUND);
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => trans('message.server_error'),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -210,10 +219,22 @@ class ProductController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function deleteOption($productId, $id){
+        $product = Product::where('id', $productId)->first();
+        if(!$product){
+            return response()->json([
+                'status' => Response::HTTP_NOT_FOUND,
+                'message' => trans('message.product_not_exists'),
+            ], Response::HTTP_NOT_FOUND);
+        }
         DB::beginTransaction();
-        try{
-            $option = ProductOption::with('optionValues')
-                ->where('product_id',$productId)
+        try {
+            $option = ProductOption::with([
+                    'optionValues',
+                    'variants' => function ($query) {
+                        $query->groupBy('product_variants.sku_id');
+                    }
+                ])
+                ->where('product_id', $productId)
                 ->where('id', $id)
                 ->first();
             if(!$option){
@@ -222,96 +243,195 @@ class ProductController extends Controller
                     'message' => trans('message.option_not_found'),
                 ], Response::HTTP_NOT_FOUND);
             }
-            if($option->optionValues){
+            if($option->optionValues->isNotEmpty()){
                 $option->optionValues()->delete();
             }
+            if($option->variants->isNotEmpty()){
+                ProductSku::whereIn('id', $option->variants->pluck('sku_id'))->delete();
+            }
             $option->delete();
+
+            // regenerate
+            $product = Product::with('optionValues')->where('id', $product->id)->first();
+            $optionValuesNow = $product->optionValues->groupBy('product_option_id')->values()->toArray();
+            if($product->optionValues->isNotEmpty()){
+                $variants = Product::generateVariant($optionValuesNow);
+                $product->saveVariant($variants);
+            }
+
+            $options = ProductOption::select(
+                    'product_options.id',
+                    'product_options.name',
+                    DB::raw("GROUP_CONCAT( CONCAT(product_option_values.value, '') SEPARATOR '|' ) AS optionValue"),
+                )
+                ->leftJoin('product_option_values', 'product_option_values.product_option_id', '=', 'product_options.id')
+                ->where('product_options.product_id', $product->id)
+                ->groupBy('product_options.id')
+                ->get();
+
+            $skus = ProductSku::with(['variants' => function($query) {
+                    $query->select([
+                        DB::raw("GROUP_CONCAT( CONCAT(product_option_values.value, '') SEPARATOR ' | ' ) AS optionValue"),
+                        'product_variants.*',
+                    ])
+                    ->leftJoin('product_option_values', 'product_option_values.id', '=', 'product_variants.product_option_value_id')
+                    ->groupBy('product_variants.sku_id');
+                }])
+                ->where('product_id', $product->id)
+                ->get();
+
+            $html = view('backend.user.product.partials.variant-content',[
+                    'options' => $options,
+                    'skus' => $skus,
+                    'product' => $product,
+                ])->render();
             DB::commit();
             return response()->json([
                 'status' => Response::HTTP_OK,
                 'message' => trans('message.remove_option_successed'),
+                'html' => $html,
             ], Response::HTTP_OK);
         }catch(Exception $e){
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
             DB::rollBack();
             return response()->json([
-                'status' => Response::HTTP_NOT_FOUND,
-                'message' => trans('message.option_not_found'),
-            ], Response::HTTP_NOT_FOUND);
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => trans('message.server_error'),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
-    public function generateVariation($productId){
-        $product = Product::with('optionValues', 'options', 'skus', 'variants')->where('id', $productId)->first();
-
+    public function updateSku(UpdateSkuRequest $request, $productId){
+        $product = Product::with('skus')->where('id', $productId)->first();
         if(!$product){
             return response()->json([
                 'status' => Response::HTTP_NOT_FOUND,
                 'message' => trans('message.product_not_exists'),
             ], Response::HTTP_NOT_FOUND);
         }
-        if($product->optionValues->isEmpty()){
-            return response()->json([
-                'status' => Response::HTTP_NOT_FOUND,
-                'message' => trans('message.option_not_exists'),
-            ], Response::HTTP_NOT_FOUND);
-        }
-    //    dd($product->optionValues, $product->options);
-
-        // dd($product->options, $product->optionValues);
-        // $productOptions = ProductOption::with('optionValues')->where('product_id', $productId)->get();
-        // dd($productOptions->optionValues);
-        // dd($product->optionValues->groupBy('product_option_id')->values()->toArray());
-
         DB::beginTransaction();
         try{
-            // foreach($productOptions as $productOption){
-            //     if($productOption->optionValues->isNotEmpty()){
-            //         dd($productOption->optionValues);
-            //     }
-            // }
-            $input = $product->optionValues->groupBy('product_option_id')->values()->toArray();
-            $result = [[]];
+            if(isset($request->sku_id)){
+                $skus = $product->skus;
+                foreach ($skus as $key => $sku) {
+                    // $validator = Validator::make($request->all(), [
+                    //     $key => [
+                    //         'required',
+                    //         'integer',
+                    //         Rule::exists('product_skus', 'id'),
+                    //     ],
+                    //     'sku_price.' . $key => [
+                    //         'nullable',
+                    //         'numeric',
+                    //         'min:0',
+                    //     ],
+                    //     'sku_stock.' . $key => [
+                    //         'nullable',
+                    //         'numeric',
+                    //         'min:0',
+                    //     ],
+                    //     'sku_name.' . $key => [
+                    //         Rule::unique('product_skus', 'name')->ignoreModel($sku),
+                    //         Rule::unique('products', 'sku'),
+                    //     ]
+                    // ]);
 
-            foreach ($input as $key => $values) {
-                $append = [];
-                foreach ($values as $value) { 
-                    foreach ($result as $data) {
-                        $append[] = $data + [$key => $value];
-                    }
+                    // if ($validator->fails()) {
+                    //     // dd($validator->errors()->first());
+                    //     $errors[$key] = $validator->errors()->first();
+                    // }
+                    $sku->price = $request->sku_price[$key];
+                    $sku->stock = $request->sku_stock[$key];
+                    $sku->name = $request->sku_name[$key];
+                    $sku->save();
                 }
-                $result = $append;
             }
-            dd($result);
-
-            // foreach($result as $skuItem){
-            //     $productSku = ProductSku::create(['product_id' => $product->id]);
-            //     foreach($skuItem as $variantItem){
-            //         ProductVariant::create([
-            //             'product_id' => $product->id,
-            //             'product_option_id' => $variantItem['product_option_id'],
-            //             'product_option_value_id' => $variantItem['id'],
-            //             'sku_id' => $productSku->id,
-            //         ]);
-            //     }
-            // }
-
-            // if(!empty($productOptionValue)){
-            //     if(count())
-            // }
-
             DB::commit();
             return response()->json([
                 'status' => Response::HTTP_OK,
-                'message' => trans('message.remove_option_successed'),
+                'message' => trans('message.update_sku_successed'),
             ], Response::HTTP_OK);
         }catch(Exception $e){
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
             DB::rollBack();
             return response()->json([
-                'status' => Response::HTTP_NOT_FOUND,
-                'message' => trans('message.option_not_found'),
-            ], Response::HTTP_NOT_FOUND);
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => trans('message.server_error'),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    // public function generateVariation($productId){
+    //     $product = Product::with('optionValues', 'options', 'skus', 'variants')->where('id', $productId)->first();
+
+    //     if(!$product){
+    //         return response()->json([
+    //             'status' => Response::HTTP_NOT_FOUND,
+    //             'message' => trans('message.product_not_exists'),
+    //         ], Response::HTTP_NOT_FOUND);
+    //     }
+    //     if($product->optionValues->isEmpty()){
+    //         return response()->json([
+    //             'status' => Response::HTTP_NOT_FOUND,
+    //             'message' => trans('message.option_not_exists'),
+    //         ], Response::HTTP_NOT_FOUND);
+    //     }
+    // //    dd($product->optionValues, $product->options);
+
+    //     // dd($product->options, $product->optionValues);
+    //     // $productOptions = ProductOption::with('optionValues')->where('product_id', $productId)->get();
+    //     // dd($productOptions->optionValues);
+    //     // dd($product->optionValues->groupBy('product_option_id')->values()->toArray());
+
+    //     DB::beginTransaction();
+    //     try{
+    //         // foreach($productOptions as $productOption){
+    //         //     if($productOption->optionValues->isNotEmpty()){
+    //         //         dd($productOption->optionValues);
+    //         //     }
+    //         // }
+    //         $input = $product->optionValues->groupBy('product_option_id')->values()->toArray();
+    //         $result = [[]];
+
+    //         foreach ($input as $key => $values) {
+    //             $append = [];
+    //             foreach ($values as $value) { 
+    //                 foreach ($result as $data) {
+    //                     $append[] = $data + [$key => $value];
+    //                 }
+    //             }
+    //             $result = $append;
+    //         }
+    //         dd($result);
+
+    //         // foreach($result as $skuItem){
+    //         //     $productSku = ProductSku::create(['product_id' => $product->id]);
+    //         //     foreach($skuItem as $variantItem){
+    //         //         ProductVariant::create([
+    //         //             'product_id' => $product->id,
+    //         //             'product_option_id' => $variantItem['product_option_id'],
+    //         //             'product_option_value_id' => $variantItem['id'],
+    //         //             'sku_id' => $productSku->id,
+    //         //         ]);
+    //         //     }
+    //         // }
+
+    //         // if(!empty($productOptionValue)){
+    //         //     if(count())
+    //         // }
+
+    //         DB::commit();
+    //         return response()->json([
+    //             'status' => Response::HTTP_OK,
+    //             'message' => trans('message.remove_option_successed'),
+    //         ], Response::HTTP_OK);
+    //     }catch(Exception $e){
+    //         Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+    //         DB::rollBack();
+    //         return response()->json([
+    //             'status' => Response::HTTP_NOT_FOUND,
+    //             'message' => trans('message.option_not_found'),
+    //         ], Response::HTTP_NOT_FOUND);
+    //     }
+    // }
 }

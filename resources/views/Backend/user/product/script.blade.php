@@ -32,7 +32,7 @@
                 </div>
             </div>
         `;
-        $("#option_add").on('click', function(e) {
+        $(document).on('click', '#option_add', function(e) {
             e.preventDefault();
             $("#form_option_add .btn-primary ").css('display', 'block');
             if ($("#option .num_option").length < 2) {
@@ -67,12 +67,12 @@
                             dataType: "JSON",
                             success: function(response) {
                                 toastr.success(response.message, {timeOut: 5000});
-                                $('#wrap_form_option').load(location.href + ' #form_option_add');
+                                // $('#wrap_form_option').load(location.href + ' #form_option_add');
+                                $('#wrap_option_and_variant').html(response.html);
                                 loaderEnd();
                             },
                             error: function(xhr){
-                                console.log(xhr);
-                                toastr.error('', {timeOut: 5000});
+                                toastr.error(xhr.responseJSON.message, {timeOut: 5000});
                                 loaderEnd();
                             }
                         });
@@ -92,15 +92,6 @@
             let html = ` <span class="text-red">*</span>`;
             $(this).closest('.form-group').find('label').html($(this).val() + html);
         });
-        // $(document).on('change', '.num_option input[name="option_value[]"]', function() {
-        //     let convertValue = $(this).val().split("|");
-        //     convertValue = convertValue.map(function(item) {
-        //         return item.trim();
-        //     }).filter(function(item) {
-        //         return item !== null && item !== undefined && item !== '';
-        //     });
-        //     $(this).val(JSON.stringify(convertValue));
-        // });
 
         $(document).on('submit', "#form_option_add", function(e) {
             e.preventDefault();
@@ -140,30 +131,68 @@
 
         // product variants
 
-        $(document).on('click', '#variation_generate', function(e){
+        // $(document).on('click', '#variation_generate', function(e){
+        //     e.preventDefault();
+        //     let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+        //     // loaderStart();
+        //     let url = $(this).data('url');
+        //     $.ajax({
+        //         headers: {
+        //             "X-CSRF-TOKEN": token,
+        //         },
+        //         url: url,
+        //         type: "POST",
+        //         success: function(response) {
+        //             console.log(response);
+        //             // toastr.success(response.message, {timeOut: 5000});
+        //             // $('#wrap_form_option').html(response.html);
+        //             loaderEnd();
+        //         },
+        //         error: function(xhr){
+        //             console.log(xhr);
+        //             // $('#wrap_form_option').load(location.href + ' #form_option_add');
+        //             loaderEnd();
+        //         }
+        //     });
+        // });
+
+        // product sku
+        $(document).on('submit', '#form_update_sku', function(e){
             e.preventDefault();
+            // let da = $(this).find('tr');
+            // console.log(da);
             let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
-            // loaderStart();
-            let url = $(this).data('url');
-            console.log(url);
-            $.ajax({
-                headers: {
-                    "X-CSRF-TOKEN": token,
-                },
-                url: url,
-                type: "POST",
-                success: function(response) {
-                    console.log(response);
-                    // toastr.success(response.message, {timeOut: 5000});
-                    // $('#wrap_form_option').html(response.html);
-                    loaderEnd();
-                },
-                error: function(xhr){
-                    console.log(xhr);
-                    // $('#wrap_form_option').load(location.href + ' #form_option_add');
-                    loaderEnd();
-                }
-            });
+            let url = $(this).attr('action');
+    
+            if(url && $(this).valid()){
+                var formData = $(this).serialize();
+                loaderStart();
+                $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": token,
+                    },
+                    url: url,
+                    type: "PUT",
+                    data: formData,
+                    dataType: "JSON",
+                    success: function(response) {
+                        toastr.success(response.message, {timeOut: 5000});
+                        $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
+                        loaderEnd();
+                    },
+                    error: function(xhr){
+                        let errors = '';
+                        $.each(xhr.responseJSON.errors, function(key, value){
+                            $.each(value, function(index, item) {
+                                errors += '<p>' + item + '</p>'
+                            });
+                        })
+                        toastr.error(errors, {timeOut: 5000});
+                        $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
+                        loaderEnd();
+                    }
+                });
+            }
         });
     });
 </script>

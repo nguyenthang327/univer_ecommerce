@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'server_error' => 'An error occurred. please try again later!',
+
     'nothing_data' => 'Nothing data!',
 
     // Login

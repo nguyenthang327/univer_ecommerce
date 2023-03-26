@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'server_error' => 'Đã có lỗi xảy ra. Vui lòng thử lại sau!',
+
     'nothing_data' => 'Không có dữ liệu!',
 
     // Login

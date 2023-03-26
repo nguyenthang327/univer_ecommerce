@@ -12,6 +12,9 @@ class Product extends Model
     use HasFactory;
     use SoftDeletes;
 
+    const TYPE_REGULAR = 0;
+    const TYPE_VARIANT = 1;
+
     /**
      * @var string
      */

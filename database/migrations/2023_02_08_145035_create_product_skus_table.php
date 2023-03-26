@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('product_skus', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('product_id');
-            $table->string('name')->unique()->nullable();
+            $table->unsignedBigInteger('product_id');
+            $table->string('name')->nullable();
             // $table->string('barcode')->unique()->nullable();
-            $table->decimal('price', 12)->default(0);
-            $table->unsignedInteger('stock')->default(0);
+            $table->unsignedInteger('price')->nullable();
+            $table->unsignedInteger('stock')->nullable();
             $table->timestamps();
         });
     }

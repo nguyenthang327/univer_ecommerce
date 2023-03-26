@@ -101,6 +101,7 @@ return [
     'slug' => 'Slug',
     'sku' => 'Sku',
     'price' => 'Price',
+    'stock' => 'Stock',    
     'description' => 'Description',
     'choose_category' => 'Choose category',
     'gallery' => 'Gallery',
@@ -119,6 +120,7 @@ return [
     'QA_save_option_2' => 'If saved, product variations will also be changed with the current attribute.',
     'product_variation' => 'There are product variations',
     'product_not_variation' => "It's a regular product",
+    'product_type' => 'Product type',
 
     // mail register
     'mail' => [

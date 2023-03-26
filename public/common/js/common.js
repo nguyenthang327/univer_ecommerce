@@ -22,6 +22,17 @@ function select2Base(selector){
     }
 }
 
+function select2BaseNoClear(selector){
+    if ($(selector).length){
+        $(selector).select2({
+            theme: 'bootstrap4',
+            addCssClass : "error",
+            language,
+        });
+        $('.select2-search__field').css('width', '100%');
+    }
+}
+
 let formatDate = 'dd/mm/yyyy',
     formatMonth = 'mm/yyyy',
     formatTime = 'HH:mm:ss',
@@ -239,6 +250,7 @@ $(function (){
     $(document).on('change', '.form-image__file', readFileImage);
 
     select2Base('.select2-base');
+    select2BaseNoClear('.select2-base-no-clear');
     datePicker('[data-picker="date"]');
     $(document).on('change', '.dynamic-select-option', dynamicSelectOption);
 

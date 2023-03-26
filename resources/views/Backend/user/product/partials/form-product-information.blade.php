@@ -28,6 +28,9 @@
                                     <div class="invalid-alert text-danger">{{ $errors->first('product_name') }}</div>
                                 @endif
                             </div>
+                          
+                        </div>
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>{{ trans('language.slug') }} <span class="text-red">*</span></label>
                                 <input type="text" class="form-control" placeholder="{{ trans('language.slug') }}" name="slug" id="slug" required autocomplete="off" value="{{ old('slug') ? old('slug') : (isset($product->slug) ? $product->slug : '')}}">
@@ -44,6 +47,17 @@
                                     <div class="invalid-alert text-danger">{{ $errors->first('sku') }}</div>
                                 @endif
                             </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>{{ trans('language.stock') }} <span class="text-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="{{ trans('language.stock') }}" name="stock" required autocomplete="off" value="{{ old('stock') ? old('stock') : (isset($product->stock) ? $product->stock : '')}}">
+                                @if ($errors->first('stock'))
+                                    <div class="invalid-alert text-danger">{{ $errors->first('stock') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>{{ trans('language.price') }} <span class="text-red">*</span></label>
                                 <input type="number" class="form-control" placeholder="{{ trans('language.price') }}" name="price" required autocomplete="off" value="{{ old('price') ? old('price') : (isset($product->price) ? $product->price : '')}}">
@@ -52,8 +66,6 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="">{{trans('language.choose_category')}} <span class="text-red"></span></label>

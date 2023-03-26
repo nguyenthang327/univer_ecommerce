@@ -15,17 +15,17 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->nullable();
+            $table->string('slug',500)->unique();
             $table->string('sku')->nullable();
-            $table->decimal('price', 12)->default(0);
-            $table->unsignedInteger('stock')->default(0);
+            $table->unsignedInteger('price')->nullable();
+            $table->unsignedInteger('stock')->nullable();
             $table->string('name',255);
             $table->text('description')->nullable();
             $table->json("gallery")->nullable();
-            $table->date('expired_at')->nullable();
-            $table->unsignedInteger('category_id')->nullable();
+            // $table->datetime('expired_at')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->tinyInteger('is_featured')->default(0);
+            $table->tinyInteger('product_type')->default(0);
             $table->unsignedInteger('created_by')->nullable();
             $table->unsignedInteger('updated_by')->nullable();
             $table->softDeletes();

@@ -1,6 +1,7 @@
 @if ($skus->isNotEmpty())
-    <form method="POST" enctype="multipart/form-data" id="" class="mt-3">
-        <div id="wrap_data_variation">
+    <form method="POST" enctype="multipart/form-data" action="{{ route('user.product.updateSku',['productId' => $product->id])}}" id="form_update_sku" class="mt-3">
+        @method('PUT')
+        <div id="wrap_data_sku">
             <div class="table-responsive">
                 <table
                     class="table table-hover table-striped table-bordered table-valign-middle table-custom min-width-800">
