@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->foreignId('sku_id')->constrained('product_skus');
             $table->string('product_name');
-            $table->json('attribute');
+            $table->json('attribute')->nullable();
             $table->decimal('price', 12);
             $table->integer('quantity');
             $table->decimal('subtotal', 12)->storedAs('price * quantity');

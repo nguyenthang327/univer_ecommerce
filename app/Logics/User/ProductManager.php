@@ -3,6 +3,7 @@
 namespace App\Logics\User;
 
 use App\Models\Product;
+use App\Models\ProductCateogryRelation;
 use App\Models\ProductOption;
 use App\Models\ProductOptionValue;
 use App\Models\ProductSku;
@@ -16,7 +17,7 @@ class ProductManager
     use StorageTrait;
     use ImageTrait;
 
-    public function createProduct($parameters, $gallery = [])
+    public function createProduct($parameters, $gallery = [], $categories = [])
     {
         $product = Product::create($parameters);
         if ($gallery && !empty($gallery)) {
@@ -35,10 +36,23 @@ class ProductManager
         if (isset($parameters['gallery']) && !empty($parameters['gallery'])) {
             $product->update(['gallery' => $parameters['gallery']]);
         }
+
+        if(!empty($categories)){
+            $data = [];
+            foreach($categories as $category){
+                $data[] = [
+                    'product_id' => $product->id,
+                    'category_id' => $category,
+                ];
+            }
+            if(!empty($data)){
+                ProductCateogryRelation::insert($data);
+            }
+        }
         return $product;
     }
 
-    public function updateProduct($product, $parameters, $gallery = [])
+    public function updateProduct($product, $parameters, $gallery = [], $categories = [])
     {
         $parameters['gallery'] = null;
         if ($gallery && !empty($gallery)) {
@@ -55,6 +69,25 @@ class ProductManager
                     'file_name' => $file['file_name'],
                     'file_path' => $destination,
                 ];
+            }
+        }
+
+        if(isset($categories)){
+            $categoriesOld = $product->categories->pluck('category_id')->toArray();
+            $diffOld = array_diff($categoriesOld, $categories);
+            $diffNew = array_diff($categories, $categoriesOld);
+            $data = [];
+            if(!empty($diffOld)){
+                ProductCateogryRelation::where('product_id', $product->id)->whereIn('category_id', $diffOld)->delete();
+            }
+            foreach($diffNew as $category){
+                $data[] = [
+                    'product_id' => $product->id,
+                    'category_id' => $category,
+                ];
+            }
+            if(!empty($data)){
+                ProductCateogryRelation::insert($data);
             }
         }
 

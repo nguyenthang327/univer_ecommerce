@@ -32,6 +32,13 @@ class Product extends Model
     ];
 
     /**
+     * get categories by product
+     */
+    public function categories(){
+        return $this->hasMany(ProductCateogryRelation::class);
+    }
+
+    /**
      * get options by product
      */
     public function options(){

@@ -59,31 +59,43 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>{{ trans('language.price') }} <span class="text-red">*</span></label>
-                                <input type="number" class="form-control" placeholder="{{ trans('language.price') }}" name="price" required autocomplete="off" value="{{ old('price') ? old('price') : (isset($product->price) ? $product->price : '')}}">
-                                @if ($errors->first('price'))
-                                    <div class="invalid-alert text-danger">{{ $errors->first('price') }}</div>
-                                @endif
+                                <label for="">{{ trans('language.price') }} <span class="text-red">*</span></label>
+                                <label class="input-group mb-1 ">
+                                    <input type="number" class="form-control" placeholder="{{ trans('language.price') }}" name="price" required autocomplete="off" value="{{ old('price') ? old('price') : (isset($product->price) ? $product->price : '')}}">
+                                    @if ($errors->first('price'))
+                                        <div class="invalid-alert text-danger">{{ $errors->first('price') }}</div>
+                                    @endif
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-dollar-sign"></span>
+                                        </div>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="">{{trans('language.choose_category')}} <span class="text-red"></span></label>
-                                <select class="select2-base {{$errors->first('category_id') ? 'is-invalid' : ''}}"
+                                <select class="select2-base select2-search__field {{$errors->first('category_id') ? 'is-invalid' : ''}}"
                                     style="width: 100%"
                                     data-placeholder="{{trans('language.choose_category')}}"
-                                    name="category_id"
-                                    {{-- required --}}
+                                    name="category_id[]"
+                                    multiple
                                     >
                                 <option value=""></option>
                                 @php
-                                    $chooseCategory = old('category_id') ? old('category_id') : (isset($category->id) ? $category->id:'');
+                                    $chooseCategory = old('category_id') ? old('category_id') : (isset($product->categories) ? $product->categories->pluck('category_id')->toArray(): []);
                                 @endphp
                                 @if(isset($categories))
-                                    @foreach($categories as $key => $val)
-                                        <option value="{{ $key }}" {{ $chooseCategory == $key ? 'selected' : '' }}>
-                                            {{ $val }}
+                                    @foreach($categories as $key => $category)
+                                        <option value="{{ $category["id"] }}" {{ in_array($category["id"], $chooseCategory) ? 'selected' : '' }}>
+                                            {{ $category["name"] }}
                                         </option>
+                                        @foreach($category["_2_level_cate"] as $subCategory)
+                                            <option value="{{ $subCategory["id"] }}" {{ in_array($subCategory["id"], $chooseCategory ) ? 'selected' : '' }}>
+                                                &ensp;{{ $subCategory["name"] }}
+                                            </option>
+                                        @endforeach
                                     @endforeach
                                 @endif
                                 </select>

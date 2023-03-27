@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateSkuRequest;
 use App\Logics\User\ProductManager;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\ProductOption;
 use App\Models\ProductOptionValue;
 use App\Models\ProductSku;
@@ -36,11 +37,21 @@ class ProductController extends Controller
     }
 
     public function index(){
-        return view($this->pathView. 'index');
+        $products = Product::with('optionValues', 'options', 'skus', 'variants', 'categories')->get();
+        return view($this->pathView. 'index', compact('products'));
     }
 
     public function create(){
-        return view($this->pathView. 'create');
+        $categories = ProductCategory::select([
+                'product_categories.id',
+                'product_categories.name',
+                ])
+            ->with(['_2LevelCate'])
+            ->whereNull('product_categories.parent_id')
+            ->get()
+            ->toArray();
+
+        return view($this->pathView. 'create', compact('categories'));
     }
 
     public function store(Request $request){
@@ -55,7 +66,9 @@ class ProductController extends Controller
                 'description' => $request->description,
             ];
 
-            $product = $this->productManager->createProduct($params, isset($request->gallery) ? $request->gallery : []);
+            $categories = isset($request->category_id) ? $request->category_id : [];
+
+            $product = $this->productManager->createProduct($params, isset($request->gallery) ? $request->gallery : [], $categories);
             if(isset($request->gallery_remove) && !empty($request->gallery_remove)){
                 foreach($request->gallery_remove as $file){
                     $this->deleteFile($file);
@@ -78,7 +91,7 @@ class ProductController extends Controller
      * @return View
      */
     public function edit($slug){
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::with('categories')->where('slug', $slug)->first();
         if(!$product){
             abort(Response::HTTP_NOT_FOUND);
         }
@@ -103,7 +116,16 @@ class ProductController extends Controller
             ->where('product_id', $product->id)
             ->get();
 
-        return view($this->pathView. 'edit', compact('product', 'options', 'skus'));
+        $categories = ProductCategory::select([
+                'product_categories.id',
+                'product_categories.name',
+                ])
+            ->with(['_2LevelCate'])
+            ->whereNull('product_categories.parent_id')
+            ->get()
+            ->toArray();
+
+        return view($this->pathView. 'edit', compact('product', 'options', 'skus', 'categories'));
     }
 
     /**
@@ -112,7 +134,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id){
-        $product = Product::where('id', $id)->first();
+        $product = Product::with('categories')->where('id', $id)->first();
         if(!$product){
             return back()->with([
                 'status_failed' => trans('message.product_not_found'),
@@ -129,7 +151,9 @@ class ProductController extends Controller
                 'description' => $request->description,
             ];
 
-            $product = $this->productManager->updateProduct($product, $params, isset($request->gallery) ? $request->gallery : []);
+            $categories = isset($request->category_id) ? $request->category_id : [];
+
+            $product = $this->productManager->updateProduct($product, $params, isset($request->gallery) ? $request->gallery : [], $categories);
 
             if(isset($request->gallery_remove) && !empty($request->gallery_remove)){
                 foreach($request->gallery_remove as $file){

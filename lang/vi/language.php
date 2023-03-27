@@ -23,6 +23,8 @@ return [
     'cancel' => 'Hủy bỏ',
     'action' => 'Thao tác',
 
+    'ordinal_number' => 'Số thứ tự',
+
     // profile
     'profile' => 'Hồ sơ',
     'profile_info' => 'Thông tin cá nhân',

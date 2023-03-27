@@ -19,7 +19,7 @@
                     @endif
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            {{-- <span class="fas fa-dollar-sign"></span> --}}<span>VND</span>
+                            <span class="fas fa-dollar-sign"></span>
                         </div>
                     </div>
                 </label>

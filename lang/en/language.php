@@ -23,6 +23,8 @@ return [
     'cancel' => 'Cancel',
     'action' => 'Action',
 
+    'ordinal_number' => 'Ordinal number',
+
     // profile
     'profile' => 'Profile',
     'profile_info' => 'Profile information',
