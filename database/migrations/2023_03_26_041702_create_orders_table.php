@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('customer_id');
+            $table->string('status')->default(0); // awaiting_payment
+            $table->string('payment_method')->default(0); // cash_on_delivery
+            $table->softDeletes();
             $table->timestamps();
         });
     }
