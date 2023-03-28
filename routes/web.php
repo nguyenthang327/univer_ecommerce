@@ -101,25 +101,28 @@ Route::middleware('web')->group(function () {
                 Route::get('/', [CategoryController::class, 'index'])->name('user.productCategory.index');
             });
 
-            // Product
-            Route::prefix('/product')->group(function(){
-                Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
-                Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
-                Route::post('/store', [ProductController::class, 'store'])->name('user.product.store');
-                Route::get('/edit/{slug}', [ProductController::class, 'edit'])->name('user.product.edit');
-                Route::put('/update/{id}', [ProductController::class, 'update'])->name('user.product.update');
-                Route::put('/{id}/update-type', [ProductController::class, 'updateTypeProduct'])->name('user.product.updateTypeProduct');
-                Route::post('/option/{id}', [ProductController::class, 'option'])->name('user.product.option');
-                Route::delete('/{productId}/option/{id}', [ProductController::class, 'deleteOption'])->name('user.product.deleteOption');
-                Route::post('/{productId}/generate-variation', [ProductController::class, 'generateVariation'])->name('user.product.generateVariation');
-                Route::put('/{productId}/update-sku', [ProductController::class, 'updateSku'])->name('user.product.updateSku');
-            });
+           
         });
     });
 
     Route::group(['middleware' => ['auth:admin,user']], function(){
         Route::post('files/uploadTemp', [UploadController::class, 'uploadTemp'])->name('file.uploadTemp');
         Route::delete('files/removeFile', [UploadController::class, 'removeFile'])->name('file.removeFile');
+
+         // Product
+        Route::prefix('/product')->group(function(){
+            Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
+            Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
+            Route::post('/store', [ProductController::class, 'store'])->name('user.product.store');
+            Route::get('/edit/{slug}', [ProductController::class, 'edit'])->name('user.product.edit');
+            Route::put('/update/{id}', [ProductController::class, 'update'])->name('user.product.update');
+            Route::put('/{id}/update-type', [ProductController::class, 'updateTypeProduct'])->name('user.product.updateTypeProduct');
+            Route::post('/option/{id}', [ProductController::class, 'option'])->name('user.product.option');
+            Route::delete('/{productId}/option/{id}', [ProductController::class, 'deleteOption'])->name('user.product.deleteOption');
+            Route::post('/{productId}/generate-variation', [ProductController::class, 'generateVariation'])->name('user.product.generateVariation');
+            Route::put('/{productId}/update-sku', [ProductController::class, 'updateSku'])->name('user.product.updateSku');
+            Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('user.product.destroy');
+        });
     });
 });
 

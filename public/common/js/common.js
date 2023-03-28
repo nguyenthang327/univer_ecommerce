@@ -1,4 +1,4 @@
-let language = $("body").data('locales');
+let language = $("body").data('locales') ?? 'en';
 const trans = {
     'vi' : {
         'agree' : 'Đồng ý',

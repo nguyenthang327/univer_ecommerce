@@ -111,7 +111,7 @@
                             headers: {
                                 "X-CSRF-TOKEN": token,
                             },
-                            url: '/user/product/option/' + {{$product->id}},
+                            url: '/product/option/' + {{$product->id}},
                             type: "POST",
                             data: formData,
                             dataType: "JSON",
@@ -178,7 +178,7 @@
                     success: function(response) {
                         toastr.success(response.message, {timeOut: 5000});
                         // $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
-                        $('#wrap_option_and_variant').html(response.html);
+                        // $('#wrap_option_and_variant').html(response.html);
                         loaderEnd();
                     },
                     error: function(xhr){

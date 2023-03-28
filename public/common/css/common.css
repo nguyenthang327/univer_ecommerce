@@ -163,10 +163,6 @@ table thead{
     color: #fff;
 }
 
-.has-success{
-    color: blue;
-}
-
-.has-error{
-    color: red;
+.product-image-table{
+    object-fit: contain !important;
 }

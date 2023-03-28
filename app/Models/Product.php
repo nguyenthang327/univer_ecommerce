@@ -6,11 +6,13 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kyslik\ColumnSortable\Sortable;
 
 class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use Sortable;
 
     const TYPE_REGULAR = 0;
     const TYPE_VARIANT = 1;

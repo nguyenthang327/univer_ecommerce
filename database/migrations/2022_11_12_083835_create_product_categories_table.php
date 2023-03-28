@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->unsignedInteger('created_by_admin_id');
             $table->unsignedInteger('updated_by_admin_id');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

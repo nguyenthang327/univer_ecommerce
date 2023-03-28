@@ -42,7 +42,7 @@
                 </div>
             @endif
             <div class="table-list-data">
-                @include('backend.admin.productCategory.partials.product-category-list')
+                @include('backend.user.productCategory.partials.product-category-list')
             </div>
         </div>
     </section>

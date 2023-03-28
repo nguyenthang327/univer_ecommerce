@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->string('name')->nullable();
             // $table->string('barcode')->unique()->nullable();
-            $table->unsignedInteger('price')->nullable();
+            $table->decimal('price',12)->nullable();
             $table->unsignedInteger('stock')->nullable();
             $table->timestamps();
         });

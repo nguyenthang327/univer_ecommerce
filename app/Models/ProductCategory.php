@@ -13,7 +13,6 @@ class ProductCategory extends Model
 {
     use HasFactory;
     use Sluggable;
-    use SoftDeletes;
 
     /**
      * @var string

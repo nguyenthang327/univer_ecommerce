@@ -21,9 +21,8 @@
         <div class="row">
             <div class="col-12">
                 <ul class="nav nav-tabs">
-                    <li><a data-toggle="tab" href="#option"> {{ trans('language.options') }}</a></li>
-                    <li class="active"><a data-toggle="tab" href="#variation"
-                            class="active">{{ trans('language.variations') }}</a></li>
+                    <li class="active"><a data-toggle="tab" href="#option" class="active"> {{ trans('language.options') }}</a></li>
+                    <li><a data-toggle="tab" href="#variation">{{ trans('language.variations') }}</a></li>
                 </ul>
                 <div id="wrap_option_and_variant">
                     @include('backend.user.product.partials.variant-content')

@@ -22,6 +22,8 @@ return [
     'agree' => 'Đồng ý',
     'cancel' => 'Hủy bỏ',
     'action' => 'Thao tác',
+    'have' => 'Có',
+    'does_not_have' => 'Không có',
 
     'ordinal_number' => 'Số thứ tự',
 
@@ -126,6 +128,10 @@ return [
     'enter_price' => 'Nhập giá',
     'enter_stock' => 'Nhập số lượng',
     'enter_sku' => 'Nhập sku',
+    'image' => 'Ảnh',
+    'delete_product'=> 'Bạn có muốn xóa sản phẩm này?',
+    'product_keyword' => 'Tìm kiếm theo: tên sản phẩm, sku',
+    'by_category' => 'Theo danh mục',
 
     // mail register
     'mail' => [

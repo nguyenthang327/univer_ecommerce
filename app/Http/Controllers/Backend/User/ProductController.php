@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Backend\User;
 
+use App\Helpers\StringHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\ProductRequest;
 use App\Http\Requests\Product\UpdateSkuRequest;
 use App\Logics\User\ProductManager;
 use App\Models\Product;
@@ -15,6 +17,7 @@ use App\Traits\StorageTrait;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -23,6 +26,9 @@ use Illuminate\Validation\Rule;
 class ProductController extends Controller
 {
     use StorageTrait;
+
+    const PER_PAGE = 15;
+    const PATH_VIEW_ADMIN = 'backend.admin.product.';
 
     protected $pathView = 'backend.user.product.';
 
@@ -36,11 +42,74 @@ class ProductController extends Controller
         $this->productManager = $productManager;
     }
 
-    public function index(){
-        $products = Product::with('optionValues', 'options', 'skus', 'variants', 'categories')->get();
-        return view($this->pathView. 'index', compact('products'));
+    /**
+     * check admin to change path
+     */
+    private function checkAdmin(){
+        if(Auth::guard('admin')->check()){
+            $this->pathView = self::PATH_VIEW_ADMIN;
+        }
     }
 
+    /**
+     * display product view
+     * @param \Illuminate\Http\Request $request
+     * @return View
+     */
+    public function index(Request $request){
+        $stringHelper = new StringHelper();
+        $products = Product::with(['skus' => function($query){
+                $query->select([
+                    'product_skus.*',
+                    DB::raw('MIN(product_skus.price) as min_price'),
+                    DB::raw('MAX(product_skus.price) as max_price'),
+                    DB::raw('SUM(product_skus.stock) as total_stock'),
+                ])->groupBy('product_skus.product_id');
+            }])
+            ->select([
+                'products.*',
+                DB::raw("GROUP_CONCAT( CONCAT(product_categories.name, '') SEPARATOR ', ' ) AS cateogry"),
+            ])
+            ->leftJoin('product_category_relation', 'products.id', '=', 'product_category_relation.product_id')
+            ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id');
+
+        if(isset($request->categories_id)){
+            $products = $products->whereIn('product_categories.id', $request->categories_id);
+        }
+
+        // if(isset($request->price_from)){
+        //     $products = $products->whereIn('products.prices', $request->price_from);
+        // }
+        // if(isset($request->price_to)){
+        //     $products = $products->whereIn('products.prices', $request->price_to);
+        // }
+
+        if(isset($request->keyword)){
+            $keyword = $stringHelper->formatStringWhereLike($request->keyword);
+            $products = $products->where('products.name', 'LIKE', '%'.$keyword.'%')
+                ->orWhere('products.sku', 'LIKE', '%'.$keyword.'%');
+        }
+
+        if(!isset($request->direction)){
+            $products = $products->orderBy('products.created_at', 'desc');
+        }
+
+        $products = $products->groupBy('products.id');
+
+        // Pagination
+        $perPage = $request->has('per_page') ? $request->input('per_page') : self::PER_PAGE;
+        $products = $products->sortable()->paginate($perPage);
+
+        $categories = ProductCategory::select('id', 'name')->get()->toArray();
+
+        $this->checkAdmin();
+        return view($this->pathView. 'index', compact('products', 'categories'));
+    }
+
+    /**
+     * display product view
+     * @return View
+     */
     public function create(){
         $categories = ProductCategory::select([
                 'product_categories.id',
@@ -51,10 +120,16 @@ class ProductController extends Controller
             ->get()
             ->toArray();
 
+        $this->checkAdmin();
         return view($this->pathView. 'create', compact('categories'));
     }
 
-    public function store(Request $request){
+    /**
+     * save product
+     * @param \App\Http\Requests\Product\ProductRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(ProductRequest $request){
         DB::beginTransaction();
         try{
             $params = [
@@ -125,6 +200,7 @@ class ProductController extends Controller
             ->get()
             ->toArray();
 
+        $this->checkAdmin();
         return view($this->pathView. 'edit', compact('product', 'options', 'skus', 'categories'));
     }
 
@@ -133,7 +209,7 @@ class ProductController extends Controller
      * @param mixed $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id){
+    public function update(ProductRequest $request, $id){
         $product = Product::with('categories')->where('id', $id)->first();
         if(!$product){
             return back()->with([
@@ -335,6 +411,12 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * update sku
+     * @param \App\Http\Requests\Product\UpdateSkuRequest $request
+     * @param mixed $productId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateSku(UpdateSkuRequest $request, $productId){
         $product = Product::where('id', $productId)->first();
         if(!$product){
@@ -500,6 +582,12 @@ class ProductController extends Controller
     //     }
     // }
 
+    /**
+     * update tyoe product
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateTypeProduct(Request $request, $id){
         $product = Product::where('id', $id)->first();
         if(!$product){
@@ -529,5 +617,30 @@ class ProductController extends Controller
                 'message' => trans('message.server_error'),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * destroy product
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id){
+        $product = Product::where('id', $id)->first();
+        if(!$product){
+            return response()->json([
+                'status' => Response::HTTP_NOT_FOUND,
+                'msg' => trans('message.product_not_exists'),
+                'url_callback' => back()->getTargetUrl(),
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $product->delete();
+        
+        return response()->json([
+            'message' => [
+                'title' => trans('language.success'),
+                'text' => trans('message.delete_product_successed'),
+            ]
+        ], Response::HTTP_OK);
     }
 }

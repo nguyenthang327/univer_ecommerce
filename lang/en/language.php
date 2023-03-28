@@ -22,6 +22,8 @@ return [
     'agree' => 'Agree',
     'cancel' => 'Cancel',
     'action' => 'Action',
+    'have' => 'Have',
+    'does_not_have' => 'Does not have',
 
     'ordinal_number' => 'Ordinal number',
 
@@ -126,6 +128,10 @@ return [
     'enter_price' => 'Enter price',
     'enter_stock' => 'Enter stock',
     'enter_sku' => 'Enter sku',
+    'image' => 'Image',
+    'delete_product'=> 'Do you want to delete this product?',
+    'product_keyword' => 'Seach by product name, product sku',
+    'by_category' => 'By category',
 
     // mail register
     'mail' => [

@@ -1,4 +1,8 @@
 <!-- Main Sidebar Container -->
+@php
+    $currentRoute = Route::current()->getName();
+@endphp
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -52,8 +56,15 @@
                       </li>
                     </ul> -->
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+
+                @php
+                    $routeProfile = [
+                        'admin.profile'
+                    ];
+                    $routeActive = $routeProfile;
+                @endphp
+                <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
                             {{ trans('language.profile') }}
@@ -62,7 +73,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route("admin.profile") }}" class="nav-link">
+                            <a href="{{ route("admin.profile") }}" class="nav-link {{ in_array($currentRoute, $routeProfile) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.profile_info') }}</p>
                             </a>
@@ -75,8 +86,15 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+
+                @php
+                    $routeUserManager = [
+                        'admin.user.index'
+                    ];
+                    $routeActive = $routeUserManager;
+                @endphp
+                <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
                             {{ trans('language.user_management') }}
@@ -85,7 +103,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route("admin.user.index") }}" class="nav-link">
+                            <a href="{{ route("admin.user.index") }}" class="nav-link {{ in_array($currentRoute, $routeUserManager) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.user_list') }}</p>
                             </a>
@@ -98,8 +116,20 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+
+                @php
+                    $routeProduct = [
+                        'user.product.index',
+                        'user.product.create',
+                        'user.product.edit',
+                    ];
+                    $routeProductCategory= [
+                        'admin.productCategory.index',
+                    ];
+                    $routeActive = array_merge($routeProduct, $routeProductCategory);
+                @endphp
+                <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
                             {{ trans('language.product') }}
@@ -108,15 +138,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.productCategory.index')}}" class="nav-link">
+                            <a href="{{ route('admin.productCategory.index')}}" class="nav-link {{ in_array($currentRoute, $routeProductCategory) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.product_category') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/tables/data.html" class="nav-link">
+                            <a href="{{ route('user.product.index')}}" class="nav-link {{ in_array($currentRoute, $routeProduct) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>DataTables</p>
+                                <p>{{ trans('language.product') }}</p>
                             </a>
                         </li>
                     </ul>
