@@ -100,6 +100,7 @@ return [
     'product' => 'Sản phẩm',
     'product_list' => 'Danh sách sản phẩm',
     'add_product' => 'Thêm sản phẩm',
+    'edit_product' => 'Sửa sản phẩm',
     'product_name' => 'Tên sản phẩm',
     'enter_product_name' => 'Nhập tên sản phẩm',
     'slug' => 'Slug',

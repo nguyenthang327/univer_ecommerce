@@ -68,7 +68,6 @@ Route::middleware('web')->group(function () {
 
             // Product category
             Route::prefix('/product-category')->group(function(){
-                Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
                 Route::get('/create', [CategoryController::class, 'create'])->name('admin.productCategory.create');
                 Route::post('/store', [CategoryController::class, 'store'])->name('admin.productCategory.store');
                 Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('admin.productCategory.edit');
@@ -96,10 +95,10 @@ Route::middleware('web')->group(function () {
                Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('user.avatar');
             });
 
-            // Product category
-            Route::prefix('/product-category')->group(function(){
-                Route::get('/', [CategoryController::class, 'index'])->name('user.productCategory.index');
-            });
+            // // Product category
+            // Route::prefix('/product-category')->group(function(){
+            //     Route::get('/', [CategoryController::class, 'index'])->name('user.productCategory.index');
+            // });
 
            
         });
@@ -108,6 +107,11 @@ Route::middleware('web')->group(function () {
     Route::group(['middleware' => ['auth:admin,user']], function(){
         Route::post('files/uploadTemp', [UploadController::class, 'uploadTemp'])->name('file.uploadTemp');
         Route::delete('files/removeFile', [UploadController::class, 'removeFile'])->name('file.removeFile');
+
+        // Product category
+        Route::prefix('backend/product-category')->group(function(){
+            Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
+        });
 
          // Product
         Route::prefix('/product')->group(function(){

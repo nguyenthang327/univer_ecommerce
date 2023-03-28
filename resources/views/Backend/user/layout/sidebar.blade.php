@@ -63,7 +63,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('user.productCategory.index')}}" class="nav-link">
+                            <a href="{{ route('admin.productCategory.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.product_category') }}</p>
                             </a>

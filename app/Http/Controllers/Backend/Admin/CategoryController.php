@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 class CategoryController extends Controller
 {
     const PER_PAGE = 10;
+    const PATH_VIEW_USER = 'backend.user.productCategory.';
 
     /**
      * @var \App\Logics\Admin\CategoryManager $categoryManager
@@ -36,6 +37,15 @@ class CategoryController extends Controller
      * @var string
      */
     protected $pathView = 'backend.admin.productCategory.';
+
+    /**
+     * check admin to change path
+     */
+    private function checkAdmin(){
+        if(!Auth::guard('admin')->check()){
+            $this->pathView = self::PATH_VIEW_USER;
+        }
+    }
 
     /**
      * show all product category
@@ -82,9 +92,8 @@ class CategoryController extends Controller
 
         $is_filter = "";
 
-        if(Auth::guard('user')->user()){
-            return view('backend.user.productCategory.index', compact('is_filter', 'data'));
-        }
+        $this->checkAdmin();
+
         return view($this->pathView . 'index', compact('is_filter', 'data'));
     }
 

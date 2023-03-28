@@ -98,8 +98,9 @@ return [
         
     // product
     'product' => 'Product',
-    'product_list' => 'Product category',
+    'product_list' => 'Product list',
     'add_product' => 'Add product',
+    'edit_product' => 'Edit product',
     'product_name' => 'Product name',
     'enter_product_name' => 'Enter product name',
     'slug' => 'Slug',

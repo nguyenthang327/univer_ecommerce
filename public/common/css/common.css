@@ -166,3 +166,8 @@ table thead{
 .product-image-table{
     object-fit: contain !important;
 }
+
+.navbar-expand .navbar-nav .nav-link.title:before {
+    content: "/";
+    margin-right: 1rem;
+}

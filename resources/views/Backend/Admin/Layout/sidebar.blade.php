@@ -78,20 +78,20 @@
                                 <p>{{ trans('language.profile_info') }}</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="pages/charts/flot.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Flot</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
                 @php
-                    $routeUserManager = [
+                    $routeUserList = [
                         'admin.user.index'
                     ];
-                    $routeActive = $routeUserManager;
+                    $routeUserCreate = [
+                        'admin.user.create'
+                    ];
+                    $routeUserEdit = [
+                        'admin.user.edit'
+                    ];
+                    $routeActive = array_merge($routeUserList, $routeUserCreate, $routeUserEdit);
                 @endphp
                 <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
                     <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
@@ -103,15 +103,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route("admin.user.index") }}" class="nav-link {{ in_array($currentRoute, $routeUserManager) ? 'active' : ''}}">
+                            <a href="{{ route("admin.user.index") }}" class="nav-link {{ in_array($currentRoute, $routeUserList) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.user_list') }}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/tables/data.html" class="nav-link">
+                            <a href="{{ route("admin.user.create") }}" class="nav-link {{ in_array($currentRoute, $routeUserCreate) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>DataTables</p>
+                                <p>{{ trans('language.add_new') }}</p>
                             </a>
                         </li>
                     </ul>

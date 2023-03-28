@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-end flex-wrap">
                 <div class="mr-1 mb-2">
-                    <a href="{{route('user.productCategory.index',['refresh'=>'true'])}}" class="btn btn-default text-success d-none d-sm-inline-block"><i class="fal fa-sync"></i> {{trans('language.refresh')}}</a>
+                    <a href="{{route('admin.productCategory.index',['refresh'=>'true'])}}" class="btn btn-default text-success d-none d-sm-inline-block"><i class="fal fa-sync"></i> {{trans('language.refresh')}}</a>
                     <a href="#collapseFilter" class="btn btn-default text-primary" data-toggle="collapse"><i class="far fa-filter"></i> {{trans('language.filter')}}</a>
                 </div>
                 <div class="actions mb-2">
