@@ -1,6 +1,7 @@
 <!-- Main Sidebar Container -->
 @php
     $currentRoute = Route::current()->getName();
+    $admin = Auth::guard('admin')->user();
 @endphp
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -15,10 +16,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ route('admin.avatar',['id'=> $admin->id]) }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="{{ route('admin.profile') }}" class="d-block">Alexander Pierce</a>
+                <a href="{{ route('admin.profile') }}" class="d-block">{{ $admin->user_name}}</a>
             </div>
         </div>
 

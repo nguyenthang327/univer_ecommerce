@@ -3,7 +3,7 @@
 
 @section('breadcrumb')
     <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link title">{{ trans('language.profile') }}</a>
+        <a class="nav-link title">{{ trans('language.user_management') }}</a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link title">{{ trans('language.create_new_user') }}</a>

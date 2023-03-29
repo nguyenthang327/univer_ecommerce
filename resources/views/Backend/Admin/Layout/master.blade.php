@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset("common/css/common.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" data-locales="{{app()->getLocale()}}">
+    @include('backend.user.layout.loader')
 <div class="wrapper">
     @include('Backend.Admin.Layout.header')
     @include('Backend.Admin.Layout.sidebar')

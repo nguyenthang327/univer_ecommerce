@@ -83,6 +83,7 @@ return [
 
     // product category
     'product_category' => 'Product category',
+    'product_category_list' => 'List of product categories',
     'add_product_category' => 'Add new product category',
     'category_name' => 'Category name',
     'choose_parent_category' => 'Choose parent category',

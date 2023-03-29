@@ -41,8 +41,8 @@ class CategoryController extends Controller
     /**
      * check admin to change path
      */
-    private function checkAdmin(){
-        if(!Auth::guard('admin')->check()){
+    private function checkUser(){
+        if(Auth::guard('user')->check()){
             $this->pathView = self::PATH_VIEW_USER;
         }
     }
@@ -92,7 +92,7 @@ class CategoryController extends Controller
 
         $is_filter = "";
 
-        $this->checkAdmin();
+        $this->checkUser();
 
         return view($this->pathView . 'index', compact('is_filter', 'data'));
     }

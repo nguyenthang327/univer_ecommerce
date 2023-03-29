@@ -31,8 +31,14 @@ Route::get('/', function () {
     return view('Backend.Admin.Layout.master');
 });
 
+Route::get('/login', function () {
+    // abort(404);
+    return redirect()->route('admin.login');
+})->name('login');
 
-Route::middleware('web')->group(function () {
+
+
+// Route::middleware('web')->group(function () {
 
     // Backend admin
     Route::prefix('/admin')->group(function(){
@@ -128,7 +134,7 @@ Route::middleware('web')->group(function () {
             Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('user.product.destroy');
         });
     });
-});
+// });
 
 // Get administrative units
 Route::get('getDistrictList', [AddressController::class, 'getDistrictList'])->name('getDistrictList');

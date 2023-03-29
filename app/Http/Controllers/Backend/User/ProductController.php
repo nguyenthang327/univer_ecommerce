@@ -64,7 +64,10 @@ class ProductController extends Controller
                     DB::raw('MIN(product_skus.price) as min_price'),
                     DB::raw('MAX(product_skus.price) as max_price'),
                     DB::raw('SUM(product_skus.stock) as total_stock'),
-                ])->groupBy('product_skus.product_id');
+                ])
+                ->whereNotNull('product_skus.price')
+                ->whereNotNull('product_skus.stock')
+                ->groupBy('product_skus.product_id');
             }])
             ->select([
                 'products.*',

@@ -1,12 +1,14 @@
 @extends('backend.user.layout.master')
 @section('title',trans('language.profile_info'))
 
-@section('header')
+@section('breadcrumb')
     <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link active title">{{ trans('language.user_profile') }}</a>
+        <a class="nav-link title">{{ trans('language.product') }}</a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+        <a class="nav-link title">{{ trans('language.add_product') }}</a>
     </li>
 @endsection
-
 
 @section('css_library')
     @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true, 'summernote' => true, 'dropzone' => true])

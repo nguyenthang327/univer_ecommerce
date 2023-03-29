@@ -10,7 +10,7 @@
 @section('css_page')
 @stop
 
-@section('header')
+@section('breadcrumb')
     <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link active title">{{ trans('language.product_list') }}</a>
     </li>

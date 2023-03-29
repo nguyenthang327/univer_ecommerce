@@ -1,7 +1,7 @@
 @extends('Backend.Admin.Layout.master')
 @section('title',trans('language.update_user_info'))
 
-@section('header')
+@section('breadcrumb')
     <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link active title">{{ trans('language.user_profile') }}</a>
     </li>

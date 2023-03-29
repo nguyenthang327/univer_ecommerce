@@ -1,9 +1,9 @@
 @extends('backend.user.layout.master')
 @section('title',trans('language.profile_info'))
 
-@section('header')
+@section('breadcrumb')
     <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link active title">{{ trans('language.user_profile') }}</a>
+        <a class="nav-link active title">{{ trans('language.profile_info') }}</a>
     </li>
 @endsection
 

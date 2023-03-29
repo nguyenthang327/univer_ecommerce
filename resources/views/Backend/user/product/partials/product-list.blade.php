@@ -6,9 +6,9 @@
             <th width="5%">@sortablelink('id', trans('language.ordinal_number'))</th>
             <th width="8%">{{trans('language.sku')}}</th>
             <th width="10%">{{trans('language.image')}}</th>
-            <th width="20%">@sortablelink('name', trans('language.product_name'))</th>
+            <th width="20%" style="max-width:400px;">@sortablelink('name', trans('language.product_name'))</th>
             <th width="6%">@sortablelink('product_type', trans('language.variation'))</th>
-            <th width="10%">@sortablelink('hometown', trans('language.price'))</th>
+            <th width="10%">{{trans('language.price')}}</th>
             <th width="8%">@sortablelink('phone', trans('language.stock'))</th>
             <th width="8%">{{trans('language.category')}}</th>
             <th width="5%">{{trans('language.operation')}}</th>
@@ -29,7 +29,7 @@
                                  class="default-img product-image-table">
                         {{-- </a> --}}
                     </td>
-                    <td class="text-center">{{ $product->name }}</td>
+                    <td class=""><span class="line-clamp-2">{{ $product->name }}</span></td>
                     <td class="text-center">{{ $checkVariant ? trans('language.have') :  trans('language.does_not_have')}}</td>
                     @php
                         $price = "$$product->price";
@@ -37,7 +37,7 @@
                             if((int)$product->skus[0]['min_price'] == (int)$product->skus[0]['max_price']){
                                 $price = "$" . $product->skus[0]['min_price'];
                             }else{
-                                $price = "$" . $product->skus[0]['min_price'] ."-> $" . $product->skus[0]['max_price'];
+                                $price = "$" . $product->skus[0]['min_price'] ." -> $" . $product->skus[0]['max_price'];
                             }
                         }
                     @endphp
