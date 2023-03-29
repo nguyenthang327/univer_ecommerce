@@ -135,7 +135,10 @@ return [
     'product_keyword' => 'Seach by product name, product sku',
     'by_category' => 'By category',
 
-    // mail register
+    // frontend
+    'homepage' => 'Homepage',
+
+    // mail user register
     'mail' => [
         'register' => [
             'subject' => ':website congratulates you on your successful account registration.',

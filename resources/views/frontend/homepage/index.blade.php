@@ -1,4 +1,8 @@
 @extends('frontend.layouts.master')
+@section('title',trans('language.homepage'))
+
+@section('css_page')
+@stop
 
 @section('content')
  <!-- slider-area -->
@@ -15,7 +19,7 @@
                             <a href="shop-left-sidebar.html" class="btn yellow-btn" data-animation="fadeInUp" data-delay="1s">Shop Now</a>
                         </div>
                     </div>
-                    <div class="single-slider slider-bg" data-background="img/slider/s_slider_bg02.jpg">
+                    {{-- <div class="single-slider slider-bg" data-background="img/slider/s_slider_bg02.jpg">
                         <div class="slider-content">
                             <h5 data-animation="fadeInUp" data-delay=".3s">top deal !</h5>
                             <h2 data-animation="fadeInUp" data-delay=".6s">Top headphone</h2>
@@ -30,7 +34,7 @@
                             <p data-animation="fadeInUp" data-delay=".9s">Get up to <span>50%</span> off Today Only</p>
                             <a href="shop-left-sidebar.html" class="btn yellow-btn" data-animation="fadeInUp" data-delay="1s">Shop Now</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -670,4 +674,7 @@
     <div class="limited-overlay-img"><img src="img/images/limited_offer_img.png" alt=""></div>
 </section>
 <!-- limited-offer-area-end -->
+@stop
+
+@section('js_page')
 @stop

@@ -135,7 +135,10 @@ return [
     'product_keyword' => 'Tìm kiếm theo: tên sản phẩm, sku',
     'by_category' => 'Theo danh mục',
 
-    // mail register
+    // frontend
+    'homepage' => 'Trang chủ',
+
+    // mail user register
     'mail' => [
         'register' => [
             'subject' => ':website chúc mừng quý khách đã đăng ký tài khoản thành công.',
