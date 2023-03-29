@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Backend\User\ProductController;
 use App\Http\Controllers\Backend\User\UserController as BeUser;
+use App\Http\Controllers\Frontend\HomepageController;
 use App\Http\Controllers\UploadController;
 
 /*
@@ -27,9 +28,9 @@ use App\Http\Controllers\UploadController;
 |
 */
 
-Route::get('/', function () {
-    return view('Backend.Admin.Layout.master');
-});
+// Route::get('/', function () {
+//     return view('Backend.Admin.Layout.master');
+// });
 
 Route::get('/login', function () {
     // abort(404);
@@ -139,3 +140,7 @@ Route::get('/login', function () {
 // Get administrative units
 Route::get('getDistrictList', [AddressController::class, 'getDistrictList'])->name('getDistrictList');
 Route::get('getCommuneList', [AddressController::class, 'getCommuneList'])->name('getCommuneList');
+
+Route::middleware('web')->group(function () {
+    Route::get('/', [HomepageController::class, 'index'])->name('home');
+});

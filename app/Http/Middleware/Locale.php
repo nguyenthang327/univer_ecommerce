@@ -28,7 +28,7 @@ class Locale
                 session()->put('locale', $locale);
             }
         } else {
-            App::setLocale(session()->get('locale'));
+            App::setLocale(session()->get('locale') ?? 'vi');
         }
         return $next($request); 
     }

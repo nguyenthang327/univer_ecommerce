@@ -1,0 +1,140 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 18/07/2020 03:54
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff2") format("woff2"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-shopping-bags:before { content: "\f100"; }
+.flaticon-magnifying-glass:before { content: "\f101"; }
+.flaticon-menu:before { content: "\f102"; }
+.flaticon-heart:before { content: "\f103"; }
+.flaticon-two-arrows:before { content: "\f104"; }
+.flaticon-shopping-bag:before { content: "\f105"; }
+.flaticon-user:before { content: "\f106"; }
+.flaticon-menu-1:before { content: "\f107"; }
+.flaticon-justification:before { content: "\f108"; }
+.flaticon-scroll:before { content: "\f109"; }
+.flaticon-shuffle:before { content: "\f10a"; }
+.flaticon-shuffle-1:before { content: "\f10b"; }
+.flaticon-supermarket:before { content: "\f10c"; }
+.flaticon-witness:before { content: "\f10d"; }
+.flaticon-quote-left:before { content: "\f10e"; }
+.flaticon-list:before { content: "\f10f"; }
+.flaticon-menu-2:before { content: "\f110"; }
+.flaticon-grid:before { content: "\f111"; }
+.flaticon-project:before { content: "\f112"; }
+.flaticon-revenue:before { content: "\f113"; }
+.flaticon-quality:before { content: "\f114"; }
+.flaticon-shuttle:before { content: "\f115"; }
+.flaticon-invoice:before { content: "\f116"; }
+.flaticon-secure-payment:before { content: "\f117"; }
+.flaticon-24-hours-support:before { content: "\f118"; }
+.flaticon-placeholder:before { content: "\f119"; }
+.flaticon-telephone:before { content: "\f11a"; }
+.flaticon-mail:before { content: "\f11b"; }
+.flaticon-zoom-in:before { content: "\f11c"; }
+.flaticon-right-arrow:before { content: "\f11d"; }
+.flaticon-left-arrow:before { content: "\f11e"; }
+.flaticon-cancel:before { content: "\f11f"; }
+.flaticon-cancel-1:before { content: "\f120"; }
+.flaticon-done:before { content: "\f121"; }
+.flaticon-check:before { content: "\f122"; }
+.flaticon-select:before { content: "\f123"; }
+.flaticon-cancel-2:before { content: "\f124"; }
+.flaticon-password:before { content: "\f125"; }
+.flaticon-scroll-1:before { content: "\f126"; }
+.flaticon-calendar:before { content: "\f127"; }
+.flaticon-exit:before { content: "\f128"; }
+.flaticon-plus:before { content: "\f129"; }
+.flaticon-crosshair:before { content: "\f12a"; }
+.flaticon-loupe:before { content: "\f12b"; }
+.flaticon-magnifying-glass-1:before { content: "\f12c"; }
+.flaticon-right-quote:before { content: "\f12d"; }
+.flaticon-plus-1:before { content: "\f12e"; }
+.flaticon-lock:before { content: "\f12f"; }
+.flaticon-copyright:before { content: "\f130"; }
+.flaticon-list-1:before { content: "\f131"; }
+    
+    $font-Flaticon-shopping-bags: "\f100";
+    $font-Flaticon-magnifying-glass: "\f101";
+    $font-Flaticon-menu: "\f102";
+    $font-Flaticon-heart: "\f103";
+    $font-Flaticon-two-arrows: "\f104";
+    $font-Flaticon-shopping-bag: "\f105";
+    $font-Flaticon-user: "\f106";
+    $font-Flaticon-menu-1: "\f107";
+    $font-Flaticon-justification: "\f108";
+    $font-Flaticon-scroll: "\f109";
+    $font-Flaticon-shuffle: "\f10a";
+    $font-Flaticon-shuffle-1: "\f10b";
+    $font-Flaticon-supermarket: "\f10c";
+    $font-Flaticon-witness: "\f10d";
+    $font-Flaticon-quote-left: "\f10e";
+    $font-Flaticon-list: "\f10f";
+    $font-Flaticon-menu-2: "\f110";
+    $font-Flaticon-grid: "\f111";
+    $font-Flaticon-project: "\f112";
+    $font-Flaticon-revenue: "\f113";
+    $font-Flaticon-quality: "\f114";
+    $font-Flaticon-shuttle: "\f115";
+    $font-Flaticon-invoice: "\f116";
+    $font-Flaticon-secure-payment: "\f117";
+    $font-Flaticon-24-hours-support: "\f118";
+    $font-Flaticon-placeholder: "\f119";
+    $font-Flaticon-telephone: "\f11a";
+    $font-Flaticon-mail: "\f11b";
+    $font-Flaticon-zoom-in: "\f11c";
+    $font-Flaticon-right-arrow: "\f11d";
+    $font-Flaticon-left-arrow: "\f11e";
+    $font-Flaticon-cancel: "\f11f";
+    $font-Flaticon-cancel-1: "\f120";
+    $font-Flaticon-done: "\f121";
+    $font-Flaticon-check: "\f122";
+    $font-Flaticon-select: "\f123";
+    $font-Flaticon-cancel-2: "\f124";
+    $font-Flaticon-password: "\f125";
+    $font-Flaticon-scroll-1: "\f126";
+    $font-Flaticon-calendar: "\f127";
+    $font-Flaticon-exit: "\f128";
+    $font-Flaticon-plus: "\f129";
+    $font-Flaticon-crosshair: "\f12a";
+    $font-Flaticon-loupe: "\f12b";
+    $font-Flaticon-magnifying-glass-1: "\f12c";
+    $font-Flaticon-right-quote: "\f12d";
+    $font-Flaticon-plus-1: "\f12e";
+    $font-Flaticon-lock: "\f12f";
+    $font-Flaticon-copyright: "\f130";
+    $font-Flaticon-list-1: "\f131";
