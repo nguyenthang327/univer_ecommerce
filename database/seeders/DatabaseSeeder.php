@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         try{
             $this->call(AdminSeeder::class);
             $this->call(LanguageSeeder::class);
+            $this->call(UserSeeder::class);
             DB::commit();
         }catch(Exception $e){
             DB::rollBack();

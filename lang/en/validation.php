@@ -183,6 +183,9 @@ return [
         'address' => 'Adress',
         'phone' => 'Cell phone',
         'password' => 'Password',
+        'thumbnail' => 'Thumbnail',
+        'category_name' => 'Category name',
+        'category_parent_id' => 'Category parent', 
     ],
 
 ];

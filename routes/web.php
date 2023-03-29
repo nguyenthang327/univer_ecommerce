@@ -1,11 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminLogin;
+// Route admin
+use App\Http\Controllers\Backend\Admin\Auth\LoginController as AdminAuth;
 use App\Http\Controllers\Backend\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\AddressController;
-use App\Http\Controllers\Backend\Admin\UserController as BeUser;
+use App\Http\Controllers\Backend\Admin\UserController as BeAdminUser;
+use App\Http\Controllers\Backend\Admin\CategoryController;
+
+// Route user
+use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
+use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
+use App\Http\Controllers\Backend\User\ProductController;
+use App\Http\Controllers\Backend\User\UserController as BeUser;
+use App\Http\Controllers\UploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,15 +31,22 @@ Route::get('/', function () {
     return view('Backend.Admin.Layout.master');
 });
 
+Route::get('/login', function () {
+    // abort(404);
+    return redirect()->route('admin.login');
+})->name('login');
 
-// Backend admin
-Route::middleware('web')->group(function () {
+
+
+// Route::middleware('web')->group(function () {
+
+    // Backend admin
     Route::prefix('/admin')->group(function(){
 
         // auth
-        Route::get('/login', [AdminLogin::class, 'index'])->name('admin.login');
-        Route::post('/login', [AdminLogin::class, 'authenticate'])->name('admin.post.login');
-        Route::post('/logout', [AdminLogin::class, 'logout'])->name('admin.logout');
+        Route::get('/login', [AdminAuth::class, 'index'])->name('admin.login');
+        Route::post('/login', [AdminAuth::class, 'authenticate'])->name('admin.post.login');
+        Route::post('/logout', [AdminAuth::class, 'logout'])->name('admin.logout');
 
         Route::group(['middleware' => ['auth.admin']], function(){
             // dashboard
@@ -46,19 +62,79 @@ Route::middleware('web')->group(function () {
 
             // user
             Route::prefix('/user')->group(function(){
-                Route::get('/', [BeUser::class, 'index'])->name('admin.user.index');
-                Route::get('/create', [BeUser::class, 'create'])->name('admin.user.create');
-                Route::post('/store', [BeUser::class, 'store'])->name('admin.user.store');
-                Route::get('/{id}/edit', [BeUser::class, 'edit'])->name('admin.user.edit');
-                Route::put('/{id}/update', [BeUser::class, 'update'])->name('admin.user.update');
-                Route::delete('/{id}/destroy', [BeUser::class, 'destroy'])->name('admin.user.destroy');
-                Route::post('/{id}/restore', [BeUser::class, 'restore'])->name('admin.user.restore');
-                Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('admin.user.avatar');
+                Route::get('/', [BeAdminUser::class, 'index'])->name('admin.user.index');
+                Route::get('/create', [BeAdminUser::class, 'create'])->name('admin.user.create');
+                Route::post('/store', [BeAdminUser::class, 'store'])->name('admin.user.store');
+                Route::get('/{id}/edit', [BeAdminUser::class, 'edit'])->name('admin.user.edit');
+                Route::put('/{id}/update', [BeAdminUser::class, 'update'])->name('admin.user.update');
+                Route::delete('/{id}/destroy', [BeAdminUser::class, 'destroy'])->name('admin.user.destroy');
+                Route::post('/{id}/restore', [BeAdminUser::class, 'restore'])->name('admin.user.restore');
+                Route::get('{id}/avatar', [BeAdminUser::class, 'getAvatar'])->name('admin.user.avatar');
+            });
+
+            // Product category
+            Route::prefix('/product-category')->group(function(){
+                Route::get('/create', [CategoryController::class, 'create'])->name('admin.productCategory.create');
+                Route::post('/store', [CategoryController::class, 'store'])->name('admin.productCategory.store');
+                Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('admin.productCategory.edit');
+                Route::put('/update/{id}', [CategoryController::class, 'update'])->name('admin.productCategory.update');
             });
         });
     });
-});
 
+    // Backend user
+    Route::prefix('/user')->group(function(){
+
+        // auth
+        Route::get('/login', [UserAuth::class, 'index'])->name('user.login');
+        Route::post('/login', [UserAuth::class, 'authenticate'])->name('user.post.login');
+        Route::post('/logout', [UserAuth::class, 'logout'])->name('user.logout');
+
+        Route::group(['middleware' => ['auth.user']], function(){
+            // dashboard
+            Route::get('/', [UserDashboard::class, 'index'])->name('user.dashboard');
+
+            // profile
+            Route::prefix('/profile')->group(function(){
+               Route::get('/', [BeUser::class, 'userProfile'])->name('user.profile');
+               Route::put('/', [BeUser::class, 'update'])->name('user.profile.update');
+               Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('user.avatar');
+            });
+
+            // // Product category
+            // Route::prefix('/product-category')->group(function(){
+            //     Route::get('/', [CategoryController::class, 'index'])->name('user.productCategory.index');
+            // });
+
+           
+        });
+    });
+
+    Route::group(['middleware' => ['auth:admin,user']], function(){
+        Route::post('files/uploadTemp', [UploadController::class, 'uploadTemp'])->name('file.uploadTemp');
+        Route::delete('files/removeFile', [UploadController::class, 'removeFile'])->name('file.removeFile');
+
+        // Product category
+        Route::prefix('backend/product-category')->group(function(){
+            Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
+        });
+
+         // Product
+        Route::prefix('/product')->group(function(){
+            Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
+            Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
+            Route::post('/store', [ProductController::class, 'store'])->name('user.product.store');
+            Route::get('/edit/{slug}', [ProductController::class, 'edit'])->name('user.product.edit');
+            Route::put('/update/{id}', [ProductController::class, 'update'])->name('user.product.update');
+            Route::put('/{id}/update-type', [ProductController::class, 'updateTypeProduct'])->name('user.product.updateTypeProduct');
+            Route::post('/option/{id}', [ProductController::class, 'option'])->name('user.product.option');
+            Route::delete('/{productId}/option/{id}', [ProductController::class, 'deleteOption'])->name('user.product.deleteOption');
+            Route::post('/{productId}/generate-variation', [ProductController::class, 'generateVariation'])->name('user.product.generateVariation');
+            Route::put('/{productId}/update-sku', [ProductController::class, 'updateSku'])->name('user.product.updateSku');
+            Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('user.product.destroy');
+        });
+    });
+// });
 
 // Get administrative units
 Route::get('getDistrictList', [AddressController::class, 'getDistrictList'])->name('getDistrictList');

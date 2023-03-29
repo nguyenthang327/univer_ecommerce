@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'server_error' => 'An error occurred. please try again later!',
+
     'nothing_data' => 'Nothing data!',
 
     // Login
@@ -18,5 +20,19 @@ return [
     'create_user_failed' => 'Create user failed!',
     'delete_user_successed' => 'Delete user successed!',
     'restore_user_successed' => 'Restore user successed!',
+
+    // Category
+    'create_category_successed' => 'Create product category successed!',
+    'create_category_failed' => 'Create product category failed!',
+
+    //file
+    'remove_file_successed' => 'Remove file successed!',
+    'remove_file_failed' => 'Remove file failed!',
+
+    // Product
+    'create_product_successed' => 'Create product successed!',
+    'save_option_successed' => 'Save option successed!',
+    'save_option_failed' => 'Save option failed!',
+    'please_enter_option_value' => 'Please enter option value at position :position!',
 ]
 ?>

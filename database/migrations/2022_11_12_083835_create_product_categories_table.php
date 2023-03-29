@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name',255);
+            $table->string('thumbnail', 500)->nullable();
             $table->unsignedInteger('parent_id')->nullable();
-            $table->unsignedInteger('admin_id');
-            $table->string('slug');
-            $table->softDeletes();
+            $table->string('slug')->unique();
+            $table->unsignedInteger('created_by_admin_id');
+            $table->unsignedInteger('updated_by_admin_id');
             $table->timestamps();
         });
     }

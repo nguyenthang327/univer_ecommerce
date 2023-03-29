@@ -1,3 +1,12 @@
+
+.main-header {
+    border-bottom: 1px solid #dee2e6;
+    z-index: 1500;
+    position: sticky;
+    left: 0;
+    top: 0;
+}
+
 .datepicker-dropdown {
     /* z-index: 9999!important; */
     padding: 0.6rem;
@@ -69,3 +78,103 @@ table thead{
     width: 20px;
     height: 20px;
 }
+
+.user-panel img{
+    width: 2.8rem;
+    height: 2.8rem;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.row .card-header{
+    background-color: #e9e9e9;
+}
+/* 
+.theia-sidebar{
+    position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.theia-sidebar .card{
+    position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+    padding: 0 15px;
+} */
+
+.min_w_120{
+    min-width: 120px;
+}
+
+#loader {
+    display: none;
+    position: fixed;
+    left: calc(50% - 60px);
+    top: calc(50% - 60px);
+    z-index: 9999;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #f3b318;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.nav-tabs>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.nav-tabs>li>a.active{
+    background-color: #343a40;
+    border-radius: 4px 4px 0 0;
+    color: #fff;
+}
+
+.product-image-table{
+    object-fit: contain !important;
+}
+
+.navbar-expand .navbar-nav .nav-link.title:before {
+    content: "/";
+    margin-right: 1rem;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }

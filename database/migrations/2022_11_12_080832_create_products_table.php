@@ -15,18 +15,19 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
-            $table->string('sku',20);
+            $table->string('slug',500)->unique();
+            $table->string('sku')->nullable();
+            $table->decimal('price', 12)->nullable();
+            $table->unsignedInteger('stock')->nullable();
             $table->string('name',255);
-            $table->integer('stock');
-            $table->string('avatar',255);
-            $table->text('desc')->nullable();
+            $table->text('description')->nullable();
             $table->json("gallery")->nullable();
-            $table->date('expired_at')->nullable();
-            $table->unsignedTinyInteger('created_by')->nullable();
-            $table->unsignedTinyInteger('updated_by')->nullable();
-            $table->unsignedInteger('category_id');
-            $table->string('slug');
+            // $table->datetime('expired_at')->nullable();
+            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('is_featured')->default(0);
+            $table->tinyInteger('product_type')->default(0);
+            $table->unsignedInteger('created_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

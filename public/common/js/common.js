@@ -1,6 +1,28 @@
-let language = $("body").data('locales');
+let language = $("body").data('locales') ?? 'en';
+const trans = {
+    'vi' : {
+        'agree' : 'Đồng ý',
+        'cancel' : 'Hủy bỏ',
+    },
+    'en' : {
+        'agree' : 'Agree',
+        'cancel' : 'Cancel',
+    },
+}
 
 function select2Base(selector){
+    if ($(selector).length){
+        $(selector).select2({
+            allowClear: true,
+            theme: 'bootstrap4',
+            addCssClass : "error",
+            language,
+        });
+        $('.select2-search__field').css('width', '100%');
+    }
+}
+
+function select2BaseNoClear(selector){
     if ($(selector).length){
         $(selector).select2({
             theme: 'bootstrap4',
@@ -91,6 +113,7 @@ function readFileImage() {
         checkType = checkTypeFileImage(that),
         img = $('#' + $that.attr('id') + '_view'),
         imgDefault = $that.data('origin') ? $that.data('origin') : '/images/placeholder.png';
+
     if($that.val()){
         if (that.files && that.files[0]) {
             let reader = new FileReader();
@@ -152,8 +175,8 @@ function deleteOrRestoreRowTable(e, btn){
         html: btn.data('text'),
         type: btn.data('icon'),
         showCancelButton: true,
-        confirmButtonText: 'Đồng ý',
-        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: trans[language].agree,
+        cancelButtonText: trans[language].cancel,
     }).then((result) => {
         if (result.value) {
             let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
@@ -180,10 +203,54 @@ function deleteOrRestoreRowTable(e, btn){
     })
 }
 
+let langSummernote = (language) => {
+    let lang;
+    switch (language){
+        case 'en':
+            lang = 'es-ES'
+            break;
+        default:
+            lang = 'vi-VN'
+    }
+
+    return lang;
+}
+
+function summernote(selector){
+    if ($(selector).length){
+        $(selector).summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['help']]
+              ],
+            height: 200,
+            lang: langSummernote(language),
+            styleTags: [
+                'p',
+                    { title: 'Blockquote', tag: 'blockquote', className: 'blockquote', value: 'blockquote' },
+                    'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+                ],
+            callbacks: {
+                onImageUpload: function(images) {
+                    
+                }
+            },
+            codeviewFilter: true,
+            codeviewIframeFilter: true
+        });
+    }
+}
+
 $(function (){
     $(document).on('change', '.form-image__file', readFileImage);
 
     select2Base('.select2-base');
+    select2BaseNoClear('.select2-base-no-clear');
     datePicker('[data-picker="date"]');
     $(document).on('change', '.dynamic-select-option', dynamicSelectOption);
 
@@ -192,6 +259,9 @@ $(function (){
 
     // fancybox2 plugin
     fancybox2('.fancybox2');
+
+    // summernote plugin
+    summernote('.summernote');
 
     $(document).on('click', '.delete-row-table', function(e){
         let btn = $(this);

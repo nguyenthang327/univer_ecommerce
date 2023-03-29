@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Admin\UserService;
+use App\Logics\Admin\UserManager;
 use App\Helpers\StringHelper;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -27,16 +27,16 @@ class UserController extends Controller
     const PASSWORD_LENGTH = 8;
 
     /**
-     * @var UserService
+     * @var UserManager
      */
-    protected $userService;
+    protected $userManager;
 
     /**
-     * @param \App\Services\UserService $userService
+     * @param \App\Logics\Admin\UserManager $userManager
      */
-    public function __construct(UserService $userService)
+    public function __construct(UserManager $userManager)
     {
-        $this->userService = $userService;
+        $this->userManager = $userManager;
     }
     
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
      * @return View
      */
     public function index(Request $request){
-        $users = $this->userService->getUserList($request);
+        $users = $this->userManager->getUserList($request);
 
         // Pagination
         $perPage = $request->has('per_page') ? $request->input('per_page') : self::PER_PAGE;
@@ -115,6 +115,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try{
             $passwordService = new RandomPasswordService();
+            $password = $passwordService->randomPassword(self::PASSWORD_LENGTH);
             $params = [
                 'email' => $request->email,
                 'user_name' => $request->user_name,
@@ -128,9 +129,9 @@ class UserController extends Controller
                 'district_id' => $request->district_id,
                 'commune_id' => $request->commune_id,
                 'identity_card' => $request->identity_card,
-                'password' => bcrypt($passwordService->randomPassword(self::PASSWORD_LENGTH)),
+                'password' => bcrypt($password),
             ];
-            $this->userService->createUserProfile($params, $request->avatar);
+            $this->userManager->createUserProfile($params, $request->avatar, $password);
 
             DB::commit();
             return back()->with([
@@ -227,7 +228,7 @@ class UserController extends Controller
                 'commune_id' => $request->commune_id,
                 'identity_card' => $request->identity_card,
             ];
-            $this->userService->updateUserProfile($user, $params, $request->avatar);
+            $this->userManager->updateUserProfile($user, $params, $request->avatar);
 
             DB::commit();
             return back()->with([
@@ -294,7 +295,7 @@ class UserController extends Controller
      * @return URL $image
      */
     public function getAvatar($id){
-        $image = $this->adminService->getImage($id, 'avatar');
+        $image = $this->userManager->getImage($id, 'avatar');
         return $image;
     }
 

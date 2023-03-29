@@ -47,7 +47,7 @@ return [
     'doesnt_start_with' => 'The :attribute may not start with one of the following: :values.',
     'email' => ':attribute phải là địa chỉ email!',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
-    'enum' => 'The selected :attribute is invalid.',
+    'enum' => ':attribute đã chọn không hợp lệ.',
     'exists' => ':attribute không tồn tại!',
     'file' => 'The :attribute must be a file.',
     'filled' => 'The :attribute field must have a value.',
@@ -183,6 +183,9 @@ return [
         'address' => 'Địa chỉ',
         'phone' => 'SĐT',
         'password' => 'Mật khẩu',
+        'thumbnail' => 'Ảnh nhỏ',
+        'category_name' => 'Tên danh mục',
+        'category_parent_id' => 'Danh mục cha', 
     ],
 
 ];

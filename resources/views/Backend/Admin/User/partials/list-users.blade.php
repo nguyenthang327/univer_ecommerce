@@ -18,17 +18,14 @@
             @foreach($users as $idx => $user)
                 <tr>
                     <td class="text-center">{{$user->id}}</td>
-                    @php
-                        $full_name = $user->first_name.' '.$user->last_name;
-                    @endphp
                     <td class="text-center">
-                        <a href="{{ isset($user->avatar) ? asset('storage/'. $user->avatar) : asset('images/user-default.png')  }}" class="fancybox2" data-fancybox-group="avatar-list-user" title="ID: {{$user->id}} - {{ $full_name }}">
+                        <a href="{{ isset($user->avatar) ? asset('storage/'. $user->avatar) : asset('images/user-default.png')  }}" class="fancybox2" data-fancybox-group="avatar-list-user" title="ID: {{$user->id}} - {{ $user->full_name }}">
                             <img src="{{ isset($user->avatar) ? asset('storage/'. $user->avatar) : asset('images/user-default.png')  }}"
-                                 alt="{{ $full_name }} Avatar"
+                                 alt="{{ $user->full_name }} Avatar"
                                  class="default-img">
                         </a>
                     </td>
-                    <td>{{ $full_name }}</td>
+                    <td>{{ $user->full_name }}</td>
                     <td>
                         <a href="mailto:{{$user->email}}" class="text-dark">{{$user->email}}</a>
                     </td>
@@ -57,7 +54,7 @@
                                class="text-md text-danger delete-row-table"
                                data-id="{{ $user->id }}"
                                data-title="{{trans('language.delete_user')}}"
-                               data-text="<span class='text-bee'>ID: {{$user->id}}</span> - <strong>{{ $full_name }}</strong>"
+                               data-text="<span class='text-bee'>ID: {{$user->id}}</span> - <strong>{{ $user->full_name }}</strong>"
                                data-url="{{ route('admin.user.destroy', ['id'=>$user->id]) }}"
                                data-method="DELETE"
                                data-icon="question"><i class="far fa-trash-alt"></i></a>
@@ -67,8 +64,8 @@
                                 title="{{trans('language.restore')}}"
                                 class="text-md text-warning delete-row-table"
                                 data-id="{{ $user->id }}"
-                                data-title="{{ trans('language.restore_employee') }}"
-                                data-text="<span class='text-bee'>ID: {{$user->id}}</span> - <strong>{{ $full_name }}</strong>"
+                                data-title="{{ trans('language.restore_user') }}"
+                                data-text="<span class='text-bee'>ID: {{$user->id}}</span> - <strong>{{ $user->full_name }}</strong>"
                                 data-method="POST"
                                 data-url="{{ route('admin.user.restore', ['id'=>$user->id]) }}"
                                 data-icon="question"><i class="far fa-redo"></i></a>

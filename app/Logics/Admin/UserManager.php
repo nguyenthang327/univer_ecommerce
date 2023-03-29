@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Logics\Admin;
 
+use App\Events\RegisterUser;
 use Illuminate\Support\Facades\App;
 use App\Models\Language;
 use App\Models\User;
@@ -11,10 +12,11 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 use App\Helpers\StringHelper;
+use App\Mail\Register;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class UserService
+class UserManager
 {
     use StorageTrait;
     use ImageTrait;
@@ -133,7 +135,7 @@ class UserService
      * @param $parameters
      * @param $avatar
      */
-    public function createUserProfile($parameters, $avatar = null){
+    public function createUserProfile($parameters, $avatar = null, $password){
         // create user
         $user = User::create($parameters);
 
@@ -147,6 +149,8 @@ class UserService
         $user->update([
             'avatar' => $avatar_path
         ]);
+        $user->password = $password;
+        event(new RegisterUser($user, $password));
     }
 }
 
