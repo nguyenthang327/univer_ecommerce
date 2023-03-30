@@ -107,7 +107,8 @@ return [
     'slug' => 'Slug',
     'sku' => 'Sku',
     'price' => 'Price',
-    'stock' => 'Stock',    
+    'stock' => 'Stock',
+    'discount' => 'Discount',
     'description' => 'Description',
     'choose_category' => 'Choose category',
     'gallery' => 'Gallery',
@@ -137,6 +138,8 @@ return [
 
     // frontend
     'homepage' => 'Homepage',
+    'see_more' => 'See more',
+    'all_categories' => 'All categories',
 
     // mail user register
     'mail' => [

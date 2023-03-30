@@ -108,6 +108,7 @@ return [
     'sku' => 'Sku',
     'price' => 'Giá',
     'stock' => 'Số lượng',
+    'discount' => 'Giảm giá',
     'description' => 'Mô tả',
     'choose_category' => 'Chọn danh mục',
     'gallery' => 'Gallery',
@@ -137,6 +138,8 @@ return [
 
     // frontend
     'homepage' => 'Trang chủ',
+    'see_more' => 'Xem thêm',
+    'all_categories' => 'Tất cả danh mục',
 
     // mail user register
     'mail' => [

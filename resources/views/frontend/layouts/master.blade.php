@@ -8,6 +8,10 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('title')</title>
 
+         <!-- Google Font: Roboto Pro -->
+        <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900&subset=vietnamese">
+
 		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
         <!-- Place favicon.ico in the root directory -->
 
@@ -26,13 +30,16 @@
         <link rel="stylesheet" href="{{ asset('fe-assets/css/style.css')}}">
         <link rel="stylesheet" href="{{ asset('fe-assets/css/responsive.css')}}">
 
+        <!-- import CSS Library -->
+        @yield('css_library')
+
         <!-- Page style -->
         @yield('css_page')
     </head>
     <body data-locales="{{app()->getLocale()}}">
 
         <!-- preloader  -->
-        @include('frontend.layouts.preloader')
+        {{-- @include('frontend.layouts.preloader') --}}
         <!-- preloader end -->
 
         <!-- Scroll-top -->
@@ -44,6 +51,7 @@
         <!-- header-area -->
         @include('frontend.layouts.header')
         <!-- header-area-end -->
+        {{-- @dd($globalProductCategories) --}}
 
         <!-- main-area -->
         <main>
@@ -73,6 +81,7 @@
         <script src="{{ asset('fe-assets/js/plugins.js')}}"></script>
         <script src="{{ asset('fe-assets/js/main.js')}}"></script>
 
+        @yield('js_library')
         <!-- Page script -->
         @yield('js_page')
     </body>

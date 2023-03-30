@@ -20,6 +20,7 @@ class Locale
     public function handle(Request $request, Closure $next)
     {
         $admin = Auth::guard('admin')->user();
+        $user = Auth::guard('user')->user();
         if($admin){
             $language = Language::find($admin->language_id);
             if($language){
@@ -27,7 +28,14 @@ class Locale
                 App::setLocale($locale);
                 session()->put('locale', $locale);
             }
-        } else {
+        }elseif($user) {
+            $language = Language::find($user->language_id);
+            if($language){
+                $locale = $language->name;
+                App::setLocale($locale);
+                session()->put('locale', $locale);
+            }
+        }else{
             App::setLocale(session()->get('locale') ?? 'vi');
         }
         return $next($request); 

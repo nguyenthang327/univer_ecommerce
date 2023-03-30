@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\GlobalServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -203,6 +204,8 @@ return [
          * Third Party Service Providers...
          */
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+
+        GlobalServiceProvider::class,
     ],
 
     /*

@@ -231,66 +231,64 @@
                     <div class="header-category d-none d-lg-block">
                         <a href="#" class="cat-toggle"><i class="flaticon-menu"></i>{{ trans('language.product_category') }}</a>
                         <ul class="category-menu">
-                            <li class="has-dropdown"><a href="#"><div class="cat-menu-img"><img src="img/product/category_menu_img01.png" alt=""></div> Western woman</a>
+                            @foreach($globalProductCategories as $key => $productCategory)
+                            @if($key < 9)
+                            <li class="has-dropdown">
+                                <a href="#" class="d-flex justify-content-between align-items-center">
+                                    <div class="wrap-cat">
+                                        <div class="cat-menu-img">
+                                            <img src="{{asset('storage/'.$productCategory["thumbnail"])}}" alt="{{ $productCategory["name"] }}" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
+                                        </div> {{ $productCategory["name"] }} 
+                                    </div>
+                                    @if(!empty($productCategory['_2_level_cate']))
+                                        <span class="cate-arrow"><i class="fas fa-chevron-right"></i></span>
+                                    @endif
+                                </a>
+                                @if(!empty($productCategory['_2_level_cate']))
                                 <ul class="mega-menu">
                                     <li>
                                         <ul>
-                                            <li class="dropdown-title">Accessories & Parts</li>
-                                            <li><a href="#">Cables & Adapters</a></li>
-                                            <li><a href="#">Batteries</a></li>
-                                            <li><a href="#">Chargers</a></li>
-                                            <li><a href="#">Bags & Cases</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li class="dropdown-title">Electronic Cigarettes</li>
-                                            <li><a href="#">Audio & Video</a></li>
-                                            <li><a href="#">Televisions</a></li>
-                                            <li><a href="#">TV Receivers</a></li>
-                                            <li><a href="#">Projectors</a></li>
-                                            <li><a href="#">Audio Amplifier Boards</a></li>
+                                            @foreach ($productCategory['_2_level_cate'] as $item)
+                                                <li><a href="#">{{ $item['name']}}</a></li>
+                                            @endforeach
                                         </ul>
                                     </li>
-                                    <li>
-                                        <ul>
-                                            <li class="dropdown-title">Smart Electronics</li>
-                                            <li><a href="#">Cables & Adapters</a></li>
-                                            <li><a href="#">Batteries</a></li>
-                                            <li><a href="#">Chargers</a></li>
-                                            <li><a href="#">Bags & Cases</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li class="dropdown-title">Portable Audio & Video</li>
-                                            <li><a href="#">Audio & Video</a></li>
-                                            <li><a href="#">Televisions</a></li>
-                                            <li><a href="#">TV Receivers</a></li>
-                                            <li><a href="#">Projectors</a></li>
-                                            <li><a href="#">Audio Amplifier Boards</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <ul>
-                                            <li class="dropdown-title">Accessories & Parts</li>
-                                            <li><a href="#">Cables & Adapters</a></li>
-                                            <li><a href="#">Batteries</a></li>
-                                            <li><a href="#">Chargers</a></li>
-                                            <li><a href="#">Bags & Cases</a></li>
-                                        </ul>
-                                        <ul>
-                                            <li class="dropdown-title">Audio & Video</li>
-                                            <li class="mega-menu-banner"><a href="#"><img src="img/images/megamenu_banner.jpg" alt=""></a>
+                                </ul>
+                                @endif
+                            </li>
+                            @else
+                            <li class="has-dropdown">
+                                <ul class="more_slide_open">
+                                    <li class="has-dropdown">
+                                        <a href="#" class="d-flex justify-content-between align-items-center">
+                                            <div class="wrap-cat">
+                                                <div class="cat-menu-img">
+                                                    <img src="{{asset('storage/'.$productCategory["thumbnail"])}}" alt="{{ $productCategory["name"] }}" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
+                                                </div> {{ $productCategory["name"] }} 
+                                            </div>
+                                            @if(!empty($productCategory['_2_level_cate']))
+                                                <span class="cate-arrow"><i class="fas fa-chevron-right"></i></span>
+                                            @endif
+                                        </a>
+                                        @if(!empty($productCategory['_2_level_cate']))
+                                        <ul class="mega-menu">
+                                            <li>
+                                                <ul>
+                                                    @foreach ($productCategory['_2_level_cate'] as $item)
+                                                        <li><a href="#">{{ $item['name']}}</a></li>
+                                                    @endforeach
+                                                </ul>
                                             </li>
                                         </ul>
+                                        @endif
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <ul class="more_slide_open">
-                                    <li><a href="#"><div class="cat-menu-img"><img src="img/product/category_menu_img01.png" alt=""></div> Western woman</a></li>
-                                    <li><a href="#"><div class="cat-menu-img"><img src="img/product/category_menu_img02.png" alt=""></div> Health Product</a></li>
-                                    <li><a href="#"><div class="cat-menu-img"><img src="img/product/category_menu_img03.png" alt=""></div> Industrial Product</a></li>
-                                </ul>
-                            </li>
-                            <li class="more_categories">More Categories<i class="fas fa-angle-down"></i></li>
+                            @endif
+                            @endforeach
+                            @if(count($globalProductCategories) > 9)
+                                <li class="more_categories">{{ trans('language.see_more')}}<i class="fas fa-angle-down"></i></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -298,22 +296,12 @@
                     <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
                         <div class="header-search-wrap">
                             <form action="#">
-                                <input type="text" placeholder="Search for your item's type.....">
-                                <select class="custom-select">
-                                    <option selected="">All Categories</option>
-                                    <option>Women's Clothing</option>
-                                    <option>Men's Clothing</option>
-                                    <option>Computer & Office</option>
-                                    <option>Consumer Electronics</option>
-                                    <option>Home & Garden</option>
-                                    <option>Luggage & Bags</option>
-                                    <option>Shoes</option>
-                                    <option>Mother & Kids</option>
-                                    <option>Beauty & Health</option>
-                                    <option>Home Appliances</option>
-                                    <option>Food</option>
-                                    <option>Underwear & Sleepwear</option>
-                                    <option>In All Categories</option>
+                                <input type="text" placeholder="Search for your item's type....." name="search_product">
+                                <select class="custom-select" name="search_category">
+                                    <option selected value="">{{ trans('language.all_categories')}}</option>
+                                    @foreach($globalProductCategories as $key => $productCategory)
+                                        <option value="{{ $productCategory["id"] }}">{{ $productCategory['name'] }}</option>
+                                    @endforeach
                                 </select>
                                 <button><i class="flaticon-magnifying-glass-1"></i></button>
                             </form>

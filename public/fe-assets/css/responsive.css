@@ -98,9 +98,9 @@
 	height: 72px;
 	line-height: 72px;
 }
-.mega-menu {
+/* .mega-menu {
 	width: 710px;
-}
+} */
 .slider-img img {
 	width: 100%;
 }
@@ -212,9 +212,9 @@
 .limited-overlay-img {
 	display: none;
 }
-.header-style-two .mega-menu {
+/* .header-style-two .mega-menu {
 	width: 697px;
-}
+} */
 .four-slider-area .slider-content h5 {
 	font-size: 38px;
 }

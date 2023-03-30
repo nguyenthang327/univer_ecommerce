@@ -51,7 +51,8 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>{{ trans('language.stock') }} <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="{{ trans('language.stock') }}" name="stock" required autocomplete="off" value="{{ old('stock') ? old('stock') : (isset($product->stock) ? $product->stock : '')}}">
+                                <input type="text" class="form-control" placeholder="{{ trans('language.stock') }}" name="stock" required autocomplete="off" value="{{ old('stock') ? old('stock') : (isset($product->stock) ? $product->stock : '')}}"
+                                min="0" >
                                 @if ($errors->first('stock'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('stock') }}</div>
                                 @endif
@@ -61,13 +62,31 @@
                             <div class="form-group">
                                 <label for="">{{ trans('language.price') }} <span class="text-red">*</span></label>
                                 <label class="input-group mb-1 ">
-                                    <input type="number" class="form-control" placeholder="{{ trans('language.price') }}" name="price" required autocomplete="off" value="{{ old('price') ? old('price') : (isset($product->price) ? $product->price : '')}}">
+                                    <input type="number" class="form-control" placeholder="{{ trans('language.price') }}" name="price" required autocomplete="off" value="{{ old('price') ? old('price') : (isset($product->price) ? $product->price : '')}}"
+                                    min="0" step="0.01">
                                     @if ($errors->first('price'))
                                         <div class="invalid-alert text-danger">{{ $errors->first('price') }}</div>
                                     @endif
                                     <div class="input-group-append">
                                         <div class="input-group-text">
                                             <span class="fas fa-dollar-sign"></span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="">{{ trans('language.discount') }}</label>
+                                <label class="input-group mb-1 ">
+                                    <input type="number" class="form-control" placeholder="{{ trans('language.discount') }}" name="discount" autocomplete="off" value="{{ old('discount') ? old('discount') : (isset($product->discount) ? $product->discount : '')}}"
+                                    min="0" max="100" step="0.01">
+                                    @if ($errors->first('discount'))
+                                        <div class="invalid-alert text-danger">{{ $errors->first('discount') }}</div>
+                                    @endif
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-percent"></i>
                                         </div>
                                     </div>
                                 </label>
