@@ -135,6 +135,7 @@ return [
     'delete_product'=> 'Do you want to delete this product?',
     'product_keyword' => 'Seach by product name, product sku',
     'by_category' => 'By category',
+    'product_feature' => 'Feature product',
 
     // frontend
     'homepage' => 'Homepage',

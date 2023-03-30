@@ -135,6 +135,7 @@ return [
     'delete_product'=> 'Bạn có muốn xóa sản phẩm này?',
     'product_keyword' => 'Tìm kiếm theo: tên sản phẩm, sku',
     'by_category' => 'Theo danh mục',
+    'product_feature' => 'Sản phẩm nổi bật',
 
     // frontend
     'homepage' => 'Trang chủ',

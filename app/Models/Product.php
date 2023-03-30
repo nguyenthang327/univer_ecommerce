@@ -17,6 +17,9 @@ class Product extends Model
     const TYPE_REGULAR = 0;
     const TYPE_VARIANT = 1;
 
+    const IS_NOT_FEATURE = 0;
+    const IS_FEATURE = 1;
+
     /**
      * @var string
      */

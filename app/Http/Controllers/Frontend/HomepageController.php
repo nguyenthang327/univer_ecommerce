@@ -19,9 +19,10 @@ class HomepageController extends Controller
     }
     
     public function index(){
-        $product = $this->productManager->getProducts();
-        dd($product);
+        $take = 12;
+        $productFeature = $this->productManager->getProducts($take, 'is_featured');
+        $productNew = $this->productManager->getProducts($take, 'new');
 
-        return view($this->pathView . 'index');
+        return view($this->pathView . 'index', compact('productFeature', 'productNew'));
     }
 }

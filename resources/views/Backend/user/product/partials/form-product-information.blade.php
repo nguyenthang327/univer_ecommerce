@@ -92,6 +92,15 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col-sm-4 icheck-bee">
+                            <div class="form-group">
+                                <label></label>
+                                <div class="icheck-success">
+                                    <input type="checkbox" name="is_featured" id="is_featured" value="{{App\Models\Product::IS_FEATURE}}" @if(isset($product->is_featured) &&$product->is_featured) checked @endif/>
+                                    <label for="is_featured">{{trans('language.product_feature')}}</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="">{{trans('language.choose_category')}} <span class="text-red"></span></label>

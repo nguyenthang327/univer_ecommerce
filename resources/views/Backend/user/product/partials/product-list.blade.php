@@ -9,8 +9,8 @@
             <th width="20%" style="max-width:400px;">@sortablelink('name', trans('language.product_name'))</th>
             <th width="6%">@sortablelink('product_type', trans('language.variation'))</th>
             <th width="10%">{{trans('language.price')}}</th>
-            <th width="8%">@sortablelink('phone', trans('language.stock'))</th>
-            <th width="8%">{{trans('language.category')}}</th>
+            <th width="8%">@sortablelink('stock', trans('language.stock'))</th>
+            <th width="8%">{{trans('language.product_category')}}</th>
             <th width="5%">{{trans('language.operation')}}</th>
         </tr>
         </thead>

@@ -142,6 +142,7 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'stock' => $request->stock,
                 'discount' =>  $request->discount,
+                'is_featured' => $request->is_featured ? Product::IS_FEATURE : Product::IS_NOT_FEATURE,
                 'description' => $request->description,
             ];
 
@@ -229,6 +230,7 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'stock' => $request->stock,
                 'discount' =>  $request->discount,
+                'is_featured' => $request->is_featured ? Product::IS_FEATURE : Product::IS_NOT_FEATURE,
                 'description' => $request->description,
             ];
 
