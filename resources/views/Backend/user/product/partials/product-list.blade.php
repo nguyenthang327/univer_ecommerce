@@ -18,6 +18,12 @@
             @foreach($products as $idx => $product)
                 @php
                     $checkVariant = $product->product_type == \App\Models\Product::TYPE_VARIANT && $product->skus->isNotEmpty();
+                    $data = [];
+                    if($checkVariant){
+                        $data = \App\Services\ProcessPriceService::regularPrice($product->skus[0]['min_price'], $product->skus[0]['max_price'], $product->discount);
+                    }else{
+                        $data = \App\Services\ProcessPriceService::regularPrice($product->price, $product->discount);
+                    }
                 @endphp
                 <tr>
                     <td class="text-center">{{ ($products->currentPage() - 1) * $products->perPage() + $idx + 1 }}</td>
@@ -31,17 +37,12 @@
                     </td>
                     <td class=""><span class="line-clamp-2">{{ $product->name }}</span></td>
                     <td class="text-center">{{ $checkVariant ? trans('language.have') :  trans('language.does_not_have')}}</td>
-                    @php
-                        $price = "$$product->price";
-                        if($checkVariant){
-                            if((int)$product->skus[0]['min_price'] == (int)$product->skus[0]['max_price']){
-                                $price = "$" . $product->skus[0]['min_price'];
-                            }else{
-                                $price = "$" . $product->skus[0]['min_price'] ." -> $" . $product->skus[0]['max_price'];
-                            }
-                        }
-                    @endphp
-                    <td class="text-center">{{ $price }}</td>
+                    <td class="text-center"> 
+                        @if($data['old'] )
+                        <del class="old-price">{{ $data['old'] }}</del>
+                        @endif
+                        <span class="new-price" style="color:#ff6000">{{ $data['new'] }}</span>
+                    </td>
                     <td class="text-center">{{ $checkVariant ? $product->skus[0]['total_stock'] : $product->stock }}</td>
                     <td class="text-center">{{ $product->cateogry }}</td>
                     <td class="text-center text-nowrap">

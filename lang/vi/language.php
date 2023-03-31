@@ -141,6 +141,7 @@ return [
     'homepage' => 'Trang chủ',
     'see_more' => 'Xem thêm',
     'all_categories' => 'Tất cả danh mục',
+    'product_new' => 'Sản phẩm mới', 
 
     // mail user register
     'mail' => [

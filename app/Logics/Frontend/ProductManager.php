@@ -28,6 +28,7 @@ class ProductManager
                 'products.slug',
                 'products.stock',
                 'products.discount',
+                'products.gallery',
                 'products.created_at',
             ]);
            
@@ -44,8 +45,49 @@ class ProductManager
                 }
             }
 
-            $products = $products->orderBy('products.created_at', 'desc')
-                ->get()->toArray();
+        $products = $products->orderBy('products.created_at', 'desc')
+            ->get()->toArray();
+
+        return $products;
+    }
+
+    public function getProductsPaginate($paginate = null, $request){
+        $products = Product::with(['skus' => function($query){
+                $query->select([
+                    'product_skus.*',
+                    DB::raw('MIN(product_skus.price) as min_price'),
+                    DB::raw('MAX(product_skus.price) as max_price'),
+                    DB::raw('SUM(product_skus.stock) as total_stock'),
+                ])
+                ->whereNotNull('product_skus.price')
+                ->whereNotNull('product_skus.stock')
+                ->groupBy('product_skus.product_id');
+            }])
+            ->leftJoin('product_comments', 'product_comments.product_id', '=', 'products.id')
+            ->leftJoin('product_category_relation', 'product_category_relation.product_id', '=', 'products.id')
+            ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id')
+            ->leftJoin('brands', 'brands.id', '=', 'products.brand_id')
+            ->select([
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.sku',
+                'products.slug',
+                'products.stock',
+                'products.discount',
+                'products.gallery',
+                'products.created_at',
+            ]);
+
+            if(isset($request)){
+
+            }
+
+            if($paginate){
+                $products = $products->sortable()->paginate($paginate);
+            }else{
+                $products = $products->get();
+            }
 
         return $products;
     }

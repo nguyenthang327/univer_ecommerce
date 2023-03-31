@@ -12,8 +12,8 @@
             <div class="col-xl-6 col-lg-8">
                 <div class="product-menu mb-60">
                     {{-- <button class="active" data-filter="*">Best Sellers</button> --}}
-                    <button class="active" data-filter=".cat-featured">Featured</button>
-                    <button class="" data-filter=".cat-new">Hot Sell</button>
+                    <button class="active" data-filter=".cat-featured">{{ trans('language.product_feature') }}</button>
+                    <button class="" data-filter=".cat-new">{{ trans('language.product_new') }}</button>
                     {{-- <button class="" data-filter=".cat-three">Trend</button> --}}
                 </div>
             </div>
@@ -27,8 +27,8 @@
                     }
                 @endphp
                 <div class="exclusive-item exclusive-item-two mb-40">
-                    <div class="exclusive-item-thumb">
-                        <a href="shop-details.html">
+                    <div class="exclusive-item-thumb homepage">
+                        <a href="{{ route('site.product.show', ['slug' => $product['slug']]) }}">
                             <img src="{{ !empty($product['gallery']) ? asset('storage/'.$product['gallery'][0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
                             {{-- <img class="overlay-product-thumb" src="img/product/s_exclusive__product01.png" alt=""> --}}
                         </a>
@@ -59,7 +59,7 @@
             </div>
             @endforeach
             @foreach($productNew as $product)
-            <div class="col-xl-3 col-lg-4 col-sm-6 grid-item grid-sizer cat-new" style="position: absolute; left: 0%; top: 0px; display: none;">
+            <div class="col-xl-3 col-lg-4 col-sm-6 grid-item grid-sizer cat-new" style="display:none">
                 @php
                     if($product['discount'] > 0){
                         $product['price'] = $product['price'] * $product['discount'] / 100;
@@ -67,7 +67,7 @@
                 @endphp
                 <div class="exclusive-item exclusive-item-two mb-40">
                     <div class="exclusive-item-thumb">
-                        <a href="shop-details.html">
+                        <a href="{{ route('site.product.show', ['slug' => $product['slug']]) }}">
                             <img src="{{ !empty($product['gallery']) ? asset('storage/'.$product['gallery'][0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
                             {{-- <img class="overlay-product-thumb" src="img/product/s_exclusive__product01.png" alt=""> --}}
                         </a>

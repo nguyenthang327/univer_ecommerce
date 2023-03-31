@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Backend\User\ProductController;
 use App\Http\Controllers\Backend\User\UserController as BeUser;
 use App\Http\Controllers\Frontend\HomepageController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\UploadController;
 
 /*
@@ -116,23 +117,25 @@ Route::get('/login', function () {
         Route::delete('files/removeFile', [UploadController::class, 'removeFile'])->name('file.removeFile');
 
         // Product category
-        Route::prefix('backend/product-category')->group(function(){
-            Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
-        });
-
-         // Product
-        Route::prefix('/product')->group(function(){
-            Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
-            Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
-            Route::post('/store', [ProductController::class, 'store'])->name('user.product.store');
-            Route::get('/edit/{slug}', [ProductController::class, 'edit'])->name('user.product.edit');
-            Route::put('/update/{id}', [ProductController::class, 'update'])->name('user.product.update');
-            Route::put('/{id}/update-type', [ProductController::class, 'updateTypeProduct'])->name('user.product.updateTypeProduct');
-            Route::post('/option/{id}', [ProductController::class, 'option'])->name('user.product.option');
-            Route::delete('/{productId}/option/{id}', [ProductController::class, 'deleteOption'])->name('user.product.deleteOption');
-            Route::post('/{productId}/generate-variation', [ProductController::class, 'generateVariation'])->name('user.product.generateVariation');
-            Route::put('/{productId}/update-sku', [ProductController::class, 'updateSku'])->name('user.product.updateSku');
-            Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('user.product.destroy');
+        Route::prefix('/manage')->group(function(){
+            Route::prefix('/product-category')->group(function(){
+                Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
+            });
+    
+             // Product
+            Route::prefix('/product')->group(function(){
+                Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
+                Route::get('/create', [ProductController::class, 'create'])->name('user.product.create');
+                Route::post('/store', [ProductController::class, 'store'])->name('user.product.store');
+                Route::get('/edit/{slug}', [ProductController::class, 'edit'])->name('user.product.edit');
+                Route::put('/update/{id}', [ProductController::class, 'update'])->name('user.product.update');
+                Route::put('/{id}/update-type', [ProductController::class, 'updateTypeProduct'])->name('user.product.updateTypeProduct');
+                Route::post('/option/{id}', [ProductController::class, 'option'])->name('user.product.option');
+                Route::delete('/{productId}/option/{id}', [ProductController::class, 'deleteOption'])->name('user.product.deleteOption');
+                Route::post('/{productId}/generate-variation', [ProductController::class, 'generateVariation'])->name('user.product.generateVariation');
+                Route::put('/{productId}/update-sku', [ProductController::class, 'updateSku'])->name('user.product.updateSku');
+                Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('user.product.destroy');
+            });
         });
     });
 // });
@@ -142,5 +145,10 @@ Route::get('getDistrictList', [AddressController::class, 'getDistrictList'])->na
 Route::get('getCommuneList', [AddressController::class, 'getCommuneList'])->name('getCommuneList');
 
 Route::middleware('web')->group(function () {
-    Route::get('/', [HomepageController::class, 'index'])->name('home');
+    Route::get('/', [HomepageController::class, 'index'])->name('site.home');
+
+    Route::prefix('/product')->group(function(){
+        Route::get('/all', [FrontendProductController::class, 'index'])->name('site.product.index');
+        Route::get('/{slug}', [FrontendProductController::class, 'show'])->name('site.product.show');
+    });
 });

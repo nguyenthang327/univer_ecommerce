@@ -535,13 +535,16 @@ $('.popup-video').magnificPopup({
 	=    		Isotope	Active  	      =
 =============================================*/
 $('.exclusive-active').imagesLoaded(function () {
+	var firstItem = $('.exclusive-collection .product-menu .active').data('filter');
 	// init Isotope
 	var $grid = $('.exclusive-active').isotope({
 		itemSelector: '.grid-item',
 		percentPosition: true,
 		masonry: {
 			columnWidth: '.grid-sizer',
-		}
+		},
+		filter: `${firstItem}`
+
 	});
 	// filter items on button click
 	$('.product-menu').on('click', 'button', function () {

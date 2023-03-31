@@ -141,6 +141,7 @@ return [
     'homepage' => 'Homepage',
     'see_more' => 'See more',
     'all_categories' => 'All categories',
+    'product_new' => 'New product', 
 
     // mail user register
     'mail' => [
