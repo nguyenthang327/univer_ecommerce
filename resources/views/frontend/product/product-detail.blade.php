@@ -103,6 +103,9 @@
                                 </div>
                                 @endforeach
                             @endif
+                            <div>
+                                <span>{{ trans('language.stock')}} : {{ $product->stock }}</span>
+                            </div>
                             <div class="perched-info">
                                 <div class="cart-plus">
                                     <form action="#">

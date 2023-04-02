@@ -46,7 +46,7 @@ class ProductManager
                 }
             }
 
-        $products = $products->orderBy('products.created_at', 'desc')
+        $products = $products->orderBy('products.created_at', 'desc')->groupBy('products.id')
             ->get()->toArray();
 
         return $products;
@@ -79,7 +79,8 @@ class ProductManager
                 'products.gallery',
                 'products.created_at',
             ])
-            ->where('products.status', Product::SELL);
+            ->where('products.status', Product::SELL)
+            ->groupBy('products.id');
 
             if(isset($request)){
 

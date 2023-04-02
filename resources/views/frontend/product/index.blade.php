@@ -227,7 +227,7 @@
                                 <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6">
                                     <div class="exclusive-item exclusive-item-three text-center mb-50">
                                         <div class="exclusive-item-thumb product-list-page">
-                                            <a href="{{ $product->slug }}">
+                                            <a href="{{ route('site.product.show', ['slug' => $product->slug]) }}">
                                                 <img src="{{ !empty($product->gallery) ? asset('storage/'.$product->gallery[0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
                                                 {{-- <img class="overlay-product-thumb" src="img/product/td_product_img01.jpg" alt=""> --}}
                                             </a>
