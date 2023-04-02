@@ -136,6 +136,14 @@ return [
     'product_keyword' => 'Seach by product name, product sku',
     'by_category' => 'By category',
     'product_feature' => 'Feature product',
+    'status' =>' Status',
+    'status_s' => ['Not sell', 'Sell'],
+
+    // brand
+    'brand' => 'Brand',
+    'brand_list' => 'Brand list',
+    'delete_brand' => 'Do you want to remove this brand?',
+    'by_brand_name' => 'Filter by brand name',
 
     // frontend
     'homepage' => 'Homepage',

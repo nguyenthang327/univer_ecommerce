@@ -24,7 +24,7 @@ return new class extends Migration
             $table->json("gallery")->nullable();
             // $table->datetime('expired_at')->nullable();
             $table->unsignedFloat('discount')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('status')->default(0);
             $table->tinyInteger('is_featured')->default(0);
             $table->tinyInteger('product_type')->default(0);
             $table->unsignedInteger('brand_id')->nullable();

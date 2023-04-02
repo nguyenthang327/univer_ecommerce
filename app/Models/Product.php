@@ -20,6 +20,9 @@ class Product extends Model
     const IS_NOT_FEATURE = 0;
     const IS_FEATURE = 1;
 
+    const NOT_SELL = 0;
+    const SELL = 1;
+
     /**
      * @var string
      */
@@ -71,6 +74,12 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    /**
+     * get product by product
+     */
+    public function productCategoryRelation(){
+        return $this->hasMany(ProductCateogryRelation::class);
+    }
 
     public static function generateVariant(array $input)
     {

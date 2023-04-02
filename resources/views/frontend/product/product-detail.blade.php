@@ -116,16 +116,24 @@
                             <div class="shop-details-bottom">
                                 <h5><a href="#"><i class="far fa-heart"></i> Add To Wishlist</a></h5>
                                 <ul>
+                                    @if($product->brand_name)
+                                        <li>
+                                            <span>{{trans('language.brand')}} : </span>
+                                            <a href="javascript:void(0)">{{ $product->brand_name }}</a>
+                                        </li>
+                                    @endif
                                     <li>
-                                        <span>Branch : </span>
-                                        <a href="#">clothing</a>
-                                    </li>
-                                    <li>
-                                        <span>CATEGORIES :</span>
-                                        <a href="#">women's,</a>
-                                        <a href="#">bikini,</a>
-                                        <a href="#">tops for,</a>
-                                        <a href="#">large bust</a>
+                                        <span>{{trans('language.product_category')}} :</span>
+                                        @if($categoryInProduct)
+                                            @php
+                                                $count = count($categoryInProduct);
+                                            @endphp
+                                            @foreach($categoryInProduct as $key => $category)
+                                                <a href="{{ $category->slug }}">{{ $category->name }}{{ ($key != $count - 1) ? ',' : '' }}</a>
+                                            @endforeach
+                                        @else
+                                            <a href="javascript:void(0)">{{ trans('language.other') }}</a>
+                                        @endif
                                     </li>
                                 </ul>
                             </div>

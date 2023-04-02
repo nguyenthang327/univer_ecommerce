@@ -35,5 +35,15 @@ return [
     'save_option_failed' => 'Lưu thuộc tính thất bại!',
     'please_enter_option_value' => 'Vui lòng nhập giá trị của thuộc tính tại vị trí :position!',
 
+
+    // brand
+    'brand_not_found' => 'Không tìm thấy thương hiệu này!',
+    'delete_brand_successed' => 'Xóa thương hiệu thành công!',
+    'delete_brand_failed' => 'Xóa thương hiệu thất bại!',
+    'update_brand_failed' => 'Cập nhật thương hiệu thất bại!',
+    'update_brand_successed' => 'Cập nhật thương hiệu thành công!',
+    'create_brand_successed' => 'Thêm mới thương hiệu thành công!',
+    'create_brand_failed' => 'Thêm mới thương hiệu thất bại!',
+
 ]
 ?>

@@ -127,7 +127,10 @@
                     $routeProductCategory= [
                         'admin.productCategory.index',
                     ];
-                    $routeActive = array_merge($routeProduct, $routeProductCategory);
+                    $routeBrand = [
+                        'admin.brand.index',
+                    ];
+                    $routeActive = array_merge($routeProduct, $routeProductCategory, $routeBrand);
                 @endphp
                 <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
                     <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
@@ -148,6 +151,12 @@
                             <a href="{{ route('user.product.index')}}" class="nav-link {{ in_array($currentRoute, $routeProduct) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.product') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.brand.index')}}" class="nav-link {{ in_array($currentRoute, $routeBrand) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ trans('language.brand') }}</p>
                             </a>
                         </li>
                     </ul>

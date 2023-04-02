@@ -34,6 +34,8 @@ class ProductRequest extends FormRequest
             'description' => 'nullable',
             'category_id' => 'nullable|array',
             'category_id.*' => 'nullable|exists:product_categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
+            'status' => 'nullable',
         ];
     }
 }

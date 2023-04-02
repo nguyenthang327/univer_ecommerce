@@ -92,6 +92,50 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="">{{trans('language.choose_brand')}} <span class="text-red"></span></label>
+                                <select class="select2-base select2-search__field {{$errors->first('brand_id') ? 'is-invalid' : ''}}"
+                                    style="width: 100%"
+                                    data-placeholder="{{trans('language.choose_brand')}}"
+                                    name="brand_id"
+                                    >
+                                <option value=""></option>
+                                @php
+                                    $brands = App\Models\Brand::select('id', 'name')->get();
+                                    $chooseBrand = old('brand_id') ? old('brand_id') : (isset($product->brand_id) ? $product->brand_id : '');
+                                @endphp
+                                @if(isset($brands))
+                                    @foreach($brands as $key => $brand)
+                                        <option value="{{ $brand->id }}" {{ $brand->id == $chooseBrand ? 'selected' : '' }} >
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                                </select>
+                                @if ($errors->first('brand_id'))
+                                    <div class="invalid-alert text-danger">{{ $errors->first('brand_id') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label for="radioStatus">{{trans('language.status')}}</label>
+                                <br>
+                                @php
+                                    $status_s = trans('language.status_s');
+                                    $choose_status = old('status') ? old('status') : ( isset($product->status) ? $product->status : 0);
+                                @endphp
+                                @for($i=0; $i<count($status_s); $i++)
+                                    <div class="icheck-primary d-inline mr-4">
+                                        <input type="radio" name="status" id="radioStatus{{ $i }}" value="{{ $i }}" {{ ($i == $choose_status) ? 'checked' : '' }} />
+                                        <label for="radioStatus{{ $i }}">
+                                            {{ $status_s[$i] }}
+                                        </label>
+                                    </div>
+                                @endfor
+                            </div>
+                        </div>
                         <div class="col-sm-4 icheck-bee">
                             <div class="form-group">
                                 <label></label>

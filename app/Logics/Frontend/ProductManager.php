@@ -30,7 +30,8 @@ class ProductManager
                 'products.discount',
                 'products.gallery',
                 'products.created_at',
-            ]);
+            ])
+            ->where('products.status', Product::SELL);
            
             if($take){
                 $products = $products->take($take);
@@ -77,7 +78,8 @@ class ProductManager
                 'products.discount',
                 'products.gallery',
                 'products.created_at',
-            ]);
+            ])
+            ->where('products.status', Product::SELL);
 
             if(isset($request)){
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Logics\Frontend\ProductManager;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -30,7 +31,9 @@ class ProductController extends Controller
     public function show($slug){
         $product = Product::select([
                 'products.*',
-                DB::raw("GROUP_CONCAT( CONCAT(product_categories.name, '') SEPARATOR ',' ) AS optionValue"),
+                DB::raw("GROUP_CONCAT( CONCAT(product_categories.name, '') SEPARATOR ',' ) AS groupCategory"),
+                // 'product_categories.name as prName'
+                'brands.name as brand_name',
             ])
             ->leftJoin('product_skus', 'product_skus.product_id', '=', 'products.id')
             ->leftJoin('product_comments', 'product_comments.product_id', '=', 'products.id')
@@ -38,13 +41,20 @@ class ProductController extends Controller
             ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id')
             ->leftJoin('brands', 'brands.id', '=', 'products.brand_id')
             ->where('products.slug', $slug)
+            ->where('products.status', Product::SELL)
 //IF(projects.deleted_at is null and projects.id is not null, 1, null)
             ->first();
-        dd($product);
+        // $categoryInProduct = null;
+        // if($product->productCategoryRelation->isNotEmpty()){
+        // }
+        $categoryInProduct = ProductCategory::select(['name', 'slug'])
+            ->whereIn('id', $product->productCategoryRelation
+            ->pluck('category_id'))
+            ->get();
         if(!$product){
 
         }
         // dd($product);
-        return view($this->pathView. 'product-detail', compact('product'));
+        return view($this->pathView. 'product-detail', compact('product', 'categoryInProduct'));
     }
 }

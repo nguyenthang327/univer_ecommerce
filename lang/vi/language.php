@@ -136,6 +136,14 @@ return [
     'product_keyword' => 'Tìm kiếm theo: tên sản phẩm, sku',
     'by_category' => 'Theo danh mục',
     'product_feature' => 'Sản phẩm nổi bật',
+    'status' =>' Trạng thái',
+    'status_s' => ['Không bán', 'Bán'],
+
+    // brand
+    'brand' => 'Thương hiệu',
+    'brand_list' => 'Danh sách thương hiệu',
+    'delete_brand' => 'Bạn có muốn xóa thương hiệu này không?',
+    'by_brand_name' => 'Lọc theo tên thương hiệu',
 
     // frontend
     'homepage' => 'Trang chủ',

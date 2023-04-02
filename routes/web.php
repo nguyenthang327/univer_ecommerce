@@ -8,7 +8,7 @@ use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Backend\Admin\UserController as BeAdminUser;
 use App\Http\Controllers\Backend\Admin\CategoryController;
-
+use App\Http\Controllers\Backend\Admin\BrandController;
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
@@ -81,6 +81,14 @@ Route::get('/login', function () {
                 Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('admin.productCategory.edit');
                 Route::put('/update/{id}', [CategoryController::class, 'update'])->name('admin.productCategory.update');
             });
+
+            // Brand
+            Route::prefix('/brand')->group(function(){
+                Route::get('/', [BrandController::class, 'index'])->name('admin.brand.index');
+                Route::post('/store', [BrandController::class, 'store'])->name('admin.brand.store');
+                Route::post('/update/{id}', [BrandController::class, 'update'])->name('admin.brand.update');
+                Route::delete('/destroy/{id}', [BrandController::class, 'destroy'])->name('admin.brand.destroy');
+            });
         });
     });
 
@@ -148,7 +156,7 @@ Route::middleware('web')->group(function () {
     Route::get('/', [HomepageController::class, 'index'])->name('site.home');
 
     Route::prefix('/product')->group(function(){
-        Route::get('/all', [FrontendProductController::class, 'index'])->name('site.product.index');
+        Route::get('/', [FrontendProductController::class, 'index'])->name('site.product.index');
         Route::get('/{slug}', [FrontendProductController::class, 'show'])->name('site.product.show');
     });
 });

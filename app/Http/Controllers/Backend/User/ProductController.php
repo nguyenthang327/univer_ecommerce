@@ -72,7 +72,9 @@ class ProductController extends Controller
             ->select([
                 'products.*',
                 DB::raw("GROUP_CONCAT( CONCAT(product_categories.name, '') SEPARATOR ', ' ) AS cateogry"),
+                'brands.name as brand_name',
             ])
+            ->leftJoin('brands', 'brands.id', '=', 'products.brand_id')
             ->leftJoin('product_category_relation', 'products.id', '=', 'product_category_relation.product_id')
             ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id');
 
@@ -144,6 +146,8 @@ class ProductController extends Controller
                 'discount' =>  $request->discount,
                 'is_featured' => $request->is_featured ? Product::IS_FEATURE : Product::IS_NOT_FEATURE,
                 'description' => $request->description,
+                'brand_id' => $request->brand_id,
+                'status' => $request->status,
             ];
 
             $categories = isset($request->category_id) ? $request->category_id : [];
@@ -232,6 +236,8 @@ class ProductController extends Controller
                 'discount' =>  $request->discount,
                 'is_featured' => $request->is_featured ? Product::IS_FEATURE : Product::IS_NOT_FEATURE,
                 'description' => $request->description,
+                'brand_id' => $request->brand_id,
+                'status' => $request->status,
             ];
 
             $categories = isset($request->category_id) ? $request->category_id : [];

@@ -11,6 +11,8 @@
             <th width="10%">{{trans('language.price')}}</th>
             <th width="8%">@sortablelink('stock', trans('language.stock'))</th>
             <th width="8%">{{trans('language.product_category')}}</th>
+            <th width="8%">@sortablelink('brand_id', trans('language.brand'))</th>
+            <th width="8%">{{trans('language.status')}}</th>
             <th width="5%">{{trans('language.operation')}}</th>
         </tr>
         </thead>
@@ -45,6 +47,8 @@
                     </td>
                     <td class="text-center">{{ $checkVariant ? $product->skus[0]['total_stock'] : $product->stock }}</td>
                     <td class="text-center">{{ $product->cateogry }}</td>
+                    <td class="text-center">{{ $product->brand_name }}</td>
+                    <td class="text-center">{{ trans('language.status_s')[$product->status]}}</td>
                     <td class="text-center text-nowrap">
                         <a href="{{ route('user.product.edit',['slug'=> $product->slug]) }}" data-toggle='tooltip' title="{{trans('language.edit')}}" class="text-md text-primary mr-2"><i class="far fa-pen-alt"></i></a>
                         <a href="{{ route('user.product.destroy', ['id'=>$product->id]) }}"
