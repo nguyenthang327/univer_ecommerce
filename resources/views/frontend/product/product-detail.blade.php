@@ -101,9 +101,9 @@
                             </div>
                             <p class="line-clamp-2">{{ $product->desciption}}</p>
                             @if($checkVariant)
-                                <form method="get" id="form_change_option_value">
+                                <form method="get" id="form_change_option_value" data-product="{{ $product }}">
                                 @foreach($product->options as $key => $option)
-                                <div class="product-details-size mb-40 row pr_variant">
+                                <div class="product-details-size mb-3 row pr_variant">
                                     <span class="col-2">{{ $option->name}} : </span>
                                     <input type="hidden" name="option_{{$key}}" value="" class="option_value">
                                     <ul class="col-8">
@@ -115,7 +115,7 @@
                                 @endforeach
                             </form>
                             @endif
-                            <div>
+                            <div class="mb-3">
                                 <span>{{ trans('language.stock')}} : {{ $stock > 0 ? $stock : trans('language.out_stock') }}</span>
                             </div>
                             <div class="perched-info">

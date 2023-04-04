@@ -35,9 +35,12 @@ class ProductController extends Controller
                 // 'product_categories.name as prName'
                 'brands.name as brand_name',
             ])
+            ->with(['skus', 'variants', 'options', 'optionValues'])
             ->leftJoin('product_skus', 'product_skus.product_id', '=', 'products.id')
             ->leftJoin('product_comments', 'product_comments.product_id', '=', 'products.id')
             ->leftJoin('product_category_relation', 'product_category_relation.product_id', '=', 'products.id')
+            ->leftJoin('product_option_values', 'product_option_values.product_id', '=', 'products.id')
+            ->leftJoin('product_variants', 'product_variants.sku_id', '=', 'product_skus.id')
             ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id')
             ->leftJoin('brands', 'brands.id', '=', 'products.brand_id')
             ->where('products.slug', $slug)
