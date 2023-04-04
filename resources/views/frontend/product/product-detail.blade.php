@@ -7,6 +7,10 @@
             border: 1px solid red;
             color:red;
         }
+        .product-variation--disabled{
+            color: rgba(0,0,0,.26);
+            cursor: not-allowed;
+        }
     </style>
 @stop
 
@@ -116,7 +120,7 @@
                             </form>
                             @endif
                             <div class="mb-3">
-                                <span>{{ trans('language.stock')}} : {{ $stock > 0 ? $stock : trans('language.out_stock') }}</span>
+                                <span>{{ trans('language.stock') }} : <span class="product-detail-stock">{{ $stock > 0 ? $stock : trans('language.out_stock') }}</span></span>
                             </div>
                             <div class="perched-info">
                                 <div class="cart-plus">
