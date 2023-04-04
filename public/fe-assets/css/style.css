@@ -2036,7 +2036,6 @@ label {
 .exclusive-item-thumb {
 	border: 1px solid rgb(235, 235, 235);
 	position: relative;
-	margin-bottom: 25px;
 }
 .exclusive-item-thumb img {
 	width: 100%;
@@ -2284,6 +2283,7 @@ label {
 	margin-bottom: 25px;
 }
 .exclusive-item-three .exclusive-item-thumb img {
+    border: 1px solid #ccc;
 	border-radius: 4px;
     background-color: #fff;
 }
@@ -5234,3 +5234,12 @@ label {
     -webkit-box-orient: vertical;  
     overflow: hidden;
   }
+
+.exclusive-item-list{
+    border:1px solid #ccc;
+    border-radius: 4px;
+}
+
+.product-item-name{
+    height: 40px;
+}

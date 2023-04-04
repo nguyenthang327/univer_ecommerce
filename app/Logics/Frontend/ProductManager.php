@@ -30,6 +30,7 @@ class ProductManager
                 'products.discount',
                 'products.gallery',
                 'products.created_at',
+                'products.product_type',
             ])
             ->where('products.status', Product::SELL);
            
@@ -78,6 +79,7 @@ class ProductManager
                 'products.discount',
                 'products.gallery',
                 'products.created_at',
+                'products.product_type',
             ])
             ->where('products.status', Product::SELL)
             ->groupBy('products.id');

@@ -138,6 +138,7 @@ return [
     'product_feature' => 'Sản phẩm nổi bật',
     'status' =>' Trạng thái',
     'status_s' => ['Không bán', 'Bán'],
+    'out_stock' => 'Hết hàng',
 
     // brand
     'brand' => 'Thương hiệu',

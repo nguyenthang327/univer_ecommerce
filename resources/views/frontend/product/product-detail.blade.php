@@ -2,6 +2,12 @@
 @section('title',trans('language.product-detail'))
 
 @section('css_page')
+    <style>
+        .option_value_button.active{
+            border: 1px solid red;
+            color:red;
+        }
+    </style>
 @stop
 
 @section('content')
@@ -32,10 +38,13 @@
         @php
             $checkVariant = $product->product_type == \App\Models\Product::TYPE_VARIANT && $product->skus->isNotEmpty();
             $data = [];
+            $stock = '';
             if($checkVariant){
+                $stock = $product->skus->sum('stock');
                 $data = \App\Services\ProcessPriceService::variantPrice($product->skus->min('price'), $product->skus->max('price'), $product->discount);
             }else{
                 $data = \App\Services\ProcessPriceService::regularPrice($product->price, $product->discount);
+                $stock = $product->stock;
             };
         @endphp
         <section class="shop-details-area pt-100 pb-100">
@@ -92,19 +101,22 @@
                             </div>
                             <p class="line-clamp-2">{{ $product->desciption}}</p>
                             @if($checkVariant)
-                                @foreach($product->options as $option)
-                                <div class="product-details-size mb-40 row">
+                                <form method="get" id="form_change_option_value">
+                                @foreach($product->options as $key => $option)
+                                <div class="product-details-size mb-40 row pr_variant">
                                     <span class="col-2">{{ $option->name}} : </span>
+                                    <input type="hidden" name="option_{{$key}}" value="" class="option_value">
                                     <ul class="col-8">
                                         @foreach($option->optionValues as $optionValue)
-                                            <li><a href="#">{{ $optionValue->value }}</a></li>
+                                            <li><a href="#" class="option_value_button" data-option_value_id="{{ $optionValue->id }}">{{ $optionValue->value }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>
                                 @endforeach
+                            </form>
                             @endif
                             <div>
-                                <span>{{ trans('language.stock')}} : {{ $product->stock }}</span>
+                                <span>{{ trans('language.stock')}} : {{ $stock > 0 ? $stock : trans('language.out_stock') }}</span>
                             </div>
                             <div class="perched-info">
                                 <div class="cart-plus">
@@ -601,5 +613,6 @@
 @stop
 
 @section('js_page')
+    @include('frontend.product.scriptProductDetail')
 @stop
        

@@ -219,13 +219,13 @@
                                 $checkVariant = $product->product_type == \App\Models\Product::TYPE_VARIANT && $product->skus->isNotEmpty();
                                 $data = [];
                                 if($checkVariant){
-                                    $data = \App\Services\ProcessPriceService::regularPrice($product->skus[0]['min_price'], $product->skus[0]['max_price'], $product->discount);
+                                    $data = \App\Services\ProcessPriceService::variantPrice($product->skus[0]['min_price'], $product->skus[0]['max_price'], $product->discount);
                                 }else{
                                     $data = \App\Services\ProcessPriceService::regularPrice($product->price, $product->discount);
                                 }
                             @endphp
                                 <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6">
-                                    <div class="exclusive-item exclusive-item-three text-center mb-50">
+                                    <div class="exclusive-item exclusive-item-three text-center mb-50 exclusive-item-list">
                                         <div class="exclusive-item-thumb product-list-page">
                                             <a href="{{ route('site.product.show', ['slug' => $product->slug]) }}">
                                                 <img src="{{ !empty($product->gallery) ? asset('storage/'.$product->gallery[0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
@@ -236,21 +236,17 @@
                                                 <li><a href="#"><i class="flaticon-supermarket"></i></a></li>
                                                 <li><a href="#"><i class="flaticon-witness"></i></a></li>
                                             </ul>
+                                            @if($product->discount > 0)
+                                                <span class="discount">{{$product['discount']}}%</span>
+                                            @endif
                                         </div>
-                                        <div class="exclusive-item-content">
-                                            <h5><a href="{{ $product->slug }}">{{ $product->name }}</a></h5>
+                                        <div class="exclusive-item-content mb-2">
+                                            <h5><a href="{{ $product->slug }}" class="line-clamp-2 product-item-name">{{ $product->name }}</a></h5>
                                             <div class="exclusive--item--price">
                                                 @if($data['old'] )
                                                 <del class="old-price">{{ $data['old'] }}</del>
                                                 @endif
                                                 <span class="new-price">{{ $data['new'] }}</span>
-                                            </div>
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
                                             </div>
                                         </div>
                                     </div>

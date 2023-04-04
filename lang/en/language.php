@@ -138,6 +138,7 @@ return [
     'product_feature' => 'Feature product',
     'status' =>' Status',
     'status_s' => ['Not sell', 'Sell'],
+    'out_stock' => 'Out of stock',
 
     // brand
     'brand' => 'Brand',
