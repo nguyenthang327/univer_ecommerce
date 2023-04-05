@@ -637,18 +637,48 @@ $(".cart-plus-minus").append('<div class="dec qtybutton">-</div><div class="inc 
 $(".qtybutton").on("click", function () {
 	var $button = $(this);
 	var oldValue = $button.parent().find("input").val();
+
+	var max = parseInt($button.closest('.shop-details-content').find('.product-detail-stock').text());
 	if ($button.text() == "+") {
 		var newVal = parseFloat(oldValue) + 1;
+		if(newVal > max){
+			newVal = max;
+		}
 	} else {
 		// Don't allow decrementing below zero
-		if (oldValue > 0) {
+		if (oldValue > 1) {
 			var newVal = parseFloat(oldValue) - 1;
 		} else {
-			newVal = 0;
+			newVal = 1;
 		}
 	}
+
 	$button.parent().find("input").val(newVal);
 });
+
+
+$('.shop-details-content input[name="quantity"]').on('input', function(e){
+	// if()
+	var charCode = (e.which) ? e.which : e.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		return false;
+	}
+
+	var max = parseInt($(this).closest('.shop-details-content').find('.product-detail-stock').text());
+	var old = parseInt($(this).val());
+
+	if(old > max){
+		old = max;
+	}
+	if(!old || !old < 0){
+		old = 1;
+	}
+	$(this).val(old);
+	return true;
+	console.log( $(this).val());
+});
+
+// $('.shop-details-content input[name="quantity"]').on('input')
 
 
 /*=============================================

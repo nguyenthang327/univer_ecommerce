@@ -3,10 +3,10 @@
     <table class="table table-hover table-striped table-bordered table-valign-middle table-custom min-width-800">
         <thead class="text-center text-nowrap">
         <tr>
-            <th width="5%">@sortablelink('id', trans('language.ordinal_number'))</th>
-            <th width="8%">{{trans('language.sku')}}</th>
+            <th width="4%">@sortablelink('id', trans('language.ordinal_number'))</th>
+            <th width="5%">{{trans('language.sku')}}</th>
             <th width="10%">{{trans('language.image')}}</th>
-            <th width="20%" style="max-width:400px;">@sortablelink('name', trans('language.product_name'))</th>
+            <th width="12%" style="max-width:400px;">@sortablelink('name', trans('language.product_name'))</th>
             <th width="6%">@sortablelink('product_type', trans('language.variation'))</th>
             <th width="10%">{{trans('language.price')}}</th>
             <th width="8%">@sortablelink('stock', trans('language.stock'))</th>
@@ -21,10 +21,13 @@
                 @php
                     $checkVariant = $product->product_type == \App\Models\Product::TYPE_VARIANT && $product->skus->isNotEmpty();
                     $data = [];
+                    $stock = null;
                     if($checkVariant){
-                        $data = \App\Services\ProcessPriceService::regularPrice($product->skus[0]['min_price'], $product->skus[0]['max_price'], $product->discount);
+                        $data = \App\Services\ProcessPriceService::variantPrice($product->skus[0]['min_price'], $product->skus[0]['max_price'], $product->discount);
+                        $stock = $product->skus[0]['total_stock'];
                     }else{
                         $data = \App\Services\ProcessPriceService::regularPrice($product->price, $product->discount);
+                        $stock = $product->stock;
                     }
                 @endphp
                 <tr>
@@ -41,14 +44,14 @@
                     <td class="text-center">{{ $checkVariant ? trans('language.have') :  trans('language.does_not_have')}}</td>
                     <td class="text-center"> 
                         @if($data['old'] )
-                        <del class="old-price">{{ $data['old'] }}</del>
+                        <del class="old-price d-block">{{ $data['old'] }}</del>
                         @endif
                         <span class="new-price" style="color:#ff6000">{{ $data['new'] }}</span>
                     </td>
-                    <td class="text-center">{{ $checkVariant ? $product->skus[0]['total_stock'] : $product->stock }}</td>
+                    <td class="text-center">{{ $stock }}</td>
                     <td class="text-center">{{ $product->cateogry }}</td>
                     <td class="text-center">{{ $product->brand_name }}</td>
-                    <td class="text-center">{{ trans('language.status_s')[$product->status]}}</td>
+                    <td class="text-center">{{ $stock > 0 ? trans('language.status_s')[$product->status] : trans('language.out_stock') }}</td>
                     <td class="text-center text-nowrap">
                         <a href="{{ route('user.product.edit',['slug'=> $product->slug]) }}" data-toggle='tooltip' title="{{trans('language.edit')}}" class="text-md text-primary mr-2"><i class="far fa-pen-alt"></i></a>
                         <a href="{{ route('user.product.destroy', ['id'=>$product->id]) }}"

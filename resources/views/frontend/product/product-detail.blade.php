@@ -133,7 +133,7 @@
                                 <div class="cart-plus">
                                     <form action="#">
                                         <div class="cart-plus-minus">
-                                            <input type="text" value="1">
+                                            <input type="text" value="1" name="quantity">
                                         </div>
                                     </form>
                                 </div>

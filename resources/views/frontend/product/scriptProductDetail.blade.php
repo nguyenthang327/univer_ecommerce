@@ -35,6 +35,25 @@
         $('.product-detail-stock').text(stockDisplay);
     }
 
+    function getSkuByOptionValueID(dataVariant, optionValue1, optionValue2){
+        let getSku = dataVariant
+            .filter(option => option.product_option_value_id == optionValue1 || option.product_option_value_id == optionValue2)
+            .reduce((acc, current) => {
+                var obj = acc.find(item => item.sku_id === current.sku_id); // Tìm kiếm đối tượng ở trong acc
+                if (!obj) { // Nếu sku_id này chưa tồn tại trong acc
+                    acc.push({
+                        sku_id: current.sku_id,
+                        count: 1
+                    }); 
+                } else { // Nếu đã tồn tại sku_id này trong acc
+                    obj.count++; 
+                }
+                return acc;
+            }, [])
+            .find(obj => obj.count === 2);
+        return getSku;
+    }
+
     $(document).ready(function() {
         const numOption = $('.pr_variant').length;
         const priceDisplay = $('.shop-details-price h2').html();
@@ -46,6 +65,9 @@
 
         $(document).on('click', '.option_value_button', function(e) {
             e.preventDefault();
+            if($(this).hasClass('product-variation--disabled') || $(this).hasClass('product-variation-important--disabled')){
+                return true;
+            }
             $(this).closest('.pr_variant').find('.option_value_button.active').removeClass('active');
             var optionValue = $(this).closest('.pr_variant').find('.option_value');
             if (optionValue.val() == $(this).data('option_value_id')) {
@@ -55,43 +77,27 @@
                 var optionValueId = $(this).data('option_value_id');
                 $(this).closest('.pr_variant').find('.option_value').val(optionValueId);
 
-                $(this).closest('.pr_variant').find('.option_value_button.product-variation--disabled').removeClass('product-variation--disabled');
                 var listOtherOption = dataVariant.find(option => option.product_option_id != optionId)
                 if(listOtherOption){
-                    // console.log(optionValueId);
                     var otherOptionID = listOtherOption.product_option_id;
-                    // var optionValueID = 
 
                     var optionValueIDs = $(`.pr_variant.pr-option-${otherOptionID}`).find('.option_value_button');
                     $.each(optionValueIDs, function(index, value){
                         let otherOptionValueID = value.attributes['data-option_value_id'].value;
-                        let getSkuIdClickOne = dataVariant
-                            .filter(option => option.product_option_value_id == optionValueId || option.product_option_value_id == otherOptionValueID)
-                            .reduce((acc, current) => {
-                                var obj = acc.find(item => item.sku_id === current.sku_id); // Tìm kiếm đối tượng ở trong acc
-                                if (!obj) { // Nếu sku_id này chưa tồn tại trong acc
-                                    acc.push({
-                                        sku_id: current.sku_id,
-                                        count: 1
-                                    }); 
-                                } else { // Nếu đã tồn tại sku_id này trong acc
-                                    obj.count++; 
-                                }
-                                return acc;
-                            }, [])
-                            .find(obj => obj.count === 2);
+                        let getSkuIdClickOne = getSkuByOptionValueID(dataVariant, optionValueId, otherOptionValueID);
 
                         if (getSkuIdClickOne !== undefined) {
                             getSkuIdClickOne = getSkuIdClickOne.sku_id;
-                        } else { 
-                            getSkuIdClickOne = null;
+                            let skuActice = dataSku.find(item => item.id == getSkuIdClickOne && item.price !== null && item.stock > 0);
+                            if(skuActice){
+                                $(`.pr_variant.pr-option-${otherOptionID} .option_value_button[data-option_value_id='${otherOptionValueID}'] `).removeClass(`product-variation--disabled`)
+                            }else{
+                                $(`.pr_variant.pr-option-${otherOptionID} .option_value_button[data-option_value_id='${otherOptionValueID}'] `).addClass(`product-variation--disabled`);
+                            }
+                        } else {
+                            $(`.pr_variant.pr-option-${otherOptionID} .option_value_button[data-option_value_id='${otherOptionValueID}'] `).addClass(`product-variation--disabled`);
                         }
-
-                        console.log(getSkuIdClickOne);
-
-                        // console.log(value.attributes['data-option_value_id'].value);
                     });
-                    var skuActice = dataSku.find(item => item.id == getSkuIdClickOne && item.price !== null && item.stock > 0);
                 }
 
                 $(this).addClass('active');
@@ -106,27 +112,14 @@
 
             if (numOption == count) {
                 // ajaxCall($('#form_change_option_value').serialize());
+                $('.shop-details-content input[name="quantity"]').val(1);
                 var getSkuId = null;
                 if (numOption == 1) {
                     getSkuId = dataVariant.find(item => item.product_option_value_id == formData[0].value).sku_id;
                 }
 
                 if (numOption == 2) {
-                    getSkuId = dataVariant
-                        .filter(option => option.product_option_value_id == formData[0].value || option.product_option_value_id == formData[1].value)
-                        .reduce((acc, current) => {
-                            var obj = acc.find(item => item.sku_id === current.sku_id); // Tìm kiếm đối tượng ở trong acc
-                            if (!obj) { // Nếu sku_id này chưa tồn tại trong acc
-                                acc.push({
-                                    sku_id: current.sku_id,
-                                    count: 1
-                                }); 
-                            } else { // Nếu đã tồn tại sku_id này trong acc
-                                obj.count++; 
-                            }
-                            return acc;
-                        }, [])
-                        .find(obj => obj.count === 2);
+                    let getSkuId = getSkuByOptionValueID(dataVariant, formData[0].value, formData[1].value);
 
                     if (getSkuId !== undefined) {
                         getSkuId = getSkuId.sku_id;
