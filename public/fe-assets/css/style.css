@@ -4121,6 +4121,7 @@ label {
 .product-details-size ul li a {
     display: block;
     color: #aeaeae;
+    color: #202020;
     border: 1px solid #aeaeae;
     padding: 7px 13px;
     line-height: 1;

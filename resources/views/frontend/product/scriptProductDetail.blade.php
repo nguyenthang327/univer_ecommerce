@@ -51,7 +51,49 @@
             if (optionValue.val() == $(this).data('option_value_id')) {
                 $(this).closest('.pr_variant').find('.option_value').val(null);
             } else {
-                $(this).closest('.pr_variant').find('.option_value').val($(this).data('option_value_id'));
+                var optionId = $(this).closest('.pr_variant').data('option_id');
+                var optionValueId = $(this).data('option_value_id');
+                $(this).closest('.pr_variant').find('.option_value').val(optionValueId);
+
+                $(this).closest('.pr_variant').find('.option_value_button.product-variation--disabled').removeClass('product-variation--disabled');
+                var listOtherOption = dataVariant.find(option => option.product_option_id != optionId)
+                if(listOtherOption){
+                    // console.log(optionValueId);
+                    var otherOptionID = listOtherOption.product_option_id;
+                    // var optionValueID = 
+
+                    var optionValueIDs = $(`.pr_variant.pr-option-${otherOptionID}`).find('.option_value_button');
+                    $.each(optionValueIDs, function(index, value){
+                        let otherOptionValueID = value.attributes['data-option_value_id'].value;
+                        let getSkuIdClickOne = dataVariant
+                            .filter(option => option.product_option_value_id == optionValueId || option.product_option_value_id == otherOptionValueID)
+                            .reduce((acc, current) => {
+                                var obj = acc.find(item => item.sku_id === current.sku_id); // Tìm kiếm đối tượng ở trong acc
+                                if (!obj) { // Nếu sku_id này chưa tồn tại trong acc
+                                    acc.push({
+                                        sku_id: current.sku_id,
+                                        count: 1
+                                    }); 
+                                } else { // Nếu đã tồn tại sku_id này trong acc
+                                    obj.count++; 
+                                }
+                                return acc;
+                            }, [])
+                            .find(obj => obj.count === 2);
+
+                        if (getSkuIdClickOne !== undefined) {
+                            getSkuIdClickOne = getSkuIdClickOne.sku_id;
+                        } else { 
+                            getSkuIdClickOne = null;
+                        }
+
+                        console.log(getSkuIdClickOne);
+
+                        // console.log(value.attributes['data-option_value_id'].value);
+                    });
+                    var skuActice = dataSku.find(item => item.id == getSkuIdClickOne && item.price !== null && item.stock > 0);
+                }
+
                 $(this).addClass('active');
             }
             var formData = $('#form_change_option_value').serializeArray();

@@ -7,9 +7,11 @@
             border: 1px solid red;
             color:red;
         }
-        .product-variation--disabled{
-            color: rgba(0,0,0,.26);
-            cursor: not-allowed;
+        .product-variation--disabled,
+        .product-variation-important--disabled{
+            color: rgba(0,0,0,.26) !important;
+            cursor: not-allowed !important;
+            border-color: rgba(0,0,0,.09) !important;
         }
     </style>
 @stop
@@ -107,12 +109,17 @@
                             @if($checkVariant)
                                 <form method="get" id="form_change_option_value" data-product="{{ $product }}">
                                 @foreach($product->options as $key => $option)
-                                <div class="product-details-size mb-3 row pr_variant">
+                                <div class="product-details-size mb-3 row pr_variant pr-option-{{ $option->id }}" data-option_id="{{ $option->id }}">
                                     <span class="col-2">{{ $option->name}} : </span>
                                     <input type="hidden" name="option_{{$key}}" value="" class="option_value">
                                     <ul class="col-8">
                                         @foreach($option->optionValues as $optionValue)
-                                            <li><a href="#" class="option_value_button" data-option_value_id="{{ $optionValue->id }}">{{ $optionValue->value }}</a></li>
+                                        @php
+                                            $skuID = $product->variants->where('product_option_value_id', $optionValue->id)->pluck('sku_id');
+                                            $checkOptionHaveNotSku = $product->skus->whereIn('id', $skuID)->where('stock', '>', 0)->whereNotNull('price')->isEmpty();
+                                        @endphp
+                                            {{-- @dd($product->variants) --}}
+                                            <li><a href="#" class="option_value_button {{$checkOptionHaveNotSku ? 'product-variation-important--disabled' : ''}}" data-option_value_id="{{ $optionValue->id }}">{{ $optionValue->value }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>
