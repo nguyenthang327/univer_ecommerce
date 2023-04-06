@@ -86,35 +86,15 @@
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
-                                    <li class="active dropdown"><a href="#">Home</a>
-                                        <ul class="submenu">
-                                            <li><a href="index.html">Home One</a></li>
-                                            <li class="active"><a href="index-2.html">Home Two</a></li>
-                                            <li><a href="index-3.html">Home Three</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li class="dropdown"><a href="#">PAGES</a>
-                                        <ul class="submenu">
-                                            <li><a href="my-account.html">My Account</a></li>
-                                            <li><a href="404.html">404 Page</a></li>
-                                            <li><a href="terms-conditios.html">Terms and Conditions</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown"><a href="#">BLOG</a>
-                                        <ul class="submenu">
-                                            <li><a href="blog.html">Standard Blog</a></li>
-                                            <li><a href="blog-classic.html">Classic Blog</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
+                                    <li class="active dropdown"><a href="{{ route('site.home') }}">{{ trans('language.home') }}</a>
                                     </li>
                                     <li class="dropdown"><a href="{{ route('site.product.index') }}">SHOP</a>
                                         {{-- <ul class="submenu">
                                             <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
                                         </ul> --}}
                                     </li>
-                                    <li><a href="special.html">SPECIAL</a></li>
-                                    <li><a href="contact.html">contacts</a></li>
+                                    {{-- <li><a href="special.html">SPECIAL</a></li>
+                                    <li><a href="contact.html">contacts</a></li> --}}
                                 </ul>
                             </div>
                             <div class="header-action d-none d-md-block">

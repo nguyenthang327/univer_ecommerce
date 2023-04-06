@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title',trans('language.homepage'))
+@section('title',trans('language.home'))
 
 @section('css_page')
 @stop

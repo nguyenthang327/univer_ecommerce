@@ -147,7 +147,7 @@ return [
     'by_brand_name' => 'Lọc theo tên thương hiệu',
 
     // frontend
-    'homepage' => 'Trang chủ',
+    'home' => 'Trang chủ',
     'see_more' => 'Xem thêm',
     'all_categories' => 'Tất cả danh mục',
     'product_new' => 'Sản phẩm mới', 

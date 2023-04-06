@@ -3613,6 +3613,11 @@ label {
 	color: #696868;
 	line-height: 26px;
 }
+.shop-cat-list ul li a.mini-cate-special {
+    font-size: 16px;
+    font-weight: 600;
+	color: #000;
+}
 .shop-cat-list ul li a::before {
     content: "\f1ce";
     position: absolute;

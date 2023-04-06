@@ -40,12 +40,37 @@
                             </div>
                             <div class="shop-cat-list">
                                 <ul>
-                                    <li><a href="#">Accessories</a><span>27</span></li>
-                                    <li><a href="#">Leather Jacket</a><span>12</span></li>
-                                    <li><a href="#">Woman Hoodies</a><span>6</span></li>
-                                    <li><a href="#">Man Shoes</a><span>7</span></li>
-                                    <li><a href="#">Baby Troys</a><span>9</span></li>
-                                    <li><a href="#">Kitchen Accessories</a><span>16</span></li>
+                                    {{-- xem xét lại --}}
+                                @if(!Request::has('categorySlug'))
+                                    <li><a href="{{ route('site.product.index')}}" class="mini-cate-special">All</a>
+                                        {{-- <span>27</span> --}}
+                                    </li>
+                                    @foreach($globalProductCategories as $key => $productCategory)
+                                        <li>
+                                            <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}">
+                                                {{ $productCategory['name'] }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @else
+                                        @dd($globalProductCategories)
+                                    @foreach($globalProductCategories as $key => $productCategory)
+                                        @if($productCategory['slug'] == Request::get('categorySlug'))
+                                            <li>
+                                                <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}" 
+                                                    class="mini-cate-special">
+                                                    {{ $productCategory['name'] }}
+                                                </a>
+                                            </li>
+                                            @foreach ($productCategory['_2_level_cate'] as $item)
+                                            <li>
+                                                <a href="{{ route('site.product.index', ['categorySlug' => $item['slug'] ] )}}">{{$item['name']}}</a>
+                                            </li>
+                                            @endforeach
+                                        @break
+                                        @endif
+                                @endforeach
+                                @endif
                                 </ul>
                             </div>
                         </div>

@@ -50,7 +50,7 @@ Route::get('/login', function () {
         Route::post('/login', [AdminAuth::class, 'authenticate'])->name('admin.post.login');
         Route::post('/logout', [AdminAuth::class, 'logout'])->name('admin.logout');
 
-        Route::group(['middleware' => ['auth.admin']], function(){
+        Route::group(['middleware' => ['auth:admin']], function(){
             // dashboard
             Route::get('/', [AdminDashboard::class, 'index'])->name('admin.dashboard');
 
@@ -100,7 +100,7 @@ Route::get('/login', function () {
         Route::post('/login', [UserAuth::class, 'authenticate'])->name('user.post.login');
         Route::post('/logout', [UserAuth::class, 'logout'])->name('user.logout');
 
-        Route::group(['middleware' => ['auth.user']], function(){
+        Route::group(['middleware' => ['auth:user']], function(){
             // dashboard
             Route::get('/', [UserDashboard::class, 'index'])->name('user.dashboard');
 

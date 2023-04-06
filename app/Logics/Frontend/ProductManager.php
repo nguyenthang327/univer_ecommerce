@@ -3,6 +3,7 @@
 namespace App\Logics\Frontend;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -83,9 +84,17 @@ class ProductManager
             ])
             ->where('products.status', Product::SELL)
             ->groupBy('products.id');
-
+// dd($request->all());
             if(isset($request)){
-
+                if(isset($request->categorySlug)){
+                    $categoryID = ProductCategory::select('id')->where('slug', $request->categorySlug)->pluck('id')->toArray();
+                    $categorySubID = ProductCategory::select('id')->whereIn('parent_id', $categoryID)->pluck('id')->toArray();
+                    $products = $products->whereIn('product_categories.id', array_merge($categoryID, $categorySubID));
+                    // dd()
+                    // select('id')->where('parant_id', $request->category_id)->get()->toArray();
+                    // $categoryID[] = $request->category_id;
+                    // dd($categoryID, $categorySubID);
+                }
             }
 
             if($paginate){

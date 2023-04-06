@@ -8,7 +8,7 @@
                         @foreach($globalProductCategories as $key => $productCategory)
                         @if($key < 9)
                         <li class="has-dropdown">
-                            <a href="#" class="d-flex justify-content-between align-items-center">
+                            <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}" class="d-flex justify-content-between align-items-center">
                                 <div class="wrap-cat">
                                     <div class="cat-menu-img">
                                         <img src="{{asset('storage/'.$productCategory["thumbnail"])}}" alt="{{ $productCategory["name"] }}" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
@@ -23,7 +23,7 @@
                                 <li>
                                     <ul>
                                         @foreach ($productCategory['_2_level_cate'] as $item)
-                                            <li><a href="#">{{ $item['name']}}</a></li>
+                                            <li><a href="{{ route('site.product.index', ['categorySlug' => $item['slug'] ] )}}">{{ $item['name']}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>

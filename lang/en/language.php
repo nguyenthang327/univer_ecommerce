@@ -147,7 +147,7 @@ return [
     'by_brand_name' => 'Filter by brand name',
 
     // frontend
-    'homepage' => 'Homepage',
+    'home' => 'Home',
     'see_more' => 'See more',
     'all_categories' => 'All categories',
     'product_new' => 'New product', 
