@@ -80,6 +80,7 @@
         <script src="{{ asset('fe-assets/js/aos.js')}}"></script>
         <script src="{{ asset('fe-assets/js/plugins.js')}}"></script>
         <script src="{{ asset('fe-assets/js/main.js')}}"></script>
+        <script src="{{asset("be-assets/js/jquery.validate.min.js")}}"></script>
 
         @yield('js_library')
         <!-- Page script -->

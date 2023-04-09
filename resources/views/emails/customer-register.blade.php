@@ -25,10 +25,7 @@
                     <td style="padding: 20px 0 30px 0;">
                         {{ trans('language.mail.register.content.content_1') }}
                         <p>{{ trans('language.mail.register.content.mail_adress') }} <b>{{ $customer->email ?? 'example@gmail.com' }}</b></p>
-                        <p>{{ trans('language.code') }} <b>{{ $code ?? 'example@gmail.com' }}</b></p>
-                        {{-- <p>{{ trans('language.mail.register.content.user_name') }} <b>{{ isset($customer->user_name) ? $customer->user_name : '' }}</b></p> --}}
-                        {{-- <p>{{ trans('language.mail.register.content.password') }} <b>{{ isset($password) ? $password : '' }}</b></p> --}}
-                        {{-- <p>{{ trans('language.mail.register.content.link')}} <a href="{{route('login')}}">{{route('user.login')}}</a></p> --}}
+                        <p>{{ trans('language.code') }} <b>{{ $code }}</b></p>
                         <p>
                             {{ trans('language.mail.register.content.content_2') }}
                         </p>

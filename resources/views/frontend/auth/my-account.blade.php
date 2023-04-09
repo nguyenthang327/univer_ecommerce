@@ -46,14 +46,14 @@
                                     <a href="#" class="xing"><i class="fab fa-xing"></i>Login with xing</a>
                                 </div>
                                 <span class="or">- OR -</span> --}}
-                                <form action="#" class="login-form">
+                                <form action="#" class="login-form" id="login-form">
                                     <div class="form-grp">
                                         <label for="uea">USERNAME OR EMAIL ADDRESS <span>*</span></label>
                                         <input type="text" id="uea">
                                     </div>
                                     <div class="form-grp">
                                         <label for="password">PASSWORD <span>*</span></label>
-                                        <input type="password" id="password">
+                                        <input type="password" name="password">
                                         <i class="far fa-eye"></i>
                                     </div>
                                     <div class="form-grp-bottom">
@@ -66,8 +66,7 @@
                                         </div>
                                     </div>
                                     <div class="form-grp-btn">
-                                        <a href="#" class="btn">Login</a>
-                                        <a href="#" class="btn">Sign up</a>
+                                        <button type="submit" class="btn">{{ trans('language.login') }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -79,28 +78,26 @@
                                     <a href="#" class="xing"><i class="fab fa-xing"></i>Login with xing</a>
                                 </div>
                                 <span class="or">- OR -</span> --}}
-                                <form action="{{ route('customer.register') }}" class="login-form" method="POST">
+                                <form action="{{ route('customer.register') }}" class="login-form" method="POST" id="register-form">
                                     @csrf
                                     <div class="form-grp">
-                                        <label for="uea">USERNAME OR EMAIL ADDRESSds regist <span>*</span></label>
-                                        <input type="text" id="uea" name="email">
+                                        <label for="uea">{{ trans('language.email') }} <span>*</span></label>
+                                        <input type="text" id="uea" name="email" required>
                                     </div>
                                     <div class="form-grp">
-                                        <label for="password">PASSWORD <span>*</span></label>
-                                        <input type="password" id="password" name="password">
-                                        <i class="far fa-eye"></i>
+                                        <label for="password">{{ trans('language.password') }} <span>*</span></label>
+                                        <input type="password" id="password" name="password" required>
+                                        <i class="far fa-eye toggle-password" toggle="#password"></i>
+                                    </div>
+                                    <div class="form-grp">
+                                        <label for="password">{{ trans('language.confirm_password') }} <span>*</span></label>
+                                        <input type="password" id="confirmPassword" name="confirmPassword" equalTo="#password" required>
+                                        <i class="far fa-eye toggle-password" toggle="#password_confirmation"></i>
                                     </div>
                                     <div class="form-grp-bottom">
-                                        <div class="remember">
-                                            <input type="checkbox" id="check">
-                                            <label for="check"  >Remember me</label>
-                                        </div>
-                                        <div class="forget-pass">
-                                            {{-- <a href="#">forgot password</a> --}}
-                                        </div>
                                     </div>
                                     <div class="form-grp-btn">
-                                        <button type="submit" class="btn">Sign up</button>
+                                        <button type="submit" class="btn">{{ trans('language.sign_up') }}</button>
                                         {{-- <a href="#" class="btn">Login</a> --}}
                                     </div>
                                 </form>
@@ -117,42 +114,5 @@
 @stop
 
 @section('js_page')
-    <script>
-        function changeForm(){
-            // var pathname = window.location.href;
-
-            if($('#login').hasClass('active')){
-                $('#login-group').removeClass('d-none');
-                $('#register-group').addClass('d-none');
-
-                window.history.replaceState(null, null, '/login');
-                
-            }else{
-                $('#register-group').removeClass('d-none');
-                $('#login-group').addClass('d-none');
-
-                window.history.replaceState(null, null, '/register');
-            }
-        }
-
-        $(document).ready(function(){
-            changeForm();
-            
-            $('#login').on('click', function(){
-                if(!$(this).hasClass('active')){
-                    $(this).addClass('active')
-                }
-                $('#register').removeClass('active');
-                changeForm();
-            });
-            $('#register').on('click', function(){
-                if(!$(this).hasClass('active')){
-                    $(this).addClass('active')
-                }
-                $('#login').removeClass('active');
-
-                changeForm();
-            })
-        });
-    </script>
+    <script src="{{ asset('fe-assets/js/page/auth/login-register.js') }}"></script>
 @stop
