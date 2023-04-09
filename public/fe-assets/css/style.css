@@ -323,7 +323,7 @@ label {
 .wishlist-area tbody .product-subtotal span,
 .order-complete-content h3 span,
 .order-complete-content p.get-ans a,
-.login-page-title .title span,
+.login-page-title .title span.active,
 .my-account-content p span,
 .login-form .form-grp label span,
 .login-form .forget-pass a:hover,
@@ -4424,7 +4424,9 @@ label {
 .my-account-bg {
     background-position: center;
     background-size: cover;
-    background-color: rgba(255, 96, 0, 0.659);
+    /* background-color: rgba(255, 96, 0, 0.659); */
+    border-radius: 6px;
+    background-color: #f2f0ed;
     box-shadow: 0px 5px 9.3px 0.7px rgba(183, 177, 199, 0.1);
     padding: 49px 75px 60px;
 }
@@ -5248,4 +5250,14 @@ label {
 
 .product-item-name{
     height: 40px;
+}
+
+.logo-img{
+    height: 70px;
+    object-fit: contain;
+}
+
+.shop-name{
+    font-weight: bolder;
+    font-size: 24px;
 }

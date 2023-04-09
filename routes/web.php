@@ -14,9 +14,11 @@ use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Backend\User\ProductController;
 use App\Http\Controllers\Backend\User\UserController as BeUser;
+use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\HomepageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\UploadController;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +35,10 @@ use App\Http\Controllers\UploadController;
 //     return view('Backend.Admin.Layout.master');
 // });
 
-Route::get('/login', function () {
-    // abort(404);
-    return redirect()->route('admin.login');
-})->name('login');
+// Route::get('/login', function () {
+//     // abort(404);
+//     return redirect()->route('admin.login');
+// })->name('login');
 
 
 
@@ -153,7 +155,15 @@ Route::get('getDistrictList', [AddressController::class, 'getDistrictList'])->na
 Route::get('getCommuneList', [AddressController::class, 'getCommuneList'])->name('getCommuneList');
 
 Route::middleware('web')->group(function () {
+    Route::get('/language/{locale}', [HomepageController::class, 'changeLanguage'])->name('changeLanguage');
     Route::get('/', [HomepageController::class, 'index'])->name('site.home');
+    Route::get('/login', [AuthController::class, 'index'])->name('login');
+    Route::post('/login', [AuthController::class, 'authenticate'])->name('customer.login');
+
+    Route::get('/register', [AuthController::class, 'registerStep1'])->name('customer.register.step1');
+    Route::post('/register', [AuthController::class, 'register'])->name('customer.register');
+    Route::get('/register/verify/{id}', [AuthController::class, 'registerStep2'])->name('customer.register.step2');
+    Route::post('/register/verify/{id}', [AuthController::class, 'registerVerify'])->name('customer.register.verify');
 
     Route::prefix('/product')->group(function(){
         Route::get('/', [FrontendProductController::class, 'index'])->name('site.product.index');

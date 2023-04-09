@@ -14,4 +14,7 @@ define('BRAND_DIR', 'brands');
 
 define('FILESYSTEM', 'public');
 
+// front end
+define('TIME_EXPIRED_CODE', 15);
+
 ?>

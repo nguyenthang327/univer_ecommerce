@@ -151,6 +151,10 @@ return [
     'see_more' => 'Xem thêm',
     'all_categories' => 'Tất cả danh mục',
     'product_new' => 'Sản phẩm mới', 
+    'display_products' => 'Hiển thị sản phẩm :from-:to trong số :total kết quả',
+    'customer_register' => [
+        'exists' => ':attribute này đã được kích hoạt, vui lòng sử dụng :attribute khác!',
+    ],
 
     // mail user register
     'mail' => [

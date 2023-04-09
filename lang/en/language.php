@@ -150,7 +150,11 @@ return [
     'home' => 'Home',
     'see_more' => 'See more',
     'all_categories' => 'All categories',
-    'product_new' => 'New product', 
+    'product_new' => 'New product',
+    'display_products' => 'Showing products :from-:to of :total result',
+    'customer_register' => [
+        'exists' => 'This :attribute is already enabled, please use another :attribute!',
+    ],
 
     // mail user register
     'mail' => [

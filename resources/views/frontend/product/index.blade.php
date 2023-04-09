@@ -2,14 +2,18 @@
 @section('title',trans('language.product'))
 
 @section('css_page')
+    <link rel="stylesheet" href="{{ asset('fe-assets/css/product/list.css')}}">
 @stop
 
 @section('content')
 <!-- main-area -->
 <main>
+    @php
+        $request = request();
+    @endphp
 
     <!-- breadcrumb-area -->
-    <section class="breadcrumb-area breadcrumb-bg" data-background="img/bg/breadcrumb_bg.jpg">
+    <section class="breadcrumb-area breadcrumb-bg" data-background="{{ asset('images/breadcrumb_bg.jpg')}}">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -42,7 +46,7 @@
                                 <ul>
                                     {{-- xem xét lại --}}
                                 @if(!Request::has('categorySlug'))
-                                    <li><a href="{{ route('site.product.index')}}" class="mini-cate-special">All</a>
+                                    <li><a href="{{ route('site.product.index')}}" class="mini-cate-special active">All</a>
                                         {{-- <span>27</span> --}}
                                     </li>
                                     @foreach($globalProductCategories as $key => $productCategory)
@@ -53,23 +57,48 @@
                                         </li>
                                     @endforeach
                                 @else
-                                        @dd($globalProductCategories)
                                     @foreach($globalProductCategories as $key => $productCategory)
                                         @if($productCategory['slug'] == Request::get('categorySlug'))
                                             <li>
                                                 <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}" 
-                                                    class="mini-cate-special">
+                                                    class="mini-cate-special active">
                                                     {{ $productCategory['name'] }}
                                                 </a>
                                             </li>
-                                            @foreach ($productCategory['_2_level_cate'] as $item)
-                                            <li>
-                                                <a href="{{ route('site.product.index', ['categorySlug' => $item['slug'] ] )}}">{{$item['name']}}</a>
-                                            </li>
-                                            @endforeach
-                                        @break
+                                                @foreach ($productCategory['_2_level_cate'] as $item)
+                                                <li>
+                                                    <a href="{{ route('site.product.index', ['categorySlug' => $item['slug'] ] )}}" >{{$item['name']}}</a>
+                                                </li>
+                                                @endforeach
+                                            @break
+                                        @elseif(!empty($productCategory['_2_level_cate']))
+                                            @php
+                                                $check = false;
+                                                foreach ($productCategory['_2_level_cate'] as $item) {
+                                                    if($item['slug']  == Request::get('categorySlug')){
+                                                        $check = true;
+                                                        break;
+                                                    }
+                                                }
+                                            @endphp
+                                            @if($check == true)
+                                                <li>
+                                                    <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}" 
+                                                        class="mini-cate-special">
+                                                        {{ $productCategory['name'] }}
+                                                    </a>
+                                                </li>
+                                                    @foreach ($productCategory['_2_level_cate'] as $item)
+                                                    <li>
+                                                        <a href="{{ route('site.product.index', ['categorySlug' => $item['slug'] ] )}}"
+                                                            class="{{$item['slug']  == Request::get('categorySlug') ? 'active' : ''}}"
+                                                            >{{$item['name']}}</a>
+                                                    </li>
+                                                    @endforeach
+                                                @break
+                                            @endif
                                         @endif
-                                @endforeach
+                                    @endforeach
                                 @endif
                                 </ul>
                             </div>
@@ -218,27 +247,32 @@
                         </div>
                     </aside>
                 </div>
-                <div class="col-xl-9 col-lg-8">
-                    <div class="shop-top-meta mb-40">
-                        <p class="show-result">Showing Products 1-12 Of 10 Result</p>
-                        <div class="shop-meta-right">
-                            <ul>
-                                <li class="active"><a href="#"><i class="flaticon-grid"></i></a></li>
-                                <li><a href="#"><i class="flaticon-list"></i></a></li>
-                            </ul>
-                            <form action="#">
-                                <select class="custom-select">
-                                    <option selected="">Default Sorting</option>
-                                    <option>Free Shipping</option>
-                                    <option>Best Match</option>
-                                    <option>Newest Item</option>
-                                    <option>Size A - Z</option>
-                                </select>
-                            </form>
+                @if($products)
+                    <div class="col-xl-9 col-lg-8">
+                        <div class="shop-top-meta mb-40">
+                            <p class="show-result">{{ trans('language.display_products', [
+                                    'from' => $products->firstItem(),
+                                    'to' => $products->lastItem(),
+                                    'total' =>$products->total(),
+                                ])}}
+                            </p>
+                            <div class="shop-meta-right">
+                                <ul>
+                                    <li class="active"><a href="#"><i class="flaticon-grid"></i></a></li>
+                                    <li><a href="#"><i class="flaticon-list"></i></a></li>
+                                </ul>
+                                <form action="#">
+                                    <select class="custom-select">
+                                        <option selected="">Default Sorting</option>
+                                        <option>Free Shipping</option>
+                                        <option>Best Match</option>
+                                        <option>Newest Item</option>
+                                        <option>Size A - Z</option>
+                                    </select>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        @if($products)
+                        <div class="row">
                             @foreach($products as $product)
                             @php
                                 $checkVariant = $product->product_type == \App\Models\Product::TYPE_VARIANT && $product->skus->isNotEmpty();
@@ -277,22 +311,12 @@
                                     </div>
                                 </div>
                             @endforeach
-                        @endif
-
+                        </div>
+                        <div class="pagination-wrap">
+                            {{ $products->appends($request->query())->links('Partials.frontend-pagination') }}
+                        </div>
                     </div>
-                    <div class="pagination-wrap">
-                        <ul>
-                            <li class="prev"><a href="#"><i class="fas fa-long-arrow-alt-left"></i> Prev</a></li>
-                            <li><a href="#">1</a></li>
-                            <li class="active"><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">10</a></li>
-                            <li class="next"><a href="#">Next <i class="fas fa-long-arrow-alt-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>

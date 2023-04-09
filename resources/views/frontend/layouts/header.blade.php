@@ -61,9 +61,9 @@
                     <div class="header-top-right">
                         <ul>
                             <li>
-                                <a href="my-account.html"><i class="flaticon-user"></i>Register</a>
+                                <a href="{{route('customer.register.step1')}}"><i class="flaticon-user"></i>Register</a>
                                 <span>or</span>
-                                <a href="my-account.html">Sign in</a>
+                                <a href="{{route('login')}}">Sign in</a>
                             </li>
                         </ul>
                     </div>
@@ -82,7 +82,10 @@
                     <div class="menu-wrap">
                         <nav class="menu-nav show">
                             <div class="logo">
-                                <a href="index.html"><img src="img/logo/logo_black.png" alt="Logo"></a>
+                                <a href="{{ route('site.home')}}">
+                                    <img src="{{ asset('images/main-logo-edited.png')}}" class="logo-img" alt="Logo">
+                                    <span class="shop-name">V SHOP</span>
+                                </a>
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
@@ -174,7 +177,7 @@
                         <div class="close-btn"><i class="fas fa-times"></i></div>
 
                         <nav class="menu-box">
-                            <div class="nav-logo"><a href="index.html"><img src="img/logo/white_logo.png" alt="" title=""></a>
+                            <div class="nav-logo"><a href="index.html"><img src="{{ asset('images/main-logo-edited.png')}}" alt="" title=""></a>
                             </div>
                             <div class="menu-outer">
                                 <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
