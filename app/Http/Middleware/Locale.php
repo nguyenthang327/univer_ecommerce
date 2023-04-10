@@ -40,6 +40,9 @@ class Locale
         // }
         if (session()->has('locale')) {
             App::setLocale(session()->get('locale'));
+        }else{
+            session()->put('locale', 'vi');
+            App::setLocale('vi');
         }
         return $next($request); 
     }

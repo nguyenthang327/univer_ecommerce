@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Events\RegisterCustomer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\RegisterRequest;
+use App\Http\Requests\Frontend\RegisterVerifyRequest;
 use App\Models\Customer;
 use App\Models\CustomerActivation;
 use Carbon\Carbon;
@@ -33,7 +34,7 @@ class AuthController extends Controller
             return redirect()->route('site.home');
         }
 
-        return view($this->pathView . '.my-account');
+        return view($this->pathView . '.my-account')->with('type', 'login');
     }
 
     /**
@@ -45,6 +46,7 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
+            'status' => Customer::STATUS_ACTIVE,
         ]);
 
         if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
@@ -76,6 +78,9 @@ class AuthController extends Controller
                     'status' => Customer::STATUS_INACTIVE,
                     'password' => Hash::make($request->password),
                 ]);
+            }else{
+                $customer->password = Hash::make($request->password);
+                $customer->save();
             }
     
             $code = sprintf("%06d", mt_rand(1, 999999));
@@ -87,6 +92,49 @@ class AuthController extends Controller
             ]);
             
             event(new RegisterCustomer($customer, $code));
+            DB::commit();
+            return back()->with([
+                'status_successed' => trans('message.update_user_successed')
+            ]);
+            // return back()->withErrors([
+            //     'error' => trans('message.error_login')
+            // ]);
+        }catch(Exception $e){
+            DB::rollBack();
+            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            return back()->with([
+                'status_failed' => trans('message.update_user_failed'),
+            ]);
+        }
+    }
+
+    /**
+     * customer to register
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function registerVerify(RegisterVerifyRequest $request, $id){
+        dd($request->all());
+        try{
+            DB::beginTransaction();
+            $customer = Customer::where('id', $id)->update(['status' => Customer::STATUS_ACTIVE])->first();
+            CustomerActivation::where('customer_id', $customer->id)->update([
+                'completed' => CustomerActivation::COMPLETED,
+                'expired_time' => Carbon::now()->addMinutes(TIME_EXPIRED_CODE),
+            ]);
+            if(!$customer){
+                $customer = Customer::create([
+                    'email' => $request->email,
+                    'status' => Customer::STATUS_INACTIVE,
+                    'password' => Hash::make($request->password),
+                ]);
+            }else{
+                $customer->password = Hash::make($request->password);
+                $customer->save();
+            }
+            
+            
+            // event(new RegisterCustomer($customer, $code));
             DB::commit();
             return back()->with([
                 'status_successed' => trans('message.update_user_successed')
