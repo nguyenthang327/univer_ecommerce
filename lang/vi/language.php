@@ -152,6 +152,10 @@ return [
     'all_categories' => 'Tất cả danh mục',
     'product_new' => 'Sản phẩm mới', 
     'display_products' => 'Hiển thị sản phẩm :from-:to trong số :total kết quả',
+    'customer_login' => [
+        'title' => 'Đăng nhập',
+        'account_inactive' => ':attribute này chưa được kích hoạt. Vui lòng đăng ký để kích hoạt :attribute',
+    ],
     'customer_register' => [
         'exists' => ':attribute này đã được kích hoạt, vui lòng sử dụng :attribute khác!',
     ],

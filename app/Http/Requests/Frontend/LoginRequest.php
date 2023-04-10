@@ -5,7 +5,7 @@ namespace App\Http\Requests\Frontend;
 use App\Models\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     // /**
     //  * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class RegisterRequest extends FormRequest
     //  */
     // public function authorize()
     // {
-    //     // return true;
+    //     return false;
     // }
 
     /**
@@ -25,14 +25,13 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email', function($attribute, $value, $fail){
-                $customer = Customer::where('email', $value)->where('status', Customer::STATUS_ACTIVE)->first();
+            'email_login' => ['required', 'email', function($attribute, $value, $fail){
+                $customer = Customer::where('email', $value)->where('status', Customer::STATUS_INACTIVE)->first();
                 if($customer){
-                    $fail(trans("language.customer_register.exists", ['attribute' => $attribute]));
+                    $fail(trans("language.customer_login.account_inactive", ['attribute' => $attribute]));
                 }
             }],
-            'password' => ['required', 'min:6', 'max:32'],
-            'password_confirmation' => 'required|same:password',
+            'password_login' => ['required', 'min:6', 'max:32'],
         ];
     }
 }

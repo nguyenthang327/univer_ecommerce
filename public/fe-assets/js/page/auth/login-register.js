@@ -34,8 +34,7 @@ $(document).ready(function(){
     $(".toggle-password").click(function() {
         $(this).toggleClass("fa-eye fa-eye-slash");
         var input = $($(this).attr("toggle"));
-        console.log(input);
-        if (input.attr("type") == "password" || input.attr("type") == "password_confirmation") {
+        if (input.attr("type") == "password") {
             input.attr("type", "text");
         } else {
             input.attr("type", "password");
@@ -90,7 +89,7 @@ $(document).ready(function(){
                 required: true,
                 minlength: 6
             },
-            confirmPassword: {
+            password_confirmation: {
                 required: true,
                 equalTo: '#password'
             }
@@ -104,7 +103,7 @@ $(document).ready(function(){
                 required: 'Please enter a password',
                 minlength: 'Your password must be at least 6 characters long'
             },
-            confirmPassword: {
+            password_confirmation: {
                 required: 'Please confirm your password',
                 equalTo: 'Your passwords do not match'
             }

@@ -682,15 +682,8 @@
 .special-offer-banner {
 	text-align: center;
 }
-.footer-newsletter-wrap .newsletter-form form button {
-	position: unset;
-	margin-top: 15px;
-}
 .newsletter-form form {
 	text-align: center;
-}
-.footer-newsletter-wrap .newsletter-form form input {
-	padding-right: 30px;
 }
 .copyright-text p {
 	text-align: center;

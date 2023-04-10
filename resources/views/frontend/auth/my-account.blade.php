@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title', trans('language.customer_login'))
+@section('title', trans('language.customer_login.title'))
 
 @section('css_page')
 @stop
@@ -46,15 +46,22 @@
                                     <a href="#" class="xing"><i class="fab fa-xing"></i>Login with xing</a>
                                 </div>
                                 <span class="or">- OR -</span> --}}
-                                <form action="#" class="login-form" id="login-form">
+                                <form action="{{ route('customer.login') }}" method="POST" class="login-form" id="login-form">
+                                    @csrf
                                     <div class="form-grp">
-                                        <label for="uea">USERNAME OR EMAIL ADDRESS <span>*</span></label>
-                                        <input type="text" id="uea">
+                                        <label for="email_login">EMAIL ADDRESS <span>*</span></label>
+                                        <input type="text" name="email_login" value="{{ old('email_login') }}">
+                                        @if ($errors->first('email_login'))
+                                            <div class="invalid-alert text-danger">{{ $errors->first('email_login') }}</div>
+                                        @endif
                                     </div>
                                     <div class="form-grp">
-                                        <label for="password">PASSWORD <span>*</span></label>
-                                        <input type="password" name="password">
-                                        <i class="far fa-eye"></i>
+                                        <label for="password_login">PASSWORD <span>*</span></label>
+                                        <input type="password" name="password_login" id="password_login">
+                                        <i class="far fa-eye toggle-password" toggle="#password_login"></i>
+                                        @if ($errors->first('password_login'))
+                                            <div class="invalid-alert text-danger">{{ $errors->first('password_login') }}</div>
+                                        @endif
                                     </div>
                                     <div class="form-grp-bottom">
                                         <div class="remember">
@@ -91,7 +98,7 @@
                                     </div>
                                     <div class="form-grp">
                                         <label for="password">{{ trans('language.confirm_password') }} <span>*</span></label>
-                                        <input type="password" id="confirmPassword" name="confirmPassword" equalTo="#password" required>
+                                        <input type="password" id="password_confirmation" name="password_confirmation" equalTo="#password" required>
                                         <i class="far fa-eye toggle-password" toggle="#password_confirmation"></i>
                                     </div>
                                     <div class="form-grp-bottom">

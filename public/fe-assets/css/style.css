@@ -4672,43 +4672,8 @@ label {
 .error-content p {
     margin-bottom: 0;
 }
-.error-content .search_form {
-    margin-top: 25px;
-}
-.error-area .search_form form {
-	position: relative;
-}
-.error-area .search_form form input {
-    height: 50px;
-    padding: 5px 60px 5px 20px;
-    margin-bottom: 20px;
-    box-shadow: none;
-}
 .error-content .btn-fill-out {
     background: #ff6000;
-}
-.error-area .search_form form input:focus {
-	height: 50px;
-}
-.error-area .search_form .icon_search {
-    position: absolute;
-    right: 18px;
-    top: 50%;
-    padding: 0;
-    -moz-transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    border-radius: 0;
-    padding-left: 15px;
-    box-shadow: none;
-    border: none;
-    border-left: 1px solid #ddd;
-    background: transparent;
-    color: #7d7d7d;
-}
-.error-area .search_form .icon_search i {
-	font-size: 22px;
-	margin-right: 0;
 }
 .form-note {
 	margin-top: 20px;
@@ -4717,11 +4682,6 @@ label {
 /* 26. Footer */
 .footer-top {
     background: #f5f4ee;
-}
-.footer-newsletter-wrap {
-	padding: 0 0 40px;
-	margin-bottom: 40px;
-	border-bottom: 1px solid #d1d1d1;
 }
 .newsletter-title h4 {
     font-size: 20px;
@@ -4735,30 +4695,6 @@ label {
 }
 .newsletter-form form {
 	position: relative;
-}
-.footer-newsletter-wrap .newsletter-form form input {
-    background: #fff;
-    border-radius: 5px;
-    border: none;
-    padding: 17px 30px;
-    width: 100%;
-    font-size: 12px;
-	padding-right: 200px;
-	font-weight: 500;
-	color: #8c8c8c;
-}
-.footer-newsletter-wrap .newsletter-form form input::placeholder {
-	font-size: 12px;
-	opacity: .7;
-}
-.footer-newsletter-wrap .newsletter-form form button {
-    border-radius: 5px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 52px;
-    padding: 0 38px;
-    line-height: 55px;
 }
 .footer-text p {
     padding-right: 50px;
@@ -4803,14 +4739,6 @@ label {
 .footer-contact ul li i {
     margin-right: 10px;
 }
-.footer-alphabet span {
-    display: inline-block;
-    margin-right: 15px;
-    margin-bottom: 5px;
-}
-.footer-alphabet span > a {
-	color: #7d7d7d;
-}
 .copyright-wrap {
     background: #303030;
     padding: 16px 0;
@@ -4835,10 +4763,6 @@ label {
 }
 .footer-style-two .newsletter-form form button {
 	background: #ff6000;
-}
-.footer-style-two .footer-newsletter-wrap {
-	border-bottom: 1px dashed #5a595b;
-	margin-bottom: 60px;
 }
 .footer-style-two .footer-text .call-us {
     /* font-family: 'Rubik', sans-serif; */

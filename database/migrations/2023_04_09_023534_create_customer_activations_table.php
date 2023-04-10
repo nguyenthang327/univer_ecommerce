@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('code');
             $table->dateTime('expired_time');
             $table->tinyInteger('completed')->default(0);
-            $table->dateTime('completed_at');
+            $table->dateTime('completed_at')->nullable();
             $table->timestamps();
         });
     }

@@ -186,6 +186,9 @@ return [
         'thumbnail' => 'Ảnh nhỏ',
         'category_name' => 'Tên danh mục',
         'category_parent_id' => 'Danh mục cha', 
+        'email_login' => 'Email',
+        'password_login' => 'Mật khẩu',
+        'password_confirmation' => 'Mật khẩu xác thực',
     ],
 
 ];

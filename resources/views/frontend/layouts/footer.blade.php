@@ -1,61 +1,6 @@
 <footer class="footer-area">
     <div class="footer-top pt-65 pb-25">
         <div class="container">
-            <div class="footer-newsletter-wrap footer-newsletter-two">
-                <div class="row align-items-center">
-                    <div class="col-xl-7 col-lg-6">
-                        <div class="newsletter-title">
-                            <h4>Subscribe Now !</h4>
-                            <span>Venam By Signing Up To Our Newsletter.</span>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="newsletter-form">
-                            <form action="#">
-                                <input type="email" placeholder="Enter Your Email....">
-                                <button class="btn yellow-btn">Subscribe</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-alphabet mb-55">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="newsletter-title text-left mb-0">
-                            <h4>Find Out More :</h4>
-                            <span>Browse Alphabetically :</span>
-                            <span><a href="#">A</a></span>
-                            <span><a href="#">B</a></span>
-                            <span><a href="#">C</a></span>
-                            <span><a href="#">D</a></span>
-                            <span><a href="#">E</a></span>
-                            <span><a href="#">F</a></span>
-                            <span><a href="#">G</a></span>
-                            <span><a href="#">H</a></span>
-                            <span><a href="#">I</a></span>
-                            <span><a href="#">J</a></span>
-                            <span><a href="#">K</a></span>
-                            <span><a href="#">L</a></span>
-                            <span><a href="#">M</a></span>
-                            <span><a href="#">N</a></span>
-                            <span><a href="#">O</a></span>
-                            <span><a href="#">P</a></span>
-                            <span><a href="#">Q</a></span>
-                            <span><a href="#">R</a></span>
-                            <span><a href="#">S</a></span>
-                            <span><a href="#">T</a></span>
-                            <span><a href="#">U</a></span>
-                            <span><a href="#">V</a></span>
-                            <span><a href="#">W</a></span>
-                            <span><a href="#">X</a></span>
-                            <span><a href="#">Y</a></span>
-                            <span><a href="#">Z</a></span>
-                            <span><a href="#">0~9</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row justify-content-between">
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-widget mb-50">

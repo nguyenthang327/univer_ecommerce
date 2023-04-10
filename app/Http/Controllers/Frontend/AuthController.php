@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Events\RegisterCustomer;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\LoginRequest;
 use App\Http\Requests\Frontend\RegisterRequest;
 use App\Http\Requests\Frontend\RegisterVerifyRequest;
 use App\Models\Customer;
@@ -39,21 +40,20 @@ class AuthController extends Controller
 
     /**
      * authenticate customer to login
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\Frontend\LoginRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function authenticate(Request $request){
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-            'status' => Customer::STATUS_ACTIVE,
-        ]);
+        $credentials = [
+            'email' => $request->email_login,
+            'password' => $request->password_login,
+        ];
 
+        dd(Auth::guard('customer')->attempt($credentials));
         if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
             $request->session()->regenerate();
             return redirect()->route('site.home');
         }
-
         return back()->withErrors([
             'error' => trans('message.error_login')
         ]);
@@ -65,7 +65,7 @@ class AuthController extends Controller
 
     /**
      * customer to register
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\Frontend\RegisterRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function register(RegisterRequest $request){
@@ -93,55 +93,44 @@ class AuthController extends Controller
             
             event(new RegisterCustomer($customer, $code));
             DB::commit();
-            return back()->with([
-                'status_successed' => trans('message.update_user_successed')
-            ]);
-            // return back()->withErrors([
-            //     'error' => trans('message.error_login')
-            // ]);
+            return redirect()->route('customer.register.step2', ['id' =>  $customer->id]);
         }catch(Exception $e){
             DB::rollBack();
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
             return back()->with([
-                'status_failed' => trans('message.update_user_failed'),
+                'status_failed' => trans('message.register_user_failed'),
             ]);
         }
     }
 
+    public function registerStep2($id){
+        $customer = Customer::where('id', $id)->where('status', Customer::STATUS_INACTIVE)->first();
+        return view($this->pathView . '.register-enter-code', compact('customer'));
+    }
+
     /**
      * customer to register
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\Frontend\RegisterVerifyRequest $request
+     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function registerVerify(RegisterVerifyRequest $request, $id){
-        dd($request->all());
         try{
             DB::beginTransaction();
-            $customer = Customer::where('id', $id)->update(['status' => Customer::STATUS_ACTIVE])->first();
-            CustomerActivation::where('customer_id', $customer->id)->update([
-                'completed' => CustomerActivation::COMPLETED,
-                'expired_time' => Carbon::now()->addMinutes(TIME_EXPIRED_CODE),
-            ]);
+            $customer = Customer::where('id', $id)->first();
             if(!$customer){
-                $customer = Customer::create([
-                    'email' => $request->email,
-                    'status' => Customer::STATUS_INACTIVE,
-                    'password' => Hash::make($request->password),
-                ]);
-            }else{
-                $customer->password = Hash::make($request->password);
-                $customer->save();
+                return back()->with(['status_failed' => 'Không tồn tại tài khoản']);
             }
-            
-            
-            // event(new RegisterCustomer($customer, $code));
-            DB::commit();
-            return back()->with([
-                'status_successed' => trans('message.update_user_successed')
+            $customer->status = Customer::STATUS_ACTIVE;
+            $customer->save();
+
+            CustomerActivation::where('customer_id', $customer->id)->where('code', $request->code)->update([
+                'completed' => CustomerActivation::COMPLETED,
+                'completed_at' => Carbon::now(),
             ]);
-            // return back()->withErrors([
-            //     'error' => trans('message.error_login')
-            // ]);
+            DB::commit();
+            return redirect()->route('login')
+                ->with(['status_successed' => 'Bạn đã xác thực tài khoản thành công. Đăng nhập để sử dụng']);
         }catch(Exception $e){
             DB::rollBack();
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());

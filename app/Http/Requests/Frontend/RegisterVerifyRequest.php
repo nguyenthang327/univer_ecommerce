@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Frontend;
 
 use App\Models\Customer;
+use App\Models\CustomerActivation;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -30,18 +31,20 @@ class RegisterVerifyRequest extends FormRequest
                 $customer = Customer::select([
                         'customers.id',
                         'customers.status',
-                        'customer_activations.expired_time'
                     ])
-                    ->leftJoin('customer_activations', 'customer_activations.customer_id', 'customers.id')
-                    ->where('customer_activations.code', $value)
                     ->where('customers.id', $this->id)
                     ->first();
+                $activation = CustomerActivation::select('customer_activations.expired_time')
+                    ->where('customer_activations.code', $value)
+                    ->where('customer_activations.customer_id', $this->id)->first();
                 if(!$customer){
                     $fail('Tài khoản không có trong hệ thống!');
+                }elseif(!$activation){
+                    $fail('Mã code không chính xác!');
                 }elseif($customer && $customer->status == Customer::STATUS_ACTIVE){
                     $fail('Tài khoản đã được kích hoạt!');
-                }elseif($customer && $customer->expired_time < Carbon::now() ){
-                    $fail(trans("language.customer_register.exists", ['attribute' => $attribute]));
+                }elseif($customer && $activation->expired_time < Carbon::now() ){
+                    $fail('Mã code đã hết thời gian sử dụng');
                 }
             }],
         ];

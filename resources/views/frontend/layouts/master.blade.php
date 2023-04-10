@@ -26,6 +26,8 @@
         <link rel="stylesheet" href="{{ asset('fe-assets/css/odometer.css')}}">
         <link rel="stylesheet" href="{{ asset('fe-assets/css/aos.css')}}">
         <link rel="stylesheet" href="{{ asset('fe-assets/css/slick.css')}}">
+        <link rel="stylesheet" href="{{ asset("be-assets/css/toastr.min.css") }}">
+
         <link rel="stylesheet" href="{{ asset('fe-assets/css/default.css')}}">
         <link rel="stylesheet" href="{{ asset('fe-assets/css/style.css')}}">
         <link rel="stylesheet" href="{{ asset('fe-assets/css/responsive.css')}}">
@@ -78,12 +80,22 @@
         <script src="{{ asset('fe-assets/js/ajax-form.js')}}"></script>
         <script src="{{ asset('fe-assets/js/wow.min.js')}}"></script>
         <script src="{{ asset('fe-assets/js/aos.js')}}"></script>
+        <script src="{{asset("be-assets/js/jquery.validate.min.js")}}"></script>
+        <script src="{{asset("be-assets/js/toastr.min.js")}}"></script>
         <script src="{{ asset('fe-assets/js/plugins.js')}}"></script>
         <script src="{{ asset('fe-assets/js/main.js')}}"></script>
-        <script src="{{asset("be-assets/js/jquery.validate.min.js")}}"></script>
 
         @yield('js_library')
         <!-- Page script -->
         @yield('js_page')
+
+        <script type="module">
+            // Show alert
+            @if(session('status_successed'))
+            toastr.success('{{session('status_successed')}}', {timeOut: 5000})
+            @elseif(session('status_failed'))
+            toastr.error('{{session('status_failed')}}', {timeOut: 5000})
+            @endif
+        </script>
     </body>
 </html>
