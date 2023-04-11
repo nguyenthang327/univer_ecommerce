@@ -77,7 +77,7 @@
         <script src="{{ asset('fe-assets/js/jquery.countdown.min.js')}}"></script>
         <script src="{{ asset('fe-assets/js/jquery.appear.js')}}"></script>
         <script src="{{ asset('fe-assets/js/slick.min.js')}}"></script>
-        {{-- <script src="{{ asset('fe-assets/js/ajax-form.js')}}"></script> --}}
+        <script src="{{ asset('fe-assets/js/ajax-form.js')}}"></script>
         <script src="{{ asset('fe-assets/js/wow.min.js')}}"></script>
         <script src="{{ asset('fe-assets/js/aos.js')}}"></script>
         <script src="{{asset("be-assets/js/jquery.validate.min.js")}}"></script>

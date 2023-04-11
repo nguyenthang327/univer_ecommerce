@@ -658,7 +658,9 @@ $(".qtybutton").on("click", function () {
 
 
 $('.shop-details-content input[name="quantity"]').on('input', function(e){
-	// if()
+	if (e.keyCode === 13) { // keyCode 13 là mã phím Enter
+		e.preventDefault(); // Ngăn chặn sự kiện mặc định của phím Enter (submit form)
+	 }
 	var charCode = (e.which) ? e.which : e.keyCode;
 	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
 		return false;

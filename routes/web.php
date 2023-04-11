@@ -14,12 +14,14 @@ use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Backend\User\ProductController;
 use App\Http\Controllers\Backend\User\UserController as BeUser;
+use App\Http\Controllers\UploadController;
+use Illuminate\Support\Facades\App;
+
+// Route Frontend
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomepageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
-use App\Http\Controllers\UploadController;
-use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,17 +33,6 @@ use Illuminate\Support\Facades\App;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('Backend.Admin.Layout.master');
-// });
-
-// Route::get('/login', function () {
-//     // abort(404);
-//     return redirect()->route('admin.login');
-// })->name('login');
-
-
 
 // Route::middleware('web')->group(function () {
 
@@ -176,6 +167,6 @@ Route::middleware('web')->group(function () {
 
     Route::group(['middleware' => ['auth:customer']], function(){
         Route::get('/cart', [CartController::class, 'index'])->name('customer.cart.index');
-        // Route::get('/cart', [CartController::class, 'index'])->name('customer.cart.index');
+        Route::post('/cart/add', [CartController::class, 'store'])->name('customer.cart.store');
     });
 });

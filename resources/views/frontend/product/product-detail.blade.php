@@ -108,36 +108,34 @@
                             <p class="line-clamp-2">{{ $product->desciption}}</p>
                             @if($checkVariant)
                                 <form method="get" id="form_change_option_value" data-product="{{ $product }}">
-                                @foreach($product->options as $key => $option)
-                                <div class="product-details-size mb-3 row pr_variant pr-option-{{ $option->id }}" data-option_id="{{ $option->id }}">
-                                    <span class="col-2">{{ $option->name}} : </span>
-                                    <input type="hidden" name="option_{{$key}}" value="" class="option_value">
-                                    <ul class="col-8">
-                                        @foreach($option->optionValues as $optionValue)
-                                        @php
-                                            $skuID = $product->variants->where('product_option_value_id', $optionValue->id)->pluck('sku_id');
-                                            $checkOptionHaveNotSku = $product->skus->whereIn('id', $skuID)->where('stock', '>', 0)->whereNotNull('price')->isEmpty();
-                                        @endphp
-                                            {{-- @dd($product->variants) --}}
-                                            <li><a href="#" class="option_value_button {{$checkOptionHaveNotSku ? 'product-variation-important--disabled' : ''}}" data-option_value_id="{{ $optionValue->id }}">{{ $optionValue->value }}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endforeach
-                            </form>
+                                    @foreach($product->options as $key => $option)
+                                    <div class="product-details-size mb-3 row pr_variant pr-option-{{ $option->id }}" data-option_id="{{ $option->id }}">
+                                        <span class="col-2">{{ $option->name}} : </span>
+                                        <input type="hidden" name="option_{{$key}}" value="" class="option_value">
+                                        <ul class="col-8">
+                                            @foreach($option->optionValues as $optionValue)
+                                            @php
+                                                $skuID = $product->variants->where('product_option_value_id', $optionValue->id)->pluck('sku_id');
+                                                $checkOptionHaveNotSku = $product->skus->whereIn('id', $skuID)->where('stock', '>', 0)->whereNotNull('price')->isEmpty();
+                                            @endphp
+                                                {{-- @dd($product->variants) --}}
+                                                <li><a href="#" class="option_value_button {{$checkOptionHaveNotSku ? 'product-variation-important--disabled' : ''}}" data-option_value_id="{{ $optionValue->id }}">{{ $optionValue->value }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endforeach
+                                </form>
                             @endif
                             <div class="mb-3">
                                 <span>{{ trans('language.stock') }} : <span class="product-detail-stock">{{ $stock > 0 ? $stock : trans('language.out_stock') }}</span></span>
                             </div>
                             <div class="perched-info">
                                 <div class="cart-plus">
-                                    <form action="#">
-                                        <div class="cart-plus-minus">
-                                            <input type="text" value="1" name="quantity">
-                                        </div>
-                                    </form>
+                                    <div class="cart-plus-minus">
+                                        <input type="text" value="1" name="quantity">
+                                    </div>
                                 </div>
-                                <a href="#" class="btn add-card-btn">ADD TO CART</a>
+                                <a href="#" class="btn add-cart-btn" id="add-cart" data-url="{{route('customer.cart.store')}}" data-product_id="{{$product->id}}">ADD TO CART</a>
                             </div>
                             <div class="shop-details-bottom">
                                 <h5><a href="#"><i class="far fa-heart"></i> Add To Wishlist</a></h5>
@@ -624,6 +622,8 @@
 @stop
 
 @section('js_page')
-    @include('frontend.product.scriptProductDetail')
+    @if($checkVariant)
+        @include('frontend.product.scriptProductDetail')
+    @endif
 @stop
        

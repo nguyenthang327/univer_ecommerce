@@ -62,9 +62,11 @@
         const product = $('#form_change_option_value').data('product');
         const dataVariant = product.variants;
         const dataSku =  product.skus;
+        var productSkuID = null;
 
         $(document).on('click', '.option_value_button', function(e) {
             e.preventDefault();
+            productSkuID = null;
             if($(this).hasClass('product-variation--disabled') || $(this).hasClass('product-variation-important--disabled')){
                 return true;
             }
@@ -116,13 +118,15 @@
                 var getSkuId = null;
                 if (numOption == 1) {
                     getSkuId = dataVariant.find(item => item.product_option_value_id == formData[0].value).sku_id;
+                    productSkuID = getSkuId;
                 }
 
                 if (numOption == 2) {
-                    let getSkuId = getSkuByOptionValueID(dataVariant, formData[0].value, formData[1].value);
+                    getSkuId = getSkuByOptionValueID(dataVariant, formData[0].value, formData[1].value);
 
                     if (getSkuId !== undefined) {
                         getSkuId = getSkuId.sku_id;
+                        productSkuID = getSkuId;
                     } else { 
                         getSkuId = null;
                     }
@@ -143,5 +147,13 @@
                 resetProductDetail(priceDisplay, stockDisplay);
             }
         });
+
+        $(document).on('click', '#add-cart', function(e){
+            e.preventDefault();
+            var url = $(this).data('url');
+            var productID = $(this).data('product_id');
+            console.log(productSkuID, productID, url);
+
+        })
     });
 </script>
