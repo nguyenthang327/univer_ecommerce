@@ -4436,6 +4436,9 @@ label {
     text-transform: uppercase;
     margin-bottom: 23px;
 }
+.login-page-title .title span{
+    cursor: pointer;
+}
 .my-account-content p {
     text-align: center;
     font-size: 16px;
@@ -4489,7 +4492,7 @@ label {
 .login-form .form-grp i {
     position: absolute;
     right: 20px;
-    bottom: 16px;
+    top: 50px;
 }
 .login-form .form-grp-bottom {
     display: flex;
@@ -5190,4 +5193,13 @@ p.error{
     font-size: 14px;
     text-align: left;
     color: red;
+}
+
+.header-avartar{
+    width: 80px;
+    height: 80px;
+} 
+.header-avartar.avatar-customer{
+    object-fit: contain;
+    border-radius: 50%;
 }

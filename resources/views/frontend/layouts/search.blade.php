@@ -81,7 +81,7 @@
                         </form>
                     </div>
                     <div class="header-free-shopping">
-                        <p>Free Shipping on Orders <span>$39+</span></p>
+                        <p>Free shipping on purchase <span></span></p>
                     </div>
                 </div>
             </div>

@@ -51,6 +51,14 @@ class Customer extends Authenticatable
     ];
 
     /**
+     * Get cart associated with the customer.
+     */
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    /**
      * Save id user created or updated
      */
     protected static function boot()
@@ -67,4 +75,11 @@ class Customer extends Authenticatable
         });
     }
 
+    /**
+     * Get fullname
+     * @return string
+     */
+    function getFullNameAttribute() {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -176,6 +177,41 @@ class CategoryController extends Controller
             return back()->with([
                 'status_failed' => trans('message.edit_category_failed'),
             ]);
+        }
+    }
+
+    /**
+     * delete product category
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id){
+        DB::beginTransaction();
+        try{
+            $category = ProductCategory::where('id', $id)->first();
+            if(!$category){
+                return response()->json([
+                    'status' => Response::HTTP_NOT_FOUND,
+                    'msg' => trans('message.category_not_exists'),
+                    'url_callback' => back()->getTargetUrl(),
+                ], Response::HTTP_NOT_FOUND);
+            }
+            ProductCategory::where('parent_id', $category->id)->delete();
+            $category->delete();
+            DB::commit();
+            return response()->json([
+                'message' => [
+                    'title' => trans('language.success'),
+                    'text' => trans('message.delete_category_successed'),
+                ]
+            ], Response::HTTP_OK);
+        }catch(Exception $e){
+            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            DB::rollBack();
+            return response()->json([
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => trans('message.server_error'),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

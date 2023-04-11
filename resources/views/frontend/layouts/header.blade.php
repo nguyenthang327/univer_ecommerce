@@ -61,9 +61,41 @@
                     <div class="header-top-right">
                         <ul>
                             <li>
-                                <a href="{{route('customer.register.step1')}}"><i class="flaticon-user"></i>Register</a>
-                                <span>or</span>
-                                <a href="{{route('login')}}">Sign in</a>
+                                @if(!$globalCustomer)
+                                    <a href="{{route('customer.register.step1')}}"><i class="flaticon-user"></i>{{ trans('language.customer_register.title') }}</a>
+                                    <span>{{ trans('language.or') }}</span>
+                                    <a href="{{route('login')}}">{{ trans('language.customer_login.title_header') }}</a>
+                                @else
+                                    <a class="nav-link" href="#" data-toggle="dropdown" role="button">
+                                        <i class="fas fa-user-tie" aria-hidden="true"></i>
+                                        <span>{{ $globalCustomer->full_name }}</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right text-center">
+                                        <img class="header-avartar avatar-customer"
+                                            src="{{ !empty($globalCustomer->avatar) ? asset('storage/'.$globalCustomer->avatar) : '' }}"
+                                            alt="{{ $globalCustomer->full_name }}"
+                                            onerror="this.onerror=null;this.src='{{ asset('images/user-default.png') }}';"
+                                            />
+                                        <div class="dropdown-divider"></div>
+                                        <div class="customer-action d-flex">
+                                            <a href="#" class="dropdown-item font-weight-bold">
+                                                {{trans('language.profile')}}
+                                            </a>
+                                            <a href="#"
+                                                class="dropdown-item font-weight-bold ml-3"
+                                                onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();"
+                                                >
+                                                {{trans('language.logout')}}
+                                                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                                                <!-- <span class="float-right text-muted text-sm"></span> -->
+                                                <form id="logout-form" action="{{route('customer.logout')}}" method="post">
+                                                    @csrf
+                                                </form>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
                             </li>
                         </ul>
                     </div>
@@ -104,68 +136,70 @@
                                 <ul>
                                     <li><a href="#"><i class="flaticon-two-arrows"></i></a></li>
                                     <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                                    <li class="header-shop-cart"><a href="#"><i class="flaticon-shopping-bag"></i><span class="cart-count">2</span></a>
+                                    <li class="header-shop-cart"><a href="{{ route('customer.cart.index') }}"><i class="flaticon-shopping-bag"></i><span class="cart-count">2</span></a>
+                                        @if($globalCustomer)
                                         <span class="cart-total-price">$ 128.00</span>
-                                        <ul class="minicart">
-                                            <li class="d-flex align-items-start">
-                                                <div class="cart-img">
-                                                    <a href="#">
-                                                        <img src="img/product/cart_p01.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="cart-content">
-                                                    <h4>
-                                                        <a href="#">Charity Nike Brand Yellow T-Shirt</a>
-                                                    </h4>
-                                                    <div class="cart-price">
-                                                        <span class="new">$229.9</span>
-                                                        <span>
-                                                            <del>$229.9</del>
-                                                        </span>
+                                            <ul class="minicart">
+                                                <li class="d-flex align-items-start">
+                                                    <div class="cart-img">
+                                                        <a href="#">
+                                                            <img src="img/product/cart_p01.jpg" alt="">
+                                                        </a>
                                                     </div>
-                                                </div>
-                                                <div class="del-icon">
-                                                    <a href="#">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                            <li class="d-flex align-items-start">
-                                                <div class="cart-img">
-                                                    <a href="#">
-                                                        <img src="img/product/cart_p02.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="cart-content">
-                                                    <h4>
-                                                        <a href="#">BackPack For School Student</a>
-                                                    </h4>
-                                                    <div class="cart-price">
-                                                        <span class="new">$229.9</span>
-                                                        <span>
-                                                            <del>$229.9</del>
-                                                        </span>
+                                                    <div class="cart-content">
+                                                        <h4>
+                                                            <a href="#">Charity Nike Brand Yellow T-Shirt</a>
+                                                        </h4>
+                                                        <div class="cart-price">
+                                                            <span class="new">$229.9</span>
+                                                            <span>
+                                                                <del>$229.9</del>
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="del-icon">
-                                                    <a href="#">
-                                                        <i class="far fa-trash-alt"></i>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="total-price">
-                                                    <span class="f-left">Total:</span>
-                                                    <span class="f-right">$239.9</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="checkout-link">
-                                                    <a href="#">Shopping Cart</a>
-                                                    <a class="red-color" href="#">Checkout</a>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                                    <div class="del-icon">
+                                                        <a href="#">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                                <li class="d-flex align-items-start">
+                                                    <div class="cart-img">
+                                                        <a href="#">
+                                                            <img src="img/product/cart_p02.jpg" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="cart-content">
+                                                        <h4>
+                                                            <a href="#">BackPack For School Student</a>
+                                                        </h4>
+                                                        <div class="cart-price">
+                                                            <span class="new">$229.9</span>
+                                                            <span>
+                                                                <del>$229.9</del>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <a href="#">
+                                                            <i class="far fa-trash-alt"></i>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="total-price">
+                                                        <span class="f-left">Total:</span>
+                                                        <span class="f-right">$239.9</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkout-link">
+                                                        <a href="#">Shopping Cart</a>
+                                                        <a class="red-color" href="#">Checkout</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        @endif
                                     </li>
                                 </ul>
                             </div>

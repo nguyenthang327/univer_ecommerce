@@ -152,9 +152,25 @@ return [
     'all_categories' => 'All categories',
     'product_new' => 'New product',
     'display_products' => 'Showing products :from-:to of :total result',
+    'customer_login' => [
+        'title' => 'Login',
+        'title_header' => 'Sign in',
+        'account_inactive' => ':attribute này chưa được kích hoạt. Vui lòng đăng ký để kích hoạt :attribute',
+    ],
     'customer_register' => [
+        'title' => 'Register',
         'exists' => 'This :attribute is already enabled, please use another :attribute!',
     ],
+
+    'or' => 'or',
+
+    'verification' => 'Verification',
+    'enter_code' => 'Enter code',
+    'code' => 'Code',
+    'password' => 'Password',
+    'enter_password' => 'Enter password',
+    'confirm_password ' => 'Confirm password',
+    'enter_confirm_password ' => 'Re-enter your password',
 
     // mail user register
     'mail' => [

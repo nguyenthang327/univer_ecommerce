@@ -638,22 +638,32 @@ class ProductController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id){
-        $product = Product::where('id', $id)->first();
-        if(!$product){
-            return response()->json([
-                'status' => Response::HTTP_NOT_FOUND,
-                'msg' => trans('message.product_not_exists'),
-                'url_callback' => back()->getTargetUrl(),
-            ], Response::HTTP_NOT_FOUND);
-        }
+        DB::beginTransaction();
+        try{
+            $product = Product::where('id', $id)->first();
+            if(!$product){
+                return response()->json([
+                    'status' => Response::HTTP_NOT_FOUND,
+                    'msg' => trans('message.product_not_exists'),
+                    'url_callback' => back()->getTargetUrl(),
+                ], Response::HTTP_NOT_FOUND);
+            }
 
-        $product->delete();
-        
-        return response()->json([
-            'message' => [
-                'title' => trans('language.success'),
-                'text' => trans('message.delete_product_successed'),
-            ]
-        ], Response::HTTP_OK);
+            $product->delete();
+            
+            return response()->json([
+                'message' => [
+                    'title' => trans('language.success'),
+                    'text' => trans('message.delete_product_successed'),
+                ]
+            ], Response::HTTP_OK);
+        }catch(Exception $e){
+            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            DB::rollBack();
+            return response()->json([
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => trans('message.server_error'),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

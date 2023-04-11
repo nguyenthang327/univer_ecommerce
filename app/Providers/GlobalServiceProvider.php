@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Logics\Frontend\ProductCategoryManager;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,7 +31,9 @@ class GlobalServiceProvider extends ServiceProvider
 
         View::composer('*', function($view) use($productCategoryManager){
             $globalProductCategories = $productCategoryManager->getAllCategory();
+            $globalCustomer = Auth::guard('customer')->user();
             $view->with('globalProductCategories', $globalProductCategories);
+            $view->with('globalCustomer', $globalCustomer);
         });
     }
 }

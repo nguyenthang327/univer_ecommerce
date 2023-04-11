@@ -1,22 +1,16 @@
 @extends('frontend.layouts.master')
+@section('title', trans('language.customer_login.title'))
+
+@section('css_page')
+@stop
+
+@section('content')
+<main>
     <!-- breadcrumb-area -->
-    <section class="breadcrumb-area breadcrumb-bg" data-background="img/bg/breadcrumb_bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb-content text-center">
-                        <h2>Shopping Cart</h2>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('frontend.layouts.breadcrumb', [
+        'title' => trans('language.shopping_cart'),
+        'breadcrumbItem' => trans('language.shopping_cart')
+    ])
     <!-- breadcrumb-area-end -->
 
     <!-- shop-cart-area -->
@@ -140,7 +134,7 @@
                                 <img src="img/icon/core_features01.png" alt="">
                             </div>
                             <div class="core-features-content">
-                                <h6>Free Shipping On Over $ 50</h6>
+                                <h6>Free Shipping On Over </h6>
                                 <span>Agricultural mean crops livestock</span>
                             </div>
                         </div>
@@ -183,35 +177,8 @@
         </div>
     </section>
     <!-- core-features-end -->
+</main>
+@stop
 
-    <!-- limited-offer-area -->
-    <section class="limited-offer-area" data-background="img/bg/limited_offer_bg.jpg">
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-xl-5 col-lg-6 col-md-7">
-                    <div class="limited-offer-left">
-                        <div class="limited-offer-title">
-                            <span class="sub-title">exclusive offer</span>
-                            <h2 class="title">Smart Watch Bracelet</h2>
-                        </div>
-                        <div class="limited-offer-disc">
-                            <img src="img/images/limited_offer_discount.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-md-5">
-                    <div class="limited-offer-action">
-                        <a href="#" class="btn">limited time offer</a>
-                        <div class="amount-info">
-                            <span class="upto">UPTO</span>
-                            <span class="amount">$ 50.00</span>
-                            <span class="off">OFF</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h2 class="limited-overlay-title">Vanam Top Sale 35<span>%</span></h2>
-        <div class="limited-overlay-img"><img src="img/images/limited_offer_img.png" alt=""></div>
-    </section>
-    <!-- limited-offer-area-end -->
+@section('js_page')
+@stop

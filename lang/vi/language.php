@@ -154,11 +154,23 @@ return [
     'display_products' => 'Hiển thị sản phẩm :from-:to trong số :total kết quả',
     'customer_login' => [
         'title' => 'Đăng nhập',
+        'title_header' => 'Đăng nhập',
         'account_inactive' => ':attribute này chưa được kích hoạt. Vui lòng đăng ký để kích hoạt :attribute',
     ],
     'customer_register' => [
+        'title' => 'Đăng ký',
         'exists' => ':attribute này đã được kích hoạt, vui lòng sử dụng :attribute khác!',
     ],
+
+    'or' => 'hoặc',
+
+    'verification' => 'Mã xác nhận',
+    'enter_code' => 'Nhập mã code',
+    'code' => 'Mã code',
+    'password' => 'Mật khẩu',
+    'enter_password' => 'Nhập mật khẩu',
+    'confirm_password' => 'Xác nhận mật khẩu',
+    'enter_confirm_password' => 'Nhập lại mật khẩu',
 
     // mail user register
     'mail' => [

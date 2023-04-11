@@ -35,14 +35,15 @@
                     <div class="col-xl-8 col-lg-10">
                         <div class="login-page-title">
                             <h2 class="title">
-                                <span style="color: #ff6000">CONFIRM CODE </span></h2>
+                                <span style="color: #ff6000">{{ trans('language.verification') }} </span></h2>
                         </div>
                         <div class="my-account-bg" data-background="">
                             <div class="my-account-content">
                                 <form action="{{route('customer.register.step2', ['id' => $customer->id])}}" class="login-form" method="POST">
+                                    @csrf
                                     <div class="form-grp">
-                                        <label for="uea">CODE <span>*</span></label>
-                                        <input type="text" name="code" placeholder="Enter code">
+                                        <label for="code">{{ trans('language.code') }} <span>*</span></label>
+                                        <input type="text" name="code" value="{{ old('code') }}" placeholder="{{ trans('language.enter_code') }}">
                                         @if ($errors->first('code'))
                                             <div class="invalid-alert text-danger">{{ $errors->first('code') }}</div>
                                         @endif

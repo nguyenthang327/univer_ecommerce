@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\LoginRequest;
 use App\Http\Requests\Frontend\RegisterRequest;
 use App\Http\Requests\Frontend\RegisterVerifyRequest;
+use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\CustomerActivation;
 use Carbon\Carbon;
@@ -43,13 +44,12 @@ class AuthController extends Controller
      * @param \App\Http\Requests\Frontend\LoginRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function authenticate(Request $request){
+    public function authenticate(LoginRequest $request){
         $credentials = [
             'email' => $request->email_login,
             'password' => $request->password_login,
         ];
 
-        dd(Auth::guard('customer')->attempt($credentials));
         if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
             $request->session()->regenerate();
             return redirect()->route('site.home');
@@ -60,6 +60,9 @@ class AuthController extends Controller
     }
 
     public function registerStep1(){
+        if(Auth::guard('customer')->check()){
+            return redirect()->route('site.home');
+        }
         return view($this->pathView . '.my-account')->with('type', 'register');
     }
 
@@ -75,11 +78,15 @@ class AuthController extends Controller
             if(!$customer){
                 $customer = Customer::create([
                     'email' => $request->email,
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
                     'status' => Customer::STATUS_INACTIVE,
                     'password' => Hash::make($request->password),
                 ]);
             }else{
                 $customer->password = Hash::make($request->password);
+                $customer->first_name = $request->first_name;
+                $customer->last_name = $request->last_name;
                 $customer->save();
             }
     
@@ -104,6 +111,9 @@ class AuthController extends Controller
     }
 
     public function registerStep2($id){
+        if(Auth::guard('customer')->check()){
+            return redirect()->route('site.home');
+        }
         $customer = Customer::where('id', $id)->where('status', Customer::STATUS_INACTIVE)->first();
         return view($this->pathView . '.register-enter-code', compact('customer'));
     }
@@ -128,6 +138,9 @@ class AuthController extends Controller
                 'completed' => CustomerActivation::COMPLETED,
                 'completed_at' => Carbon::now(),
             ]);
+            
+            Cart::create(['customer_id' => $customer->id]);
+
             DB::commit();
             return redirect()->route('login')
                 ->with(['status_successed' => 'Bạn đã xác thực tài khoản thành công. Đăng nhập để sử dụng']);

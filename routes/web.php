@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Backend\User\ProductController;
 use App\Http\Controllers\Backend\User\UserController as BeUser;
 use App\Http\Controllers\Frontend\AuthController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomepageController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\UploadController;
@@ -82,6 +83,7 @@ use Illuminate\Support\Facades\App;
                 Route::post('/store', [CategoryController::class, 'store'])->name('admin.productCategory.store');
                 Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('admin.productCategory.edit');
                 Route::put('/update/{id}', [CategoryController::class, 'update'])->name('admin.productCategory.update');
+                Route::delete('/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.productCategory.destroy');
             });
 
             // Brand
@@ -165,8 +167,15 @@ Route::middleware('web')->group(function () {
     Route::get('/register/verify/{id}', [AuthController::class, 'registerStep2'])->name('customer.register.step2');
     Route::post('/register/verify/{id}', [AuthController::class, 'registerVerify'])->name('customer.register.verify');
 
+    Route::post('/logout', [AuthController::class, 'logout'])->name('customer.logout');
+
     Route::prefix('/product')->group(function(){
         Route::get('/', [FrontendProductController::class, 'index'])->name('site.product.index');
         Route::get('/{slug}', [FrontendProductController::class, 'show'])->name('site.product.show');
+    });
+
+    Route::group(['middleware' => ['auth:customer']], function(){
+        Route::get('/cart', [CartController::class, 'index'])->name('customer.cart.index');
+        // Route::get('/cart', [CartController::class, 'index'])->name('customer.cart.index');
     });
 });
