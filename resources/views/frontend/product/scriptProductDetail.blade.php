@@ -1,24 +1,30 @@
 <script>
-    function ajaxCall() {
-        $.ajax({
-            url: url,
-            type: "get",
-            data: formData,
-            dataType: "JSON",
-            success: function(response) {
-                toastr.success(response.message, {
-                    timeOut: 5000
-                });
-                // $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
-                // $('#wrap_option_and_variant').html(response.html);
-                loaderEnd();
-            },
-            error: function(xhr) {
-                let errors = '';
-                $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
-                loaderEnd();
-            }
-        });
+    function ajaxCall(url, fd) {
+        if(url){
+            let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": token,
+                },
+                url: url,
+                type: "POST",
+                data: fd,
+                dataType: "JSON",
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    toastr.success(response.message, {
+                        timeOut: 5000
+                    });
+                    // $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
+                    // $('#wrap_option_and_variant').html(response.html);
+                    // loaderEnd();
+                },
+                error: function(xhr) {
+                    // loaderEnd();
+                }
+            });
+        }
     }
 
     function getPrice(price, discount = null){
@@ -59,9 +65,9 @@
         const priceDisplay = $('.shop-details-price h2').html();
         const stockDisplay = $('.product-detail-stock').text();
 
-        const product = $('#form_change_option_value').data('product');
-        const dataVariant = product.variants;
-        const dataSku =  product.skus;
+        const product = $('#form_change_option_value').data('product') ?? null;
+        var dataVariant =  product ? product.variants : null;
+        var dataSku =  product ? product.skus : null;
         var productSkuID = null;
 
         $(document).on('click', '.option_value_button', function(e) {
@@ -112,6 +118,11 @@
                 }
             });
 
+            if(count == 0){
+                // Back to default
+                $(`#form_change_option_value`).find('.option_value_button').removeClass(`product-variation--disabled`);
+            }
+
             if (numOption == count) {
                 // ajaxCall($('#form_change_option_value').serialize());
                 $('.shop-details-content input[name="quantity"]').val(1);
@@ -150,10 +161,42 @@
 
         $(document).on('click', '#add-cart', function(e){
             e.preventDefault();
-            var url = $(this).data('url');
-            var productID = $(this).data('product_id');
-            console.log(productSkuID, productID, url);
+            var errorAll = [];
+            var fd = new FormData();
 
-        })
+            var url = $(this).data('url');
+            var productID = $(this).data('product_id') ?? null;
+            var quantity = $(this).closest('.perched-info').find('input[name="quantity"]').val();
+            var formVariant = $('#form_change_option_value').serialize();
+
+            if(productID == null || productID.length == 0){
+                errorAll.push('Sản phẩm không tồn tại!');
+            }else{
+                fd.append('product_id', productID);
+            }
+
+            if(url == null || url.length == 0){
+                errorAll.push('Đường dẫn không tồn tại!');
+            }
+
+            if(formVariant.length > 0){
+                if(productSkuID == null){
+                    errorAll.push('Vui lòng chọn đầy đủ thuộc tính!');
+                }else{
+                    fd.append('sku_id', productSkuID);
+                }
+            }
+
+            if(errorAll.length > 0){
+                $.each(errorAll, function(index, value) {
+                    toastr.error(`${value}`, {timeOut: 5000});
+                });
+            }else{
+                fd.append('quantity', quantity)
+                ajaxCall(url, fd)
+                console.log(fd);
+            }
+            
+        });
     });
 </script>

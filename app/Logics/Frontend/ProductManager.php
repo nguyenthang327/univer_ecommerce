@@ -106,6 +106,25 @@ class ProductManager
         return $products;
     }
 
+    public function checkProductType($productId){
+        $product = Product::with(['skus'])
+            ->leftJoin('product_skus', 'product_skus.product_id', '=', 'products.id')
+            ->where('products.id', $productId)
+            ->where('products.status', Product::SELL)
+            ->first();
+
+        if(!$product){
+            return [];
+        }
+
+        $checkVariant = $product->product_type == Product::TYPE_VARIANT && $product->skus->isNotEmpty();
+
+        return [
+            'checkVariant' =>  $checkVariant,
+            'product' => $product,
+        ];
+    }
+
 }
 
 ?>

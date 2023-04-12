@@ -4187,13 +4187,13 @@ label {
 	width: 100%;
 }
 .shop-details-nav img {
-	border: 1px solid #f7f7f7;
+	border: 1px solid #ccc;
     height: 129px;
     object-fit: contain;
 }
 .shop-details-img img{
-    border: 2px solid #f7f7f7;
-    height: 597px;
+    border: 2px solid #ccc;
+    height: 590px;
     object-fit: contain;
 }
 

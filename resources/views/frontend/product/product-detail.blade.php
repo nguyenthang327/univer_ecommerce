@@ -622,8 +622,8 @@
 @stop
 
 @section('js_page')
-    @if($checkVariant)
+    {{-- @if($checkVariant) --}}
         @include('frontend.product.scriptProductDetail')
-    @endif
+    {{-- @endif --}}
 @stop
        

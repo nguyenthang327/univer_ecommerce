@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\CartStoreRequest;
 use App\Logics\Frontend\CartManager;
 use App\Models\Cart;
 use App\Models\CartDetail;
@@ -31,7 +32,8 @@ class CartController extends Controller
         return view($this->pathView . 'cart');
     }
 
-    public function store(Request $request){
+    public function store(CartStoreRequest $request){
+        dd($request->all());
         DB::beginTransaction();
         try{
             $customer = Auth::guard('customer')->user();
