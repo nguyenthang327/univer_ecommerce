@@ -172,6 +172,13 @@ return [
     'confirm_password' => 'Xác nhận mật khẩu',
     'enter_confirm_password' => 'Nhập lại mật khẩu',
 
+    // cart 
+    'message_cart' => [
+        'out_stock' => 'Đã hết hàng!',
+        'max_add' => 'Bạn chỉ có thể thêm tối đa :quantity sản phẩm vào giỏ hàng.',
+        'max_add_in_cart' => 'Bạn chỉ có thể thêm tối đa :quantity sản phẩm vào giỏ hàng do sản phẩm này đã có trong giỏ hàng rồi.',
+    ],
+
     // mail user register
     'mail' => [
         'register' => [

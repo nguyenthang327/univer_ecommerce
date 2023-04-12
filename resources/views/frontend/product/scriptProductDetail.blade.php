@@ -21,6 +21,7 @@
                     // loaderEnd();
                 },
                 error: function(xhr) {
+                    console.log(xhr);
                     // loaderEnd();
                 }
             });
@@ -194,7 +195,6 @@
             }else{
                 fd.append('quantity', quantity)
                 ajaxCall(url, fd)
-                console.log(fd);
             }
             
         });
