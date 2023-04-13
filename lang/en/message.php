@@ -2,6 +2,7 @@
 
 return [
     'server_error' => 'An error occurred. please try again later!',
+    'not_found' => 'Not found data!',
 
     'nothing_data' => 'Nothing data!',
 
@@ -44,5 +45,12 @@ return [
     'update_brand_successed' => 'Update brand successed!',
     'create_brand_successed' => 'Create brand successed!',
     'create_brand_failed' => 'Create brand failed!',
+
+        
+    // frontend
+
+    // cart
+    'add_product_in_cart_successed' => 'Add product in cart successed!',
+
 ]
 ?>

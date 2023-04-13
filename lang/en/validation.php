@@ -189,6 +189,7 @@ return [
         'email_login' => 'Email',
         'password_login' => 'Password',
         'password_confirmation' => 'Password comfirmation',
+        'product_id' => 'Product',
     ],
 
 ];

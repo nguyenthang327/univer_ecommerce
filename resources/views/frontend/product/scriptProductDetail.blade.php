@@ -13,6 +13,7 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    console.log(response);
                     toastr.success(response.message, {
                         timeOut: 5000
                     });

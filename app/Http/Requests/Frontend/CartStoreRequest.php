@@ -30,7 +30,7 @@ class CartStoreRequest extends FormRequest
     {
         $customerID = Auth::guard('customer')->user()->id;
         $rules = [
-            'product_id' => 'required|exists:products,id',
+            'product_id' => ['required', 'exists:products,id'],
         ];
 
         $productManager = new ProductManager();
@@ -93,6 +93,10 @@ class CartStoreRequest extends FormRequest
                     }
                 }];
             }
+        }else{
+            $rules['product_id'] = array_push($rules['product_id'], function($attribute, $value, $fail){
+                $fail(trans('language.status_s')[Product::NOT_SELL]);
+            });
         }
 
         return $rules;

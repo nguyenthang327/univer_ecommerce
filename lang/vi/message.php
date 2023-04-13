@@ -2,6 +2,7 @@
 
 return [
     'server_error' => 'Đã có lỗi xảy ra. Vui lòng thử lại sau!',
+    'not_found' => 'Không tìm thấy dữ liệu!',
 
     'nothing_data' => 'Không có dữ liệu!',
 
@@ -44,6 +45,12 @@ return [
     'update_brand_successed' => 'Cập nhật thương hiệu thành công!',
     'create_brand_successed' => 'Thêm mới thương hiệu thành công!',
     'create_brand_failed' => 'Thêm mới thương hiệu thất bại!',
+
+    
+    // frontend
+
+    // cart
+    'add_product_in_cart_successed' => 'Thêm sản phẩm vào giỏ hàng thành công!',
 
 ]
 ?>

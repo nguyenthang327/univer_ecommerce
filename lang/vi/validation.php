@@ -189,6 +189,7 @@ return [
         'email_login' => 'Email',
         'password_login' => 'Mật khẩu',
         'password_confirmation' => 'Mật khẩu xác thực',
+        'product_id' => 'Sản phẩm',
     ],
 
 ];
