@@ -172,6 +172,16 @@ return [
     'confirm_password ' => 'Confirm password',
     'enter_confirm_password ' => 'Re-enter your password',
 
+    // cart 
+    'message_cart' => [
+        'out_stock' => 'Out of stock!',
+        'max_add' => 'You can only add up to :quantity products to your cart.',
+        'max_add_in_cart' => 'You can only add up to :quantity products to the cart because this product is already in the cart.',
+    ],
+    'shopping_cart' => 'Shopping cart',
+    'quantity' => 'Quantity',
+    'subtotal' => 'Subtotal',
+
     // mail user register
     'mail' => [
         'register' => [

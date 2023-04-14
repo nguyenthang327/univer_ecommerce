@@ -41,6 +41,7 @@
     function resetProductDetail(priceDisplay, stockDisplay){
         $('.shop-details-price h2').html(priceDisplay);
         $('.product-detail-stock').text(stockDisplay);
+        $('.cart-plus-minus input[name="quantity"]').data('max', stockDisplay);
     }
 
     function getSkuByOptionValueID(dataVariant, optionValue1, optionValue2){
@@ -150,6 +151,7 @@
                     if(sku){
                         $('.shop-details-price h2').html(getPrice(sku.price, product.discount));
                         $('.product-detail-stock').text(sku.stock);
+                        $('.cart-plus-minus input[name="quantity"]').data('max', sku.stock);
                     }else{
                         resetProductDetail(priceDisplay, stockDisplay);
                     }

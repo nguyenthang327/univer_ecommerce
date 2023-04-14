@@ -7,6 +7,15 @@ use Carbon\Carbon;
 class ProcessPriceService
 {
     public static function regularPrice($price, $discount = null){
+        // $language = App::getLocale();
+        // $currency = '';
+
+        // if($language == 'vi'){
+        //     $currency = '₫ ';
+        // }else{
+        //     $currency = '$';
+        // }
+
         $data = [
             'old' => null, 
             'new' => null,

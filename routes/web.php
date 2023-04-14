@@ -166,7 +166,12 @@ Route::middleware('web')->group(function () {
     });
 
     Route::group(['middleware' => ['auth:customer']], function(){
-        Route::get('/cart', [CartController::class, 'index'])->name('customer.cart.index');
-        Route::post('/cart/add', [CartController::class, 'store'])->name('customer.cart.store');
+
+        Route::prefix('/cart')->group(function(){
+            Route::get('/', [CartController::class, 'index'])->name('customer.cart.index');
+            Route::post('/add', [CartController::class, 'store'])->name('customer.cart.store');
+            Route::put('/{id}', [CartController::class, 'update'])->name('customer.cart.update');
+            Route::delete('/{id}/destroy/', [CartController::class, 'destroy'])->name('customer.cart.destroy');
+        });
     });
 });

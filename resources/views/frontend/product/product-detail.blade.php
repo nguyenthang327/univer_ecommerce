@@ -132,7 +132,9 @@
                             <div class="perched-info">
                                 <div class="cart-plus">
                                     <div class="cart-plus-minus">
-                                        <input type="text" value="1" name="quantity">
+                                        <input type="text" value="1" name="quantity" data-max="{{$stock}}">
+                                        <div class="dec qtybutton">-</div>
+                                        <div class="inc qtybutton">+</div>
                                     </div>
                                 </div>
                                 <a href="#" class="btn add-cart-btn" id="add-cart" data-url="{{route('customer.cart.store')}}" data-product_id="{{$product->id}}">ADD TO CART</a>

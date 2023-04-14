@@ -633,12 +633,13 @@ $('.shop-details-nav').slick({
 /*=============================================
 	=    		 Cart Active  	         =
 =============================================*/
-$(".cart-plus-minus").append('<div class="dec qtybutton">-</div><div class="inc qtybutton">+</div>');
-$(".qtybutton").on("click", function () {
+// $(".cart-plus-minus").append('<div class="dec qtybutton">-</div><div class="inc qtybutton">+</div>');
+$(document).on('click', '.qtybutton', function () {
 	var $button = $(this);
 	var oldValue = $button.parent().find("input").val();
 
-	var max = parseInt($button.closest('.shop-details-content').find('.product-detail-stock').text());
+	// var max = parseInt($button.closest('.shop-details-content').find('.product-detail-stock').text());
+	var max = parseInt($button.parent().find('input[name="quantity"]').data('max'));
 	if ($button.text() == "+") {
 		var newVal = parseFloat(oldValue) + 1;
 		if(newVal > max){
@@ -657,16 +658,18 @@ $(".qtybutton").on("click", function () {
 });
 
 
-$('.shop-details-content input[name="quantity"]').on('input', function(e){
-	if (e.keyCode === 13) { // keyCode 13 là mã phím Enter
-		e.preventDefault(); // Ngăn chặn sự kiện mặc định của phím Enter (submit form)
-	 }
+// $('.shop-details-content input[name="quantity"]').on('input', function(e){
+$(document).on('input', '.cart-plus-minus input[name="quantity"]', function(e){
+	// if (e.keyCode === 13) { // keyCode 13 là mã phím Enter
+	// 	e.preventDefault(); // Ngăn chặn sự kiện mặc định của phím Enter (submit form)
+	//  }
 	var charCode = (e.which) ? e.which : e.keyCode;
 	if (charCode > 31 && (charCode < 48 || charCode > 57)) {
 		return false;
 	}
 
-	var max = parseInt($(this).closest('.shop-details-content').find('.product-detail-stock').text());
+	// var max = parseInt($(this).closest('.shop-details-content').find('.product-detail-stock').text());
+	var max = parseInt($(this).data('max'));
 	var old = parseInt($(this).val());
 
 	if(old > max){
@@ -677,7 +680,6 @@ $('.shop-details-content input[name="quantity"]').on('input', function(e){
 	}
 	$(this).val(old);
 	return true;
-	console.log( $(this).val());
 });
 
 // $('.shop-details-content input[name="quantity"]').on('input')

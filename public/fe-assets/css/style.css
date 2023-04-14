@@ -3512,7 +3512,6 @@ label {
 	border-color: #ff6000;
 }
 .shop-cart-widget {
-    background-image: url(../img/bg/cart_sidebar_bg.png);
     background-position: center;
     background-size: cover;
     padding: 51px 25px 61px;

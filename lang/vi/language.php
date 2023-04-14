@@ -178,6 +178,9 @@ return [
         'max_add' => 'Bạn chỉ có thể thêm tối đa :quantity sản phẩm vào giỏ hàng.',
         'max_add_in_cart' => 'Bạn chỉ có thể thêm tối đa :quantity sản phẩm vào giỏ hàng do sản phẩm này đã có trong giỏ hàng rồi.',
     ],
+    'shopping_cart' => 'Giỏ hàng',
+    'quantity' => 'Số lượng',
+    'subtotal' => 'Tổng phụ',
 
     // mail user register
     'mail' => [
