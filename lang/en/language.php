@@ -146,6 +146,14 @@ return [
     'delete_brand' => 'Do you want to remove this brand?',
     'by_brand_name' => 'Filter by brand name',
 
+    // coupon
+    'coupon' => 'Coupon',
+    'started_at' => 'Started at',
+    'ended_at' => 'Ended at',
+    'coupon_management' => 'Coupon management',
+    'update_coupon' => 'Update coupon',
+    'create_new_coupon' => 'Create new coupon',
+
     // frontend
     'home' => 'Home',
     'see_more' => 'See more',

@@ -7,8 +7,9 @@ use App\Logics\Frontend\ProductManager;
 use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
-class HomepageController extends Controller
+class HomepageController extends BaseController
 {
     //
     protected $pathView = 'frontend.homepage.';
@@ -17,11 +18,15 @@ class HomepageController extends Controller
 
     public function __construct(ProductManager $productManager)
     {
+        parent::__construct();
+        // $auth = Auth::guard('customer')->user();
+        // dd($auth);
         $this->productManager = $productManager;
     }
     
     public function index(){
         $take = 12;
+        
         $productFeature = $this->productManager->getProducts($take, 'is_featured');
         $productNew = $this->productManager->getProducts($take, 'new');
 

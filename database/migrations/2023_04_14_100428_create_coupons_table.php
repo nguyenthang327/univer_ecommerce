@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
-            $table->float('value')->default(0);
+            $table->string('code')->unique();
+            $table->unsignedDecimal('discount_percentage', 10, 2);
             $table->dateTime('started_at');
             $table->dateTime('ended_at');
             $table->integer('quantity');

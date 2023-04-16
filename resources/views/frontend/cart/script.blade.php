@@ -46,15 +46,19 @@
     }
 
     // click '+' or '-'
+    var timeoutId;
     $(document).on('click', '.qtybutton', function(){
         var old = parseInt($(this).parent().find('input[name="quantity"]').data('old'));
         var current = parseInt($(this).parent().find('input[name="quantity"]').val());
+        clearTimeout(timeoutId);
         if(old !== current){
             var url = $(this).closest('.cart-plus-minus').data('url');
             var fd = new FormData();
             fd.append('quantity', current);
             fd.append('_method', 'PUT');
-            ajaxUpdate(url, fd);
+            timeoutId = setTimeout(() => {
+                ajaxUpdate(url, fd);
+            }, 1000);
         }
     });
 
@@ -62,12 +66,12 @@
     $(document).on('change', '.cart-plus-minus input[name="quantity"]', function(){
         var old = parseInt($(this).data('old'));
         var current = parseInt($(this).val());
+
         if(old !== current){
             var url = $(this).closest('.cart-plus-minus').data('url');
             var fd = new FormData();
             fd.append('quantity', current);
             fd.append('_method', 'PUT');
-            console.log();
             ajaxUpdate(url, fd);
         }
     });

@@ -9,7 +9,7 @@
             object-fit: contain;
         }
 
-        .hihi{
+        .saw{
             background-color: #f5f4f1;
             background-image:
             /* Top jagged */
@@ -40,7 +40,7 @@
 
     <!-- shop-cart-area -->
     <section class="shop-cart-area wishlist-area pt-100 pb-100">
-        @if(isset($productsInCart) && count($productsInCart) > 0)
+        @if(isset($globalProductsInCart) && count($globalProductsInCart) > 0)
             @php
                 $subTotal = 0;
             @endphp
@@ -59,7 +59,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($productsInCart as $product)
+                                    @foreach ($globalProductsInCart as $product)
                                         @php
                                             $price = \App\Services\ProcessPriceService::regularPrice($product->price, null);
                                             $aSubTotal = \App\Services\ProcessPriceService::regularPrice($product->price * $product->quantity, null);
@@ -83,8 +83,8 @@
                                                     >
                                                 </a>
                                             </td>
-                                            <td class="product-name">
-                                                <h4><a href="{{ route('site.product.show', ['slug' =>$product->product_slug]) }}">{{ $product->product_name }}</a></h4>
+                                            <td class="product-name" style="max-width:340px;">
+                                                <h4><a href="{{ route('site.product.show', ['slug' =>$product->product_slug]) }}" class="line-clamp-2">{{ $product->product_name }}</a></h4>
                                                 {{-- <p>Cramond Leopard & Pythong Anorak</p>
                                                 <span>65% poly, 35% rayon</span> --}}
                                             </td>
@@ -132,9 +132,9 @@
                     </div>
                     <div class="col-lg-4 col-md-8">
                         <aside class="shop-cart-sidebar">
-                            <div class="shop-cart-widget hihi" >
+                            <div class="shop-cart-widget saw" >
                                 <h6 class="title">Cart Totals</h6>
-                                <form action="#">
+                                {{-- <form action="#"> --}}
                                     <ul>
                                         @php
                                             $subTotal = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
@@ -155,8 +155,8 @@
                                         </li>
                                         <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">$ 151.00</span></li>
                                     </ul>
-                                    <button class="btn">PROCEED TO CHECKOUT</button>
-                                </form>
+                                    <a class="btn" href="{{route('customer.order.checkoutView')}}">PROCEED TO CHECKOUT</a>
+                                {{-- </form> --}}
                             </div>
                         </aside>
                     </div>

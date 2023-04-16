@@ -3522,22 +3522,22 @@ label {
     padding-bottom: 15px;
     margin-bottom: 35px;
 }
-.shop-cart-widget form ul li {
+.shop-cart-widget  ul li {
     display: flex;
     align-items: flex-start;
     margin-bottom: 20px;
 }
-.shop-cart-widget form ul li:last-child {
+.shop-cart-widget ul li:last-child {
 	margin-bottom: 0;
 }
-.shop-cart-widget form ul li,
+.shop-cart-widget ul li,
 .shop-cart-widget .custom-control-label {
 	font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
     color: #2b2b2b;
 }
-.shop-cart-widget form ul li > span {
+.shop-cart-widget ul li > span {
     width: 46%;
 }
 .shop-cart-widget .custom-control {
@@ -3564,18 +3564,19 @@ label {
 .shop-cart-widget .custom-control-input:focus:not(:checked)~.custom-control-label::before {
     border-color: #bcbcbc;
 }
-.shop-cart-widget form ul .cart-total-amount {
+.shop-cart-widget ul .cart-total-amount {
     margin-top: 25px;
     padding-top: 25px;
     border-top: 1px dashed #cfcfcf;
 }
-.shop-cart-widget form ul .cart-total-amount .amount {
+.shop-cart-widget ul .cart-total-amount .amount {
 	font-size: 18px;
 }
-.shop-cart-widget form button {
+.shop-cart-widget .btn {
     border-radius: 4px;
     margin-top: 35px;
     width: 100%;
+    background-color: #ff6000;
 }
 
 /* 18. Shop */
@@ -4340,7 +4341,7 @@ label {
     margin-top: 28px;
     border-top: 1px dashed #cfcfcf;
 }
-.checkout-sidebar .shop-cart-widget form ul {
+.checkout-sidebar .shop-cart-widget ul {
     margin-bottom: 55px;
 }
 .paypal-method-flex {

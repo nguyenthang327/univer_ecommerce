@@ -9,7 +9,7 @@ use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ProductController extends Controller
+class ProductController extends BaseController
 {
     //
     const TAKE = 12;
@@ -19,6 +19,7 @@ class ProductController extends Controller
 
     public function __construct(ProductManager $productManager)
     {
+        parent::__construct();
         $this->productManager = $productManager;
     }
 

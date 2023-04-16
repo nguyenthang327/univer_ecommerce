@@ -22,7 +22,7 @@ class ProductCategoryManager{
             ->whereNull('product_categories.parent_id')
             ->get()
             ->toArray();
-
+// dd($categories);
         return $categories;
     }
 }

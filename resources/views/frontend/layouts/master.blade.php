@@ -53,7 +53,6 @@
         <!-- header-area -->
         @include('frontend.layouts.header')
         <!-- header-area-end -->
-        {{-- @dd($globalProductCategories) --}}
 
         <!-- main-area -->
         <main>

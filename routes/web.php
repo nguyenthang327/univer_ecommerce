@@ -9,6 +9,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Backend\Admin\UserController as BeAdminUser;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\BrandController;
+use App\Http\Controllers\Backend\Admin\CouponController;
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomepageController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 
 /*
@@ -83,6 +85,16 @@ use App\Http\Controllers\Frontend\ProductController as FrontendProductController
                 Route::post('/store', [BrandController::class, 'store'])->name('admin.brand.store');
                 Route::post('/update/{id}', [BrandController::class, 'update'])->name('admin.brand.update');
                 Route::delete('/destroy/{id}', [BrandController::class, 'destroy'])->name('admin.brand.destroy');
+            });
+
+             // Brand
+             Route::prefix('/coupon')->group(function(){
+                Route::get('/', [CouponController::class, 'index'])->name('admin.coupon.index');
+                Route::get('/create', [CouponController::class, 'create'])->name('admin.coupon.create');
+                Route::post('/store', [CouponController::class, 'store'])->name('admin.coupon.store');
+                Route::get('/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupon.edit');
+                Route::put('/update/{id}', [CouponController::class, 'update'])->name('admin.coupon.update');
+                Route::delete('/destroy/{id}', [CouponController::class, 'destroy'])->name('admin.coupon.destroy');
             });
         });
     });
@@ -172,6 +184,10 @@ Route::middleware('web')->group(function () {
             Route::post('/add', [CartController::class, 'store'])->name('customer.cart.store');
             Route::put('/{id}', [CartController::class, 'update'])->name('customer.cart.update');
             Route::delete('/{id}/destroy/', [CartController::class, 'destroy'])->name('customer.cart.destroy');
+        });
+
+        Route::prefix('/order')->group(function(){
+            Route::get('/', [OrderController::class, 'checkoutView'])->name('customer.order.checkoutView');
         });
     });
 });

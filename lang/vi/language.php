@@ -146,6 +146,14 @@ return [
     'delete_brand' => 'Bạn có muốn xóa thương hiệu này không?',
     'by_brand_name' => 'Lọc theo tên thương hiệu',
 
+    // coupon
+    'coupon' => 'Phiếu giảm giá',
+    'started_at' => 'Thời gian bắt đầu',
+    'ended_at' => 'Thời gian kết thúc',
+    'coupon_management' => 'Quản lý phiếu giảm giá',
+    'update_coupon' => 'Cập nhật phiếu giảm giá',
+    'create_new_coupon' => 'Thêm mới phiếu giảm giá',
+
     // frontend
     'home' => 'Trang chủ',
     'see_more' => 'Xem thêm',

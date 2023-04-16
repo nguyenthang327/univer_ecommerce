@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     //
 
@@ -26,6 +26,11 @@ class AuthController extends Controller
      * @var string
      */
     protected $pathView = 'frontend.auth.';
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * check customer logged in
