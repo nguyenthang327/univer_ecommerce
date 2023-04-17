@@ -21,9 +21,12 @@ class OrderController extends BaseController
     }
 
     public function checkoutView(){
-        if(session('coupon_code')){
-            
-        }
+        // $data = $this->globalProductsInCart;
+        // dd($data);
+        // $subTotal = $this->globalProductsInCart->sum(function($item){
+        //     return $item->quantity * $item->price;
+        // });
+        // }
         return view($this->pathView . 'checkout');
     }
 }

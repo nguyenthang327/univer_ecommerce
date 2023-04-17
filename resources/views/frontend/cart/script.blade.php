@@ -1,5 +1,10 @@
 <script>
     const token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+
+    function reloadCart(){
+        $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
+        $(".header-action.header-cart-mini").load(location.href + " .header-action.header-cart-mini");
+    }
     function ajaxRemove(url){
         $.ajax({
             headers: {
@@ -13,7 +18,7 @@
             cache: false,
             processData: false,
             success: function (response){
-                $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
+                reloadCart();
                 // toastr.success(response.message.text, {timeOut: 5000})
                 toastr.success('Xóa thành công', {timeOut: 5000});
             },
@@ -35,7 +40,7 @@
             processData: false,
             contentType: false,
             success: function (response){
-                $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
+                reloadCart();
                 // toastr.success(response.message.text, {timeOut: 5000})
                 toastr.success('Xóa thành công', {timeOut: 5000});
             },
@@ -58,13 +63,12 @@
             processData: false,
             contentType: false,
             success: function (response){
-                $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
+                reloadCart();
                 // toastr.success(response.message.text, {timeOut: 5000})
                 toastr.success('Thành công ', {timeOut: 5000});
             },
             error: function (err){
-                console.log(err.responseJSON);
-                $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
+                reloadCart();
                 toastr.error(err.responseJSON.message, {timeOut: 5000})
             }
         })

@@ -132,29 +132,47 @@
                                     <li><a href="contact.html">contacts</a></li> --}}
                                 </ul>
                             </div>
-                            <div class="header-action d-none d-md-block">
+                            <div class="header-action d-none d-md-block header-cart-mini">
+                                @php
+                                    $checkCart = isset($globalProductsInCart) && count($globalProductsInCart) > 0 ? true : false;
+                                    $subTotal = 0;
+                                @endphp
                                 <ul>
                                     <li><a href="#"><i class="flaticon-two-arrows"></i></a></li>
                                     <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
-                                    <li class="header-shop-cart"><a href="{{ route('customer.cart.index') }}"><i class="flaticon-shopping-bag"></i><span class="cart-count">2</span></a>
-                                        @if($globalCustomer)
+                                    <li class="header-shop-cart"><a href="{{ route('customer.cart.index') }}">
+                                        <i class="flaticon-shopping-bag"></i>
+                                        <span class="cart-count">{{$checkCart ? count($globalProductsInCart) : 0}}</span>
+                                    </a>
+                                        @if($globalCustomer && $checkCart)
                                         <span class="cart-total-price">$ 128.00</span>
                                             <ul class="minicart">
+                                            @foreach ($globalProductsInCart as $product)
+                                            @php
+                                                $price = \App\Services\ProcessPriceService::regularPrice($product->price, null);
+                                                $aSubTotal = \App\Services\ProcessPriceService::regularPrice($product->price * $product->quantity, null);
+                                                $subTotal += $product->price * $product->quantity;
+                                            @endphp
                                                 <li class="d-flex align-items-start">
                                                     <div class="cart-img">
                                                         <a href="#">
-                                                            <img src="img/product/cart_p01.jpg" alt="">
+                                                            <img
+                                                                {{-- class="imageInCart" --}}
+                                                                src="{{ !empty($product->product_gallery) ? asset('storage/'.json_decode($product->product_gallery)[0]->file_path) : '' }}"
+                                                                alt="{{ $product->product_name }}"
+                                                                onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';"
+                                                            >
                                                         </a>
                                                     </div>
                                                     <div class="cart-content">
                                                         <h4>
-                                                            <a href="#">Charity Nike Brand Yellow T-Shirt</a>
+                                                            <a href="{{ route('site.product.show', ['slug' =>$product->product_slug]) }}">{{ $product->product_name }}</a>
                                                         </h4>
+                                                        @if($product->attributes)
+                                                            <p style="word-wrap: break-word;">{{$product->attributes}}</p>
+                                                        @endif
                                                         <div class="cart-price">
-                                                            <span class="new">$229.9</span>
-                                                            <span>
-                                                                <del>$229.9</del>
-                                                            </span>
+                                                            <span class="new">{{$price['new']}} x {{ $product->quantity}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="del-icon">
@@ -163,39 +181,40 @@
                                                         </a>
                                                     </div>
                                                 </li>
-                                                <li class="d-flex align-items-start">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="img/product/cart_p02.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-content">
-                                                        <h4>
-                                                            <a href="#">BackPack For School Student</a>
-                                                        </h4>
-                                                        <div class="cart-price">
-                                                            <span class="new">$229.9</span>
-                                                            <span>
-                                                                <del>$229.9</del>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="del-icon">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
+                                                @endforeach
+
+                                                @php
+                                                    if(session('coupon_code')){
+                                                        $total = \App\Services\ProcessPriceService::regularPrice($subTotal, session('coupon_code')['discount']);
+                                                    }else{
+                                                        $total = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
+                                                    }
+                                                    $subTotal = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
+                                                @endphp
                                                 <li>
                                                     <div class="total-price">
-                                                        <span class="f-left">Total:</span>
-                                                        <span class="f-right">$239.9</span>
+                                                        <span class="f-left">{{trans('language.subtotal')}}:</span>
+                                                        <span class="f-right">{{$subTotal['new']}}</span>
+                                                    </div>
+                                                </li>
+                                                @if(session('coupon_code'))
+                                                <li>
+                                                    <div class="">
+                                                        <span class="f-left">{{trans('language.discount')}}:</span>
+                                                        <span class="f-right">{{ session('coupon_code')['discount'] }} %</span>
+                                                    </div>
+                                                </li>
+                                                @endif
+                                                <li>
+                                                    <div class="font-weight-bold">
+                                                        <span class="f-left">{{trans('language.total')}}:</span>
+                                                        <span class="f-right">{{$total['new']}}</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="checkout-link">
-                                                        <a href="#">Shopping Cart</a>
-                                                        <a class="red-color" href="#">Checkout</a>
+                                                        <a href="{{route('customer.cart.index')}}">{{trans('language.shopping_cart')}}</a>
+                                                        <a class="red-color" href="{{route('customer.order.checkoutView')}}">{{trans('language.checkout')}}</a>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -211,7 +230,7 @@
                         <div class="close-btn"><i class="fas fa-times"></i></div>
 
                         <nav class="menu-box">
-                            <div class="nav-logo"><a href="index.html"><img src="{{ asset('images/main-logo-edited.png')}}" alt="" title=""></a>
+                            <div class="nav-logo"><a href="{{route('site.home')}}"><img src="{{ asset('images/main-logo-edited.png')}}" alt="" title=""></a>
                             </div>
                             <div class="menu-outer">
                                 <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->

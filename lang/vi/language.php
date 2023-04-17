@@ -189,6 +189,7 @@ return [
     'shopping_cart' => 'Giỏ hàng',
     'quantity' => 'Số lượng',
     'subtotal' => 'Tổng phụ',
+    'checkout' => 'Thanh toán',
 
     // mail user register
     'mail' => [

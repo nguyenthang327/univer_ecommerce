@@ -726,7 +726,7 @@ label {
 	margin-top: 10px;
 }
 .total-price span {
-    color: #616161;
+    /* color: #616161; */
     font-weight: 500;
 }
 .header-shop-cart .minicart > li:last-child {

@@ -13,13 +13,13 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    console.log(response);
                     toastr.success(response.message, {
                         timeOut: 5000
                     });
                     // $('#wrap_data_sku').load(location.href + ' #wrap_data_sku .table-responsive');
                     // $('#wrap_option_and_variant').html(response.html);
                     // loaderEnd();
+                    $(".header-action.header-cart-mini").load(location.href + " .header-action.header-cart-mini");
                 },
                 error: function(xhr) {
                     console.log(xhr);

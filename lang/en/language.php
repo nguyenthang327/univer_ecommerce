@@ -189,6 +189,7 @@ return [
     'shopping_cart' => 'Shopping cart',
     'quantity' => 'Quantity',
     'subtotal' => 'Subtotal',
+    'checkout' => 'Checkout',
 
     // mail user register
     'mail' => [
