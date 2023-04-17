@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\CartStoreRequest;
+use App\Http\Requests\Frontend\CheckCouponRequest;
 use App\Logics\Frontend\CartManager;
 use App\Logics\Frontend\ProductManager;
 use App\Models\Cart;
 use App\Models\CartDetail;
+use App\Models\Coupon;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
@@ -192,5 +194,16 @@ class CartController extends BaseController
         }
     }
 
+    public function checkCoupon(CheckCouponRequest $request){
+        $coupon = Coupon::where('code', $request->code)->first();
+        session()->put('coupon_code', [
+            'code' => $coupon->code,
+            'discount' => $coupon->discount_percentage,
+        ]);
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'message' => trans('message.code_valid'),
+        ], Response::HTTP_OK);
+    }
 
 }

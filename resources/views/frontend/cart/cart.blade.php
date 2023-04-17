@@ -85,8 +85,10 @@
                                             </td>
                                             <td class="product-name" style="max-width:340px;">
                                                 <h4><a href="{{ route('site.product.show', ['slug' =>$product->product_slug]) }}" class="line-clamp-2">{{ $product->product_name }}</a></h4>
-                                                {{-- <p>Cramond Leopard & Pythong Anorak</p>
-                                                <span>65% poly, 35% rayon</span> --}}
+                                                @if($product->attributes)
+                                                    <p style="word-wrap: break-word;">{{$product->attributes}}</p>
+                                                @endif
+                                                {{-- <span>65% poly, 35% rayon</span> --}}
                                             </td>
                                             <td class="product-price">{{ $price['new'] }}</td>
                                             <td class="product-quantity">
@@ -116,8 +118,8 @@
                             <div class="row">
                                 <div class="col-md-7">
                                     <div class="cart-coupon">
-                                        <form action="#">
-                                            <input type="text" placeholder="Enter Coupon Code...">
+                                        <form action="{{ route('check.coupon') }}" method="GET" id="coupon_form">
+                                            <input type="text" placeholder="Enter Coupon Code..." name="code" @if(session('coupon_code')) value="{{session('coupon_code')['code']}}" @endif>
                                             <button class="btn">Apply Coupon</button>
                                         </form>
                                     </div>
@@ -137,9 +139,16 @@
                                 {{-- <form action="#"> --}}
                                     <ul>
                                         @php
+                                            if(session('coupon_code')){
+                                                $total = \App\Services\ProcessPriceService::regularPrice($subTotal, session('coupon_code')['discount']);
+                                            }else{
+                                                $total = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
+                                            }
+                                            session()->put('subtotal', $subTotal);
                                             $subTotal = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
                                         @endphp
                                         <li><span>SUBTOTAL</span>{{ $subTotal['new'] }}</li>
+                                        @if(session('coupon_code'))<li><span>DISCOUNT</span>{{ session('coupon_code')['discount'] }} %</li> @endif
                                         <li>
                                             <span>SHIPPING</span>
                                             <div class="shop-check-wrap">
@@ -153,7 +162,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">$ 151.00</span></li>
+                                        <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">{{ $total['new'] }}</span></li>
                                     </ul>
                                     <a class="btn" href="{{route('customer.order.checkoutView')}}">PROCEED TO CHECKOUT</a>
                                 {{-- </form> --}}

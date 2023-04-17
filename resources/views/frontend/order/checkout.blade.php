@@ -38,22 +38,10 @@
                                 <h5 class="title">billing information</h5>
                                 <form action="#" class="checkout-form">
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-grp">
-                                                <label for="fName">FIRST NAME <span>*</span></label>
-                                                <input type="text" id="fName">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-grp">
-                                                <label for="lName">Last NAME <span>*</span></label>
-                                                <input type="text" id="lName">
-                                            </div>
-                                        </div>
                                         <div class="col-12">
                                             <div class="form-grp">
-                                                <label for="cName">COMPANY NAME <small>(OPTIONAL)</small></label>
-                                                <input type="text" id="cName">
+                                                <label for="fName">FULL NAME <span>*</span></label>
+                                                <input type="text" id="fName">
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -65,12 +53,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-grp">
-                                                <label for="address">STREET ADDRESS *</label>
-                                                <input type="text" id="address">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-sm-6">
                                             <div class="form-grp">
                                                 <label>TOWN / CITY *</label>
@@ -87,10 +70,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-12">
                                             <div class="form-grp">
-                                                <label for="zip">postal ZIP <span>*</span></label>
-                                                <input type="text" id="zip">
+                                                <label for="address">STREET ADDRESS *</label>
+                                                <input type="text" id="address">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -100,23 +83,17 @@
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-grp">
-                                                <label for="email">EMAIL ADDRESS <span>*</span></label>
-                                                <input type="email" id="email">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
                                             <div class="different-address custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="stda">
                                                 <label class="custom-control-label" for="stda">SHIP TO A DIFFERENT ADDRESS?</label>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        {{-- <div class="col-12">
                                             <div class="form-grp mb-0">
                                                 <label for="message">ORDER you have NOTES <small>(OPTIONAL)</small></label>
                                                 <textarea name="message" id="message" placeholder="About Your Special Delivery Notes"></textarea>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </form>
                             </div>
@@ -127,34 +104,38 @@
                                     <h6 class="title">Cart Totals</h6>
                                     <form action="#">
                                         <ul>
+                                            @php
+                                                $subTotal
+                                            @endphp
                                             <li><span>SUBTOTAL</span> $ 136.00</li>
                                             <li>
                                                 <span>SHIPPING</span>
                                                 <div class="shop-check-wrap">
-                                                    <div class="custom-control custom-checkbox">
+                                                    {{-- <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                                                         <label class="custom-control-label" for="customCheck1">FLAT RATE: $15</label>
-                                                    </div>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                        <label class="custom-control-label" for="customCheck2">FREE SHIPPING</label>
+                                                    </div> --}}
+                                                    <div class="custom-checkbox">
+                                                        {{-- <input type="checkbox" class="custom-control-input" id="customCheck2"> --}}
+                                                        {{-- <label class="custom-control-label" for="customCheck2">FREE SHIPPING</label> --}}
+                                                        <span class="font-weight-bold" for="customCheck2">FREE SHIPPING</span>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li class="cart-total-amount"><span>TOTAL</span> <span class="amount">$ 151.00</span></li>
                                         </ul>
-                                        <div class="bank-transfer">
+                                        {{-- <div class="bank-transfer">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck3">
                                                 <label class="custom-control-label" for="customCheck3">Direct Bank Transfer</label>
                                             </div>
-                                        </div>
-                                        <div class="bank-transfer">
+                                        </div> --}}
+                                        {{-- <div class="bank-transfer">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck4">
                                                 <label class="custom-control-label" for="customCheck4">Cash On Delivery</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="paypal-method">
                                             <div class="paypal-method-flex">
                                                 <div class="custom-control custom-checkbox">
@@ -166,7 +147,7 @@
                                             <p>Pay via PayPal; you can pay with your credit
                                             card if you don’t have a PayPal account</p>
                                         </div>
-                                        <div class="paypal-method">
+                                        {{-- <div class="paypal-method">
                                             <div class="paypal-method-flex">
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck6">
@@ -181,7 +162,7 @@
                                                 <label class="custom-control-label" for="customCheck7">I have read and agree to the website terms
                                                 and conditions *</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <button class="btn">PROCEED TO CHECKOUT</button>
                                     </form>
                                 </div>

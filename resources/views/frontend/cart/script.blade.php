@@ -40,7 +40,32 @@
                 toastr.success('Xóa thành công', {timeOut: 5000});
             },
             error: function (err){
+                $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
                 toastr.error('Có lỗi xảy ra', {timeOut: 5000})
+            }
+        })
+    }
+
+    function ajaxCheckCoupon(url, fd){
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': token
+            },
+            url: url,
+            type: 'GET',
+            data: fd,
+            dataType: "JSON",
+            processData: false,
+            contentType: false,
+            success: function (response){
+                $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
+                // toastr.success(response.message.text, {timeOut: 5000})
+                toastr.success('Thành công ', {timeOut: 5000});
+            },
+            error: function (err){
+                console.log(err.responseJSON);
+                $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
+                toastr.error(err.responseJSON.message, {timeOut: 5000})
             }
         })
     }
@@ -87,5 +112,12 @@
         // }else{
         //     toastr.error('Sản phẩm không tồn tại', {timeOut: 5000});
         // }
+    });
+
+    $(document).on('submit', '#coupon_form', function(e){
+        e.preventDefault();
+        var url = $(this).attr('action');
+        var fd = $(this).serialize();
+        ajaxCheckCoupon(url, fd);
     });
 </script>

@@ -108,7 +108,7 @@ return [
     'sku' => 'Sku',
     'price' => 'Giá',
     'stock' => 'Số lượng',
-    'discount' => 'Giảm giá',
+    'discount' => 'Giảm giá (%)',
     'description' => 'Mô tả',
     'choose_category' => 'Chọn danh mục',
     'gallery' => 'Gallery',

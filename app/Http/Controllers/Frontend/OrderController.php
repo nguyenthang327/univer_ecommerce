@@ -21,6 +21,9 @@ class OrderController extends BaseController
     }
 
     public function checkoutView(){
+        if(session('coupon_code')){
+            
+        }
         return view($this->pathView . 'checkout');
     }
 }

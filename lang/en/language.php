@@ -108,7 +108,7 @@ return [
     'sku' => 'Sku',
     'price' => 'Price',
     'stock' => 'Stock',
-    'discount' => 'Discount',
+    'discount' => 'Discount (%)',
     'description' => 'Description',
     'choose_category' => 'Choose category',
     'gallery' => 'Gallery',

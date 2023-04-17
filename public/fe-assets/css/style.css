@@ -3556,7 +3556,7 @@ label {
 .shop-cart-widget .custom-control-input:checked~.custom-control-label::before {
     color: #fff;
     border-color: #ff6000;
-    background-color: transparent;
+    background-color: #ff6000;
 }
 .shop-cart-widget .custom-control:last-child {
 	margin-bottom: 0;

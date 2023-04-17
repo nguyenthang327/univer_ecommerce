@@ -186,6 +186,10 @@ Route::middleware('web')->group(function () {
             Route::delete('/{id}/destroy/', [CartController::class, 'destroy'])->name('customer.cart.destroy');
         });
 
+        Route::prefix('/coupon')->group(function(){
+            Route::get('check', [CartController::class, 'checkCoupon'])->name('check.coupon');
+        });
+
         Route::prefix('/order')->group(function(){
             Route::get('/', [OrderController::class, 'checkoutView'])->name('customer.order.checkoutView');
         });

@@ -55,6 +55,8 @@ class AuthController extends BaseController
             'password' => $request->password_login,
         ];
 
+        // session()->forget('coupon_code');
+
         if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
             $request->session()->regenerate();
             return redirect()->route('site.home');
@@ -164,6 +166,7 @@ class AuthController extends BaseController
      */
     public function logout(){
         Auth::guard('customer')->logout();
+        session()->flush();
         return redirect()->route('site.home');
     }
 }

@@ -9,7 +9,7 @@ class DateFormatService
     /**
      * change format date strtotime
      */
-    public function dateFormatLanguage($date = null, $format)
+    public static function dateFormatLanguage($date = null, $format)
     {
         $language = App::getLocale();
         $language = 'vi';
