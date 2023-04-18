@@ -145,7 +145,7 @@
                                         <span class="cart-count">{{$checkCart ? count($globalProductsInCart) : 0}}</span>
                                     </a>
                                         @if($globalCustomer && $checkCart)
-                                        <span class="cart-total-price">$ 128.00</span>
+                                        {{-- <span class="cart-total-price">$ 128.00</span> --}}
                                             <ul class="minicart">
                                             @foreach ($globalProductsInCart as $product)
                                             @php
@@ -190,11 +190,16 @@
                                                         $total = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
                                                     }
                                                     $subTotal = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
+                                                    // session()->forget('cart_total');
+                                                    session()->put('cart_total', [
+                                                        'subTotal' => $subTotal,
+                                                        'total' => $total,
+                                                    ]);
                                                 @endphp
                                                 <li>
                                                     <div class="total-price">
                                                         <span class="f-left">{{trans('language.subtotal')}}:</span>
-                                                        <span class="f-right">{{$subTotal['new']}}</span>
+                                                        <span class="f-right subtotal">{{$subTotal['new']}}</span>
                                                     </div>
                                                 </li>
                                                 @if(session('coupon_code'))
@@ -208,7 +213,7 @@
                                                 <li>
                                                     <div class="font-weight-bold">
                                                         <span class="f-left">{{trans('language.total')}}:</span>
-                                                        <span class="f-right">{{$total['new']}}</span>
+                                                        <span class="f-right total">{{$total['new']}}</span>
                                                     </div>
                                                 </li>
                                                 <li>
@@ -256,6 +261,6 @@
     <!-- header-search-area -->
     @include('frontend.layouts.search')
     <!-- header-search-area-end -->
-
+{{-- @dd( $subTotal); --}}
 </header>
 <!-- header-area-end -->

@@ -53,6 +53,9 @@ return [
     'choose_a_commune' => 'Choose a commune',
     'identity_card' => 'Identity card',
     'enter_identity_card' => 'Enter identity card',
+    'prefecture' => 'Province / City',
+    'district' => 'District',
+    'commune' => 'Commune',
 
     'id' => 'ID',
     'full_name' => 'Full name',
@@ -189,6 +192,7 @@ return [
     'shopping_cart' => 'Shopping cart',
     'quantity' => 'Quantity',
     'subtotal' => 'Subtotal',
+    'total' => 'Total',
     'checkout' => 'Checkout',
 
     // mail user register

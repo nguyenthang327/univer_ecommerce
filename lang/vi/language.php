@@ -53,6 +53,9 @@ return [
     'choose_a_commune' => 'Chọn Xã/Phường',
     'identity_card' => 'Số CMT/CCCD',
     'enter_identity_card' => 'Nhập số CMT/CCCD',
+    'prefecture' => 'Tỉnh / Thành phố',
+    'district' => 'Quận / Huyện',
+    'commune' => 'Xã / Phường',
 
     'id' => 'ID',
     'full_name' => 'Họ và tên',
@@ -189,6 +192,7 @@ return [
     'shopping_cart' => 'Giỏ hàng',
     'quantity' => 'Số lượng',
     'subtotal' => 'Tổng phụ',
+    'total' => 'Tổng',
     'checkout' => 'Thanh toán',
 
     // mail user register
