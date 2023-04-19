@@ -192,6 +192,7 @@ Route::middleware('web')->group(function () {
 
         Route::prefix('/order')->group(function(){
             Route::get('/', [OrderController::class, 'checkoutView'])->name('customer.order.checkoutView');
+            Route::post('/store', [OrderController::class, 'store'])->name('customer.order.store');
         });
     });
 });

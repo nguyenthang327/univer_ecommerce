@@ -27,12 +27,12 @@
                 <div class="col-lg-8">
                     <div class="checkout-wrap">
                         <h5 class="title">{{trans('language.billing_information')}}</h5>
-                        <form action="#" class="checkout-form">
+                        <form action="{{route('customer.order.store')}}" class="checkout-form" method="POST">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-grp">
                                         <label for="fName">{{trans('language.full_name')}} <span>*</span></label>
-                                        <input type="text" id="fName">
+                                        <input type="text" id="fName" name="full_name">
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -81,13 +81,13 @@
                                 <div class="col-12">
                                     <div class="form-grp">
                                         <label for="address">{{trans('language.address')}} <span>*</span></label>
-                                        <input type="text" id="address">
+                                        <input type="text" id="address" name="address">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-grp">
                                         <label for="phone">{{trans('language.phone')}} <span>*</span></label>
-                                        <input type="text" id="phone">
+                                        <input type="text" id="phone" name="phone">
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
@@ -117,6 +117,7 @@
                                     @if(session('coupon_code'))
                                     <li>
                                         <span>{{trans('language.discount')}}:</span>{{ session('coupon_code')['discount'] }} %
+                                        <input type="hidden" name="code" value="{{ session('coupon_code')['code'] }}">
                                     </li>
                                     @endif
                                     <li>
@@ -143,17 +144,17 @@
                                 </div> --}}
                                 <div class="bank-transfer">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck4" name="payment_method" value="1">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck4" name="payment_method" value="{{ \App\Models\Order::PAYMENT_CASH}}">
                                         <label class="custom-control-label" for="customCheck4" >{{trans('language.cash_on_delivery')}}</label>
                                     </div>
                                 </div>
                                 <div class="paypal-method">
                                     <div class="paypal-method-flex">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck5" name="payment_method" value="2">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck5" name="payment_method" value="{{ \App\Models\Order::PAYMENT_PAYPAL}}">
                                             <label class="custom-control-label" for="customCheck5" >PayPal</label>
                                         </div>
-                                        <div class="paypal-logo"><img src="img/images/paypal_logo.png" alt=""></div>
+                                        <div class="paypal-logo"><img src="{{asset('images/paypal_logo.png')}}" alt=""></div>
                                     </div>
                                     <p>Pay via PayPal; you can pay with your credit
                                     card if you don’t have a PayPal account</p>

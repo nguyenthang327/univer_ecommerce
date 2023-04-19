@@ -10,6 +10,9 @@ class Order extends Model
 {
     use HasFactory;
 
+    const PAYMENT_CASH = 0; // cash on delivery
+    const PAYMENT_PAYPAL = 1; // using paypal
+
     /**
      * @var string
      */
