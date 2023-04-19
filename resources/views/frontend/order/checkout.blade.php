@@ -14,23 +14,10 @@
 <main>
 
     <!-- breadcrumb-area -->
-    <section class="breadcrumb-area breadcrumb-bg" data-background="img/bg/breadcrumb_bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb-content text-center">
-                        <h2>Shopping Checkout</h2>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Checkout</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+     @include('frontend.layouts.breadcrumb', [
+        'title' => trans('language.shopping_checkout'),
+        'breadcrumbItem' => trans('language.checkout')
+    ])
     <!-- breadcrumb-area-end -->
 
     <!-- checkout-area -->
@@ -39,18 +26,18 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="checkout-wrap">
-                        <h5 class="title">billing information</h5>
+                        <h5 class="title">{{trans('language.billing_information')}}</h5>
                         <form action="#" class="checkout-form">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-grp">
-                                        <label for="fName">FULL NAME <span>*</span></label>
+                                        <label for="fName">{{trans('language.full_name')}} <span>*</span></label>
                                         <input type="text" id="fName">
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-grp">
-                                        <label>{{trans('language.prefecture')}} *</label>
+                                        <label>{{trans('language.prefecture')}} <span>*</span></label>
                                         <select class="custom-select select2-base dynamic-select-option"
                                             style="width:100%"
                                             data-child="#select_district"
@@ -65,7 +52,7 @@
                                 
                                 <div class="col-sm-4">
                                     <div class="form-grp">
-                                        <label>{{trans('language.district')}} *</label>
+                                        <label>{{trans('language.district')}} <span>*</span></label>
                                         <select class="custom-select select2-base dynamic-select-option"
                                             style="width:100%"
                                             name="district_id"
@@ -80,7 +67,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-grp">
-                                        <label>{{trans('language.commune')}} *</label>
+                                        <label>{{trans('language.commune')}} <span>*</span></label>
                                         <select class="custom-select select2-base"
                                             id="select_ward"
                                             data-placeholder="{{trans('language.choose_a_commune')}}"
@@ -93,22 +80,22 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-grp">
-                                        <label for="address">{{trans('language.address')}} *</label>
+                                        <label for="address">{{trans('language.address')}} <span>*</span></label>
                                         <input type="text" id="address">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-grp">
-                                        <label for="phone">Your PHONE <span>*</span></label>
+                                        <label for="phone">{{trans('language.phone')}} <span>*</span></label>
                                         <input type="text" id="phone">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="different-address custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="stda">
                                         <label class="custom-control-label" for="stda">SHIP TO A DIFFERENT ADDRESS?</label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-12">
                                     <div class="form-grp mb-0">
                                         <label for="message">ORDER you have NOTES <small>(OPTIONAL)</small></label>
@@ -125,7 +112,7 @@
                             <h6 class="title">Cart Totals</h6>
                             <form action="#">
                                 <ul>
-                                    <li class="order-subtotal"><span>SUBTOTAL</span> </li>
+                                    <li class="order-subtotal"><span>{{trans('language.subtotal')}}</span>
                                     </li>
                                     @if(session('coupon_code'))
                                     <li>
@@ -133,7 +120,7 @@
                                     </li>
                                     @endif
                                     <li>
-                                        <span>SHIPPING</span>
+                                        <span>{{ trans('language.shipping') }}</span>
                                         <div class="shop-check-wrap">
                                             {{-- <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
@@ -142,11 +129,11 @@
                                             <div class="custom-checkbox">
                                                 {{-- <input type="checkbox" class="custom-control-input" id="customCheck2"> --}}
                                                 {{-- <label class="custom-control-label" for="customCheck2">FREE SHIPPING</label> --}}
-                                                <span class="font-weight-bold" for="customCheck2">FREE SHIPPING</span>
+                                                <span class="font-weight-bold" for="customCheck2">{{ trans('language.free_shipping') }}</span>
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="cart-total-amount order-total"><span>TOTAL</span> <span class="amount"></span></li>
+                                    <li class="cart-total-amount order-total"><span>{{trans('language.total')}}</span> <span class="amount"></span></li>
                                 </ul>
                                 {{-- <div class="bank-transfer">
                                     <div class="custom-control custom-checkbox">
@@ -156,15 +143,15 @@
                                 </div> --}}
                                 <div class="bank-transfer">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                        <label class="custom-control-label" for="customCheck4">Cash On Delivery</label>
+                                        <input type="checkbox" class="custom-control-input" id="customCheck4" name="payment_method" value="1">
+                                        <label class="custom-control-label" for="customCheck4" >{{trans('language.cash_on_delivery')}}</label>
                                     </div>
                                 </div>
                                 <div class="paypal-method">
                                     <div class="paypal-method-flex">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck5">
-                                            <label class="custom-control-label" for="customCheck5">PayPal</label>
+                                            <input type="checkbox" class="custom-control-input" id="customCheck5" name="payment_method" value="2">
+                                            <label class="custom-control-label" for="customCheck5" >PayPal</label>
                                         </div>
                                         <div class="paypal-logo"><img src="img/images/paypal_logo.png" alt=""></div>
                                     </div>
@@ -264,8 +251,25 @@
     <script src="{{ asset("common/js/common.js") }}"></script>
     <script>
         $(document).ready(function(){
-            $('.order-subtotal').append( $('.f-right.subtotal').text())
-            $('.order-total .amount').append( $('.f-right.total').text())
-        })
+            $('.order-subtotal').append( $('.f-right.subtotal').text());
+            $('.order-total .amount').append( $('.f-right.total').text());
+
+            $("input[name='payment_method']:checkbox").on('click', function() {
+                // in the handler, 'this' refers to the box clicked on
+                var $box = $(this);
+                if ($box.is(":checked")) {
+                    // the name of the box is retrieved using the .attr() method
+                    // as it is assumed and expected to be immutable
+                    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                    // the checked state of the group/box on the other hand will change
+                    // and the current value is retrieved using .prop() method
+                    $(group).prop("checked", false);
+                    $box.prop("checked", true);
+                } else {
+                    $box.prop("checked", false);
+                }
+            });
+            
+        });
     </script>
 @stop

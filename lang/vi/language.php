@@ -194,6 +194,12 @@ return [
     'subtotal' => 'Tổng phụ',
     'total' => 'Tổng',
     'checkout' => 'Thanh toán',
+    'delivery_address' => 'Địa chỉ giao hàng',
+    'shipping' => 'Giao hàng',
+    'free_shipping' => 'Miễn phí giao hàng',
+    'shopping_checkout' => 'Thanh toán',
+    'billing_information' => 'Thông tin thanh toán',
+    'cash_on_delivery' => 'Thanh toán khi giao hàng',
 
     // mail user register
     'mail' => [

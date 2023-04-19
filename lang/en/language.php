@@ -194,6 +194,12 @@ return [
     'subtotal' => 'Subtotal',
     'total' => 'Total',
     'checkout' => 'Checkout',
+    'delivery_address' => 'Delivery address',
+    'shipping' => 'Shipping',
+    'free_shipping' => 'Free shipping',
+    'shopping_checkout' => 'Shopping checkout',
+    'billing_information' => 'Billing information',
+    'cash_on_delivery' => 'Cash on delivery',
 
     // mail user register
     'mail' => [
