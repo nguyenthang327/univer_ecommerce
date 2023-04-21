@@ -23,94 +23,93 @@
     <!-- checkout-area -->
     <section class="checkout-area pt-100 pb-100">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="checkout-wrap">
-                        <h5 class="title">{{trans('language.billing_information')}}</h5>
-                        <form action="{{route('customer.order.store')}}" class="checkout-form" method="POST">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-grp">
-                                        <label for="fName">{{trans('language.full_name')}} <span>*</span></label>
-                                        <input type="text" id="fName" name="full_name">
+            <form action="{{route('customer.order.store')}}" class="checkout-form" method="POST">
+                @csrf
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="checkout-wrap">
+                            <h5 class="title">{{trans('language.billing_information')}}</h5>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-grp">
+                                            <label for="fName">{{trans('language.full_name')}} <span>*</span></label>
+                                            <input type="text" id="fName" name="full_name">
+                                        </div>
                                     </div>
+                                    <div class="col-4">
+                                        <div class="form-grp">
+                                            <label>{{trans('language.prefecture')}} <span>*</span></label>
+                                            <select class="custom-select select2-base dynamic-select-option"
+                                                style="width:100%"
+                                                data-child="#select_district"
+                                                data-url="{{ route('getDistrictList') }}"
+                                                data-placeholder="{{trans('language.choose_a_prefecture')}}"
+                                                name="prefecture_id"
+                                                {{-- required --}}
+                                            >
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-sm-4">
+                                        <div class="form-grp">
+                                            <label>{{trans('language.district')}} <span>*</span></label>
+                                            <select class="custom-select select2-base dynamic-select-option"
+                                                style="width:100%"
+                                                name="district_id"
+                                                data-child="#select_ward"
+                                                data-url="{{ route('getCommuneList') }}"
+                                                id="select_district"
+                                                data-placeholder="{{trans('language.choose_a_district')}}"
+                                                {{-- required --}}
+                                            >
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-grp">
+                                            <label>{{trans('language.commune')}} <span>*</span></label>
+                                            <select class="custom-select select2-base"
+                                                id="select_ward"
+                                                data-placeholder="{{trans('language.choose_a_commune')}}"
+                                                name="commune_id"
+                                                style="width: 100%"
+                                                {{-- required --}}
+                                            >
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-grp">
+                                            <label for="address">{{trans('language.address')}} <span>*</span></label>
+                                            <input type="text" id="address" name="address">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-grp">
+                                            <label for="phone">{{trans('language.phone')}} <span>*</span></label>
+                                            <input type="text" id="phone" name="phone">
+                                        </div>
+                                    </div>
+                                    {{-- <div class="col-12">
+                                        <div class="different-address custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="stda">
+                                            <label class="custom-control-label" for="stda">SHIP TO A DIFFERENT ADDRESS?</label>
+                                        </div>
+                                    </div> --}}
+                                    {{-- <div class="col-12">
+                                        <div class="form-grp mb-0">
+                                            <label for="message">ORDER you have NOTES <small>(OPTIONAL)</small></label>
+                                            <textarea name="message" id="message" placeholder="About Your Special Delivery Notes"></textarea>
+                                        </div>
+                                    </div> --}}
                                 </div>
-                                <div class="col-4">
-                                    <div class="form-grp">
-                                        <label>{{trans('language.prefecture')}} <span>*</span></label>
-                                        <select class="custom-select select2-base dynamic-select-option"
-                                            style="width:100%"
-                                            data-child="#select_district"
-                                            data-url="{{ route('getDistrictList') }}"
-                                            data-placeholder="{{trans('language.choose_a_prefecture')}}"
-                                            name="prefecture_id"
-                                            required
-                                        >
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-sm-4">
-                                    <div class="form-grp">
-                                        <label>{{trans('language.district')}} <span>*</span></label>
-                                        <select class="custom-select select2-base dynamic-select-option"
-                                            style="width:100%"
-                                            name="district_id"
-                                            data-child="#select_ward"
-                                            data-url="{{ route('getCommuneList') }}"
-                                            id="select_district"
-                                            data-placeholder="{{trans('language.choose_a_district')}}"
-                                            required
-                                        >
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-grp">
-                                        <label>{{trans('language.commune')}} <span>*</span></label>
-                                        <select class="custom-select select2-base"
-                                            id="select_ward"
-                                            data-placeholder="{{trans('language.choose_a_commune')}}"
-                                            name="commune_id"
-                                            style="width: 100%"
-                                            required
-                                        >
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-grp">
-                                        <label for="address">{{trans('language.address')}} <span>*</span></label>
-                                        <input type="text" id="address" name="address">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-grp">
-                                        <label for="phone">{{trans('language.phone')}} <span>*</span></label>
-                                        <input type="text" id="phone" name="phone">
-                                    </div>
-                                </div>
-                                {{-- <div class="col-12">
-                                    <div class="different-address custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="stda">
-                                        <label class="custom-control-label" for="stda">SHIP TO A DIFFERENT ADDRESS?</label>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-12">
-                                    <div class="form-grp mb-0">
-                                        <label for="message">ORDER you have NOTES <small>(OPTIONAL)</small></label>
-                                        <textarea name="message" id="message" placeholder="About Your Special Delivery Notes"></textarea>
-                                    </div>
-                                </div> --}}
                             </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-8">
-                    <aside class="shop-cart-sidebar checkout-sidebar">
-                        <div class="shop-cart-widget">
-                            <h6 class="title">Cart Totals</h6>
-                            <form action="#">
+                        </div>
+                    <div class="col-lg-4 col-md-8">
+                        <aside class="shop-cart-sidebar checkout-sidebar">
+                            <div class="shop-cart-widget">
+                                <h6 class="title">Cart Totals</h6>
                                 <ul>
                                     <li class="order-subtotal"><span>{{trans('language.subtotal')}}</span>
                                     </li>
@@ -175,12 +174,12 @@
                                         and conditions *</label>
                                     </div>
                                 </div> --}}
-                                <button class="btn">PROCEED TO CHECKOUT</button>
-                            </form>
-                        </div>
-                    </aside>
+                                <button type="submit" class="btn">PROCEED TO CHECKOUT</button>
+                            </div>
+                        </aside>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
     <!-- checkout-area-end -->
