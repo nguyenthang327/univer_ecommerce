@@ -22,6 +22,13 @@ class OrderDetail extends Model
      */
     protected $guarded = [];
 
+        /**
+     * get order detail by order
+     */
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
+
     /**
      * Save id user created or updated
      */

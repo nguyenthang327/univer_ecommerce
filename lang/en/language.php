@@ -142,6 +142,7 @@ return [
     'status' =>' Status',
     'status_s' => ['Not sell', 'Sell'],
     'out_stock' => 'Out of stock',
+    'attribute' => 'Attribute',
 
     // brand
     'brand' => 'Brand',
@@ -156,6 +157,31 @@ return [
     'coupon_management' => 'Coupon management',
     'update_coupon' => 'Update coupon',
     'create_new_coupon' => 'Create new coupon',
+
+    // order
+    'order_management' => 'Order managerment',
+    'order_list' => 'Order list',
+    'edit_order' => 'Order edit',
+    'order' => [
+        'item_list' => 'Product list',
+        'status' => [
+            'Order Success',
+            'Order successfully paid',
+            'Delivery',
+            'Delivery Paid',
+            'Delivery successful',
+            'Cancellation',
+        ],
+        'payment_method' => [
+            'Cash on delivery',
+            'Using PayPal',
+        ],
+    ],
+
+    'customer_id' => 'Customer ID',
+    'customer_account_name' => 'Customer name',
+    'consignee_name' => 'Name of consignee',
+    'consignee_phone' => 'Phone of consignee',
 
     // frontend
     'home' => 'Home',
@@ -200,6 +226,9 @@ return [
     'shopping_checkout' => 'Shopping checkout',
     'billing_information' => 'Billing information',
     'cash_on_delivery' => 'Cash on delivery',
+    'order_completed' => 'Order completed',
+    'payment_method' => 'Payment method',
+    'created_at' => 'Created at',
 
     // mail user register
     'mail' => [

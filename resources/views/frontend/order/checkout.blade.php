@@ -11,6 +11,7 @@
 
 @section('content')
 <!-- main-area -->
+@if(!session('orderCompletedView'))
 <main>
 
     <!-- breadcrumb-area -->
@@ -36,6 +37,14 @@
                                             <input type="text" id="fName" name="full_name">
                                         </div>
                                     </div>
+                                    @php
+                                        $prefectures = \App\Models\Prefecture::orderBy('name')->get();
+                                        $choose_prefecture = old('prefecture_id')?old('prefecture_id'):(isset($admin->prefecture_id)?$admin->prefecture_id:'');
+                                        $districts = \App\Models\District::where('prefecture_id', $choose_prefecture)->orderBy('name')->get();
+                                        $choose_district = old('district_id')?old('district_id'):(isset($admin->district_id)?$admin->district_id:'');
+                                        $communes = \App\Models\Commune::where('district_id', $choose_district)->orderBy('name')->get();
+                                        $choose_commune = old('commune_id')?old('commune_id'):(isset($admin->commune_id)?$admin->commune_id:'');
+                                    @endphp
                                     <div class="col-4">
                                         <div class="form-grp">
                                             <label>{{trans('language.prefecture')}} <span>*</span></label>
@@ -47,6 +56,14 @@
                                                 name="prefecture_id"
                                                 {{-- required --}}
                                             >
+                                            <option value="" disabled selected style="display: none">{{trans('language.choose_prefecture')}}</option>
+                                                @if(isset($prefectures))
+                                                    @foreach($prefectures as $prefecture)
+                                                        <option value="{{$prefecture->id}}" {{ $choose_prefecture == $prefecture->id?'selected':'' }}>
+                                                            {{$prefecture->name}}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -63,6 +80,14 @@
                                                 data-placeholder="{{trans('language.choose_a_district')}}"
                                                 {{-- required --}}
                                             >
+                                            <option value="" disabled selected style="display: none">{{trans('language.choose_district')}}</option>
+                                                @if(isset($districts))
+                                                    @foreach($districts as $district)
+                                                        <option value="{{$district->id}}" {{ $choose_district == $district->id?'selected':'' }}>
+                                                            {{$district->name}}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -76,6 +101,14 @@
                                                 style="width: 100%"
                                                 {{-- required --}}
                                             >
+                                                <option value="" disabled selected style="display: none">{{trans('language.choose_commune')}}</option>
+                                                @if(isset($communes))
+                                                    @foreach($communes as $commune)
+                                                        <option value="{{$commune->id}}" {{ $choose_commune == $commune->id?'selected':'' }}>
+                                                            {{$commune->name}}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -240,6 +273,9 @@
     <!-- core-features-end -->
 
 </main>
+@else
+    @include('frontend.order.order-completed')
+@endif
 <!-- main-area-end -->
 @stop
 

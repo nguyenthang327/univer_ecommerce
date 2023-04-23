@@ -172,6 +172,31 @@
                         </li>
                     </ul>
                 </li>
+
+                @php
+                    $routeOrder = [
+                        'admin.order.index',
+                        'admin.order.show',
+                    ];
+                    $routeActive = array_merge($routeOrder);
+                @endphp
+                <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            {{ trans('language.order_management') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route("admin.order.index") }}" class="nav-link {{ in_array($currentRoute, $routeOrder) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ trans('language.order_list') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

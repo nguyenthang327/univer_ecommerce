@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\Admin\UserController as BeAdminUser;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CouponController;
+use App\Http\Controllers\Backend\Admin\OrderController as AdminOrderController;
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
@@ -88,13 +89,21 @@ use App\Http\Controllers\Frontend\ProductController as FrontendProductController
             });
 
              // Brand
-             Route::prefix('/coupon')->group(function(){
+            Route::prefix('/coupon')->group(function(){
                 Route::get('/', [CouponController::class, 'index'])->name('admin.coupon.index');
                 Route::get('/create', [CouponController::class, 'create'])->name('admin.coupon.create');
                 Route::post('/store', [CouponController::class, 'store'])->name('admin.coupon.store');
                 Route::get('/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupon.edit');
                 Route::put('/update/{id}', [CouponController::class, 'update'])->name('admin.coupon.update');
                 Route::delete('/destroy/{id}', [CouponController::class, 'destroy'])->name('admin.coupon.destroy');
+            });
+
+            // Order
+            Route::prefix('/order')->group(function(){
+                Route::get('/', [AdminOrderController::class, 'index'])->name('admin.order.index');
+                Route::get('/{id}/edit', [AdminOrderController::class, 'edit'])->name('admin.order.edit');
+                Route::put('/update/{id}', [AdminOrderController::class, 'update'])->name('admin.order.update');
+                Route::delete('/{id}/destroy', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
             });
         });
     });

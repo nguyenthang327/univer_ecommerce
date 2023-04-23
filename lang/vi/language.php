@@ -142,6 +142,7 @@ return [
     'status' =>' Trạng thái',
     'status_s' => ['Không bán', 'Bán'],
     'out_stock' => 'Hết hàng',
+    'attribute' => 'Thuộc tính',
 
     // brand
     'brand' => 'Thương hiệu',
@@ -156,6 +157,31 @@ return [
     'coupon_management' => 'Quản lý phiếu giảm giá',
     'update_coupon' => 'Cập nhật phiếu giảm giá',
     'create_new_coupon' => 'Thêm mới phiếu giảm giá',
+
+    // order
+    'order_management' => 'Quản lý đơn hàng',
+    'order_list' => 'Danh sách đơn hàng',
+    'edit_order' => 'Cập nhật đơn hàng',
+    'order' => [
+        'item_list' => 'Danh sách sản phẩm',
+        'status' => [
+            'Đặt hàng thành công',
+            'Đặt hàng thành công đã thanh toán',
+            'Đang giao hàng',
+            'Đang giao hàng đã thanh toán',
+            'Giao hàng thành công',
+            'Hủy đơn',
+        ],
+        'payment_method' => [
+            'Thanh toán khi giao hàng ',
+            'Sử dụng PayPal',
+        ],
+    ],
+
+    'customer_id' => 'Mã khách hàng',
+    'customer_account_name' => 'Tên khách hàng',
+    'consignee_name' => 'Tên người nhận hàng',
+    'consignee_phone' => 'Số điện thoại người nhận hàng',
 
     // frontend
     'home' => 'Trang chủ',
@@ -200,6 +226,9 @@ return [
     'shopping_checkout' => 'Thanh toán',
     'billing_information' => 'Thông tin thanh toán',
     'cash_on_delivery' => 'Thanh toán khi giao hàng',
+    'order_completed' => 'Đặt hàng thành công',
+    'payment_method' => 'Hình thức thanh toán',
+    'created_at' => 'Tạo lúc',
 
     // mail user register
     'mail' => [

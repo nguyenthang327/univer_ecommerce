@@ -20,6 +20,11 @@ return new class extends Migration
             $table->unsignedBigInteger('sku_id')->nullable();
             $table->unsignedInteger('quantity')->nullable();
             $table->timestamps();
+
+            $table->foreign('sku_id')
+                ->references('id')
+                ->on('product_skus')
+                ->onDelete('cascade');
         });
     }
 

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->foreignId('product_id')->constrained('products');
-            $table->foreignId('sku_id')->constrained('product_skus');
+            $table->unsignedBigInteger('sku_id')->nullable();
             $table->string('product_name');
-            $table->json('attribute')->nullable();
+            $table->text('attribute')->nullable();
             $table->decimal('price', 12);
             $table->integer('quantity');
             $table->decimal('subtotal', 12)->storedAs('price * quantity');
