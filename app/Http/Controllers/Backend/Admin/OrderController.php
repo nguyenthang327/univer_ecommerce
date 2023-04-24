@@ -3,15 +3,32 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateOrderRequest;
+use App\Logics\Admin\OrderManager;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
     const TAKE = 12;
     protected $pathView = 'backend.admin.order.';
+
+     /**
+     * @var OrderManager
+     */
+    protected $orderManager;
+
+    /**
+     * @param \App\Logics\Admin\OrderManager $OrderManager
+     */
+    public function __construct(OrderManager $orderManager)
+    {
+        $this->orderManager = $orderManager;
+    }
 
     public function index(Request $request){
         $orders = Order::select([
@@ -65,11 +82,56 @@ class OrderController extends Controller
         return view($this->pathView . 'edit', compact('order'));
     }
 
-    public function update(){
+    public function update(UpdateOrderRequest $request, $id){
+        $order = Order::where('id', $id)->first();
 
+        if(!$order){
+            abort(404);
+        }
+        if($order->status == Order::STATUS_5){
+            return redirect()->back()->with([
+                'status_failed' => trans('message.update_order_failed_with_status_cancell'),
+            ]);
+        }
+        try{
+            DB::beginTransaction();
+            $order->status = $request->status;
+            $order->save();
+
+            if($request->status == Order::STATUS_5){
+                $this->orderManager->handleUpdateProduct($order);
+            }
+            DB::commit();
+            return redirect()->back()->with([
+                'status_successed' => trans('message.update_order_successed')
+            ]);
+        }catch(Exception $e){
+            DB::rollBack();
+            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            return redirect()->back()->with([
+                'status_failed' => trans('message.update_order_failed'),
+            ]);
+        }
     }
 
     public function destroy($id){
-
+        // $order = Order::where('id', $id)->first();
+        // if(!$order){
+        //     abort(404);
+        // }
+        // try{
+        //     DB::beginTransaction();
+        //     $order->status = $request->status;
+        //     $order->save();
+        //     return back()->with([
+        //         'status_successed' => trans('message.update_order_successed')
+        //     ]);
+        // }catch(Exception $e){
+        //     DB::rollBack();
+        //     Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+        //     return back()->with([
+        //         'status_failed' => trans('message.update_order_failed'),
+        //     ]);
+        // }
     }
 }

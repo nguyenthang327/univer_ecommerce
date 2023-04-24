@@ -34,16 +34,6 @@
                     <td class="text-center text-nowrap">
                         @if($order->deleted_at == null)
                             <a href="{{ route('admin.order.edit',['id'=>$order->id]) }}" data-toggle='tooltip' title="{{trans('language.edit')}}" class="text-md text-primary mr-2"><i class="far fa-pen-alt"></i></a>
-                            <a href="{{ route('admin.order.destroy', ['id'=>$order->id]) }}"
-                               data-toggle='tooltip'
-                               title="{{trans('language.delete')}}"
-                               class="text-md text-danger delete-row-table"
-                               data-id="{{ $order->id }}"
-                               data-title="{{trans('language.delete_order')}}"
-                               data-text="<span class='text-bee'>ID: {{$order->id}}</span> - <strong>{{ $order->full_name }}</strong>"
-                               data-url="{{ route('admin.order.destroy', ['id'=>$order->id]) }}"
-                               data-method="DELETE"
-                               data-icon="question"><i class="far fa-trash-alt"></i></a>
                         {{-- @else
                             <a href="{{ route('admin.order.restore', ['id'=>$order->id]) }}"
                                 data-toggle='tooltip'

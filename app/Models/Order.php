@@ -22,7 +22,7 @@ class Order extends Model
     const STATUS_2 = 2; // đang giao hàng chưa thanh toán
     const STATUS_3 = 3; // đang giao hàng đã thanh toán
     const STATUS_4 = 4; // giao hàng thành công
-    const STATUS_5 = 5; // hủy đơn khi status = 0,1
+    const STATUS_5 = 5; // hủy đơn phía customer khi status = 0,1
 
     const STATUS_GROUP_0 = [self::STATUS_0, self::STATUS_2, self::STATUS_4, self::STATUS_5];
     const STATUS_GROUP_1 = [self::STATUS_1, self::STATUS_3, self::STATUS_4, self::STATUS_5];

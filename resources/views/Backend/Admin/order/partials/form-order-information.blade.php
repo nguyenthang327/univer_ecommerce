@@ -58,7 +58,7 @@
                         <div class="col-sm-8">
                             <div class="form-group">
                                 <label for="">{{ trans('language.status') }} <span class="text-red"></span></label>
-                                <select class="select2-base " name="status"  style="width: 100%" required>
+                                <select class="select2-base " name="status"  style="width: 100%" required {{(isset($order->status)?($order->status == \App\Models\Order::STATUS_5 ? 'disabled' : '') :'')}}>
                                     @php
                                         $chooseStatus = old('status') ? old('status') : (isset($order->status)?$order->status:'');
                                     @endphp
@@ -72,6 +72,9 @@
                                         @endforeach
                                     @endif
                                 </select>
+                                @if ($errors->first('status'))
+                                    <div class="invalid-alert text-danger">{{ $errors->first('status') }}</div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -84,7 +87,7 @@
         <div class="col-xl-3 theia-sidebar">
             <div class="card">
                 <div class="card-body align-items-start flex-wrap">
-                    <button type="submit" class="btn btn-primary mr-2 my-1"><i class="far fa-save"></i> {{trans('language.save')}}</button>
+                    <button type="submit" class="btn btn-primary mr-2 my-1" {{(isset($order->status)?($order->status == \App\Models\Order::STATUS_5 ? 'disabled' : '') :'')}}><i class="far fa-save"></i> {{trans('language.save')}}</button>
                 </div>
             </div>
         </div>

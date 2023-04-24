@@ -63,7 +63,7 @@ class OrderManager
                 '),
             ])
             ->get();
-// dd( $productInCart[0]->attributes);
+
         $errors = [];
         foreach($productInCart as $product){
             if($product->product_status == Product::NOT_SELL){

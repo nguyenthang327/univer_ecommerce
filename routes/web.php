@@ -103,7 +103,7 @@ use App\Http\Controllers\Frontend\ProductController as FrontendProductController
                 Route::get('/', [AdminOrderController::class, 'index'])->name('admin.order.index');
                 Route::get('/{id}/edit', [AdminOrderController::class, 'edit'])->name('admin.order.edit');
                 Route::put('/update/{id}', [AdminOrderController::class, 'update'])->name('admin.order.update');
-                Route::delete('/{id}/destroy', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
+                // Route::delete('/{id}/destroy', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
             });
         });
     });
