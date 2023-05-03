@@ -33,8 +33,8 @@ return [
     'admin_info' => 'Thông tin quản trị',
     'avatar' => 'Ảnh đại diện',
     'lang' => 'Ngôn ngữ',
-    'user_name' => 'Tên người dùng',
-    'enter_user_name' => 'Nhập tên người dùng',
+    'user_name' => 'Tên nhân viên',
+    'enter_user_name' => 'Nhập tên nhân viên',
     'first_name' => 'Họ',
     'enter_first_name' => 'Nhập họ',
     'last_name' => 'Tên',
@@ -62,11 +62,11 @@ return [
     'operation' => 'Hành động',
 
     // User
-    'user_list' => 'Danh sách người dùng',
-    'user_info' => 'Thông tin người dùng',
-    'user_management' => 'Quản lý người dùng',
-    'update_user_info' => 'Cập nhật thông tin người dùng',
-    'create_new_user' => 'Thêm mới người dùng',
+    'user_list' => 'Danh sách nhân viên',
+    'user_info' => 'Thông tin nhân viên',
+    'user_management' => 'Quản lý nhân viên',
+    'update_user_info' => 'Cập nhật thông tin nhân viên',
+    'create_new_user' => 'Thêm mới nhân viên',
 
     'by_id' => 'Theo ID',
     'by_fullname' => 'Theo họ và tên',
@@ -74,10 +74,10 @@ return [
     'by_phone' => 'Theo số điện thoại',
     'by_gender' => 'Theo giới tính',
 
-    'delete_user' => 'Bạn có muốn xóa người dùng này?',
-    'restore_user' => 'Bạn có muốn khôi phục người dùng này?',
+    'delete_user' => 'Bạn có muốn xóa nhân viên này?',
+    'restore_user' => 'Bạn có muốn khôi phục nhân viên này?',
 
-    'filter_by_retired_user' => 'Lọc theo người dùng đã bị xóa.',
+    'filter_by_retired_user' => 'Lọc theo nhân viên đã bị xóa.',
 
     // button
     'save' => 'Lưu',
@@ -142,6 +142,7 @@ return [
     'status' =>' Trạng thái',
     'status_s' => ['Không bán', 'Bán'],
     'out_stock' => 'Hết hàng',
+    'in_stock' => 'Còn hàng',
     'attribute' => 'Thuộc tính',
 
     // brand
@@ -229,6 +230,11 @@ return [
     'order_completed' => 'Đặt hàng thành công',
     'payment_method' => 'Hình thức thanh toán',
     'created_at' => 'Tạo lúc',
+    'reuquired_comment' => 'Để đánh giá, bình luận sản phẩm bạn phải đăng nhập và đã mua sản phẩm này.',
+    'number_review' => ':quantity đánh giá',
+    'product_detail' => 'Chi tiết sản phẩm',
+    'product_wishlist' => 'Sản phẩm yêu thích',
+
 
     // mail user register
     'mail' => [
@@ -240,7 +246,7 @@ return [
                 'created_at' => 'Tài khoản của bạn được tạo vào:',
                 'mail_adress'=> 'Địa chỉ email:',
                 'password' => 'Mật khẩu:',
-                'user_name' => 'Tên người dùng:',
+                'user_name' => 'Tên nhân viên:',
                 'link' => 'Click vào đường trang đăng nhập',
                 'content_2' => 'Các thông tin như địa chỉ, số điện thoại, ngày sinh,... sẽ dễ dàng được cập nhật ngay khi bạn đăng nhập vào dịch vụ của chúng tôi.',
             ]

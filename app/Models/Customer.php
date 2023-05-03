@@ -82,4 +82,9 @@ class Customer extends Authenticatable
     function getFullNameAttribute() {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    public function favoriteProducts()
+    {
+        return $this->belongsToMany(Product::class, 'favorite_product')->withTimestamps();
+    }
 }

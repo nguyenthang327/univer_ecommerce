@@ -121,4 +121,9 @@ class Product extends Model
 
         $this->variants()->insert($variantOptions);
     }
+
+    public function favoriteBycustomers()
+    {
+        return $this->belongsToMany(Customer::class, 'favorite_product')->withTimestamps();
+    }
 }

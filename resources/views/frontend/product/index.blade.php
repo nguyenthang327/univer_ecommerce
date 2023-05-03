@@ -13,23 +13,10 @@
     @endphp
 
     <!-- breadcrumb-area -->
-    <section class="breadcrumb-area breadcrumb-bg" data-background="{{ asset('images/breadcrumb_bg.jpg')}}">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb-content text-center">
-                        <h2>Smart Shop</h2>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Shop Left Sidebar</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @include('frontend.layouts.breadcrumb', [
+        'title' => 'Smart Shop',
+        'breadcrumbItem' => '',
+    ])
     <!-- breadcrumb-area-end -->
 
     <!-- shop-area -->
@@ -290,11 +277,11 @@
                                                 <img src="{{ !empty($product->gallery) ? asset('storage/'.$product->gallery[0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
                                                 {{-- <img class="overlay-product-thumb" src="img/product/td_product_img01.jpg" alt=""> --}}
                                             </a>
-                                            <ul class="action">
+                                            {{-- <ul class="action">
                                                 <li><a href="#"><i class="flaticon-shuffle-1"></i></a></li>
                                                 <li><a href="#"><i class="flaticon-supermarket"></i></a></li>
                                                 <li><a href="#"><i class="flaticon-witness"></i></a></li>
-                                            </ul>
+                                            </ul> --}}
                                             @if($product->discount > 0)
                                                 <span class="discount">{{$product['discount']}}%</span>
                                             @endif
@@ -328,4 +315,10 @@
 @stop
 
 @section('js_page')
+    <script>
+        $(document).ready(function(){
+            let title = $('.shop-cat-list').find('a.active').text();
+            $('.breadcrumb-item.active').text(title);
+        })
+    </script>
 @stop

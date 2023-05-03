@@ -33,8 +33,8 @@ return [
     'admin_info' => 'Administrative information',
     'avatar' => 'Avatar',
     'lang' => 'Language',
-    'user_name' => 'User name',
-    'enter_user_name' => 'Enter user name',
+    'user_name' => 'Employee name',
+    'enter_user_name' => 'Enter employee name',
     'first_name' => 'First name',
     'enter_first_name' => 'Enter first name',
     'last_name' => 'Last name',
@@ -62,11 +62,11 @@ return [
     'operation' => 'Operation',
 
     // User
-    'user_list' => 'User list',
-    'user_info' => 'User information',
+    'user_list' => 'Employee list',
+    'user_info' => 'Employee information',
     'user_management' => 'User management',
-    'update_user_info' => 'Update user information',
-    'create_new_user' => 'Create new user',
+    'update_user_info' => 'Update employee information',
+    'create_new_user' => 'Create new employee',
 
     'by_id' => 'By ID',
     'by_fullname' => 'By fullname',
@@ -74,10 +74,10 @@ return [
     'by_phone' => 'By number phone',
     'by_gender' => 'By gender',
 
-    'delete_user' => 'Do you want to delete this user?',
-    'restore_user' => 'Do you want to restore this user?',
+    'delete_user' => 'Do you want to delete this employee?',
+    'restore_user' => 'Do you want to restore this employee?',
 
-    'filter_by_retired_user' => 'Filter by retired user.',
+    'filter_by_retired_user' => 'Filter by retired employee.',
 
     // button
     'save' => 'Save',
@@ -142,6 +142,7 @@ return [
     'status' =>' Status',
     'status_s' => ['Not sell', 'Sell'],
     'out_stock' => 'Out of stock',
+    'in_stock' => 'In stock',
     'attribute' => 'Attribute',
 
     // brand
@@ -229,6 +230,11 @@ return [
     'order_completed' => 'Order completed',
     'payment_method' => 'Payment method',
     'created_at' => 'Created at',
+    'reuquired_comment' => 'To rate, comment on this product you must be logged in and have purchased this product.',
+    'number_review' => ':quantity review',
+    'product_detail' => 'Product detail',
+    'product_wishlist' => 'Wishlist',
+
 
     // mail user register
     'mail' => [

@@ -22,7 +22,13 @@
                     $(".header-action.header-cart-mini").load(location.href + " .header-action.header-cart-mini");
                 },
                 error: function(xhr) {
-                    console.log(xhr);
+                    if(xhr.status == 401){
+                            window.location.href = window.location.origin + '/login';
+                    }else{
+                        toastr.error(xhr.responseJSON.message, {
+                            timeOut: 5000
+                        });
+                    }
                     // loaderEnd();
                 }
             });
@@ -201,5 +207,16 @@
             }
             
         });
+
+        // $("#rating_product").on('submit', function(e){
+        //     e.preventDefault();
+        //     var dat = $('#rating_product').serialize();
+        //     console.log(dat);
+        // })
+
+        // $(document).on('click', '.rising-rating .fa', function(){
+        //     var rating = $(this).index() + 1;
+        //     console.log('Bạn đã đánh giá ' + rating + ' sao');
+        // });
     });
 </script>

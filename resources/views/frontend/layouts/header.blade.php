@@ -138,8 +138,8 @@
                                     $subTotal = 0;
                                 @endphp
                                 <ul>
-                                    <li><a href="#"><i class="flaticon-two-arrows"></i></a></li>
-                                    <li><a href="wishlist.html"><i class="flaticon-heart"></i></a></li>
+                                    {{-- <li><a href="#"><i class="flaticon-two-arrows"></i></a></li> --}}
+                                    <li><a href="{{route('customer.product.listFavoriteProduct')}}"><i class="flaticon-heart"></i></a></li>
                                     <li class="header-shop-cart"><a href="{{ route('customer.cart.index') }}">
                                         <i class="flaticon-shopping-bag"></i>
                                         <span class="cart-count">{{$checkCart ? count($globalProductsInCart) : 0}}</span>
@@ -166,7 +166,7 @@
                                                     </div>
                                                     <div class="cart-content">
                                                         <h4>
-                                                            <a href="{{ route('site.product.show', ['slug' =>$product->product_slug]) }}">{{ $product->product_name }}</a>
+                                                            <a href="{{ route('site.product.show', ['slug' =>$product->product_slug]) }}" class="line-clamp-3">{{ $product->product_name }}</a>
                                                         </h4>
                                                         @if($product->attributes)
                                                             <p style="word-wrap: break-word;">{{$product->attributes}}</p>
@@ -186,14 +186,17 @@
                                                 @php
                                                     if(session('coupon_code')){
                                                         $total = \App\Services\ProcessPriceService::regularPrice($subTotal, session('coupon_code')['discount']);
+                                                        $valueTotal = $subTotal - ($subTotal * session('coupon_code')['discount'] / 100);
                                                     }else{
                                                         $total = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
+                                                        $valueTotal = $subTotal;
                                                     }
                                                     $subTotal = \App\Services\ProcessPriceService::regularPrice($subTotal, null);
                                                     // session()->forget('cart_total');
                                                     session()->put('cart_total', [
                                                         'subTotal' => $subTotal,
                                                         'total' => $total,
+                                                        'valueTotal' => round($valueTotal,2),
                                                     ]);
                                                 @endphp
                                                 <li>

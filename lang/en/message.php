@@ -35,6 +35,7 @@ return [
     'save_option_successed' => 'Save option successed!',
     'save_option_failed' => 'Save option failed!',
     'please_enter_option_value' => 'Please enter option value at position :position!',
+    'customer_has_not_purchased_this_product' => 'You have not purchased this product yet',
 
 
     // brand

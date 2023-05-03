@@ -5,6 +5,7 @@ namespace App\Logics\Frontend;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductManager
@@ -84,7 +85,7 @@ class ProductManager
             ])
             ->where('products.status', Product::SELL)
             ->groupBy('products.id');
-// dd($request->all());
+
             if(isset($request)){
                 if(isset($request->categorySlug)){
                     $categoryID = ProductCategory::select('id')->where('slug', $request->categorySlug)->pluck('id')->toArray();
@@ -123,6 +124,59 @@ class ProductManager
             'checkVariant' =>  $checkVariant,
             'product' => $product,
         ];
+    }
+
+    public function getRelatedProduct($product, $limit = 8){
+        $products = Product::with(['skus' => function($query){
+                $query->select([
+                    'product_skus.*',
+                    DB::raw('MIN(product_skus.price) as min_price'),
+                    DB::raw('MAX(product_skus.price) as max_price'),
+                    DB::raw('SUM(product_skus.stock) as total_stock'),
+                ])
+                ->whereNotNull('product_skus.price')
+                ->whereNotNull('product_skus.stock')
+                ->groupBy('product_skus.product_id');
+            }])
+            ->leftJoin('product_category_relation', 'product_category_relation.product_id', '=', 'products.id')
+            ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id')
+            ->leftJoin('brands', 'brands.id', '=', 'products.brand_id')
+            ->select([
+                'products.id',
+                'products.name',
+                'products.price',
+                'products.slug',
+                'products.discount',
+                'products.gallery',
+                'products.created_at',
+                'products.product_type',
+            ])
+            ->where('products.status', Product::SELL)
+            ->where('products.id', '<>', $product->id)
+            ->where(function($query) use($product) {
+                $query->where('products.brand_id', $product->brand_id)
+                ->orWhereIn('product_categories.id', $product->productCategoryRelation->pluck('category_id')->toArray());
+            })
+            ->groupBy('products.id')
+            ->limit($limit)
+            ->get();
+        return $products;
+    }
+
+    public function getListFavoriteProduct(){
+        $products = Product::select(['products.*'])
+            ->join('favorite_product', 'favorite_product.product_id', 'products.id')
+            ->with(['skus', 'variants', 'options', 'optionValues'])
+            ->leftJoin('product_skus', 'product_skus.product_id', '=', 'products.id')
+            ->leftJoin('product_options', 'product_options.product_id', '=', 'products.id')
+            ->leftJoin('product_option_values', 'product_option_values.product_id', '=', 'products.id')
+            ->leftJoin('product_variants', 'product_variants.sku_id', '=', 'product_skus.id')
+            // ->where('products.status', Product::SELL)
+            ->where('favorite_product.customer_id', Auth::guard('customer')->user()->id)
+            ->groupBy('products.id')
+            ->get();
+            
+        return $products;
     }
 
 }

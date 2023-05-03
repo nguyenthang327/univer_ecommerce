@@ -3984,6 +3984,10 @@ label {
     float: right;
     line-height: 1;
     font-size: 10px;
+    /* color: #ff6000; */
+}
+
+.product-review-list .rating i.active{
     color: #ff6000;
 }
 .product-review-list .comment-avatar-info h5 {
@@ -4054,6 +4058,9 @@ label {
 }
 .product-review-list .comment-avatar-img img {
     border-radius: 50%;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
 }
 .shop-details-nav-wrap {
     float: left;
@@ -5166,6 +5173,12 @@ label {
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
     overflow: hidden;
   }

@@ -3,6 +3,8 @@
 @section('title',trans('language.checkout'))
 
 @section('css_page')
+<style>
+</style>
 @stop
 
 @section('css_library')
@@ -186,7 +188,12 @@
                                             <input type="checkbox" class="custom-control-input" id="customCheck5" name="payment_method" value="{{ \App\Models\Order::PAYMENT_PAYPAL}}">
                                             <label class="custom-control-label" for="customCheck5" >PayPal</label>
                                         </div>
-                                        <div class="paypal-logo"><img src="{{asset('images/paypal_logo.png')}}" alt=""></div>
+
+                                        <div class="paypal-logo">
+                                            {{-- <img src="{{asset('images/paypal_logo.png')}}" alt=""> --}}
+                                            <div id="paypal-button-container"></div>
+
+                                        </div>
                                     </div>
                                     <p>Pay via PayPal; you can pay with your credit
                                     card if you don’t have a PayPal account</p>
@@ -285,8 +292,10 @@
 
 @section('js_page')
     <script src="{{ asset("common/js/common.js") }}"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AXSWPgMvKuvMc6Qrm-H3fbEIWSHn6vMo3TJRT5SKB6ixdKqkjsF6VqfVtwowOPWHoZbEQfSh6fgnXx7G&currency=USD&disable-funding=credit,card"></script>
     <script>
         $(document).ready(function(){
+            
             $('.order-subtotal').append( $('.f-right.subtotal').text());
             $('.order-total .amount').append( $('.f-right.total').text());
 
@@ -306,6 +315,43 @@
                 }
             });
             
+            $(document).on('submit', '.checkout-form', function(e){
+                if($("input[name='payment_method']:checked").val() == 1){
+                    e.preventDefault();
+                   
+                }
+            })
+
+            const total = {{session('cart_total')['valueTotal']}};
+            paypal.Buttons({
+                        // style: {
+                        //     shape: 'rect',
+                        //     color: 'gold',
+                        //     layout: 'vertical',
+                        //     label: 'paypal',
+            
+                        // },
+                        // Sets up the transaction when a payment button is clicked
+                createOrder: (data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: total // Can also reference a variable or function
+                            }
+                        }]
+                    });
+                },
+    
+                onApprove: (data, actions) => {
+                    return actions.order.capture().then(function(orderData) {
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                        const transaction = orderData.purchase_units[0].payments.captures[0];
+                        alert(
+                            `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
+                        );
+                    });
+                }
+            }).render('#paypal-button-container');
         });
     </script>
 @stop

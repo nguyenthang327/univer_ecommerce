@@ -24,6 +24,7 @@ use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomepageController;
 use App\Http\Controllers\Frontend\OrderController;
+use App\Http\Controllers\Frontend\ProductCommentController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 
 /*
@@ -188,6 +189,11 @@ Route::middleware('web')->group(function () {
 
     Route::group(['middleware' => ['auth:customer']], function(){
 
+        Route::prefix('/product-wishlist')->group(function(){
+            Route::get('/', [FrontendProductController::class, 'listFavoriteProduct'])->name('customer.product.listFavoriteProduct');
+            Route::post('/store', [FrontendProductController::class, 'favoriteStore'])->name('customer.product.favoriteStore');
+        });
+
         Route::prefix('/cart')->group(function(){
             Route::get('/', [CartController::class, 'index'])->name('customer.cart.index');
             Route::post('/add', [CartController::class, 'store'])->name('customer.cart.store');
@@ -202,6 +208,12 @@ Route::middleware('web')->group(function () {
         Route::prefix('/order')->group(function(){
             Route::get('/', [OrderController::class, 'checkoutView'])->name('customer.order.checkoutView');
             Route::post('/store', [OrderController::class, 'store'])->name('customer.order.store');
+        });
+
+        Route::prefix('/comment')->group(function(){
+            Route::get('/', [ProductCommentController::class , 'index'])->name('customer.comment.product.index');
+            Route::post('/store', [ProductCommentController::class, 'store'])->name('customer.comment.product.store');
+            Route::delete('/{id}/delete', [ProductCommentController::class, 'destroy'])->name('customer.comment.product.delete');
         });
     });
 });

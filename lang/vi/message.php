@@ -35,7 +35,7 @@ return [
     'save_option_successed' => 'Lưu thuộc tính thành công!',
     'save_option_failed' => 'Lưu thuộc tính thất bại!',
     'please_enter_option_value' => 'Vui lòng nhập giá trị của thuộc tính tại vị trí :position!',
-
+    'customer_has_not_purchased_this_product' => 'Bạn chưa mua sản phẩm này!',
 
     // brand
     'brand_not_found' => 'Không tìm thấy thương hiệu này!',

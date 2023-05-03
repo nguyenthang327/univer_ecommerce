@@ -42,7 +42,7 @@
                         @if(date("Y-m-d",strtotime($product['created_at']))  > date("Y-m-d", strtotime("-1 months")))
                             <span class="sd-meta">New!</span>
                         @endif
-                        <a href="cart.html" class="to-cart">add to cart <i class="fas fa-cart-plus"></i></a>
+                        {{-- <a href="cart.html" class="to-cart">add to cart <i class="fas fa-cart-plus"></i></a> --}}
                     </div>
                     <div class="exclusive-item-content">
                         <div class="exclusive--content--top">

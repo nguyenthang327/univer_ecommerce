@@ -1,3 +1,10 @@
+@extends('frontend.layouts.master')
+@section('title',trans('language.not_found'))
+
+@section('css_page')
+@stop
+
+@section('content')
 <!-- main-area -->
 <main>
 
@@ -41,3 +48,7 @@
 
 </main>
 <!-- main-area-end -->
+@stop
+
+@section('js_page')
+@stop

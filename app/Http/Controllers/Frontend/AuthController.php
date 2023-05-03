@@ -122,6 +122,9 @@ class AuthController extends BaseController
             return redirect()->route('site.home');
         }
         $customer = Customer::where('id', $id)->where('status', Customer::STATUS_INACTIVE)->first();
+        if(!$customer){
+            return view('frontend.layoutStatus.404');
+        }
         return view($this->pathView . '.register-enter-code', compact('customer'));
     }
 
