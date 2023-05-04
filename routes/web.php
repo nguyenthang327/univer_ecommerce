@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Backend\User\ProductController;
 use App\Http\Controllers\Backend\User\UserController as BeUser;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\App;
 
@@ -26,6 +27,7 @@ use App\Http\Controllers\Frontend\HomepageController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductCommentController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\Frontend\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -188,7 +190,11 @@ Route::middleware('web')->group(function () {
     });
 
     Route::group(['middleware' => ['auth:customer']], function(){
-
+        Route::prefix('/infor')->group(function(){
+            Route::get('', [ProfileController::class, 'index'])->name('customer.index');
+            Route::post('/update', [ProfileController::class, 'update'])->name('customer.update');
+        });
+ 
         Route::prefix('/product-wishlist')->group(function(){
             Route::get('/', [FrontendProductController::class, 'listFavoriteProduct'])->name('customer.product.listFavoriteProduct');
             Route::post('/store', [FrontendProductController::class, 'favoriteStore'])->name('customer.product.favoriteStore');
@@ -216,4 +222,8 @@ Route::middleware('web')->group(function () {
             Route::delete('/{id}/delete', [ProductCommentController::class, 'destroy'])->name('customer.comment.product.delete');
         });
     });
+});
+
+Route::group(['middleware' => ['auth:admin,user,customer']], function(){
+    Route::post('password/update', [ChangePasswordController::class, 'changePasswod'])->name('password.update');
 });

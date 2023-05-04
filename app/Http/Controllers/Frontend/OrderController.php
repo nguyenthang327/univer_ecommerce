@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\CustomerOrder;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\OrderStoreRequest;
 use App\Logics\Frontend\OrderManager;

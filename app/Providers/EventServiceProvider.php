@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\CustomerOrder;
 use App\Events\RegisterCustomer;
 use App\Events\RegisterUser;
+use App\Listeners\CustomerOrderSendMail;
 use App\Listeners\CustomerRegisterSendMail;
 use App\Listeners\RegisterSendMail;
 use Illuminate\Auth\Events\Registered;
@@ -28,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
         RegisterCustomer::class => [
             CustomerRegisterSendMail::class,
         ],
+        CustomerOrder::class => [
+            CustomerOrderSendMail::class,
+        ]
     ];
 
     /**

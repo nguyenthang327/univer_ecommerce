@@ -23,7 +23,7 @@ class BaseMail extends Mailable
     public function __construct($language_id = null)
     {
         $language =  Language::find($language_id);
-        $name = isset($language) ? $language->name : null;
+        $name = isset($language) ? $language->name : 'vi';
         if($name){
             App::setLocale($name);
         }

@@ -235,6 +235,18 @@ return [
     'product_detail' => 'Product detail',
     'product_wishlist' => 'Wishlist',
 
+    // change password
+    'old_password' => 'Old password',
+    'new_password' => 'New password',
+    'change_password' => 'Change password',
+    'input_old_password' => 'Enter your old password',
+    'input_new_password' => 'Enter your new password',
+    'input_confirm_password' => 'Re-enter your old password',
+    'change' => 'Change',
+    'return' => 'Return',
+
+    'self_info' => 'Self information',
+
 
     // mail user register
     'mail' => [
@@ -251,8 +263,16 @@ return [
                 'content_2' => 'Information such as address, phone number, date of birth,... will be easily updated as soon as you log in to our service.',
             ]
         ],
+        'customer_order' => [
+            'subject' => 'Đặt hàng thành công.',
+            'title' => 'Xin chào :fullName, cảm ơn bạn đã đặt mua hàng từ chúng tôi!',
+            'content' => [
+                'content_1' => 'Dưới đây là thông tin sản phẩm bạn đã đặt vào ngày :date.',
+            ]
+        ],
     ],
     'author' => 'Author',
-    'website' => 'Website shopping vip pro',
+    // 'website' => 'Website shopping vip pro',
+    'website' => 'V Shop',
 ];
 ?>

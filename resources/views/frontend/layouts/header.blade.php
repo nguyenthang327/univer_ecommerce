@@ -71,16 +71,16 @@
                                         <span>{{ $globalCustomer->full_name }}</span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right text-center">
+                                        <a href="{{route('customer.index')}}">
                                         <img class="header-avartar avatar-customer"
                                             src="{{ !empty($globalCustomer->avatar) ? asset('storage/'.$globalCustomer->avatar) : '' }}"
                                             alt="{{ $globalCustomer->full_name }}"
                                             onerror="this.onerror=null;this.src='{{ asset('images/user-default.png') }}';"
                                             />
+                                        </a>
                                         <div class="dropdown-divider"></div>
                                         <div class="customer-action d-flex">
-                                            <a href="#" class="dropdown-item font-weight-bold">
-                                                {{trans('language.profile')}}
-                                            </a>
+                                            <a href="" class="dropdown-item font-weight-bold" data-toggle="modal" data-target="#modalChangePassword"><i class="fa fa-key"></i> {{trans('language.change_password')}}</a>
                                             <a href="#"
                                                 class="dropdown-item font-weight-bold ml-3"
                                                 onclick="event.preventDefault();

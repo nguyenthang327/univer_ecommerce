@@ -354,7 +354,8 @@ label {
 .header-style-two .navbar-wrap ul li .submenu li.active a,
 .mobile-menu .navigation li.active > a,
 .mobile-menu .navigation li ul li.active > a,
-.mobile-menu .social-links li a:hover {
+.mobile-menu .social-links li a:hover,
+.fe-primary-color {
 	color: #ff6000;
 }
 
@@ -4682,7 +4683,8 @@ label {
 .error-content p {
     margin-bottom: 0;
 }
-.error-content .btn-fill-out {
+.error-content .btn-fill-out,
+.btn-fe-primary-color {
     background: #ff6000;
 }
 .form-note {
