@@ -13,4 +13,6 @@ class ProductCateogryRelation extends Model
      * @var string
      */
     protected $table = 'product_category_relation';
+
+    // public function
 }

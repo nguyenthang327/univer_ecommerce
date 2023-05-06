@@ -12,7 +12,7 @@
                     <input type="number" class="form-control" placeholder="{{ trans('language.enter_price') }}"
                         name="sku_price[]" autocomplete="off"
                         value="{{ old('sku_price') ? old('sku_price') : (isset($sku->price) ? $sku->price : '') }}"
-                        min="0">
+                        min="0" step="0.01">
                     @if ($errors->first('sku_price'))
                         <div class="invalid-alert text-danger">
                             {{ $errors->first('sku_price') }}</div>

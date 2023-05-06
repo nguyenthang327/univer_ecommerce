@@ -78,7 +78,6 @@ class ProductCategory extends Model
             'product_categories.slug',
             'product_categories.created_by_admin_id',
             'product_categories.updated_by_admin_id',
-            'product_categories.deleted_at',
             DB::raw('CONCAT_WS(" " , created.first_name, created.last_name) as created_name'),
             DB::raw('CONCAT_WS(" " , updated.first_name, updated.last_name) as updated_name'),
         ];

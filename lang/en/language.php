@@ -33,8 +33,8 @@ return [
     'admin_info' => 'Administrative information',
     'avatar' => 'Avatar',
     'lang' => 'Language',
-    'user_name' => 'User name',
-    'enter_user_name' => 'Enter user name',
+    'user_name' => 'Employee name',
+    'enter_user_name' => 'Enter employee name',
     'first_name' => 'First name',
     'enter_first_name' => 'Enter first name',
     'last_name' => 'Last name',
@@ -53,17 +53,20 @@ return [
     'choose_a_commune' => 'Choose a commune',
     'identity_card' => 'Identity card',
     'enter_identity_card' => 'Enter identity card',
+    'prefecture' => 'Province / City',
+    'district' => 'District',
+    'commune' => 'Commune',
 
     'id' => 'ID',
     'full_name' => 'Full name',
     'operation' => 'Operation',
 
     // User
-    'user_list' => 'User list',
-    'user_info' => 'User information',
+    'user_list' => 'Employee list',
+    'user_info' => 'Employee information',
     'user_management' => 'User management',
-    'update_user_info' => 'Update user information',
-    'create_new_user' => 'Create new user',
+    'update_user_info' => 'Update employee information',
+    'create_new_user' => 'Create new employee',
 
     'by_id' => 'By ID',
     'by_fullname' => 'By fullname',
@@ -71,10 +74,10 @@ return [
     'by_phone' => 'By number phone',
     'by_gender' => 'By gender',
 
-    'delete_user' => 'Do you want to delete this user?',
-    'restore_user' => 'Do you want to restore this user?',
+    'delete_user' => 'Do you want to delete this employee?',
+    'restore_user' => 'Do you want to restore this employee?',
 
-    'filter_by_retired_user' => 'Filter by retired user.',
+    'filter_by_retired_user' => 'Filter by retired employee.',
 
     // button
     'save' => 'Save',
@@ -107,7 +110,8 @@ return [
     'slug' => 'Slug',
     'sku' => 'Sku',
     'price' => 'Price',
-    'stock' => 'Stock',    
+    'stock' => 'Stock',
+    'discount' => 'Discount (%)',
     'description' => 'Description',
     'choose_category' => 'Choose category',
     'gallery' => 'Gallery',
@@ -134,8 +138,117 @@ return [
     'delete_product'=> 'Do you want to delete this product?',
     'product_keyword' => 'Seach by product name, product sku',
     'by_category' => 'By category',
+    'product_feature' => 'Feature product',
+    'status' =>' Status',
+    'status_s' => ['Not sell', 'Sell'],
+    'out_stock' => 'Out of stock',
+    'in_stock' => 'In stock',
+    'attribute' => 'Attribute',
 
-    // mail register
+    // brand
+    'brand' => 'Brand',
+    'brand_list' => 'Brand list',
+    'delete_brand' => 'Do you want to remove this brand?',
+    'by_brand_name' => 'Filter by brand name',
+
+    // coupon
+    'coupon' => 'Coupon',
+    'started_at' => 'Started at',
+    'ended_at' => 'Ended at',
+    'coupon_management' => 'Coupon management',
+    'update_coupon' => 'Update coupon',
+    'create_new_coupon' => 'Create new coupon',
+
+    // order
+    'order_management' => 'Order managerment',
+    'order_list' => 'Order list',
+    'edit_order' => 'Order edit',
+    'order' => [
+        'item_list' => 'Product list',
+        'status' => [
+            'Order Success',
+            'Order successfully paid',
+            'Delivery',
+            'Delivery Paid',
+            'Delivery successful',
+            'Cancellation',
+        ],
+        'payment_method' => [
+            'Cash on delivery',
+            'Using PayPal',
+        ],
+    ],
+
+    'customer_id' => 'Customer ID',
+    'customer_account_name' => 'Customer name',
+    'consignee_name' => 'Name of consignee',
+    'consignee_phone' => 'Phone of consignee',
+
+    // frontend
+    'home' => 'Home',
+    'see_more' => 'See more',
+    'all_categories' => 'All categories',
+    'product_new' => 'New product',
+    'display_products' => 'Showing products :from-:to of :total result',
+    'customer_login' => [
+        'title' => 'Login',
+        'title_header' => 'Sign in',
+        'account_inactive' => ':attribute này chưa được kích hoạt. Vui lòng đăng ký để kích hoạt :attribute',
+    ],
+    'customer_register' => [
+        'title' => 'Register',
+        'exists' => 'This :attribute is already enabled, please use another :attribute!',
+    ],
+
+    'or' => 'or',
+
+    'verification' => 'Verification',
+    'enter_code' => 'Enter code',
+    'code' => 'Code',
+    'password' => 'Password',
+    'enter_password' => 'Enter password',
+    'confirm_password ' => 'Confirm password',
+    'enter_confirm_password ' => 'Re-enter your password',
+
+    // cart 
+    'message_cart' => [
+        'out_stock' => 'Out of stock!',
+        'max_add' => 'You can only add up to :quantity products to your cart.',
+        'max_add_in_cart' => 'You can only add up to :quantity products to the cart because this product is already in the cart.',
+    ],
+    'shopping_cart' => 'Shopping cart',
+    'quantity' => 'Quantity',
+    'subtotal' => 'Subtotal',
+    'total' => 'Total',
+    'checkout' => 'Checkout',
+    'delivery_address' => 'Delivery address',
+    'shipping' => 'Shipping',
+    'free_shipping' => 'Free shipping',
+    'shopping_checkout' => 'Shopping checkout',
+    'billing_information' => 'Billing information',
+    'cash_on_delivery' => 'Cash on delivery',
+    'order_completed' => 'Order completed',
+    'payment_method' => 'Payment method',
+    'created_at' => 'Created at',
+    'reuquired_comment' => 'To rate, comment on this product you must be logged in and have purchased this product.',
+    'number_review' => ':quantity review',
+    'product_detail' => 'Product detail',
+    'product_wishlist' => 'Wishlist',
+
+    // change password
+    'old_password' => 'Old password',
+    'new_password' => 'New password',
+    'change_password' => 'Change password',
+    'input_old_password' => 'Enter your old password',
+    'input_new_password' => 'Enter your new password',
+    'input_confirm_password' => 'Re-enter your old password',
+    'change' => 'Change',
+    'return' => 'Return',
+
+    'self_info' => 'Self information',
+
+
+    // mail user register
     'mail' => [
         'register' => [
             'subject' => ':website congratulates you on your successful account registration.',
@@ -150,8 +263,16 @@ return [
                 'content_2' => 'Information such as address, phone number, date of birth,... will be easily updated as soon as you log in to our service.',
             ]
         ],
+        'customer_order' => [
+            'subject' => 'Đặt hàng thành công.',
+            'title' => 'Xin chào :fullName, cảm ơn bạn đã đặt mua hàng từ chúng tôi!',
+            'content' => [
+                'content_1' => 'Dưới đây là thông tin sản phẩm bạn đã đặt vào ngày :date.',
+            ]
+        ],
     ],
     'author' => 'Author',
-    'website' => 'Website shopping vip pro',
+    // 'website' => 'Website shopping vip pro',
+    'website' => 'V Shop',
 ];
 ?>

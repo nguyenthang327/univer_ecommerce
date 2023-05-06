@@ -185,7 +185,12 @@ return [
         'password' => 'Password',
         'thumbnail' => 'Thumbnail',
         'category_name' => 'Category name',
-        'category_parent_id' => 'Category parent', 
+        'category_parent_id' => 'Category parent',
+        'email_login' => 'Email',
+        'password_login' => 'Password',
+        'password_confirmation' => 'Password comfirmation',
+        'product_id' => 'Product',
+        'quantity' => 'Quantity',
     ],
 
 ];

@@ -29,10 +29,13 @@ class ProductRequest extends FormRequest
             'sku' => 'required|max:255|unique:products,sku,'.$this->id,
             'slug' => 'required|max:500|unique:products,slug,'.$this->id,
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'discount' =>  'nullable|numeric|min:0|max:100',
             'description' => 'nullable',
             'category_id' => 'nullable|array',
             'category_id.*' => 'nullable|exists:product_categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
+            'status' => 'nullable',
         ];
     }
 }

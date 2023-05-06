@@ -2,6 +2,7 @@
 
 return [
     'server_error' => 'An error occurred. please try again later!',
+    'not_found' => 'Not found data!',
 
     'nothing_data' => 'Nothing data!',
 
@@ -34,5 +35,23 @@ return [
     'save_option_successed' => 'Save option successed!',
     'save_option_failed' => 'Save option failed!',
     'please_enter_option_value' => 'Please enter option value at position :position!',
+    'customer_has_not_purchased_this_product' => 'You have not purchased this product yet',
+
+
+    // brand
+    'brand_not_found' => 'Brand not exist!',
+    'delete_brand_successed' => 'Delete brand successed!',
+    'delete_brand_failed' => 'Delete brand failed!',
+    'update_brand_failed' => 'Update brand failed!',
+    'update_brand_successed' => 'Update brand successed!',
+    'create_brand_successed' => 'Create brand successed!',
+    'create_brand_failed' => 'Create brand failed!',
+
+        
+    // frontend
+
+    // cart
+    'add_product_in_cart_successed' => 'Add product in cart successed!',
+
 ]
 ?>

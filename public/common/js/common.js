@@ -100,7 +100,7 @@ function dynamicSelectOption(){
 }
 
 function checkTypeFileImage(that) {
-    let fileExtension = ['png', 'gif', 'jpg', 'jpeg'];
+    let fileExtension = ['png', 'jpg', 'jpeg'];
     let fileExtentionCurrent = $(that).val().split('.').pop().toLowerCase();
     if ($.inArray(fileExtentionCurrent, fileExtension) == -1) {
         return false

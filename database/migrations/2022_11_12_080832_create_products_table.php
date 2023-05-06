@@ -23,11 +23,15 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->json("gallery")->nullable();
             // $table->datetime('expired_at')->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->unsignedFloat('discount')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->tinyInteger('is_featured')->default(0);
             $table->tinyInteger('product_type')->default(0);
-            $table->unsignedInteger('created_by')->nullable();
-            $table->unsignedInteger('updated_by')->nullable();
+            $table->unsignedInteger('brand_id')->nullable();
+            $table->unsignedInteger('created_by_user_id')->nullable();
+            $table->unsignedInteger('updated_by_user_id')->nullable();
+            $table->unsignedInteger('created_by_admin_id')->nullable();
+            $table->unsignedInteger('updated_by_admin_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

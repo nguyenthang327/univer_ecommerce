@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\GlobalServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -69,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('TIME_ZONE','UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -203,6 +204,8 @@ return [
          * Third Party Service Providers...
          */
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+
+        GlobalServiceProvider::class,
     ],
 
     /*

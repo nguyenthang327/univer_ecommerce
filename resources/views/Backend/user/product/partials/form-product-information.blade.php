@@ -51,7 +51,8 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>{{ trans('language.stock') }} <span class="text-red">*</span></label>
-                                <input type="text" class="form-control" placeholder="{{ trans('language.stock') }}" name="stock" required autocomplete="off" value="{{ old('stock') ? old('stock') : (isset($product->stock) ? $product->stock : '')}}">
+                                <input type="text" class="form-control" placeholder="{{ trans('language.stock') }}" name="stock" required autocomplete="off" value="{{ old('stock') ? old('stock') : (isset($product->stock) ? $product->stock : '')}}"
+                                min="0" >
                                 @if ($errors->first('stock'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('stock') }}</div>
                                 @endif
@@ -61,7 +62,8 @@
                             <div class="form-group">
                                 <label for="">{{ trans('language.price') }} <span class="text-red">*</span></label>
                                 <label class="input-group mb-1 ">
-                                    <input type="number" class="form-control" placeholder="{{ trans('language.price') }}" name="price" required autocomplete="off" value="{{ old('price') ? old('price') : (isset($product->price) ? $product->price : '')}}">
+                                    <input type="number" class="form-control" placeholder="{{ trans('language.price') }}" name="price" required autocomplete="off" value="{{ old('price') ? old('price') : (isset($product->price) ? $product->price : '')}}"
+                                    min="0" step="0.01">
                                     @if ($errors->first('price'))
                                         <div class="invalid-alert text-danger">{{ $errors->first('price') }}</div>
                                     @endif
@@ -71,6 +73,76 @@
                                         </div>
                                     </div>
                                 </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="">{{ trans('language.discount') }}</label>
+                                <label class="input-group mb-1 ">
+                                    <input type="number" class="form-control" placeholder="{{ trans('language.discount') }}" name="discount" autocomplete="off" value="{{ old('discount') ? old('discount') : (isset($product->discount) ? $product->discount : '')}}"
+                                    min="0" max="100" step="0.01">
+                                    @if ($errors->first('discount'))
+                                        <div class="invalid-alert text-danger">{{ $errors->first('discount') }}</div>
+                                    @endif
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-percent"></i>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="">{{trans('language.choose_brand')}} <span class="text-red"></span></label>
+                                <select class="select2-base select2-search__field {{$errors->first('brand_id') ? 'is-invalid' : ''}}"
+                                    style="width: 100%"
+                                    data-placeholder="{{trans('language.choose_brand')}}"
+                                    name="brand_id"
+                                    >
+                                <option value=""></option>
+                                @php
+                                    $brands = App\Models\Brand::select('id', 'name')->get();
+                                    $chooseBrand = old('brand_id') ? old('brand_id') : (isset($product->brand_id) ? $product->brand_id : '');
+                                @endphp
+                                @if(isset($brands))
+                                    @foreach($brands as $key => $brand)
+                                        <option value="{{ $brand->id }}" {{ $brand->id == $chooseBrand ? 'selected' : '' }} >
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                                </select>
+                                @if ($errors->first('brand_id'))
+                                    <div class="invalid-alert text-danger">{{ $errors->first('brand_id') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label for="radioStatus">{{trans('language.status')}}</label>
+                                <br>
+                                @php
+                                    $status_s = trans('language.status_s');
+                                    $choose_status = old('status') ? old('status') : ( isset($product->status) ? $product->status : 0);
+                                @endphp
+                                @for($i=0; $i<count($status_s); $i++)
+                                    <div class="icheck-primary d-inline mr-4">
+                                        <input type="radio" name="status" id="radioStatus{{ $i }}" value="{{ $i }}" {{ ($i == $choose_status) ? 'checked' : '' }} />
+                                        <label for="radioStatus{{ $i }}">
+                                            {{ $status_s[$i] }}
+                                        </label>
+                                    </div>
+                                @endfor
+                            </div>
+                        </div>
+                        <div class="col-sm-4 icheck-bee">
+                            <div class="form-group">
+                                <label></label>
+                                <div class="icheck-success">
+                                    <input type="checkbox" name="is_featured" id="is_featured" value="{{App\Models\Product::IS_FEATURE}}" @if(isset($product->is_featured) &&$product->is_featured) checked @endif/>
+                                    <label for="is_featured">{{trans('language.product_feature')}}</label>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-4">

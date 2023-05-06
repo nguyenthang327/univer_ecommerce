@@ -111,7 +111,7 @@
                             headers: {
                                 "X-CSRF-TOKEN": token,
                             },
-                            url: '/product/option/' + {{$product->id}},
+                            url: '/manage/product/option/' + {{$product->id}},
                             type: "POST",
                             data: formData,
                             dataType: "JSON",

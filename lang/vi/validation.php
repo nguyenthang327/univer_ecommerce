@@ -96,7 +96,7 @@ return [
     'min' => [
         'array' => 'The :attribute must have at least :min items.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'numeric' => 'The :attribute must be at least :min.',
+        'numeric' => ':attribute phải ít nhất :min.',
         'string' => 'The :attribute must be at least :min characters.',
     ],
     'min_digits' => 'The :attribute must have at least :min digits.',
@@ -186,6 +186,11 @@ return [
         'thumbnail' => 'Ảnh nhỏ',
         'category_name' => 'Tên danh mục',
         'category_parent_id' => 'Danh mục cha', 
+        'email_login' => 'Email',
+        'password_login' => 'Mật khẩu',
+        'password_confirmation' => 'Mật khẩu xác thực',
+        'product_id' => 'Sản phẩm',
+        'quantity' => 'Số lượng',
     ],
 
 ];

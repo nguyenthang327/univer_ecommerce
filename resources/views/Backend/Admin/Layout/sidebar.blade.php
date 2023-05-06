@@ -127,7 +127,15 @@
                     $routeProductCategory= [
                         'admin.productCategory.index',
                     ];
-                    $routeActive = array_merge($routeProduct, $routeProductCategory);
+                    $routeBrand = [
+                        'admin.brand.index',
+                    ];
+                    $routeCoupon = [
+                        'admin.coupon.index',
+                        'admin.coupon.create',
+                        'admin.coupon.edit',
+                    ];
+                    $routeActive = array_merge($routeProduct, $routeProductCategory, $routeBrand, $routeCoupon);
                 @endphp
                 <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
                     <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
@@ -148,6 +156,43 @@
                             <a href="{{ route('user.product.index')}}" class="nav-link {{ in_array($currentRoute, $routeProduct) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.product') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.brand.index')}}" class="nav-link {{ in_array($currentRoute, $routeBrand) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ trans('language.brand') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.coupon.index')}}" class="nav-link {{ in_array($currentRoute, $routeCoupon) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ trans('language.coupon') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                @php
+                    $routeOrder = [
+                        'admin.order.index',
+                        'admin.order.show',
+                    ];
+                    $routeActive = array_merge($routeOrder);
+                @endphp
+                <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            {{ trans('language.order_management') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route("admin.order.index") }}" class="nav-link {{ in_array($currentRoute, $routeOrder) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ trans('language.order_list') }}</p>
                             </a>
                         </li>
                     </ul>

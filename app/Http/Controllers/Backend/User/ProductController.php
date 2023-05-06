@@ -14,6 +14,7 @@ use App\Models\ProductOptionValue;
 use App\Models\ProductSku;
 use App\Models\ProductVariant;
 use App\Traits\StorageTrait;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -72,7 +73,9 @@ class ProductController extends Controller
             ->select([
                 'products.*',
                 DB::raw("GROUP_CONCAT( CONCAT(product_categories.name, '') SEPARATOR ', ' ) AS cateogry"),
+                'brands.name as brand_name',
             ])
+            ->leftJoin('brands', 'brands.id', '=', 'products.brand_id')
             ->leftJoin('product_category_relation', 'products.id', '=', 'product_category_relation.product_id')
             ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id');
 
@@ -141,7 +144,11 @@ class ProductController extends Controller
                 'slug' => $request->slug,
                 'price' => $request->price,
                 'stock' => $request->stock,
+                'discount' =>  $request->discount,
+                'is_featured' => $request->is_featured ? Product::IS_FEATURE : Product::IS_NOT_FEATURE,
                 'description' => $request->description,
+                'brand_id' => $request->brand_id,
+                'status' => $request->status,
             ];
 
             $categories = isset($request->category_id) ? $request->category_id : [];
@@ -227,7 +234,11 @@ class ProductController extends Controller
                 'slug' => $request->slug,
                 'price' => $request->price,
                 'stock' => $request->stock,
+                'discount' =>  $request->discount,
+                'is_featured' => $request->is_featured ? Product::IS_FEATURE : Product::IS_NOT_FEATURE,
                 'description' => $request->description,
+                'brand_id' => $request->brand_id,
+                'status' => $request->status,
             ];
 
             $categories = isset($request->category_id) ? $request->category_id : [];
@@ -628,22 +639,32 @@ class ProductController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id){
-        $product = Product::where('id', $id)->first();
-        if(!$product){
+        DB::beginTransaction();
+        try{
+            $product = Product::where('id', $id)->first();
+            if(!$product){
+                return response()->json([
+                    'status' => Response::HTTP_NOT_FOUND,
+                    'msg' => trans('message.product_not_exists'),
+                    'url_callback' => back()->getTargetUrl(),
+                ], Response::HTTP_NOT_FOUND);
+            }
+            $product->delete();
+            
+            DB::commit();
             return response()->json([
-                'status' => Response::HTTP_NOT_FOUND,
-                'msg' => trans('message.product_not_exists'),
-                'url_callback' => back()->getTargetUrl(),
-            ], Response::HTTP_NOT_FOUND);
+                'message' => [
+                    'title' => trans('language.success'),
+                    'text' => trans('message.delete_product_successed'),
+                ]
+            ], Response::HTTP_OK);
+        }catch(Exception $e){
+            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            DB::rollBack();
+            return response()->json([
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'message' => trans('message.server_error'),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        $product->delete();
-        
-        return response()->json([
-            'message' => [
-                'title' => trans('language.success'),
-                'text' => trans('message.delete_product_successed'),
-            ]
-        ], Response::HTTP_OK);
     }
 }
