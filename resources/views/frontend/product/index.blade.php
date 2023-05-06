@@ -32,7 +32,7 @@
                             <div class="shop-cat-list">
                                 <ul>
                                     {{-- xem xét lại --}}
-                                @if(!Request::has('categorySlug'))
+                                @if(!Request::has('categorySlug') || Request::get('categorySlug') == '')
                                     <li><a href="{{ route('site.product.index')}}" class="mini-cate-special active">All</a>
                                         {{-- <span>27</span> --}}
                                     </li>

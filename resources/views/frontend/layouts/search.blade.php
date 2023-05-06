@@ -70,11 +70,11 @@
                 <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
                     <div class="header-search-wrap">
                         <form action="{{ route('site.product.index') }}">
-                            <input type="text" placeholder="Search for your item's type....." name="search_keyword">
-                            <select class="custom-select" name="search_category">
+                            <input type="text" placeholder="Search for your item's type....." name="search_keyword" value="{{ Request::get('search_keyword') ?  Request::get('search_keyword') : ''}}">
+                            <select class="custom-select" name="categorySlug">
                                 <option selected value="">{{ trans('language.all_categories')}}</option>
                                 @foreach($globalProductCategories as $key => $productCategory)
-                                    <option value="{{ $productCategory["id"] }}">{{ $productCategory['name'] }}</option>
+                                    <option value="{{ $productCategory["slug"] }}" {{ Request::get('categorySlug') ==  $productCategory["slug"] ?  'selected' : ''}}>{{ $productCategory['name'] }}</option>
                                 @endforeach
                             </select>
                             <button><i class="flaticon-magnifying-glass-1"></i></button>

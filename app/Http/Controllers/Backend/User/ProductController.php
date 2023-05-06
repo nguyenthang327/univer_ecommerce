@@ -14,6 +14,7 @@ use App\Models\ProductOptionValue;
 use App\Models\ProductSku;
 use App\Models\ProductVariant;
 use App\Traits\StorageTrait;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -648,9 +649,9 @@ class ProductController extends Controller
                     'url_callback' => back()->getTargetUrl(),
                 ], Response::HTTP_NOT_FOUND);
             }
-
             $product->delete();
             
+            DB::commit();
             return response()->json([
                 'message' => [
                     'title' => trans('language.success'),

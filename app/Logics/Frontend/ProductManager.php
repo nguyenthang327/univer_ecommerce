@@ -2,6 +2,7 @@
 
 namespace App\Logics\Frontend;
 
+use App\Helpers\StringHelper;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Carbon\Carbon;
@@ -86,6 +87,7 @@ class ProductManager
             ->where('products.status', Product::SELL)
             ->groupBy('products.id');
 
+            $stringHelper = new StringHelper();
             if(isset($request)){
                 if(isset($request->categorySlug)){
                     $categoryID = ProductCategory::select('id')->where('slug', $request->categorySlug)->pluck('id')->toArray();
@@ -95,6 +97,10 @@ class ProductManager
                     // select('id')->where('parant_id', $request->category_id)->get()->toArray();
                     // $categoryID[] = $request->category_id;
                     // dd($categoryID, $categorySubID);
+                }
+                if($request->input('search_keyword')){
+                    $keyword = $stringHelper->formatStringWhereLike($request->search_keyword);
+                    $products->where('products.name', 'LIKE', '%'.$keyword.'%');
                 }
             }
 
