@@ -7,8 +7,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        {{-- <img src="" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+        <span class="brand-text font-weight-light">Admin {{trans('language.website')}}</span>
     </a>
 
     <!-- Sidebar -->
@@ -111,6 +111,42 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route("admin.user.create") }}" class="nav-link {{ in_array($currentRoute, $routeUserCreate) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ trans('language.add_new') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                @php
+                    $routeCustomerList = [
+                        'admin.customer.index'
+                    ];
+                    $routeCustomerCreate = [
+                        'admin.customer.create'
+                    ];
+                    $routeCustomerEdit = [
+                        'admin.customer.edit'
+                    ];
+                    $routeActive = array_merge($routeCustomerList, $routeCustomerCreate, $routeCustomerEdit);
+                @endphp
+                <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            {{ trans('language.customer_management') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route("admin.customer.index") }}" class="nav-link {{ in_array($currentRoute, $routeCustomerList) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ trans('language.customer_list') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route("admin.customer.create") }}" class="nav-link {{ in_array($currentRoute, $routeCustomerCreate) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.add_new') }}</p>
                             </a>

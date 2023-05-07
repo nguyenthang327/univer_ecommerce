@@ -170,13 +170,14 @@
                                     </li>
                                     <li class="cart-total-amount order-total"><span>{{trans('language.total')}}</span> <span class="amount"></span></li>
                                 </ul>
+                                <input type="hidden" class="custom-control-input" id="customCheck4" name="payment_method" value="{{ \App\Models\Order::PAYMENT_CASH}}">
                                 {{-- <div class="bank-transfer">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="customCheck3">
                                         <label class="custom-control-label" for="customCheck3">Direct Bank Transfer</label>
                                     </div>
                                 </div> --}}
-                                <div class="bank-transfer">
+                                {{-- <div class="bank-transfer">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="customCheck4" name="payment_method" value="{{ \App\Models\Order::PAYMENT_CASH}}">
                                         <label class="custom-control-label" for="customCheck4" >{{trans('language.cash_on_delivery')}}</label>
@@ -190,14 +191,14 @@
                                         </div>
 
                                         <div class="paypal-logo">
-                                            {{-- <img src="{{asset('images/paypal_logo.png')}}" alt=""> --}}
+                                            <img src="{{asset('images/paypal_logo.png')}}" alt="">
                                             <div id="paypal-button-container"></div>
 
                                         </div>
                                     </div>
                                     <p>Pay via PayPal; you can pay with your credit
                                     card if you don’t have a PayPal account</p>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="paypal-method">
                                     <div class="paypal-method-flex">
                                         <div class="custom-control custom-checkbox">
@@ -214,7 +215,7 @@
                                         and conditions *</label>
                                     </div>
                                 </div> --}}
-                                <button type="submit" class="btn">PROCEED TO CHECKOUT</button>
+                                <button type="submit" class="btn">Đặt hàng</button>
                             </div>
                         </aside>
                     </div>
@@ -298,7 +299,9 @@
             
             $('.order-subtotal').append( $('.f-right.subtotal').text());
             $('.order-total .amount').append( $('.f-right.total').text());
-
+            // $(document).on('click','#paypal-button-container', (function(e){
+            //     e.preventDefault();
+            // }))
             $("input[name='payment_method']:checkbox").on('click', function() {
                 // in the handler, 'this' refers to the box clicked on
                 var $box = $(this);

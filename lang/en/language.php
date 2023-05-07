@@ -184,6 +184,11 @@ return [
     'consignee_name' => 'Name of consignee',
     'consignee_phone' => 'Phone of consignee',
 
+    // customer
+    'customer_management' => 'Customer management',
+    'customer_list' => 'Customer list',
+    'user_profile' => 'Self information',
+
     // frontend
     'home' => 'Home',
     'see_more' => 'See more',
@@ -246,7 +251,10 @@ return [
     'return' => 'Return',
 
     'self_info' => 'Self information',
-
+    'sign_up' => 'Sign up',
+    'verify' => 'Verify',
+    'who' => 'Who: ',
+    'login' => 'Login',
 
     // mail user register
     'mail' => [

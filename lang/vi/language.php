@@ -184,6 +184,11 @@ return [
     'consignee_name' => 'Tên người nhận hàng',
     'consignee_phone' => 'Số điện thoại người nhận hàng',
 
+    // customer
+    'customer_management' => 'Quản lý khách hàng',
+    'customer_list' => 'Danh sách khách hàng',
+    'user_profile' => 'Thông tin cá nhân',
+
     // frontend
     'home' => 'Trang chủ',
     'see_more' => 'Xem thêm',
@@ -220,12 +225,12 @@ return [
     'quantity' => 'Số lượng',
     'subtotal' => 'Tổng phụ',
     'total' => 'Tổng',
-    'checkout' => 'Thanh toán',
+    'checkout' => 'Đặt hàng',
     'delivery_address' => 'Địa chỉ giao hàng',
     'shipping' => 'Giao hàng',
     'free_shipping' => 'Miễn phí giao hàng',
-    'shopping_checkout' => 'Thanh toán',
-    'billing_information' => 'Thông tin thanh toán',
+    'shopping_checkout' => 'Đặt hàng',
+    'billing_information' => 'Thông tin đặt hàng',
     'cash_on_delivery' => 'Thanh toán khi giao hàng',
     'order_completed' => 'Đặt hàng thành công',
     'payment_method' => 'Hình thức thanh toán',
@@ -247,6 +252,10 @@ return [
     'return' => 'Quay lại',
 
     'self_info' => 'Thông tin cá nhân',
+    'sign_up' => 'Đăng ký',
+    'verify' => 'Xác thực',
+    'who' => 'Bạn là: ',
+    'login' => 'Đăng nhập',
 
     // mail user register
     'mail' => [

@@ -235,11 +235,11 @@ $(document).ready(function(){
         },
         messages: {
             rating: {
-                required: 'Please choose your rate',
+                required: 'Vui lòng chọn đánh giá',
                 // min: 'Your  first name 255 characters ',
             },
             content: {
-                required: 'Please enter your content',
+                required: 'Vui lòng nhập nội dung',
                 maxlength: 'Vui lòng nhập nhỏ hơn 1000 ký tự',
             },
         },

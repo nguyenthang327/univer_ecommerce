@@ -44,10 +44,10 @@ class OrderController extends Controller
             ->leftJoin('customers', 'customers.id', 'orders.customer_id')
             ->leftJoin('coupons', 'coupons.id', 'orders.coupon_id')
 
-            ->groupBy('orders.id')
-            ->orderBy('orders.created_at', 'desc');
+            ->groupBy('orders.id');
+            // ->orderBy('orders.created_at', 'desc');
 
-        $orders = $orders = $orders->paginate(self::TAKE);
+        $orders = $orders = $orders->sortable()->paginate(self::TAKE);
         $is_filter = '';
 
         return view($this->pathView . 'index', compact('orders', 'is_filter'));
