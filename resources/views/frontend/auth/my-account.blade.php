@@ -59,6 +59,14 @@
                                 <form action="{{ route('customer.login') }}" method="POST" class="login-form" id="login-form">
                                     @csrf
                                     <div class="form-grp">
+                                    <span style="color:#252525; font-weight:400">{{trans('language.who')}} </span>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option value="3" selected>Khách hàng</option>
+                                            <option value="2">Nhân viên</option>
+                                            <option value="1">Chủ cửa hàng</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-grp">
                                         <label for="email_login">{{trans('language.email')}} <span>*</span></label>
                                         <input type="text" name="email_login" value="{{ old('email_login') }}" placeholder="{{trans('language.enter_email')}}">
                                         @if ($errors->first('email_login'))
@@ -74,10 +82,10 @@
                                         @endif
                                     </div>
                                     <div class="form-grp-bottom">
-                                        <div class="remember">
+                                        {{-- <div class="remember">
                                             <input type="checkbox" id="check">
                                             <label for="check">Remember me</label>
-                                        </div>
+                                        </div> --}}
                                         <div class="forget-pass">
                                             {{-- <a href="#">forgot password</a> --}}
                                         </div>

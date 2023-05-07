@@ -18,9 +18,8 @@
                                             <img src="img/icon/ship_flag.png" alt=""> US/USD
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#"><img src="img/icon/australia.png" alt="">AUS/USD</a>
-                                            <a class="dropdown-item" href="#"><img src="img/icon/bng.png" alt="">BNG/TK</a>
-                                            <a class="dropdown-item" href="#"><img src="img/icon/india.png" alt="">IN/RP</a>
+                                            <a class="dropdown-item" href="javascript:void(0)"><img src="img/icon/australia.png" alt="">AUS/USD</a>
+                                            <a class="dropdown-item" href="javascript:void(0)"><img src="img/icon/bng.png" alt="">BNG/TK</a>
                                         </div>
                                     </div>
                                 </div>
@@ -34,14 +33,13 @@
                                             Help
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                            <a class="dropdown-item" href="terms-conditios.html">Returns</a>
-                                            <a class="dropdown-item" href="terms-conditios.html">Privacy</a>
-                                            <a class="dropdown-item" href="terms-conditios.html">Terms</a>
+                                            <a class="dropdown-item" href="javascript:void(0)">Returns</a>
+                                            <a class="dropdown-item" href="javascript:void(0)">Privacy</a>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <div class="heder-top-guide">
                                     <div class="dropdown">
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton3" data-toggle="dropdown"
@@ -49,11 +47,11 @@
                                             Sell With Us
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                            <a class="dropdown-item" href="my-account.html">Seller Login</a>
+                                            <a class="dropdown-item" href="javascript:void(0)">Seller Login</a>
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -119,11 +117,15 @@
                                     <span class="shop-name">V SHOP</span>
                                 </a>
                             </div>
+                            @php
+                                $currentRoute = Route::current()->getName();
+                                // $shopShow = ['site.product.index', 'site.product.show'];
+                            @endphp
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
-                                    <li class="active dropdown"><a href="{{ route('site.home') }}">{{ trans('language.home') }}</a>
+                                    <li class="{{$currentRoute == 'site.home' ? 'active' : ''}} dropdown"><a href="{{ route('site.home') }}">{{ trans('language.home') }}</a>
                                     </li>
-                                    <li class="dropdown"><a href="{{ route('site.product.index') }}">SHOP</a>
+                                    <li class="{{$currentRoute == 'site.product.index' ? 'active' : ''}} dropdown"><a href="{{ route('site.product.index') }}">SHOP</a>
                                         {{-- <ul class="submenu">
                                             <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
                                         </ul> --}}

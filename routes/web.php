@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\Admin\UserController as BeAdminUser;
 use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CouponController;
+use App\Http\Controllers\Backend\Admin\CustomerController;
 use App\Http\Controllers\Backend\Admin\OrderController as AdminOrderController;
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
@@ -72,6 +73,18 @@ use App\Http\Controllers\Frontend\ProfileController;
                 Route::delete('/{id}/destroy', [BeAdminUser::class, 'destroy'])->name('admin.user.destroy');
                 Route::post('/{id}/restore', [BeAdminUser::class, 'restore'])->name('admin.user.restore');
                 Route::get('{id}/avatar', [BeAdminUser::class, 'getAvatar'])->name('admin.user.avatar');
+            });
+
+             // customer
+             Route::prefix('/customer')->group(function(){
+                Route::get('/', [CustomerController::class, 'index'])->name('admin.customer.index');
+                Route::get('/create', [CustomerController::class, 'create'])->name('admin.customer.create');
+                Route::post('/store', [CustomerController::class, 'store'])->name('admin.customer.store');
+                Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('admin.customer.edit');
+                Route::put('/{id}/update', [CustomerController::class, 'update'])->name('admin.customer.update');
+                Route::delete('/{id}/destroy', [CustomerController::class, 'destroy'])->name('admin.customer.destroy');
+                Route::post('/{id}/restore', [CustomerController::class, 'restore'])->name('admin.customer.restore');
+                // Route::get('{id}/avatar', [CustomerController::class, 'getAvatar'])->name('admin.customer.avatar');
             });
 
             // Product category

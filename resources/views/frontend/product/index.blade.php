@@ -90,7 +90,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="widget shop-widget mb-30">
+                        {{-- <div class="widget shop-widget mb-30">
                             <div class="shop-widget-title">
                                 <h6 class="title">Filter By Price</h6>
                             </div>
@@ -226,7 +226,7 @@
                                     <li><a href="#">Home Electronics</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="widget">
                             <div class="shop-widget-banner special-offer-banner">
                                 <a href="shop-left-sidebar.html"><img src="img/product/sidebar_banner_ad.jpg" alt=""></a>
@@ -244,19 +244,17 @@
                                 ])}}
                             </p>
                             <div class="shop-meta-right">
-                                <ul>
+                                {{-- <ul>
                                     <li class="active"><a href="#"><i class="flaticon-grid"></i></a></li>
                                     <li><a href="#"><i class="flaticon-list"></i></a></li>
-                                </ul>
-                                <form action="#">
+                                </ul> --}}
+                                {{-- <form action=""> --}}
                                     <select class="custom-select">
                                         <option selected="">Default Sorting</option>
-                                        <option>Free Shipping</option>
-                                        <option>Best Match</option>
-                                        <option>Newest Item</option>
-                                        <option>Size A - Z</option>
+                                        <option value="1">Giá tăng dần</option>
+                                        <option value="2">Giá giảm dần</option>
                                     </select>
-                                </form>
+                                {{-- </form> --}}
                             </div>
                         </div>
                         <div class="row">
