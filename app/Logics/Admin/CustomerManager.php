@@ -2,6 +2,7 @@
 
 namespace App\Logics\Admin;
 
+use App\Events\RegisterCustomer;
 use App\Helpers\StringHelper;
 use App\Models\Customer;
 use App\Traits\ImageTrait;
@@ -152,7 +153,8 @@ class CustomerManager
             'avatar' => $avatar_path
         ]);
         $customer->password = $password;
-        // event(new RegisterUser($user, $password));
+        // TODO: send email.
+         event(new RegisterCustomer($customer, $password));
     }
 }
 
