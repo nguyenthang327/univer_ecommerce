@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Backend\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Helpers\StringHelper;
-use App\Models\User;
-use Illuminate\Http\Response;
-use App\Models\Language;
 use App\Helpers\RequestHelper;
+use App\Helpers\StringHelper;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CreateCustomerRequest;
 use App\Http\Requests\Admin\CreateUserRequest;
-use App\Http\Requests\Admin\UpdateUserRequest;
+use App\Http\Requests\Admin\UpdateCustomerRequest;
 use App\Logics\Admin\CustomerManager;
-use Illuminate\Support\Facades\DB;
+use App\Models\Customer;
+use App\Models\Language;
+use App\Models\User;
+use App\Services\RandomPasswordService;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\App;
-use App\Services\RandomPasswordService;
 
 class CustomerController extends Controller
 {
@@ -38,28 +39,29 @@ class CustomerController extends Controller
     {
         $this->customerManager = $customerManager;
     }
-    
+
     /**
      * @var string
      */
-    protected $pathView = 'Backend.Admin.User.';
+    protected $pathView = 'Backend.Admin.Customer.';
 
 
     /**
-     * display user list
+     * display customers list
      * @param \Illuminate\Http\Request $request
      * @return View
      */
-    public function index(Request $request){
-        $users = $this->customerManager->getUserList($request);
+    public function index(Request $request)
+    {
+        $customers = $this->customerManager->getCustomerList($request);
 
         // Pagination
         $perPage = $request->has('per_page') ? $request->input('per_page') : self::PER_PAGE;
-        $users = $users->sortable()->paginate($perPage);
+        $customers = $customers->sortable()->paginate($perPage);
 
         // Redirect to last page if page parameter greater than last page
-        if ($users->lastPage() < $request->page) {
-            return redirect($request->fullUrlWithQuery(['page' => $users->lastPage()]));
+        if ($customers->lastPage() < $request->page) {
+            return redirect($request->fullUrlWithQuery(['page' => $customers->lastPage()]));
         }
         // Redirect to first page if page parameter less than 0
         if ($request->page < 0) {
@@ -67,53 +69,55 @@ class CustomerController extends Controller
         }
 
         $is_filter = "";
-        $fields = ['id','keyword','email','phone','gender','address','birthday'];
+        $fields = ['id', 'keyword', 'email', 'phone', 'gender', 'address', 'birthday'];
 
-        foreach ($fields as $field){
+        foreach ($fields as $field) {
             $tagSpanOpen = '<span class="badge badge-success">';
             $tagSpanClose = '</span>';
             $value = '';
-            if ($request->has($field) && $request->$field!= null){
-                switch ($field){
+            if ($request->has($field) && $request->$field != null) {
+                switch ($field) {
                     case 'id':
-                        $value = $tagSpanOpen."#".StringHelper::escapeHtml($request->id).$tagSpanClose;
+                        $value = $tagSpanOpen . "#" . StringHelper::escapeHtml($request->id) . $tagSpanClose;
                         break;
                     case 'gender':
-                        foreach ($request->gender as $gender){
+                        foreach ($request->gender as $gender) {
                             $value .= $tagSpanOpen . trans('language.genders')[$gender] . $tagSpanClose;
                         }
                         break;
                     default:
-                        $value = $tagSpanOpen.StringHelper::escapeHtml($request->$field) . $tagSpanClose;
+                        $value = $tagSpanOpen . StringHelper::escapeHtml($request->$field) . $tagSpanClose;
                         break;
                 }
-                $is_filter.= $value;
+                $is_filter .= $value;
             }
         }
 
         return view($this->pathView . 'index', [
-            'users' => $users,
-            'is_filter'=> $is_filter,
+            'customers' => $customers,
+            'is_filter' => $is_filter,
         ]);
     }
 
     /**
-     * display form create user
+     * display form create customer
      * @return View
      */
-    public function create(){
-        $languages = Language::select('id','name','display_name')->get();
+    public function create()
+    {
+        $languages = Language::select('id', 'name', 'display_name')->get();
         return view($this->pathView . 'create', compact('languages'));
     }
 
     /**
-     * create new user
-     * @param CreateUserRequest $request
+     * create new customer
+     * @param CreateCustomerRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CreateUserRequest $request){
+    public function store(CreateCustomerRequest $request)
+    {
         DB::beginTransaction();
-        try{
+        try {
             $passwordService = new RandomPasswordService();
             $password = $passwordService->randomPassword(self::PASSWORD_LENGTH);
             $params = [
@@ -128,92 +132,94 @@ class CustomerController extends Controller
                 'prefecture_id' => $request->prefecture_id,
                 'district_id' => $request->district_id,
                 'commune_id' => $request->commune_id,
-                'identity_card' => $request->identity_card,
                 'password' => bcrypt($password),
             ];
-            $this->customerManager->createUserProfile($params, $request->avatar, $password);
+            $this->customerManager->createCustomerProfile($params, $request->avatar, $password);
 
             DB::commit();
             return back()->with([
-                'status_successed' => trans('message.create_user_successed')
+                'status_successed' => trans('message.create_customer_successed')
             ]);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
-            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            Log::error("File: " . $e->getFile() . '---Line: ' . $e->getLine() . "---Message: " . $e->getMessage());
             return back()->with([
-                'status_failed' => trans('message.create_user_failed'),
+                'status_failed' => trans('message.create_customer_failed'),
             ]);
         }
-    }
-
-     /**
-     * Check if user exist then return User, else return error message
-     *
-     * @param $user_id
-     * @param bool $deleted
-     * @return array|User
-     */
-    private function checkUserExist($user_id, $deleted=false) {
-        if ($deleted) {
-            $user = User::withTrashed()->find($user_id);
-        } else {
-            $user = User::find($user_id);
-        }
-
-        if ($user == null) {
-            return [
-                'status' => Response::HTTP_NOT_FOUND,
-                'msg' => trans('message.user_not_exist'),
-                'url_callback' => back()->getTargetUrl(),
-            ];
-        }
-        return $user;
     }
 
     /**
-     * display user info
+     * Check if customer exist then return Customer, else return error message
+     *
+     * @param $customer_id
+     * @param bool $deleted
+     * @return array|User
+     */
+    private function checkCustomerExist($customer_id, $deleted = false)
+    {
+        if ($deleted) {
+            $customer = Customer::withTrashed()->find($customer_id);
+        } else {
+            $customer = Customer::find($customer_id);
+        }
+
+        if ($customer == null) {
+            return [
+                'status' => Response::HTTP_NOT_FOUND,
+                'msg' => trans('message.customer_not_exist'),
+                'url_callback' => back()->getTargetUrl(),
+            ];
+        }
+        return $customer;
+    }
+
+    /**
+     * display customer info
      * @param $id
      * @return View
      */
-    public function edit($id){
-        $user = $this->checkUserExist($id, true);
+    public function edit($id)
+    {
+        $customer = $this->checkCustomerExist($id, true);
 
-        // Return error message if user not exist
-        if (!$user instanceof User) {
+        // Return error message if customer not exist
+        if (!$customer instanceof Customer) {
             return back()->with([
-                'status_failed' => isset($user['msg']) ? $user['msg'] : ''
+                'status_failed' => isset($customer['msg']) ? $customer['msg'] : ''
             ]);
         }
 
         $deleted = false;
-        // Check user deleted
-        if ($user->deleted_at != null) {
+        // Check customer deleted
+        if ($customer->deleted_at != null) {
             $deleted = true;
         }
 
         // Store redirect url in session
-        if((new RequestHelper())->parseRequestUri(url()->previous()) == route('admin.user.index')) {
-            session(['redirect.admin.user.edit' => url()->previous()]);
+        if ((new RequestHelper())->parseRequestUri(url()->previous()) == route('admin.customer.index')) {
+            session(['redirect.admin.customer.edit' => url()->previous()]);
         }
-        $languages = Language::select('id','name','display_name')->get();
+        $languages = Language::select('id', 'name', 'display_name')->get();
         return view($this->pathView . 'edit', [
-            'user' => $user,
+            'customer' => $customer,
             'deleted' => $deleted,
             'languages' => $languages,
         ]);
     }
 
     /**
-     * update user infor
-     * @param UpdateUserRequest $request
+     * update customer info
+     * @param UpdateCustomerRequest $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateUserRequest $request, $id){
-        $user = $this->checkUserExist($id, true);
+    public function update(UpdateCustomerRequest $request, $id)
+    {
+        $customer = $this->checkCustomerExist($id, true);
 
         DB::beginTransaction();
-        try{
+        try {
             $params = [
                 'email' => $request->email,
                 'user_name' => $request->user_name,
@@ -226,40 +232,40 @@ class CustomerController extends Controller
                 'prefecture_id' => $request->prefecture_id,
                 'district_id' => $request->district_id,
                 'commune_id' => $request->commune_id,
-                'identity_card' => $request->identity_card,
             ];
-            $this->customerManager->updateUserProfile($user, $params, $request->avatar);
+            $this->customerManager->updateCustomerProfile($customer, $params, $request->avatar);
 
             DB::commit();
             return back()->with([
-                'status_successed' => trans('message.update_user_successed')
+                'status_successed' => trans('message.update_customer_successed')
             ]);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
-            Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            Log::error("File: " . $e->getFile() . '---Line: ' . $e->getLine() . "---Message: " . $e->getMessage());
             return back()->with([
-                'status_failed' => trans('message.update_user_failed'),
+                'status_failed' => trans('message.update_customer_failed'),
             ]);
         }
     }
 
     /**
-     * Delete user
+     * Delete customer
      *
      * @param int $id
      * @return User|array
      */
-    public function destroy($id){
-        $user = $this->checkUserExist($id);
-        if (!$user instanceof User) {
-            return $user;
+    public function destroy($id)
+    {
+        $customer = $this->checkCustomerExist($id);
+        if (!$customer instanceof Customer) {
+            return $customer;
         }
-        $user->delete();
-        
+        $customer->delete();
+
         return response()->json([
             'message' => [
                 'title' => trans('language.success'),
-                'text' => trans('message.delete_user_successed'),
+                'text' => trans('message.delete_customer_successed'),
             ]
         ], Response::HTTP_OK);
     }
@@ -272,29 +278,30 @@ class CustomerController extends Controller
      */
     public function restore($id)
     {
-        $user = $this->checkUserExist($id, true);
+        $customer = $this->checkCustomerExist($id, true);
 
-        // Return error message if user not exist
-        if (!$user instanceof User) {
-            return $user;
+        // Return error message if customer not exist
+        if (!$customer instanceof Customer) {
+            return $customer;
         }
-        $user->restore();
+        $customer->restore();
 
         return response()->json([
             'message' => [
                 'title' => trans('language.success'),
-                'text' => trans('message.restore_user_successed'),
+                'text' => trans('message.restore_customer_successed'),
             ]
         ], Response::HTTP_OK);
 
     }
 
     /**
-     * Get avatar user
+     * Get avatar customer
      * @param $id
      * @return URL $image
      */
-    public function getAvatar($id){
+    public function getAvatar($id)
+    {
         $image = $this->customerManager->getImage($id, 'avatar');
         return $image;
     }

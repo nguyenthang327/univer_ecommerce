@@ -77,14 +77,12 @@ use App\Http\Controllers\Frontend\ProfileController;
 
              // customer
              Route::prefix('/customer')->group(function(){
-                Route::get('/', [CustomerController::class, 'index'])->name('admin.customer.index');
                 Route::get('/create', [CustomerController::class, 'create'])->name('admin.customer.create');
                 Route::post('/store', [CustomerController::class, 'store'])->name('admin.customer.store');
                 Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('admin.customer.edit');
                 Route::put('/{id}/update', [CustomerController::class, 'update'])->name('admin.customer.update');
                 Route::delete('/{id}/destroy', [CustomerController::class, 'destroy'])->name('admin.customer.destroy');
                 Route::post('/{id}/restore', [CustomerController::class, 'restore'])->name('admin.customer.restore');
-                // Route::get('{id}/avatar', [CustomerController::class, 'getAvatar'])->name('admin.customer.avatar');
             });
 
             // Product category
@@ -142,13 +140,6 @@ use App\Http\Controllers\Frontend\ProfileController;
                Route::put('/', [BeUser::class, 'update'])->name('user.profile.update');
                Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('user.avatar');
             });
-
-            // // Product category
-            // Route::prefix('/product-category')->group(function(){
-            //     Route::get('/', [CategoryController::class, 'index'])->name('user.productCategory.index');
-            // });
-
-           
         });
     });
 
@@ -161,7 +152,7 @@ use App\Http\Controllers\Frontend\ProfileController;
             Route::prefix('/product-category')->group(function(){
                 Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
             });
-    
+
              // Product
             Route::prefix('/product')->group(function(){
                 Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
@@ -176,6 +167,12 @@ use App\Http\Controllers\Frontend\ProfileController;
                 Route::put('/{productId}/update-sku', [ProductController::class, 'updateSku'])->name('user.product.updateSku');
                 Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('user.product.destroy');
             });
+        });
+
+        // Customer
+        Route::prefix('/customer')->group(function() {
+            Route::get('/', [CustomerController::class, 'index'])->name('admin.customer.index');
+            Route::get('{id}/avatar', [CustomerController::class, 'getAvatar'])->name('admin.customer.avatar');
         });
     });
 // });
@@ -207,7 +204,7 @@ Route::middleware('web')->group(function () {
             Route::get('', [ProfileController::class, 'index'])->name('customer.index');
             Route::post('/update', [ProfileController::class, 'update'])->name('customer.update');
         });
- 
+
         Route::prefix('/product-wishlist')->group(function(){
             Route::get('/', [FrontendProductController::class, 'listFavoriteProduct'])->name('customer.product.listFavoriteProduct');
             Route::post('/store', [FrontendProductController::class, 'favoriteStore'])->name('customer.product.favoriteStore');

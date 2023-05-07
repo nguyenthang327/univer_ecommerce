@@ -24,7 +24,7 @@ class Customer extends Authenticatable
      * @var string
      */
     protected $table = 'customers';
-   
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -86,5 +86,32 @@ class Customer extends Authenticatable
     public function favoriteProducts()
     {
         return $this->belongsToMany(Product::class, 'favorite_product')->withTimestamps();
+    }
+
+    /**
+     * Get the prefecture for the user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function prefecture()
+    {
+        return $this->belongsTo('App\Models\Prefecture');
+    }
+
+    /**
+     * Get the district for the user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function district()
+    {
+        return $this->belongsTo('App\Models\District');
+    }
+
+    /**
+     * Get the commune for the user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function commune()
+    {
+        return $this->belongsTo('App\Models\Commune');
     }
 }
