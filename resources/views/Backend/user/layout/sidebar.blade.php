@@ -63,7 +63,7 @@
                 </li>
                 @php
                     $routeCustomerList = [
-                        'admin.customer.index'
+                        'user.customer.index'
                     ];
                     $routeActive = $routeCustomerList;
                 @endphp
@@ -77,7 +77,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.customer.index')}}" class="nav-link {{ in_array($currentRoute, $routeCustomerList) ? 'active' : ''}}">
+                            <a href="{{ route('user.customer.index')}}" class="nav-link {{ in_array($currentRoute, $routeCustomerList) ? 'active' : ''}}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ trans('language.customer_list') }}</p>
                             </a>

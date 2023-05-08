@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CouponController;
 use App\Http\Controllers\Backend\Admin\CustomerController;
+use App\Http\Controllers\Backend\User\CustomerController as UserCustomerController;
 use App\Http\Controllers\Backend\Admin\OrderController as AdminOrderController;
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
@@ -77,6 +78,9 @@ use App\Http\Controllers\Frontend\ProfileController;
 
              // customer
              Route::prefix('/customer')->group(function(){
+                 // Customer
+                Route::get('/', [CustomerController::class, 'index'])->name('admin.customer.index');
+                Route::get('{id}/avatar', [CustomerController::class, 'getAvatar'])->name('admin.customer.avatar');
                 Route::get('/create', [CustomerController::class, 'create'])->name('admin.customer.create');
                 Route::post('/store', [CustomerController::class, 'store'])->name('admin.customer.store');
                 Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('admin.customer.edit');
@@ -140,6 +144,12 @@ use App\Http\Controllers\Frontend\ProfileController;
                Route::put('/', [BeUser::class, 'update'])->name('user.profile.update');
                Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('user.avatar');
             });
+
+            // Customer
+            Route::prefix('/customer')->group(function() {
+                Route::get('/', [UserCustomerController::class, 'index'])->name('user.customer.index');
+                Route::get('{id}/avatar', [UserCustomerController::class, 'getAvatar'])->name('user.customer.avatar');
+            });
         });
     });
 
@@ -167,12 +177,6 @@ use App\Http\Controllers\Frontend\ProfileController;
                 Route::put('/{productId}/update-sku', [ProductController::class, 'updateSku'])->name('user.product.updateSku');
                 Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('user.product.destroy');
             });
-        });
-
-        // Customer
-        Route::prefix('/customer')->group(function() {
-            Route::get('/', [CustomerController::class, 'index'])->name('admin.customer.index');
-            Route::get('{id}/avatar', [CustomerController::class, 'getAvatar'])->name('admin.customer.avatar');
         });
     });
 // });

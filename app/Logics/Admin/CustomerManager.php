@@ -153,7 +153,7 @@ class CustomerManager
             'avatar' => $avatar_path
         ]);
         $customer->password = $password;
-        // TODO: send email.
+
          event(new RegisterCustomer($customer, $password));
     }
 }
