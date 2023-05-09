@@ -104,6 +104,10 @@ return [
     'created_by' => 'Tạo bởi',
     'updated_by' => 'Cập nhật bởi',
     'convert_child_cate_1' => 'Chuyển tất cả danh mục con hiện có thành danh mục con của danh mục cha khác.',
+    'update_category' => 'Cập nhật danh mục sản phẩm',
+    'create_category' => 'Tạo mới danh mục sản phẩm',
+    'delete_category' => 'Bạn có muốn xóa danh mục này không?',
+    'choose_brand' => 'Chọn thương hiệu',
 
     // product
     'product' => 'Sản phẩm',

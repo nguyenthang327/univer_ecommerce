@@ -1,9 +1,9 @@
 @extends('Backend.Admin.Layout.master')
-@section('title',trans('language.create_new_user'))
+@section('title',trans('language.create_category'))
 
 @section('breadcrumb')
     <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link active title">{{ trans('language.user_profile') }}</a>
+        <a class="nav-link active title">{{ trans('language.create_category') }}</a>
     </li>
 @endsection
 

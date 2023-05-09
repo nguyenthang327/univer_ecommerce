@@ -60,11 +60,14 @@
                                     @csrf
                                     <div class="form-grp">
                                     <span style="color:#252525; font-weight:400">{{trans('language.who')}} </span>
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" name="type_account" aria-label="">
                                             <option value="3" selected>Khách hàng</option>
-                                            <option value="2">Nhân viên</option>
-                                            <option value="1">Chủ cửa hàng</option>
+                                            <option value="2" {{ old('type_account') == 2 ? 'selected' : '' }}>Nhân viên</option>
+                                            <option value="1" {{ old('type_account') == 1 ? 'selected' : '' }}>Chủ cửa hàng</option>
                                         </select>
+                                        @if ($errors->first('type_account'))
+                                            <div class="invalid-alert text-danger">{{ $errors->first('type_account') }}</div>
+                                        @endif
                                     </div>
                                     <div class="form-grp">
                                         <label for="email_login">{{trans('language.email')}} <span>*</span></label>

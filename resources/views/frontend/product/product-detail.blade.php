@@ -169,21 +169,21 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        @if($product->desciption)
+                        @if($product->description)
                         <div class="product-desc-wrap mb-100">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
                                     <div class="product-desc-content">
                                         <h4 class="title">Product Details</h4>
                                         <div class="row">
-                                            <div class="col-xl-3 col-md-4">
-                                                <div class="product-desc-img">
+                                            <div class="col-xl-2 col-md-2">
+                                                {{-- <div class="product-desc-img">
                                                     <img src="img/product/desc_img.jpg" alt="">
-                                                </div>
+                                                </div> --}}
                                             </div>
-                                            <div class="col-xl-9 col-md-8">
+                                            <div class="col-xl-10 col-md-10">
                                                 <h5 class="small-title">{{$product->name}}</h5>
-                                                <p>{{$product->desciption}}</p>
+                                                <p>{!! $product->description !!}</p>
                                                 {{-- <ul class="product-desc-list">
                                                     <li>65% poly, 35% rayon</li>
                                                     <li>Hand wash cold</li>

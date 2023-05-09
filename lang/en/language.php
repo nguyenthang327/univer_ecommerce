@@ -104,6 +104,10 @@ return [
     'created_by' => 'Created by',
     'updated_by' => 'Updated by',
     'convert_child_cate_1' => 'Convert all existing subcategories into subcategories of another parent category.',
+    'update_category' => 'Update category',
+    'create_category' => 'Create category',
+    'delete_category' => 'Do you want to delete this product category?',
+    'choose_brand' => 'Choose brand',
 
     // product
     'product' => 'Product',

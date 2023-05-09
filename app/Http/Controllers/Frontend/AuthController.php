@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Enums\TypeAccountEnum;
 use App\Events\RegisterCustomer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\LoginRequest;
@@ -55,12 +56,29 @@ class AuthController extends BaseController
             'password' => $request->password_login,
         ];
 
+        if($request->type_account == TypeAccountEnum::ADMIN->value){
+            if(Auth::guard('admin')->attempt($credentials, $request->has('remember_me'))){
+                $request->session()->regenerate();
+                return redirect()->route('admin.dashboard');
+            }
+        }elseif($request->type_account == TypeAccountEnum::USER->value){
+            if(Auth::guard('user')->attempt($credentials, $request->has('remember_me'))){
+                $request->session()->regenerate();
+                return redirect()->route('user.dashboard');
+            }
+        }elseif($request->type_account == TypeAccountEnum::CUSTOMER->value){
+            if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
+                $request->session()->regenerate();
+                return redirect()->route('site.home');
+            }
+        };
+
         // session()->forget('coupon_code');
 
-        if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
-            $request->session()->regenerate();
-            return redirect()->route('site.home');
-        }
+        // if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
+        //     $request->session()->regenerate();
+        //     return redirect()->route('site.home');
+        // }
         return back()->withErrors([
             'error' => trans('message.error_login')
         ]);
