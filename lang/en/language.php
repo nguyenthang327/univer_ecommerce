@@ -68,6 +68,11 @@ return [
     'update_user_info' => 'Update employee information',
     'create_new_user' => 'Create new employee',
 
+    // Customer
+    'customer_info' => 'Customer information',
+    'update_customer_info' => 'Update customer information',
+    'create_new_customer' => 'Create new customer',
+
     'by_id' => 'By ID',
     'by_fullname' => 'By fullname',
     'by_email' => 'By email',
@@ -99,7 +104,7 @@ return [
     'created_by' => 'Created by',
     'updated_by' => 'Updated by',
     'convert_child_cate_1' => 'Convert all existing subcategories into subcategories of another parent category.',
-        
+
     // product
     'product' => 'Product',
     'product_list' => 'Product list',
@@ -215,7 +220,7 @@ return [
     'confirm_password ' => 'Confirm password',
     'enter_confirm_password ' => 'Re-enter your password',
 
-    // cart 
+    // cart
     'message_cart' => [
         'out_stock' => 'Out of stock!',
         'max_add' => 'You can only add up to :quantity products to your cart.',

@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\Admin\CategoryController;
 use App\Http\Controllers\Backend\Admin\BrandController;
 use App\Http\Controllers\Backend\Admin\CouponController;
 use App\Http\Controllers\Backend\Admin\CustomerController;
+use App\Http\Controllers\Backend\User\CustomerController as UserCustomerController;
 use App\Http\Controllers\Backend\Admin\OrderController as AdminOrderController;
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
@@ -77,14 +78,15 @@ use App\Http\Controllers\Frontend\ProfileController;
 
              // customer
              Route::prefix('/customer')->group(function(){
+                 // Customer
                 Route::get('/', [CustomerController::class, 'index'])->name('admin.customer.index');
+                Route::get('{id}/avatar', [CustomerController::class, 'getAvatar'])->name('admin.customer.avatar');
                 Route::get('/create', [CustomerController::class, 'create'])->name('admin.customer.create');
                 Route::post('/store', [CustomerController::class, 'store'])->name('admin.customer.store');
                 Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('admin.customer.edit');
                 Route::put('/{id}/update', [CustomerController::class, 'update'])->name('admin.customer.update');
                 Route::delete('/{id}/destroy', [CustomerController::class, 'destroy'])->name('admin.customer.destroy');
                 Route::post('/{id}/restore', [CustomerController::class, 'restore'])->name('admin.customer.restore');
-                // Route::get('{id}/avatar', [CustomerController::class, 'getAvatar'])->name('admin.customer.avatar');
             });
 
             // Product category
@@ -143,12 +145,11 @@ use App\Http\Controllers\Frontend\ProfileController;
                Route::get('{id}/avatar', [BeUser::class, 'getAvatar'])->name('user.avatar');
             });
 
-            // // Product category
-            // Route::prefix('/product-category')->group(function(){
-            //     Route::get('/', [CategoryController::class, 'index'])->name('user.productCategory.index');
-            // });
-
-           
+            // Customer
+            Route::prefix('/customer')->group(function() {
+                Route::get('/', [UserCustomerController::class, 'index'])->name('user.customer.index');
+                Route::get('{id}/avatar', [UserCustomerController::class, 'getAvatar'])->name('user.customer.avatar');
+            });
         });
     });
 
@@ -161,7 +162,7 @@ use App\Http\Controllers\Frontend\ProfileController;
             Route::prefix('/product-category')->group(function(){
                 Route::get('/', [CategoryController::class, 'index'])->name('admin.productCategory.index');
             });
-    
+
              // Product
             Route::prefix('/product')->group(function(){
                 Route::get('/', [ProductController::class, 'index'])->name('user.product.index');
@@ -207,7 +208,7 @@ Route::middleware('web')->group(function () {
             Route::get('', [ProfileController::class, 'index'])->name('customer.index');
             Route::post('/update', [ProfileController::class, 'update'])->name('customer.update');
         });
- 
+
         Route::prefix('/product-wishlist')->group(function(){
             Route::get('/', [FrontendProductController::class, 'listFavoriteProduct'])->name('customer.product.listFavoriteProduct');
             Route::post('/store', [FrontendProductController::class, 'favoriteStore'])->name('customer.product.favoriteStore');
