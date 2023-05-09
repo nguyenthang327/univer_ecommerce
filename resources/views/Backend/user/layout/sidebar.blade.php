@@ -61,6 +61,29 @@
                         </li>
                     </ul>
                 </li>
+                @php
+                    $routeCustomerList = [
+                        'user.customer.index'
+                    ];
+                    $routeActive = $routeCustomerList;
+                @endphp
+                <li class="nav-item {{ in_array($currentRoute, $routeActive) ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{ in_array($currentRoute, $routeActive) ? 'active' : ''}}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            {{ trans('language.customer_management') }}
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('user.customer.index')}}" class="nav-link {{ in_array($currentRoute, $routeCustomerList) ? 'active' : ''}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ trans('language.customer_list') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 @php
                     $routeProduct = [

@@ -68,6 +68,11 @@ return [
     'update_user_info' => 'Cập nhật thông tin nhân viên',
     'create_new_user' => 'Thêm mới nhân viên',
 
+    // Customer
+    'customer_info' => 'Thông tin khách hàng',
+    'update_customer_info' => 'Cập nhật thông tin khách hàng',
+    'create_new_customer' => 'Thêm mới khách hàng',
+
     'by_id' => 'Theo ID',
     'by_fullname' => 'Theo họ và tên',
     'by_email' => 'Theo email',
@@ -197,7 +202,7 @@ return [
     'home' => 'Trang chủ',
     'see_more' => 'Xem thêm',
     'all_categories' => 'Tất cả danh mục',
-    'product_new' => 'Sản phẩm mới', 
+    'product_new' => 'Sản phẩm mới',
     'display_products' => 'Hiển thị sản phẩm :from-:to trong số :total kết quả',
     'customer_login' => [
         'title' => 'Đăng nhập',
@@ -219,7 +224,7 @@ return [
     'confirm_password' => 'Xác nhận mật khẩu',
     'enter_confirm_password' => 'Nhập lại mật khẩu',
 
-    // cart 
+    // cart
     'message_cart' => [
         'out_stock' => 'Đã hết hàng!',
         'max_add' => 'Bạn chỉ có thể thêm tối đa :quantity sản phẩm vào giỏ hàng.',
