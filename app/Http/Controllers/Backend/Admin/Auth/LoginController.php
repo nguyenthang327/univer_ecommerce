@@ -55,7 +55,9 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::guard('admin')->logout();
-        return redirect()->route('admin.login');
+        session()->flush();
+        return redirect()->route('site.home');
+        // return redirect()->route('admin.login');
     }
 
 }

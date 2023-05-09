@@ -85,11 +85,11 @@ function rating(){
 }
 
 function ratingAVG(){
-    var ratingValue = $('.rating.detail').data('rating_value')
+    const ratingValue = $('.rating.detail').data('rating_value');
     $('.rating.detail').rate({
         max_value: 5,
         step_size: 1,
-        initial_value: ratingValue,
+        initial_value: $('.rating.detail').data('rating_value'),
         selected_symbol_type: 'fontawesome_star', // Must be a key from symbols
         cursor: 'default',
         readonly: true,
