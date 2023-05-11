@@ -64,7 +64,7 @@
         @include('frontend.layouts.footer')
         <!-- footer-area-end -->
 
-        {{-- @include('frontend.modal.modal-change-password') --}}
+        @include('frontend.modal.modal-change-password')
 
 		<!-- JS here -->
         <script src="{{ asset('fe-assets/js/vendor/jquery-3.5.0.min.js')}}"></script>

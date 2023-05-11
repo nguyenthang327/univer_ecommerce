@@ -2,7 +2,7 @@
 @section('title', trans('language.update_info'))
 
 @section('css_library')
-    @include('Backend.LibraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
+    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
 @stop
 
 @section('css_page')
@@ -272,7 +272,7 @@
 @stop
 
 @section('js_library')
-    @include('Backend.LibraryGroup.script-library', ['datepicker' => true, 'select2' => true])
+    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true])
 @stop
 
 @section('js_page')

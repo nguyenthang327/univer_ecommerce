@@ -1,4 +1,4 @@
-@extends('Backend.Admin.Layout.master')
+@extends('backend.admin.layout.master')
 @section('title',trans('language.update_customer_info'))
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
 
 
 @section('css_library')
-    @include('Backend.LibraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
+    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
 @stop
 
 @section('css_page')
@@ -22,7 +22,7 @@
 @section('content')
     <section class="content pb-4 pt-3">
         <div class="container-fluid">
-            @include('Backend.Admin.Customer.partials.form-customer-information',[
+            @include('backend.admin.customer.partials.form-customer-information',[
                     'customer' => $customer,
                     'action' => route('admin.customer.update' , ['id' => $customer->id]),
                     'method' => 'PUT',
@@ -33,5 +33,5 @@
 @stop
 
 @section('js_library')
-    @include('Backend.LibraryGroup.script-library', ['datepicker' => true, 'select2' => true])
+    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true])
 @stop

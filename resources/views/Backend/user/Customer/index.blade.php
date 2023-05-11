@@ -4,7 +4,7 @@
 @stop
 
 @section('css_library')
-    @include('Backend.LibraryGroup.style-library', ['datepicker' => true, 'fancybox' => true, 'select2' => true, 'icheck' => true])
+    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'fancybox' => true, 'select2' => true, 'icheck' => true])
 @stop
 
 @section('css_page')
@@ -30,7 +30,7 @@
             <div id="collapseFilter" class="collapse">
                 <div class="card mb-3">
                     <div class="card-body border-0">
-                        @include('Backend.Admin.Customer.partials.form-filter')
+                        @include('backend.admin.customer.partials.form-filter')
                     </div>
                 </div>
             </div>
@@ -40,14 +40,14 @@
                 </div>
             @endif
             <div class="table-list-data">
-                @include('Backend.Admin.Customer.partials.list-customers')
+                @include('backend.admin.customer.partials.list-customers')
             </div>
         </div>
     </section>
 @stop
 
 @section('js_library')
-    @include('Backend.LibraryGroup.script-library', ['datepicker' => true, 'fancybox' => true, 'select2' => true])
+    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'fancybox' => true, 'select2' => true])
 @stop
 
 @section('js_page')

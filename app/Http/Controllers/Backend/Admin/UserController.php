@@ -42,7 +42,7 @@ class UserController extends Controller
     /**
      * @var string
      */
-    protected $pathView = 'Backend.Admin.User.';
+    protected $pathView = 'backend.admin.user.';
 
 
     /**

@@ -79,5 +79,5 @@
     </table>
 </div>
 @else
-    @include('Partials.no-data-found')
+    @include('partials.no-data-found')
 @endif

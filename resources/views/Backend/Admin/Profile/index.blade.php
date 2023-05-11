@@ -1,4 +1,4 @@
-@extends('Backend.Admin.Layout.master')
+@extends('backend.admin.layout.master')
 @section('title',trans('language.dashboard'))
 
 @section('content')

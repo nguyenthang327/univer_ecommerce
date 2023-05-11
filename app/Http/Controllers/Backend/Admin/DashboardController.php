@@ -10,7 +10,7 @@ class DashboardController extends Controller
     /**
      * @var string
      */
-    protected $pathView = 'Backend.Admin.Dashboard.';
+    protected $pathView = 'backend.admin.dashboard.';
 
     public function index()
     {

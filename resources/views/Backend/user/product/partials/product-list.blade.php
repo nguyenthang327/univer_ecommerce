@@ -96,8 +96,8 @@
     </table>
 </div>
 <div class="pb-4">
-    {{ $products->appends($request->query())->links('Partials.pagination') }}
+    {{ $products->appends($request->query())->links('partials.pagination') }}
 </div>
 @else
-    @include('Partials.no-data-found')
+    @include('partials.no-data-found')
 @endif

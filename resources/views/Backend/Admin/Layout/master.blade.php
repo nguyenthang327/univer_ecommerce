@@ -30,12 +30,12 @@
 <body class="hold-transition sidebar-mini layout-fixed" data-locales="{{app()->getLocale()}}">
     @include('backend.user.layout.loader')
 <div class="wrapper">
-    @include('Backend.Admin.Layout.header')
-    @include('Backend.Admin.Layout.sidebar')
+    @include('backend.admin.layout.header')
+    @include('backend.admin.layout.sidebar')
     <div class="content-wrapper">
         @yield('content')
     </div>
-@include('Backend.Admin.Layout.footer')
+@include('backend.admin.layout.footer')
 <!-- <div id="sidebar-overlay"></div> -->
 </div>
 

@@ -11,7 +11,7 @@ class LoginController extends Controller
     /**
      * @var string
      */
-    protected $pathView = 'Backend.Admin.';
+    protected $pathView = 'backend.admin.';
 
     /**
      * return login page
@@ -23,7 +23,7 @@ class LoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return view($this->pathView . 'Auth.Login');
+        return view($this->pathView . 'auth.login');
     }
 
     /**

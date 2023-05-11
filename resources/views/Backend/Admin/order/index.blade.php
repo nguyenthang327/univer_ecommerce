@@ -1,10 +1,10 @@
-@extends('Backend.Admin.Layout.master')
+@extends('backend.admin.layout.master')
 @section('title',trans('language.order_list'))
 @section('meta')
 @stop
 
 @section('css_library')
-    @include('Backend.LibraryGroup.style-library', ['select2' => true, 'icheck' => true])
+    @include('backend.libraryGroup.style-library', ['select2' => true, 'icheck' => true])
 @stop
 
 @section('css_page')
@@ -36,7 +36,7 @@
             <div id="collapseFilter" class="collapse">
                 <div class="card mb-3">
                     <div class="card-body border-0">
-                        {{-- @include('Backend.Admin.order.partials.form-filter') --}}
+                        {{-- @include('backend.admin.order.partials.form-filter') --}}
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
 @stop
 
 @section('js_library')
-    @include('Backend.LibraryGroup.script-library', ['select2' => true])
+    @include('backend.libraryGroup.script-library', ['select2' => true])
 @stop
 
 @section('js_page')

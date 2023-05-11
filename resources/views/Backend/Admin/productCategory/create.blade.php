@@ -1,4 +1,4 @@
-@extends('Backend.Admin.Layout.master')
+@extends('Bbckend.admin.Layout.master')
 @section('title',trans('language.create_category'))
 
 @section('breadcrumb')
@@ -9,7 +9,7 @@
 
 
 @section('css_library')
-    @include('Backend.LibraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
+    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
 @stop
 
 @section('css_page')
@@ -29,5 +29,5 @@
 @stop
 
 @section('js_library')
-    @include('Backend.LibraryGroup.script-library', ['datepicker' => true, 'select2' => true])
+    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true])
 @stop

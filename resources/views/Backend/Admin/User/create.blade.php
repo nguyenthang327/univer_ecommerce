@@ -1,4 +1,4 @@
-@extends('Backend.Admin.Layout.master')
+@extends('backend.admin.layout.master')
 @section('title',trans('language.create_new_user'))
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
 
 
 @section('css_library')
-    @include('Backend.LibraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
+    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
 @stop
 
 @section('css_page')
@@ -22,7 +22,7 @@
 @section('content')
     <section class="content pb-4 pt-3">
         <div class="container-fluid">
-            @include('Backend.Admin.User.partials.form-user-information',[
+            @include('backend.admin.user.partials.form-user-information',[
                     'action' => route('admin.user.store'),
                     'method' => 'POST',
                 ]
@@ -32,5 +32,5 @@
 @stop
 
 @section('js_library')
-    @include('Backend.LibraryGroup.script-library', ['datepicker' => true, 'select2' => true])
+    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true])
 @stop
