@@ -58,11 +58,17 @@ class AuthController extends BaseController
 
         if($request->type_account == TypeAccountEnum::ADMIN->value){
             if(Auth::guard('admin')->attempt($credentials, $request->has('remember_me'))){
+                if(Auth::guard('user')->check()){
+                    Auth::guard('user')->logout();
+                }
                 $request->session()->regenerate();
                 return redirect()->route('admin.dashboard');
             }
         }elseif($request->type_account == TypeAccountEnum::USER->value){
             if(Auth::guard('user')->attempt($credentials, $request->has('remember_me'))){
+                if(Auth::guard('admin')->check()){
+                    Auth::guard('admin')->logout();
+                }
                 $request->session()->regenerate();
                 return redirect()->route('user.dashboard');
             }

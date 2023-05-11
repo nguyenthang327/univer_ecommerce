@@ -43,7 +43,7 @@ class CustomerController extends Controller
     /**
      * @var string
      */
-    protected $pathView = 'Backend.Admin.Customer.';
+    protected $pathView = 'backend.admin.customer.';
 
 
     /**
@@ -133,6 +133,7 @@ class CustomerController extends Controller
                 'district_id' => $request->district_id,
                 'commune_id' => $request->commune_id,
                 'password' => bcrypt($password),
+                'status' => Customer::STATUS_ACTIVE,
             ];
             $this->customerManager->createCustomerProfile($params, $request->avatar, $password);
 

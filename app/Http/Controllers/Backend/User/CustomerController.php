@@ -40,7 +40,7 @@ class CustomerController extends Controller
     /**
      * @var string
      */
-    protected $pathView = 'Backend.user.Customer.';
+    protected $pathView = 'backend.user.customer.';
 
 
     /**

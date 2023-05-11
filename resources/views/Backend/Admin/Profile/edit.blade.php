@@ -1,4 +1,4 @@
-@extends('Backend.Admin.Layout.master')
+@extends('backend.admin.layout.master')
 @section('title',trans('language.profile_info'))
 
 @section('breadcrumb')
@@ -9,7 +9,7 @@
 
 
 @section('css_library')
-    @include('Backend.LibraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
+    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
 @stop
 
 @section('css_page')
@@ -19,7 +19,7 @@
 @section('content')
     <section class="content pb-4 pt-3">
         <div class="container-fluid">
-            @include('Backend.Admin.Profile.partials.form-user-information',[
+            @include('backend.admin.profile.partials.form-user-information',[
                     'admin' => $admin,
                     'action' => route('admin.profile.update' , ['id' => $admin->id]),
                     'method' => 'PUT',
@@ -30,5 +30,5 @@
 @stop
 
 @section('js_library')
-    @include('Backend.LibraryGroup.script-library', ['datepicker' => true, 'select2' => true])
+    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true])
 @stop

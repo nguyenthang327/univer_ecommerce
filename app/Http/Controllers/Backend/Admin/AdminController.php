@@ -33,7 +33,7 @@ class AdminController extends Controller
     /**
      * @var string
      */
-    protected $pathView = 'Backend.Admin.Profile.';
+    protected $pathView = 'backend.admin.profile.';
 
     /**
      * display infor admin

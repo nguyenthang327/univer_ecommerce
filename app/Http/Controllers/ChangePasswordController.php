@@ -29,21 +29,30 @@ class ChangePasswordController extends Controller
             if (Hash::check($request->old_password, $user->password)) {
                 $user->password = Hash::make($request->new_password);
                 $user->save();
-                return response()->json([
-                    'status' => Response::HTTP_OK,
-                    'message' => trans('message.update_succeed'),
-                ], Response::HTTP_OK);
+                return back()->with([
+                    'status_successed' => trans('message.update_succeed')
+                ]);
+                // return response()->json([
+                //     'status' => Response::HTTP_OK,
+                //     'message' => trans('message.update_succeed'),
+                // ], Response::HTTP_OK);
             } else {
-                return response()->json([
-                    'status' => Response::HTTP_FORBIDDEN,
-                    'message' => trans('message.wrong_password'),
-                ],Response::HTTP_FORBIDDEN);
+                return back()->with([
+                    'status_failed' => trans('message.wrong_password')
+                ]);
+                // return response()->json([
+                //     'status' => Response::HTTP_FORBIDDEN,
+                //     'message' => trans('message.wrong_password'),
+                // ],Response::HTTP_FORBIDDEN);
             }
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'msg' => trans('message.server_error'),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return back()->with([
+                'status_failed' => trans('message.server_error')
+            ]);
+            // return response()->json([
+            //     'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+            //     'msg' => trans('message.server_error'),
+            // ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
