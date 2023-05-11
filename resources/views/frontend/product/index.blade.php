@@ -298,7 +298,7 @@
                             @endforeach
                         </div>
                         <div class="pagination-wrap">
-                            {{ $products->appends($request->query())->links('Partials.frontend-pagination') }}
+                            {{ $products->appends($request->query())->links('partials.frontend-pagination') }}
                         </div>
                     </div>
                 @endif
