@@ -2418,6 +2418,7 @@ label {
     position: relative;
     z-index: 1;
     padding-top: 20px;
+    padding-bottom: 20px;
 }
 .best-cat-content h5 {
     font-size: 16px;

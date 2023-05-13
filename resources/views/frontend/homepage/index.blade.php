@@ -143,15 +143,26 @@
             <div class="row">
                 <div class="col-12">
                     <div class="best-cat-list">
+                        @php
+                            $item = 0;
+                        @endphp
+                        @foreach($globalProductCategories as $key => $productCategory)
                         <div class="best-cat-item">
                             <div class="best-cat-thumb">
-                                <a href="shop-left-sidebar.html"><img src="img/product/b_cat_product01.png" alt=""></a>
+                                <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}">
+                                    <img src="{{asset('storage/'.$productCategory["thumbnail"])}}" alt="{{ $productCategory["name"] }}" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';" style="width:217px; height:217px; object-fit:contain;">
+                                </a>
                             </div>
                             <div class="best-cat-content">
-                                <h5><a href="shop-left-sidebar.html">fashion clothes</a></h5>
-                                <span>Women Fashion</span>
+                                <h5><a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}">{{$productCategory['name']}}</a></h5>
                             </div>
                         </div>
+                        @php
+                            ++$item;
+                            if($item==5)
+                                break;
+                        @endphp
+                        @endforeach
                     </div>
                 </div>
             </div>
