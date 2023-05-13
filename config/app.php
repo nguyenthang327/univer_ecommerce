@@ -204,6 +204,7 @@ return [
          * Third Party Service Providers...
          */
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         GlobalServiceProvider::class,
     ],
@@ -222,6 +223,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];

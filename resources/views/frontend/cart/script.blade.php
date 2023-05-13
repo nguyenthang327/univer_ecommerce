@@ -20,10 +20,10 @@
             success: function (response){
                 reloadCart();
                 // toastr.success(response.message.text, {timeOut: 5000})
-                toastr.success('Xóa thành công', {timeOut: 5000});
+                toastr.success(response.message, {timeOut: 5000});
             },
             error: function (err){
-                toastr.error('Có lỗi xảy ra', {timeOut: 5000})
+                toastr.error(err.responseJSON.message, {timeOut: 5000})
             }
         })
     }
@@ -41,12 +41,13 @@
             contentType: false,
             success: function (response){
                 reloadCart();
+                console.log(response);
                 // toastr.success(response.message.text, {timeOut: 5000})
-                toastr.success('Xóa thành công', {timeOut: 5000});
+                toastr.success(response.message, {timeOut: 5000});
             },
             error: function (err){
                 $(".shop-cart-area.wishlist-area").load(location.href + " .shop-cart-area.wishlist-area");
-                toastr.error('Có lỗi xảy ra', {timeOut: 5000})
+                toastr.error(err.responseJSON.message, {timeOut: 5000})
             }
         })
     }

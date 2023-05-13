@@ -36,7 +36,10 @@
                                     <div class="col-12">
                                         <div class="form-grp">
                                             <label for="fName">{{trans('language.full_name')}} <span>*</span></label>
-                                            <input type="text" id="fName" name="full_name">
+                                            <input type="text" id="fName" name="full_name" required>
+                                            @if ($errors->first('full_name'))
+                                                <div class="invalid-alert text-danger">{{ $errors->first('full_name') }}</div>
+                                            @endif
                                         </div>
                                     </div>
                                     @php
@@ -56,7 +59,7 @@
                                                 data-url="{{ route('getDistrictList') }}"
                                                 data-placeholder="{{trans('language.choose_a_prefecture')}}"
                                                 name="prefecture_id"
-                                                {{-- required --}}
+                                                required
                                             >
                                             <option value="" disabled selected style="display: none">{{trans('language.choose_prefecture')}}</option>
                                                 @if(isset($prefectures))
@@ -67,6 +70,9 @@
                                                     @endforeach
                                                 @endif
                                             </select>
+                                            @if ($errors->first('prefecture_id'))
+                                                <div class="invalid-alert text-danger">{{ $errors->first('prefecture_id') }}</div>
+                                            @endif
                                         </div>
                                     </div>
                                     
@@ -80,7 +86,7 @@
                                                 data-url="{{ route('getCommuneList') }}"
                                                 id="select_district"
                                                 data-placeholder="{{trans('language.choose_a_district')}}"
-                                                {{-- required --}}
+                                                required
                                             >
                                             <option value="" disabled selected style="display: none">{{trans('language.choose_district')}}</option>
                                                 @if(isset($districts))
@@ -91,6 +97,9 @@
                                                     @endforeach
                                                 @endif
                                             </select>
+                                            @if ($errors->first('district_id'))
+                                                <div class="invalid-alert text-danger">{{ $errors->first('district_id') }}</div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -101,7 +110,7 @@
                                                 data-placeholder="{{trans('language.choose_a_commune')}}"
                                                 name="commune_id"
                                                 style="width: 100%"
-                                                {{-- required --}}
+                                                required
                                             >
                                                 <option value="" disabled selected style="display: none">{{trans('language.choose_commune')}}</option>
                                                 @if(isset($communes))
@@ -112,18 +121,27 @@
                                                     @endforeach
                                                 @endif
                                             </select>
+                                            @if ($errors->first('commune_id'))
+                                                <div class="invalid-alert text-danger">{{ $errors->first('commune_id') }}</div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-grp">
                                             <label for="address">{{trans('language.address')}} <span>*</span></label>
-                                            <input type="text" id="address" name="address">
+                                            <input type="text" id="address" name="address" required>
+                                            @if ($errors->first('address'))
+                                                <div class="invalid-alert text-danger">{{ $errors->first('address') }}</div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-grp">
                                             <label for="phone">{{trans('language.phone')}} <span>*</span></label>
-                                            <input type="text" id="phone" name="phone">
+                                            <input type="text" id="phone" name="phone" required>
+                                            @if ($errors->first('phone'))
+                                                <div class="invalid-alert text-danger">{{ $errors->first('phone') }}</div>
+                                            @endif
                                         </div>
                                     </div>
                                     {{-- <div class="col-12">
@@ -226,7 +244,7 @@
     <!-- checkout-area-end -->
 
     <!-- core-features -->
-    <section class="core-features-area core-features-style-two">
+    {{-- <section class="core-features-area core-features-style-two">
         <div class="container">
             <div class="core-features-border">
                 <div class="row justify-content-center">
@@ -276,7 +294,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </section>
     <!-- core-features-end -->
 
@@ -326,35 +344,36 @@
             })
 
             const total = {{session('cart_total')['valueTotal']}};
-            paypal.Buttons({
-                        // style: {
-                        //     shape: 'rect',
-                        //     color: 'gold',
-                        //     layout: 'vertical',
-                        //     label: 'paypal',
+
+            // paypal.Buttons({
+            //             // style: {
+            //             //     shape: 'rect',
+            //             //     color: 'gold',
+            //             //     layout: 'vertical',
+            //             //     label: 'paypal',
             
-                        // },
-                        // Sets up the transaction when a payment button is clicked
-                createOrder: (data, actions) => {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: total // Can also reference a variable or function
-                            }
-                        }]
-                    });
-                },
+            //             // },
+            //             // Sets up the transaction when a payment button is clicked
+            //     createOrder: (data, actions) => {
+            //         return actions.order.create({
+            //             purchase_units: [{
+            //                 amount: {
+            //                     value: total // Can also reference a variable or function
+            //                 }
+            //             }]
+            //         });
+            //     },
     
-                onApprove: (data, actions) => {
-                    return actions.order.capture().then(function(orderData) {
-                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                        const transaction = orderData.purchase_units[0].payments.captures[0];
-                        alert(
-                            `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
-                        );
-                    });
-                }
-            }).render('#paypal-button-container');
+            //     onApprove: (data, actions) => {
+            //         return actions.order.capture().then(function(orderData) {
+            //             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+            //             const transaction = orderData.purchase_units[0].payments.captures[0];
+            //             alert(
+            //                 `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
+            //             );
+            //         });
+            //     }
+            // }).render('#paypal-button-container');
         });
     </script>
 @stop

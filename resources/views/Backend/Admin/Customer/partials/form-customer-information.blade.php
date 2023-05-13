@@ -36,8 +36,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="">{{trans('language.user_name')}}</label>
-                                <input type="text" class="form-control {{$errors->first('user_name') ? 'is-invalid' : ''}}" name="user_name" placeholder="{{trans('language.enter_user_name')}}"
+                                <label for="">{{trans('language.customer_name')}}</label>
+                                <input type="text" class="form-control {{$errors->first('user_name') ? 'is-invalid' : ''}}" name="user_name" placeholder="{{trans('language.enter_customer_name')}}"
                                        value="{{old('user_name') ? old('user_name') : (isset($user->user_name) ? $user->user_name : '') }}">
                                 @if ($errors->first('user_name'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('user_name') }}</div>

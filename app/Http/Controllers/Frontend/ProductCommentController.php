@@ -29,6 +29,7 @@ class ProductCommentController extends Controller
             ->where('customer_id', $customerID)
             ->where('status',  Order::STATUS_4)
             ->first();
+
         if(!$order){
             return response()->json([
                 'status' => Response::HTTP_FORBIDDEN,

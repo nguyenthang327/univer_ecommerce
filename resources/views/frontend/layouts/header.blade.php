@@ -13,13 +13,16 @@
                                 <div class="ship-to">
                                     <span>Ship to</span>
                                     <div class="dropdown">
+                                        @php
+                                            $language = \App\Models\language::where('name', session('locale'))->first();
+                                        @endphp
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
-                                            <img src="img/icon/ship_flag.png" alt=""> US/USD
+                                            <img src="img/icon/ship_flag.png" alt=""> {{$language ? $language->display_name : 'Việt Nam'}}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="javascript:void(0)"><img src="img/icon/australia.png" alt="">AUS/USD</a>
-                                            <a class="dropdown-item" href="javascript:void(0)"><img src="img/icon/bng.png" alt="">BNG/TK</a>
+                                            <a class="dropdown-item" href="{{route('changeLanguage', ['locale'=> 'vi'])}}"><img src="img/icon/australia.png" alt="">Việt Nam</a>
+                                            <a class="dropdown-item" href="{{route('changeLanguage', ['locale'=> 'en'])}}"><img src="img/icon/australia.png" alt="">English</a>
                                         </div>
                                     </div>
                                 </div>

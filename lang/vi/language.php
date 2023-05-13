@@ -6,7 +6,7 @@ return [
     'success' => 'Thành công',
 
     // dashboard
-    'dashboard' => 'Bảng tính',
+    'dashboard' => 'Thống kê',
 
     // filter
     'filter' => 'Lọc',
@@ -33,6 +33,10 @@ return [
     'admin_info' => 'Thông tin quản trị',
     'avatar' => 'Ảnh đại diện',
     'lang' => 'Ngôn ngữ',
+    'admin_name' => 'Tên chủ cửa hàng',
+    'enter_admin_name' => 'Nhập tên chủ cửa hàng',
+    'customer_name' => 'Tên khách hàng',
+    'enter_customer_name' => 'Nhập tên khách hàng',
     'user_name' => 'Tên nhân viên',
     'enter_user_name' => 'Nhập tên nhân viên',
     'first_name' => 'Họ',
@@ -153,6 +157,7 @@ return [
     'out_stock' => 'Hết hàng',
     'in_stock' => 'Còn hàng',
     'attribute' => 'Thuộc tính',
+    'product_related' => 'Sản phẩm liên quan',
 
     // brand
     'brand' => 'Thương hiệu',
@@ -187,6 +192,7 @@ return [
             'Sử dụng PayPal',
         ],
     ],
+    'export_pdf' => 'Xuất file PDF',
 
     'customer_id' => 'Mã khách hàng',
     'customer_account_name' => 'Tên khách hàng',
@@ -253,7 +259,7 @@ return [
     // change password
     'change_password' => 'Đổi mật khẩu',
     'old_password' => 'Mật khẩu cũ',
-    'change_password' => 'Đổi mật khẩu',
+    'new_password' => 'Mật khẩu mới',
     'input_old_password' => 'Nhập mật khẩu cũ',
     'input_new_password' => 'Nhập mật khẩu mới',
     'input_confirm_password' => 'Nhập lại mật khẩu mới',
@@ -263,7 +269,7 @@ return [
     'self_info' => 'Thông tin cá nhân',
     'sign_up' => 'Đăng ký',
     'verify' => 'Xác thực',
-    'who' => 'Bạn là: ',
+    'who' => 'Đăng nhập với tài khoản: ',
     'login' => 'Đăng nhập',
 
     // mail user register
@@ -292,5 +298,24 @@ return [
     'author' => 'Tác giả',
     'website' => 'Website bán hàng vip pro',
     'website' => 'V Shop',
+    'number' => 'Số lượng',
+    'top_favorite_product' => 'Top 5 sản phẩm được yêu thích nhất',
+    'free_ship_on_purchase' => 'Miễn phí vận chuyển khi mua hàng',
+    'logo' => 'logo',
+    'name' => 'Tên',
+    'add_brand' => 'Thêm thương hiệu',
+    'brand_name' => 'Tên thương hiệu',
+    'enter_brand_name' => 'Nhập tên thương hiệu',
+    'revenue_statistics' => 'Thống kê doanh thu',
+    'today' => 'Hôm nay',
+    'this_week' => 'Tuần này',
+    'last_week' => 'Tuần trước',
+    'collection' => 'Bộ sưu tập',
+    'slogan' => 'V SHOP nơi cung cấp các sản phẩm tốt nhất, hướng đến khách hàng và trao niềm tin đến với khách hàng',
+    'browse_category' => 'Duyệt các danh mục',
+    'browse_best_category' => 'Duyệt các danh mục tốt nhất',
+    'top_favorite_product' => 'Top sản phẩm yêu thích nhất',
+    'cart_empty' => 'Giỏ hàng trống',
+
 ];
 ?>

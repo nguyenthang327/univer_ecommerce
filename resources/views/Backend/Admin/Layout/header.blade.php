@@ -108,20 +108,32 @@
                 <i class="fas fa-user-tie" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">name</span>
+                @php
+                    $admin = auth()->guard('admin')->user();
+                @endphp
+                <span class="dropdown-item dropdown-header">{{ $admin->first_name . ' '. $admin->last_name}}</span>
                 <div class="dropdown-divider"></div>
-                <a href="#"
-                   class="dropdown-item font-weight-bold"
-                   onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();"
-                >
-                    {{trans('language.logout')}}
-                    <i class="fal fa-sign-out-alt" aria-hidden="true"></i>
-                    <!-- <span class="float-right text-muted text-sm"></span> -->
-                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
-                        @csrf
-                    </form>
-                </a>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="" class="dropdown-item font-weight-bold" data-toggle="modal" data-target="#modalChangePassword"><i class="fa fa-key"></i> {{trans('language.change_password')}}</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#"
+                            class="dropdown-item font-weight-bold"
+                            onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();"
+                            >
+                                {{trans('language.logout')}}
+                                <i class="fal fa-sign-out-alt" aria-hidden="true"></i>
+                                <!-- <span class="float-right text-muted text-sm"></span> -->
+                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
+                                    @csrf
+                                </form>
+                        </a>
+                    </div>
+                </div>
+               
+                
             </div>
         </li>
     </ul>

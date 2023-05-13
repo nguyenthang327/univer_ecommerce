@@ -6,6 +6,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="icon" type="image/x-icon" href="{{asset('images/main-logo-edited.png')}}">
         <title>@yield('title')</title>
 
          <!-- Google Font: Roboto Pro -->
@@ -41,7 +42,7 @@
     <body data-locales="{{app()->getLocale()}}">
 
         <!-- preloader  -->
-        {{-- @include('frontend.layouts.preloader') --}}
+        @include('frontend.layouts.preloader')
         <!-- preloader end -->
 
         <!-- Scroll-top -->
@@ -64,7 +65,7 @@
         @include('frontend.layouts.footer')
         <!-- footer-area-end -->
 
-        @include('frontend.modal.modal-change-password')
+        @include('frontend.modal.modal-change-password', ['typeAccount' => \App\Enums\TypeAccountEnum::CUSTOMER->value])
 
 		<!-- JS here -->
         <script src="{{ asset('fe-assets/js/vendor/jquery-3.5.0.min.js')}}"></script>
@@ -98,5 +99,14 @@
             toastr.error('{{session('status_failed')}}', {timeOut: 5000})
             @endif
         </script>
+
+        @if($errors->first('new_password') || $errors->first('confirm_password'))
+        <script>
+            // $('#modalChangePassword').on('shown.bs.modal', function (e) {
+            //     // do something...
+            // })
+            $('#modalChangePassword').modal('show');
+            </script>
+        @endif
     </body>
 </html>

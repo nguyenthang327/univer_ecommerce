@@ -31,8 +31,8 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="">{{trans('language.user_name')}} <span class="text-red">*</span></label>
-                                <input type="text" class="form-control {{$errors->first('user_name') ? 'is-invalid' : ''}}" name="user_name" placeholder="{{trans('language.enter_user_name')}}" required
+                                <label for="">{{trans('language.admin_name')}} <span class="text-red">*</span></label>
+                                <input type="text" class="form-control {{$errors->first('user_name') ? 'is-invalid' : ''}}" name="user_name" placeholder="{{trans('language.enter_admin_name')}}" required
                                         value="{{old('user_name') ? old('user_name') : (isset($admin->user_name) ? $admin->user_name : '') }}">
                                 @if ($errors->first('user_name'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('user_name') }}</div>

@@ -6,17 +6,17 @@
                 <span data-text-preloader="V" class="letters-loading">
                     V
                 </span>
-                <span data-text-preloader="E" class="letters-loading">
-                    E
+                <span data-text-preloader="S" class="letters-loading">
+                    S
                 </span>
-                <span data-text-preloader="N" class="letters-loading">
-                    N
+                <span data-text-preloader="H" class="letters-loading">
+                    H
                 </span>
-                <span data-text-preloader="A" class="letters-loading">
-                    A
+                <span data-text-preloader="O" class="letters-loading">
+                    O
                 </span>
-                <span data-text-preloader="M" class="letters-loading">
-                    M
+                <span data-text-preloader="P" class="letters-loading">
+                    P
                 </span>
             </div>
         </div>

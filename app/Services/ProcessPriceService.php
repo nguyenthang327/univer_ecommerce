@@ -7,14 +7,18 @@ use Carbon\Carbon;
 class ProcessPriceService
 {
     public static function regularPrice($price, $discount = null){
-        // $language = App::getLocale();
-        // $currency = '';
+        $language = App::getLocale();
+        $currency = '$';
+        $arround = 2;
 
-        // if($language == 'vi'){
-        //     $currency = '₫ ';
-        // }else{
-        //     $currency = '$';
-        // }
+        if($language == 'vi'){
+            $currency = '₫';
+            $arround = 0;
+            $price = $price * 23000;
+
+        }else{
+            $currency = '$';
+        }
 
         $data = [
             'old' => null, 
@@ -22,16 +26,30 @@ class ProcessPriceService
         ];
 
         if($discount > 0){
-            $data['old'] = '$' . $price;
-            $data['new'] = '$' . round($price - ($price * $discount / 100), 2);
+            $data['old'] =  $currency . number_format($price, $arround);
+            $data['new'] =  $currency . number_format(round($price - ($price * $discount / 100), $arround), $arround);
         }else{
-            $data['new'] = '$' . $price;
+            $data['new'] =  $currency . number_format($price, $arround);
         }
 
         return $data;
     }
 
     public static function variantPrice($priceMin, $priceMax, $discount = null){
+        $language = App::getLocale();
+        $currency = '$';
+        $arround = 2;
+
+        if($language == 'vi'){
+            $currency = '₫';
+            $arround = 0;
+            $priceMin = $priceMin * 23000;
+            $priceMax = $priceMax * 23000;
+
+        }else{
+            $currency = '$';
+        }
+
         $data = [
             'old' => null, 
             'new' => null,
@@ -39,17 +57,17 @@ class ProcessPriceService
 
         if((float)$priceMin == (float)$priceMax){
             if($discount > 0){
-                $data['old'] = '$' . $priceMin ;
-                $data['new'] = '$' . round($priceMin - ($priceMin * $discount / 100), 2);
+                $data['old'] =  $currency . number_format($priceMin, $arround);
+                $data['new'] =  $currency . number_format(round($priceMin - ($priceMin * $discount / 100), $arround), $arround);
             }else{
-                $data['new'] = '$' . $priceMin;
+                $data['new'] =  $currency . number_format($priceMin, $arround);
             }
         }else{
             if($discount > 0){
-                $data['old'] = '$' . $priceMin . " - $" . $priceMax;
-                $data['new'] = "$" . round($priceMin - ($priceMin * $discount / 100),2) ." - $" . round($priceMax  - ($priceMax * $discount / 100),2);
+                $data['old'] =  $currency . number_format($priceMin, $arround) . " - $currency" . number_format($priceMax, $arround);
+                $data['new'] =  $currency  . number_format(round($priceMin - ($priceMin * $discount / 100), $arround), $arround) ." - $currency" .  number_format(round($priceMax  - ($priceMax * $discount / 100),$arround), $arround);
             }else{
-                $data['new'] = '$' . $priceMin . " - $" . $priceMax;
+                $data['new'] =  $currency . number_format($priceMin, $arround) . " - $currency" . number_format($priceMax, $arround);
             }
         }
 

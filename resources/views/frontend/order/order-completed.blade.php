@@ -21,8 +21,9 @@
                                     <img src="img/icon/check.png" alt="">
                                 </div>
                                 <p>Thank you for your order! Your order is being processed and will be completed within 6-12
-                                    Hours. You will receive an
-                                    email confirmation when your order is completed.</p>
+                                    Hours.</p>
+                                    {{--  You will receive an
+                                    email confirmation when your order is completed. --}}
                                 <a href="shop-left-sidebar.html" class="btn">CONTINUE SHOPPING</a>
                                 <p class="get-ans">Get answers to all your <a href="#">Questions</a> you might have.
                                 </p>
