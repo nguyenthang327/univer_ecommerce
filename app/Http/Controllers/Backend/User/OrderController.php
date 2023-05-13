@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Admin;
+namespace App\Http\Controllers\Backend\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateOrderRequest;
@@ -16,7 +16,7 @@ use PDF;
 class OrderController extends Controller
 {
     const TAKE = 12;
-    protected $pathView = 'backend.admin.order.';
+    protected $pathView = 'backend.user.order.';
 
      /**
      * @var OrderManager
@@ -115,14 +115,14 @@ class OrderController extends Controller
         // }
     }
 
-    public function exportOrderPDF($id){
+    // public function exportOrderPDF($id){
         
-        $order = $this->orderManager->getOrderDetail($id);
-        if(!$order){
-            abort(404);
-        }
+    //     $order = $this->orderManager->getOrderDetail($id);
+    //     if(!$order){
+    //         abort(404);
+    //     }
 
-        $pdf = PDF::loadView($this->pathView .'orderPDF',  compact('order'));
-    	return $pdf->download(date('d/m/Y') . "_order_$order->id.pdf");
-    }
+    //     $pdf = PDF::loadView($this->pathView .'orderPDF',  compact('order'));
+    // 	return $pdf->download(date('d/m/Y') . "_order_$order->id.pdf");
+    // }
 }

@@ -81,7 +81,7 @@
                         </form>
                     </div>
                     <div class="header-free-shopping">
-                        <p>Free shipping on purchase <span></span></p>
+                        <p>{{trans('language.free_ship_on_purchase')}} <span></span></p>
                     </div>
                 </div>
             </div>

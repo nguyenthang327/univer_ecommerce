@@ -39,30 +39,34 @@ class ProductController extends BaseController
     }
 
     public function show($slug){
-        $customer = Auth::guard('customer')->user();
-        $product = Product::select([
-                'products.*',
-                // DB::raw("GROUP_CONCAT( CONCAT(product_categories.name, '') SEPARATOR ',' ) AS groupCategory"),
-                // 'product_categories.name as prName'
-                'brands.name as brand_name',
-                DB::raw('ROUND(AVG(product_comments.rating), 1) as rating_avg'),
-                'favorite_product.id as favoriteID',
-            ])
+        $columns = [
+            'products.*',
+            // DB::raw("GROUP_CONCAT( CONCAT(product_categories.name, '') SEPARATOR ',' ) AS groupCategory"),
+            // 'product_categories.name as prName'
+            'brands.name as brand_name',
+            DB::raw('ROUND(AVG(product_comments.rating), 1) as rating_avg'),
+        ];
+        
+        $product = Product::select($columns)
             ->with(['skus', 'variants', 'options', 'optionValues', 'productCategoryRelation'])
             ->leftJoin('product_skus', 'product_skus.product_id', '=', 'products.id')
             ->leftJoin('product_comments', 'product_comments.product_id', '=', 'products.id')
             ->leftJoin('product_category_relation', 'product_category_relation.product_id', '=', 'products.id')
             ->leftJoin('product_option_values', 'product_option_values.product_id', '=', 'products.id')
             ->leftJoin('product_variants', 'product_variants.sku_id', '=', 'product_skus.id')
-            // ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id')
-            ->leftJoin('favorite_product', function($leftJoin) use ($customer){
-                $leftJoin->on('favorite_product.product_id', 'products.id')
-                    ->where('favorite_product.customer_id', $customer->id);
-            })
+            // ->leftJoin('product_categories', 'product_categories.id', '=', 'product_category_relation.category_id') 
             ->leftJoin('brands', 'brands.id', '=', 'products.brand_id')
             ->where('products.slug', $slug)
-            ->where('products.status', Product::SELL)
-            ->first();
+            ->where('products.status', Product::SELL);
+        if(Auth::guard('customer')->check()){
+            $customer = Auth::guard('customer')->user();
+            $columns[] = 'favorite_product.id as favoriteID';
+            $product->leftJoin('favorite_product', function($leftJoin) use ($customer){
+                $leftJoin->on('favorite_product.product_id', 'products.id')
+                    ->where('favorite_product.customer_id', $customer->id);
+            });
+        }
+        $product = $product->select($columns)->first();
 
         if(!$product->id){
             return view('frontend.layoutStatus.404');

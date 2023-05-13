@@ -1761,7 +1761,7 @@ label {
 .section-title::after {
 	content: "";
 	display: block;
-	background-image: url(../img/images/title_shape.png);
+	background-image: url(https://themebeyond.com/html/venam/img/images/title_shape.png);
 	width: 252px;
 	height: 24px;
 	background-repeat: no-repeat;
@@ -2217,6 +2217,7 @@ label {
 .exclusive-item-two .exclusive-item-content {
     padding: 30px 20px 25px;
     position: relative;
+    height: 121px;
 }
 .exclusive-item-two .exclusive-item-content::before {
     content: "";
@@ -5217,4 +5218,11 @@ p.error{
 .header-avartar.avatar-customer{
     object-fit: contain;
     border-radius: 50%;
+}
+
+.line-clamp-1{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }

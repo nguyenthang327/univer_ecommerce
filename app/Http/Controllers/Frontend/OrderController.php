@@ -39,6 +39,15 @@ class OrderController extends BaseController
         //     return $item->quantity * $item->price;
         // });
         // }
+        $customer = Auth::guard('customer')->user();
+        $cart = Cart::join('cart_detail', 'cart_detail.cart_id', 'carts.id')
+            ->where('carts.customer_id', $customer->id)
+            ->first();
+        if(!$cart){
+            return back()->with([
+                'status_failed' => trans('language.cart_empty'),
+            ]);
+        }
         return view($this->pathView . 'checkout');
     }
 
@@ -52,6 +61,14 @@ class OrderController extends BaseController
                 $couponID = $coupon->id;
             }
             $customer = Auth::guard('customer')->user();
+            $cart = Cart::join('cart_detail', 'cart_detail.cart_id', 'carts.id')
+                ->where('carts.customer_id', $customer->id)
+                ->first();
+            if(!$cart){
+                return back()->with([
+                    'status_failed' => trans('language.cart_empty'),
+                ]);
+            }
 
             $param = [
                 'customer_id' => $customer->id,
@@ -78,7 +95,7 @@ class OrderController extends BaseController
             }
             DB::commit();
             return redirect()->back()->with([
-                'status_successed' => trans('message.oreder_successed'),
+                'status_successed' => trans('message.order_successed'),
                 'orderCompletedView' => true,
             ]);
             return view($this->pathView.'order-completed');

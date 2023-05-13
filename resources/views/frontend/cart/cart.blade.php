@@ -173,14 +173,14 @@
             </div>
         @else
             <div class="container">
-                Giỏ hàng trống
+                {{trans('language.cart_empty')}}
             </div>
         @endif
     </section>
     <!-- shop-cart-area-end -->
 
     <!-- core-features -->
-    <section class="core-features-area core-features-style-two">
+    {{-- <section class="core-features-area core-features-style-two">
         <div class="container">
             <div class="core-features-border">
                 <div class="row justify-content-center">
@@ -231,7 +231,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- core-features-end -->
 </main>
 @stop

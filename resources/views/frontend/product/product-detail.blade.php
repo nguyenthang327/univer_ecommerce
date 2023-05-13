@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title',trans('language.product-detail'))
+@section('title',trans('language.product_detail'))
 
 @section('css_page')
     <style>
@@ -174,7 +174,7 @@
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
                                     <div class="product-desc-content">
-                                        <h4 class="title">Product Details</h4>
+                                        <h4 class="title">{{trans('language.description')}}</h4>
                                         <div class="row">
                                             <div class="col-xl-2 col-md-2">
                                                 {{-- <div class="product-desc-img">
@@ -202,44 +202,45 @@
                         {{-- <div class="shop-details-add mb-95">
                             <a href="#"><img src="img/product/shop_details_add.jpg" alt=""></a>
                         </div> --}}
+
                         @if(count($relatedProduct) > 0)
 
                         <div class="related-product-wrap pb-95">
                             <div class="deal-day-top">
                                 <div class="deal-day-title">
-                                    <h4 class="title">Viewers Also Liked</h4>
+                                    <h4 class="title">{{trans('language.product_related')}}</h4>
                                 </div>
                                 <div class="related-slider-nav">
                                     <div class="slider-nav"></div>
                                 </div>
                             </div>
                             <div class="row related-product-active">
-                                @foreach($relatedProduct as $product)
+                                @foreach($relatedProduct as $item)
                                     @php
-                                        $checkVariant = $product->product_type == \App\Models\Product::TYPE_VARIANT && $product->skus->isNotEmpty();
+                                        $checkVariant = $item->product_type == \App\Models\Product::TYPE_VARIANT && $item->skus->isNotEmpty();
                                         $data = [];
                                         if($checkVariant){
-                                            $data = \App\Services\ProcessPriceService::variantPrice($product->skus[0]->min_price, $product->skus[0]->min_price, $product->discount);
+                                            $data = \App\Services\ProcessPriceService::variantPrice($item->skus[0]->min_price, $item->skus[0]->min_price, $item->discount);
                                         }else{
-                                            $data = \App\Services\ProcessPriceService::regularPrice($product->price, $product->discount);
+                                            $data = \App\Services\ProcessPriceService::regularPrice($item->price, $item->discount);
                                         };
                                     @endphp
                                     <div class="col-xl-3">
                                         <div class="exclusive-item exclusive-item-three text-center">
                                             <div class="exclusive-item-thumb">
-                                                <a href="{{ route('site.product.show', ['slug' => $product->slug]) }}">
+                                                <a href="{{ route('site.product.show', ['slug' => $item->slug]) }}">
                                                     {{-- <img src="img/product/td_product_img01.jpg" alt="">
                                                     <img class="overlay-product-thumb" src="img/product/t_exclusive_product01.jpg" alt=""> --}}
-                                                    <img src="{{ !empty($product->gallery) ? asset('storage/'.$product->gallery[0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
+                                                    <img src="{{ !empty($item->gallery) ? asset('storage/'.$item->gallery[0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
                                                 </a>
                                                 <ul class="action">
                                                     <li><a href="#"><i class="flaticon-shuffle-1"></i></a></li>
                                                     <li><a href="#"><i class="flaticon-supermarket"></i></a></li>
-                                                    <li><a href="{{ route('site.product.show', ['slug' => $product->slug]) }}"><i class="flaticon-witness"></i></a></li>
+                                                    <li><a href="{{ route('site.product.show', ['slug' => $item->slug]) }}"><i class="flaticon-witness"></i></a></li>
                                                 </ul>
                                             </div>
                                             <div class="exclusive-item-content">
-                                                <h5><a class="line-clamp-2" href="{{ route('site.product.show', ['slug' => $product->slug]) }}">{{$product->name}}</a></h5>
+                                                <h5><a class="line-clamp-2" href="{{ route('site.product.show', ['slug' => $item->slug]) }}">{{$item->name}}</a></h5>
                                                 <div class="exclusive--item--price">
                                                     @if($data['old'] )
                                                         <del class="old-price">{{ $data['old'] }}</del>

@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal-body">
                     {{-- <div class="alert alert-message d-none" role="alert"></div> --}}
-                    <input type="hidden" name="type" value={{\App\Enums\TypeAccountEnum::CUSTOMER}} />
+                    <input type="hidden" name="type" value="{{$typeAccount}}" />
                     <div class="form-group">
                         <label>{{ trans('language.old_password') }}</label>
                         <input type="password" class="form-control" name="old_password" required placeholder="{{ trans('language.input_old_password') }}">
@@ -19,10 +19,16 @@
                     <div class="form-group">
                         <label>{{ trans('language.new_password') }}</label>
                         <input type="password" minlength="6" id="password" name="new_password" class="form-control" required placeholder="{{ trans('language.input_new_password') }}">
+                        @if ($errors->first('new_password'))
+                            <div class="invalid-alert text-danger">{{ $errors->first('new_password') }}</div>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label>{{ trans('language.confirm_password') }}</label>
                         <input type="password" minlength="6" id="confirm_password" name="confirm_password" class="form-control" required placeholder="{{ trans('language.input_confirm_password') }}">
+                        @if ($errors->first('confirm_password'))
+                            <div class="invalid-alert text-danger">{{ $errors->first('confirm_password') }}</div>
+                        @endif
                     </div>
                 </div>
                 <div class="modal-footer">

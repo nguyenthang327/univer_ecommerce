@@ -27,7 +27,7 @@
                     <aside class="shop-sidebar">
                         <div class="widget shop-widget mb-30">
                             <div class="shop-widget-title">
-                                <h6 class="title">Product Categories</h6>
+                                <h6 class="title">{{ trans('language.product_category') }}</h6>
                             </div>
                             <div class="shop-cat-list">
                                 <ul>
@@ -44,6 +44,7 @@
                                         </li>
                                     @endforeach
                                 @else
+                                    <li><a href="{{ route('site.product.index')}}" class="mini-cate-special">All</a>
                                     @foreach($globalProductCategories as $key => $productCategory)
                                         @if($productCategory['slug'] == Request::get('categorySlug'))
                                             <li>
@@ -249,11 +250,12 @@
                                     <li><a href="#"><i class="flaticon-list"></i></a></li>
                                 </ul> --}}
                                 {{-- <form action=""> --}}
-                                    <select class="custom-select">
-                                        <option selected="">Default Sorting</option>
-                                        <option value="1">Giá tăng dần</option>
-                                        <option value="2">Giá giảm dần</option>
-                                    </select>
+                                    <span class="custom-select">Default Sorting</span>
+                                    {{-- <select class="custom-select" placeholder="Default Sorting"> --}}
+                                        {{-- <option selected="">Default Sorting</option> --}}
+                                        {{-- <option value="1">Giá tăng dần</option>
+                                        <option value="2">Giá giảm dần</option> --}}
+                                    {{-- </select> --}}
                                 {{-- </form> --}}
                             </div>
                         </div>

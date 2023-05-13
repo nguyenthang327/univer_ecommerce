@@ -53,5 +53,15 @@ return [
     // cart
     'add_product_in_cart_successed' => 'Add product in cart successed!',
 
+    'add_product_to_wishlist_successed' => 'add product to wishlist successed!',
+    'wrong_password' => 'Password is not correct!',
+    'update_sku_successed' => 'Update product variants successed!',
+    'add_comment_successed' => 'Review successed!',
+    'edit_category_successed' => 'Update category successed!',
+    'delete_product_to_wishlist_successed' => 'Delete favorite product successed!',
+    'delete_product_in_cart_successed'  => 'Delete product in cart successed!',
+    'update_product_in_cart_successed' => 'Update product in cart successed!',
+    'order_successed' => 'Order successed!',
+
 ]
 ?>

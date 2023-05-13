@@ -36,10 +36,14 @@
     }
 
     function getPrice(price, discount = null){
+        let language = $("body").data('locales') ?? 'vi';
         let html = '';
-        let type = '$';
-        discount = parseFloat(discount) ?? 0;
-        html = `${type}${parseFloat(price - (price * discount / 100)).toFixed(2)}`;
+        discount = parseFloat(discount) ?? 0
+        if(language == 'vi'){
+            html = `${(parseFloat(price - (price * discount / 100))*23000).toLocaleString('en-US', {style : 'currency', currency : 'VND'})}`;
+        }else{
+            html = `${parseFloat(price - (price * discount / 100)).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
+        }
 
         return html;
     }

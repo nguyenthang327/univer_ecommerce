@@ -52,5 +52,13 @@ return [
     // cart
     'add_product_in_cart_successed' => 'Thêm sản phẩm vào giỏ hàng thành công!',
 
+    'add_product_to_wishlist_successed' => 'Thêm sản phẩm yêu thích thành công!',
+    'wrong_password' => 'Mật khẩu không đúng!',
+    'update_sku_successed' => 'Cập nhật biến thể sản phẩm thành công!',
+    'add_comment_successed' => 'Bình luận thành công!',
+    'edit_category_successed' => 'Cập nhật danh mục thành công!',
+    'delete_product_in_cart_successed'  => 'Xóa sản phẩm trong giỏ hàng thành công!',
+    'update_product_in_cart_successed' => 'Cập nhật sản phẩm trong giỏ hàng thành công!',
+    'order_successed' => 'Đặt hàng thành công!',
 ]
 ?>

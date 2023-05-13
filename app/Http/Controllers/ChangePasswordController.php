@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TypeAccountEnum;
+use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class ChangePasswordController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function changePasswod(Request $request) {
+    public function changePasswod(ChangePasswordRequest $request) {
         try {
             if($request->type == TypeAccountEnum::ADMIN->value){
                 $user = Auth::guard('admin')->user();

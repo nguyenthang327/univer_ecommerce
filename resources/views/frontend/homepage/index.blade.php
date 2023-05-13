@@ -49,17 +49,17 @@
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6">
                 <div class="top-cat-banner-item mt-30">
-                    <a href="shop-left-sidebar.html"><img src="https://themebeyond.com/html/venam/img/images/top_cat_banner01.jpg" alt=""></a>
+                    <a href="{{ route('site.product.index') }}"><img src="https://themebeyond.com/html/venam/img/images/top_cat_banner01.jpg" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="top-cat-banner-item mt-30">
-                    <a href="shop-left-sidebar.html"><img src="https://themebeyond.com/html/venam/img/images/top_cat_banner01.jpg" alt=""></a>
+                    <a href="{{ route('site.product.index') }}"><img src="https://themebeyond.com/html/venam/img/images/top_cat_banner01.jpg" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="top-cat-banner-item mt-30">
-                    <a href="shop-left-sidebar.html"><img src="https://themebeyond.com/html/venam/img/images/top_cat_banner01.jpg" alt=""></a>
+                    <a href="{{ route('site.product.index') }}"><img src="https://themebeyond.com/html/venam/img/images/top_cat_banner01.jpg" alt=""></a>
                 </div>
             </div>
         </div>
@@ -75,156 +75,52 @@
 <section class="deal-of-the-day theme-bg pt-100 pb-70">
     <div class="custom-container-two">
         <div class="row">
-            <div class="custom-col-4">
+            {{-- <div class="custom-col-4">
                 <div class="deal-of-day-banner mb-30">
                     <a href="shop-left-sidebar.html"><img src="img/product/deal_banner.jpg" alt=""></a>
                 </div>
-            </div>
-            <div class="custom-col-8">
+            </div> --}}
+            <div class="col-12">
                 <div class="deal-day-top">
                     <div class="deal-day-title">
-                        <h4 class="title">Deal Of The Day</h4>
+                        <h4 class="title">{{trans('language.top_favorite_product')}}</h4>
                     </div>
                     <div class="view-all-deal">
-                        <a href="shop-left-sidebar.html"><i class="flaticon-scroll"></i> View All</a>
+                        {{-- <a href="shop-left-sidebar.html"><i class="flaticon-scroll"></i> View All</a> --}}
                     </div>
                 </div>
                 <div class="row deal-day-active">
+                    @foreach($topFavoriteProduct as $product)
+                    @php
+                        $checkVariant = $product->product_type == \App\Models\Product::TYPE_VARIANT && $product->skus->isNotEmpty();
+                        $data = [];
+                        if($checkVariant){
+                            $data = \App\Services\ProcessPriceService::variantPrice($product->skus[0]->min_price, $product->skus[0]->min_price, $product->discount);
+                        }else{
+                            $data = \App\Services\ProcessPriceService::regularPrice($product->price, $product->discount);
+                        };
+                    @endphp
                     <div class="col-xl-3">
                         <div class="most-popular-viewed-item mb-30">
                             <div class="viewed-item-top">
                                 <div class="most--popular--item--thumb mb-20">
-                                    <a href="shop-details.html"><img src="img/product/most_popular_01.jpg" alt=""></a>
+                                    <a href="{{ route('site.product.show', ['slug' => $product->slug]) }}">
+                                        <img src="{{ !empty($product->gallery) ? asset('storage/'.$product->gallery[0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';" style="width: 170px; height:178px; oject-fit:containt;">
+                                    </a>
                                 </div>
                                 <div class="super-deal-content">
-                                    <h6><a href="shop-details.html">Vacuum Cleaner</a></h6>
-                                    <p>US $ 49.00<span>{ 50% off }</span></p>
+                                    <h6><a href="{{ route('site.product.show', ['slug' => $product->slug]) }}" class="line-clamp-1">{{$product->name}}</a></h6>
+                                    <p>{{ $data['new'] }}@if($product->discount > 0)<span> {Sale: {{ $product->discount}} % }</span>@endif</p>
                                 </div>
                             </div>
                             <div class="viewed-item-bottom">
                                 <ul>
-                                    <li>Total Sold : 25</li>
-                                    <li>Stocks : 3456</li>
+                                    <li>Số lượt yêu thích : {{$product->total}}</li>
                                 </ul>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                                <div class="viewed-offer-time">
-                                    <p><span>Hurry Up</span> Limited Time Offer</p>
-                                    <div class="coming-time" data-countdown="2020/9/20"></div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3">
-                        <div class="most-popular-viewed-item mb-30">
-                            <div class="viewed-item-top">
-                                <div class="most--popular--item--thumb mb-20">
-                                    <a href="shop-details.html"><img src="img/product/most_popular_02.jpg" alt=""></a>
-                                </div>
-                                <div class="super-deal-content">
-                                    <h6><a href="shop-details.html">Stylish Smart Watch</a></h6>
-                                    <p>US $ 17.00<span>{ 50% off }</span></p>
-                                </div>
-                            </div>
-                            <div class="viewed-item-bottom">
-                                <ul>
-                                    <li>Total Sold : 35</li>
-                                    <li>Stocks : 3456</li>
-                                </ul>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                                <div class="viewed-offer-time">
-                                    <p><span>Hurry Up</span> Limited Time Offer</p>
-                                    <div class="coming-time" data-countdown="2020/9/15"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="most-popular-viewed-item mb-30">
-                            <div class="viewed-item-top">
-                                <div class="most--popular--item--thumb mb-20">
-                                    <a href="shop-details.html"><img src="img/product/most_popular_03.jpg" alt=""></a>
-                                </div>
-                                <div class="super-deal-content">
-                                    <h6><a href="shop-details.html">Fashion Party Dress</a></h6>
-                                    <p>US $ 17.00<span>{ 50% off }</span></p>
-                                </div>
-                            </div>
-                            <div class="viewed-item-bottom">
-                                <ul>
-                                    <li>Total Sold : 35</li>
-                                    <li>Stocks : 3456</li>
-                                </ul>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="35" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                                <div class="viewed-offer-time">
-                                    <p><span>Hurry Up</span> Limited Time Offer</p>
-                                    <div class="coming-time" data-countdown="2020/9/11"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="most-popular-viewed-item mb-30">
-                            <div class="viewed-item-top">
-                                <div class="most--popular--item--thumb mb-20">
-                                    <a href="shop-details.html"><img src="img/product/most_popular_01.jpg" alt=""></a>
-                                </div>
-                                <div class="super-deal-content">
-                                    <h6><a href="shop-details.html">Vacuum Fashion Bag</a></h6>
-                                    <p>US $ 31.00<span>{ 50% off }</span></p>
-                                </div>
-                            </div>
-                            <div class="viewed-item-bottom">
-                                <ul>
-                                    <li>Total Sold : 35</li>
-                                    <li>Stocks : 3456</li>
-                                </ul>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="35" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                                <div class="viewed-offer-time">
-                                    <p><span>Hurry Up</span> Limited Time Offer</p>
-                                    <div class="coming-time" data-countdown="2020/9/9"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="most-popular-viewed-item mb-30">
-                            <div class="viewed-item-top">
-                                <div class="most--popular--item--thumb mb-20">
-                                    <a href="shop-details.html"><img src="img/product/most_popular_02.jpg" alt=""></a>
-                                </div>
-                                <div class="super-deal-content">
-                                    <h6><a href="shop-details.html">Stylish Smart Watch</a></h6>
-                                    <p>US $ 17.00<span>{ 50% off }</span></p>
-                                </div>
-                            </div>
-                            <div class="viewed-item-bottom">
-                                <ul>
-                                    <li>Total Sold : 35</li>
-                                    <li>Stocks : 3456</li>
-                                </ul>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                </div>
-                                <div class="viewed-offer-time">
-                                    <p><span>Hurry Up</span> Limited Time Offer</p>
-                                    <div class="coming-time" data-countdown="2020/9/15"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -239,8 +135,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section-title text-center mb-60">
-                        <span class="sub-title">BROWSE CATEGORIES</span>
-                        <h2 class="title">BROWSE best CATEGORIES</h2>
+                        <span class="sub-title">{{trans('language.browse_category')}}</span>
+                        <h2 class="title">{{trans('language.browse_best_category')}}</h2>
                     </div>
                 </div>
             </div>
@@ -254,42 +150,6 @@
                             <div class="best-cat-content">
                                 <h5><a href="shop-left-sidebar.html">fashion clothes</a></h5>
                                 <span>Women Fashion</span>
-                            </div>
-                        </div>
-                        <div class="best-cat-item">
-                            <div class="best-cat-thumb">
-                                <a href="shop-left-sidebar.html"><img src="img/product/b_cat_product02.png" alt=""></a>
-                            </div>
-                            <div class="best-cat-content">
-                                <h5><a href="shop-left-sidebar.html">smart watch</a></h5>
-                                <span>Men Fashion</span>
-                            </div>
-                        </div>
-                        <div class="best-cat-item">
-                            <div class="best-cat-thumb">
-                                <a href="shop-left-sidebar.html"><img src="img/product/b_cat_product03.png" alt=""></a>
-                            </div>
-                            <div class="best-cat-content">
-                                <h5><a href="shop-left-sidebar.html">Casual Shoes</a></h5>
-                                <span>Men Fashion</span>
-                            </div>
-                        </div>
-                        <div class="best-cat-item">
-                            <div class="best-cat-thumb">
-                                <a href="shop-left-sidebar.html"><img src="img/product/b_cat_product04.png" alt=""></a>
-                            </div>
-                            <div class="best-cat-content">
-                                <h5><a href="shop-left-sidebar.html">Woman clothes</a></h5>
-                                <span>Woman Fashion</span>
-                            </div>
-                        </div>
-                        <div class="best-cat-item">
-                            <div class="best-cat-thumb">
-                                <a href="shop-left-sidebar.html"><img src="img/product/b_cat_product05.png" alt=""></a>
-                            </div>
-                            <div class="best-cat-content">
-                                <h5><a href="shop-left-sidebar.html">hair removal</a></h5>
-                                <span>Woman Fashion</span>
                             </div>
                         </div>
                     </div>

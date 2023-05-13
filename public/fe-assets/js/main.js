@@ -251,10 +251,10 @@ $('.popular-active').slick({
 $('.deal-day-active').slick({
 	dots: false,
 	infinite: true,
-	speed: 1000,
+	speed: 800,
 	autoplay: true,
 	arrows: false,
-	slidesToShow: 3,
+	slidesToShow: 4,
 	slidesToScroll: 1,
 	responsive: [
 		{

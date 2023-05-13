@@ -150,6 +150,14 @@ use App\Http\Controllers\Frontend\ProfileController;
                 Route::get('/', [UserCustomerController::class, 'index'])->name('user.customer.index');
                 Route::get('{id}/avatar', [UserCustomerController::class, 'getAvatar'])->name('user.customer.avatar');
             });
+
+              // Order
+              Route::prefix('/order')->group(function(){
+                Route::get('/', [AdminOrderController::class, 'index'])->name('user.order.index');
+                Route::get('/{id}/edit', [AdminOrderController::class, 'edit'])->name('user.order.edit');
+                Route::put('/update/{id}', [AdminOrderController::class, 'update'])->name('user.order.update');
+                // Route::delete('/{id}/destroy', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
+            });
         });
     });
 
@@ -178,6 +186,9 @@ use App\Http\Controllers\Frontend\ProfileController;
                 Route::delete('/{id}/destroy', [ProductController::class, 'destroy'])->name('user.product.destroy');
             });
         });
+
+        //export order
+        Route::get('export-order-PDF/{id}', [AdminOrderController::class, 'exportOrderPDF'])->name('order.export.pdf');
     });
 // });
 

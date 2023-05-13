@@ -23,6 +23,7 @@ class ProductManager
                 ->whereNotNull('product_skus.stock')
                 ->groupBy('product_skus.product_id');
             }])
+            ->leftJoin('brands', 'brands.id', 'products.brand_id')
             ->select([
                 'products.id',
                 'products.name',
@@ -34,6 +35,7 @@ class ProductManager
                 'products.gallery',
                 'products.created_at',
                 'products.product_type',
+                'brands.name as brand_name',
             ])
             ->where('products.status', Product::SELL);
            

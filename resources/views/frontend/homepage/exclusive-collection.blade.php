@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="section-title text-center mb-60">
-                    <span class="sub-title">exclusive collection</span>
-                    <h2 class="title">best selling products</h2>
+                <div class="section-title text-center mb-50">
+                    <span class="sub-title">{{trans('language.collection')}}</span>
+                    <h2 class="title">{{trans('language.product')}}</h2>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
                         </div>
                         <div class="exclusive--content--bottom">
                             <span>{{ $data['new'] }}</span>
-                            <span>Hand Gloves</span>
+                            <span>{{ $product['brand_name']}}</span>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="exclusive--content--bottom">
                             <span>{{ $data['new'] }}</span>
-                            <span>Hand Gloves</span>
+                            <span>{{ $product['brand_name']}}</span>
                         </div>
                     </div>
                 </div>

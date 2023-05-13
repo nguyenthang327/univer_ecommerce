@@ -37,6 +37,7 @@
     </div>
 @include('backend.admin.layout.footer')
 <!-- <div id="sidebar-overlay"></div> -->
+@include('frontend.modal.modal-change-password', ['typeAccount' => \App\Enums\TypeAccountEnum::ADMIN->value])
 </div>
 
 
@@ -70,5 +71,10 @@
     toastr.error('{{session('status_failed')}}', {timeOut: 5000})
     @endif
 </script>
+@if($errors->first('new_password') || $errors->first('confirm_password'))
+    <script>
+        $('#modalChangePassword').modal('show');
+    </script>
+@endif
 </body>
 </html>
