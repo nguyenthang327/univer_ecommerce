@@ -62,6 +62,7 @@ return [
     'delete_product_in_cart_successed'  => 'Delete product in cart successed!',
     'update_product_in_cart_successed' => 'Update product in cart successed!',
     'order_successed' => 'Order successed!',
+    'update_successed' => 'Update successed!',
 
 ]
 ?>

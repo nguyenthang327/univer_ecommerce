@@ -317,5 +317,10 @@ return [
     'top_favorite_product' => 'Top sản phẩm yêu thích nhất',
     'cart_empty' => 'Giỏ hàng trống',
     'number_favorite' => 'Số lượt yêu thích',
+    'order_need_process' => 'Đơn hàng cần xử lý',
+    'product_selling' => 'Sản phẩm đang bán',
+    'customer' => 'Khách hàng',
+    'employee' => 'Nhân viên',
+
 ];
 ?>

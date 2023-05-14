@@ -479,7 +479,7 @@
                     fd.append('address', $('.checkout-form input[name="address"]').val());
                     fd.append('phone', $('.checkout-form input[name="phone"]').val());
                     fd.append('payment_method', 1);
-
+                    loaderStart();
                     $.ajax({
                         headers: {
                             "X-CSRF-TOKEN": token,
@@ -496,7 +496,7 @@
                             // });
                             // loaderEnd();
                             return actions.order.capture().then(function(orderData) {
-                                // $("main").html(response.data);
+                                loaderEnd();
                                 window.location.href = window.location.origin + '/order/order-completed';
                             })
                         },
@@ -508,6 +508,7 @@
                                     timeOut: 5000
                                 });
                             }
+                            loaderEnd();
                             return false;
                             // loaderEnd();
                         }

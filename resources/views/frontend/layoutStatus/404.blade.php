@@ -17,7 +17,7 @@
                         <h2>Page Not Found</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{route('site.home')}}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">404 Page</li>
                             </ol>
                         </nav>

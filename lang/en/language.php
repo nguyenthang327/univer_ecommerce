@@ -317,6 +317,10 @@ return [
     'cart_empty' => 'Cart empty',
     'address' => 'address',
     'number_favorite' => 'Number of favorites',
-
+    'confirm_password' => 'Confirm password',
+    'order_need_process' => 'Order need to proccess',
+    'product_selling' => 'Order need to proccess',
+    'customer' => 'Customers',
+    'employee' => 'Employees',
 ];
 ?>

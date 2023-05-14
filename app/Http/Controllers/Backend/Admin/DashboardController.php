@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -60,10 +61,12 @@ class DashboardController extends Controller
             ->groupBy('date');
 
         $queryClone = clone $fourteenday;
+        $queryClone2 = clone $fourteenday;
+
         $sumLastWeek = $queryClone->whereDate('orders.created_at', '>=', $startOfLastWeek)
             ->whereDate('orders.created_at', '<=', $endtOfLastWeek)->get();
-        
-        $sumCurrentWeek = $queryClone->whereDate('orders.created_at', '>=', $startOfCurrentWeek)
+
+        $sumCurrentWeek = $queryClone2->whereDate('orders.created_at', '>=', $startOfCurrentWeek)
             ->whereDate('orders.created_at', '<=', $endOfCurrentWeek)->get();
 
         $orderLastWeek = [];
@@ -71,12 +74,20 @@ class DashboardController extends Controller
 
         $i = 0;
         $j = Carbon::now()->diffInDays($startOfCurrentWeek);
+        
+        $language = App::getLocale();
+
+        if($language == 'vi'){
+            $currency = 23000;
+        }else{
+            $currency = 1;
+        }
         for($i = 0; $i <= $j; ++$i){
             $check = true;
             foreach($sumCurrentWeek as $value){
                 if(Carbon::now()->startOfWeek()->addDays($i)->format('Y-m-d') == $value->date){
                     $check = false;
-                    $orderThisWeek[] = (float)$value->total;
+                    $orderThisWeek[] = (float)$value->total * $currency;
                     break;
                 }
             }
@@ -90,7 +101,7 @@ class DashboardController extends Controller
             foreach($sumLastWeek as $value){
                 if(Carbon::now()->startOfWeek()->subDays($i)->format('Y-m-d') == $value->date){
                     $check = false;
-                    $orderLastWeek[] = (float)$value->total;
+                    $orderLastWeek[] = (float)$value->total * $currency;
                     break;
                 }
             }

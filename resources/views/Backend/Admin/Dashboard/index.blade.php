@@ -41,7 +41,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $data['orderNeedProcess'] }}</h3>
-                            <p>Tổng số đơn hàng cần xử lý</p>
+                            <p>{{trans('language.order_need_process')}}</p>
 
                         </div>
                         <div class="icon">
@@ -59,7 +59,7 @@
                                 {{-- <sup style="font-size: 20px">%</sup> --}}
                             </h3>
 
-                            <p>Khách hàng</p>
+                            <p>{{trans('language.customer')}}</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
@@ -75,7 +75,7 @@
                         <div class="inner">
                             <h3>{{ $data['users'] }}</h3>
 
-                            <p>Nhân viên</p>
+                            <p>{{trans('language.employee')}}</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
@@ -91,7 +91,7 @@
                         <div class="inner">
                             <h3>{{ $data['productSell'] }}</h3>
 
-                            <p>Sản phẩm đang bán</p>
+                            <p>{{trans('language.product_selling')}}</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
@@ -158,14 +158,18 @@
                     <div class="card" id="chart_order" data-week={{$orderThisWeek}} data-week2={{$orderLastWeek}}>
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
-                                <h3 class="card-title">{{trans('language.revenue_statistics')}}</h3>
+                                <h3 class="card-title"><b>{{trans('language.revenue_statistics')}}</b></h3>
                                 {{-- <a href="javascript:void(0);">View Report</a> --}}
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="d-flex">
                                 @php
-                                    $total = \App\Services\ProcessPriceService::regularPrice($orderThisWeek->last(), null);
+                                    $totalInDay = $orderThisWeek->last();
+                                    if(session('locale') == 'vi'){
+                                        $totalInDay =  $totalInDay/23000;
+                                    }
+                                    $total = \App\Services\ProcessPriceService::regularPrice($totalInDay, null);
                                 @endphp
                                 <p class="d-flex flex-column">
                                     <span class="text-bold text-lg">{{trans('language.today')}}: {{$total['new']}}</span>
@@ -186,11 +190,11 @@
 
                             <div class="d-flex flex-row justify-content-end">
                                 <span class="mr-2">
-                                    <i class="fas fa-square text-primary"></i> This week {{trans('language.this_week')}}
+                                    <i class="fas fa-square text-primary"></i> {{trans('language.this_week')}}
                                 </span>
 
                                 <span>
-                                    <i class="fas fa-square text-gray"></i> Last week {{trans('language.last_week')}}
+                                    <i class="fas fa-square text-gray"></i> {{trans('language.last_week')}}
                                 </span>
                             </div>
                         </div>
@@ -209,6 +213,7 @@
 @section('js_page')
     <script>
         $(function() {
+            const language = $("body").data('locales') ?? 'vi';
 
             var ticksStyle = {
                 fontColor: '#495057',
@@ -263,12 +268,19 @@
 
                                 // Include a dollar sign in the ticks
                                 callback: function(value) {
-                                    if (value >= 1000) {
-                                        value /= 1000
-                                        value += 'k'
+                                    // if (value >= 1000) {
+                                    //     value /= 1000
+                                    //     value += 'k'
+                                    // }
+                                  
+                                    //  return '$' + value
+                                    let html = '';
+                                    if(language == 'vi'){
+                                        html = value.toLocaleString('en-US', {style : 'currency', currency : 'VND'});
+                                    }else{
+                                        html = value.toLocaleString('en-US', {style : 'currency', currency : 'USD'});
                                     }
-
-                                    return '$' + value
+                                    return html;
                                 }
                             }, ticksStyle)
                         }],
