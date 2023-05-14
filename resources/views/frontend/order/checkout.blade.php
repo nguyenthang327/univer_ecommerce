@@ -252,6 +252,7 @@
                                         and conditions *</label>
                                     </div>
                                 </div> --}}
+                                    <div>Thanh toáng bằng</div>
                                         <div id="paypal-button-container"></div>
                                         <div class="text">{{ trans('language.or') }}</div>
                                         <button type="submit" class="btn">Thanh toán</button>
@@ -469,14 +470,57 @@
                 },
 
                 onApprove: (data, actions) => {
-                    return actions.order.capture().then(function(orderData) {
-                        console.log('Capture result', orderData, JSON.stringify(orderData, null,
-                            2));
-                        const transaction = orderData.purchase_units[0].payments.captures[0];
-                        // alert(
-                        //     `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
-                        // );
+                    let token = $('meta[name="csrf-token"]').length ? $('meta[name="csrf-token"]').attr('content') : '';
+                    var fd = new FormData();
+                    fd.append('full_name', $('.checkout-form input[name="full_name"]').val());
+                    fd.append('prefecture_id', $('.checkout-form select[name="prefecture_id"] :selected').val());
+                    fd.append('district_id', $('.checkout-form select[name="district_id"] :selected').val());
+                    fd.append('commune_id', $('.checkout-form select[name="commune_id"] :selected').val());
+                    fd.append('address', $('.checkout-form input[name="address"]').val());
+                    fd.append('phone', $('.checkout-form input[name="phone"]').val());
+                    fd.append('payment_method', 1);
+
+                    $.ajax({
+                        headers: {
+                            "X-CSRF-TOKEN": token,
+                        },
+                        url: $('.checkout-form').attr('action'),
+                        type: "POST",
+                        data: fd,
+                        dataType: "JSON",
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            // toastr.success(response.message, {
+                            //     timeOut: 5000
+                            // });
+                            // loaderEnd();
+                            return actions.order.capture().then(function(orderData) {
+                                // $("main").html(response.data);
+                                window.location.href = window.location.origin + '/order/order-completed';
+                            })
+                        },
+                        error: function(xhr) {
+                            if(xhr.status == 401){
+                                    window.location.href = window.location.origin + '/login';
+                            }else{
+                                toastr.error(xhr.responseJSON.message, {
+                                    timeOut: 5000
+                                });
+                            }
+                            return false;
+                            // loaderEnd();
+                        }
                     });
+                    // return false;
+                    // return actions.order.capture().then(function(orderData) {
+                    //     console.log('Capture result', orderData, JSON.stringify(orderData, null,
+                    //         2));
+                    //     const transaction = orderData.purchase_units[0].payments.captures[0];
+                    //     // alert(
+                    //     //     `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
+                    //     // );
+                    // });
                 }
             }).render('#paypal-button-container');
 

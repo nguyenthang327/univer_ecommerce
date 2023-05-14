@@ -1,4 +1,20 @@
 
+@extends('frontend.layouts.master')
+@section('title', trans('language.oorder'))
+
+@section('css_page')
+    <style>
+    </style>
+@stop
+
+@section('css_library')
+    {{-- @include('backend.libraryGroup.style-library', [
+        'datepicker' => true,
+        'icheck' => true,
+        'select2' => true,
+    ]) --}}
+@stop
+@section('content')
     <!-- main-area -->
     <main>
 
@@ -37,3 +53,9 @@
 
     </main>
     <!-- main-area-end -->
+    @stop
+
+    @section('js_library')
+        {{-- @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true]) --}}
+    @stop
+    

@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -51,6 +52,10 @@ class OrderController extends BaseController
         return view($this->pathView . 'checkout');
     }
 
+    public function orderCompletedView(){
+        return view($this->pathView . 'order-completed');
+    }
+
     public function store(OrderStoreRequest $request){
         try{
             DB::beginTransaction();
@@ -85,15 +90,34 @@ class OrderController extends BaseController
 
             $errors = $this->orderManager->handleStoreOrder($customer, $param);
             
-            if(!empty($errors)){
+            if(!empty($errors) && $request->payment_method == Order::PAYMENT_CASH){
                 DB::commit();
                 return redirect()->back();
+            }
+            if(!empty($errors) && $request->payment_method == Order::PAYMENT_PAYPAL){
+                DB::commit();
+                return response()->json([
+                    'status' => Response::HTTP_FORBIDDEN,
+                    'message' => trans('message.product_changed_order_failed'),
+                    'data' => null,
+                ], Response::HTTP_FORBIDDEN);
             }
 
             if(isset($coupon)){
                 $coupon->save();
             }
             DB::commit();
+            if($request->payment_method == Order::PAYMENT_PAYPAL){
+                // $html = view('frontend.order.order-completed')->render();
+                return response()->json([
+                    'status' => Response::HTTP_OK,
+                    'message' => trans('message.order_successed'),
+                    'data' => null,
+                ], Response::HTTP_OK);
+            }
+            return redirect()->route('customer.order.orderCompletedView')->with([
+                // 'status_successed' => trans('message.order_successed'),
+            ]);
             return redirect()->back()->with([
                 'status_successed' => trans('message.order_successed'),
                 'orderCompletedView' => true,
@@ -102,6 +126,13 @@ class OrderController extends BaseController
         }catch(Exception $e){
             DB::rollBack();
             Log::error("File: ".$e->getFile().'---Line: '.$e->getLine()."---Message: ".$e->getMessage());
+            if($request->payment_method == Order::PAYMENT_PAYPAL){
+                return response()->json([
+                    'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'message' => trans('message.server_error'),
+                    'data' => null,
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
             return back()->with([
                 'status_failed' => trans('message.order_failed'),
             ]);
