@@ -287,7 +287,7 @@
                                             @endif
                                         </div>
                                         <div class="exclusive-item-content mb-2">
-                                            <h5><a href="{{ $product->slug }}" class="line-clamp-2 product-item-name">{{ $product->name }}</a></h5>
+                                            <h5><a href="{{ route('site.product.show', ['slug' => $product->slug]) }}" class="line-clamp-2 product-item-name">{{ $product->name }}</a></h5>
                                             <div class="">
                                                 <span class="new-price">{{ $data['new'] }}</span>
                                             </div>
