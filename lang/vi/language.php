@@ -322,5 +322,9 @@ return [
     'customer' => 'Khách hàng',
     'employee' => 'Nhân viên',
     'date' => 'Ngày / Tháng / Năm',
+    'address' => 'Địa chỉ',
+    'order_history' => 'Lịch sử đơn hàng',
+    'detail' => 'Chi tiết',
+    'order_detail' => 'Chi tiết đơn hàng',
 ];
 ?>

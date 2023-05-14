@@ -80,8 +80,13 @@
                                             />
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <div class="customer-action d-flex">
-                                            <a href="" class="dropdown-item font-weight-bold" data-toggle="modal" data-target="#modalChangePassword"><i class="fa fa-key"></i> {{trans('language.change_password')}}</a>
+                                        <div class="customer-action d-flex flex-column align-items-center">
+                                            <a href="{{route('customer.order.orderHistory')}}" class="dropdown-item font-weight-bold">
+                                                {{-- <i class="fa fa-key"></i>  --}}
+                                                {{trans('language.order_history')}}</a>
+                                            <a href="" class="dropdown-item font-weight-bold" data-toggle="modal" data-target="#modalChangePassword">
+                                                {{-- <i class="fa fa-key"></i>  --}}
+                                                {{trans('language.change_password')}}</a>
                                             <a href="#"
                                                 class="dropdown-item font-weight-bold ml-3"
                                                 onclick="event.preventDefault();

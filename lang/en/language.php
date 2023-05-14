@@ -323,5 +323,9 @@ return [
     'customer' => 'Customers',
     'employee' => 'Employees',
     'date' => 'Day / Month / Year',
+    'order_history' => 'Order history',
+    'detail' => 'Detail',
+    'order_detail' => 'Order detail',
+
 ];
 ?>

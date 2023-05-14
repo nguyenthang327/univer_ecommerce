@@ -241,6 +241,8 @@ Route::middleware('web')->group(function () {
             Route::get('/', [OrderController::class, 'checkoutView'])->name('customer.order.checkoutView');
             Route::post('/store', [OrderController::class, 'store'])->name('customer.order.store');
             Route::get('/order-completed', [OrderController::class, 'orderCompletedView'])->name('customer.order.orderCompletedView');
+            Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('customer.order.orderHistory');
+            Route::get('/{id}/show', [OrderController::class, 'getDetail'])->name('customer.order.getDetail');
         });
 
         Route::prefix('/comment')->group(function(){
