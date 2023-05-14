@@ -4,6 +4,7 @@ namespace App\Logics\Admin;
 
 use App\Events\RegisterCustomer;
 use App\Helpers\StringHelper;
+use App\Models\Cart;
 use App\Models\Customer;
 use App\Traits\ImageTrait;
 use App\Traits\StorageTrait;
@@ -140,7 +141,7 @@ class CustomerManager
     {
         // create customer
         $customer = Customer::create($parameters);
-
+        Cart::create(['customer_id' => $customer->id]);
         $avatar_path = null;
 
         if ($avatar) {
@@ -154,7 +155,7 @@ class CustomerManager
         ]);
         $customer->password = $password;
 
-         event(new RegisterCustomer($customer, $password));
+        event(new RegisterCustomer($customer, $password));
     }
 }
 
