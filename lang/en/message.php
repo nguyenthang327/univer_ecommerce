@@ -63,6 +63,7 @@ return [
     'update_product_in_cart_successed' => 'Update product in cart successed!',
     'order_successed' => 'Order successed!',
     'update_successed' => 'Update successed!',
+    'update_order_successed' => 'Update order successed!',
 
 ]
 ?>

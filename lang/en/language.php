@@ -322,5 +322,6 @@ return [
     'product_selling' => 'Order need to proccess',
     'customer' => 'Customers',
     'employee' => 'Employees',
+    'date' => 'Day / Month / Year',
 ];
 ?>

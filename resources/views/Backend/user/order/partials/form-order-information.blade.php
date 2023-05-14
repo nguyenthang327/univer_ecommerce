@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        @include('backend.admin.order.partials.table-list-item', ['order' => $order])
+                        @include('backend.user.order.partials.table-list-item', ['order' => $order])
                     </div>
                 </div>
             </div>

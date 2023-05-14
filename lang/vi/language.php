@@ -321,6 +321,6 @@ return [
     'product_selling' => 'Sản phẩm đang bán',
     'customer' => 'Khách hàng',
     'employee' => 'Nhân viên',
-
+    'date' => 'Ngày / Tháng / Năm',
 ];
 ?>

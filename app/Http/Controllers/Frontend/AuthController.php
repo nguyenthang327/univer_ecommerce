@@ -70,7 +70,7 @@ class AuthController extends BaseController
                     Auth::guard('admin')->logout();
                 }
                 $request->session()->regenerate();
-                return redirect()->route('user.dashboard');
+                return redirect()->route('user.profile');
             }
         }elseif($request->type_account == TypeAccountEnum::CUSTOMER->value){
             if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
