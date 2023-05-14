@@ -391,6 +391,9 @@
                     phone: {
                         required: true,
                         regex_phone: true,
+                    },
+                    payment_method:{
+                        required: true,
                     }
                 },
                 messages: {
@@ -412,7 +415,10 @@
                         maxlength: 'Địa chỉ tối đa 100 ký tự',
                     },
                     phone: {
-                        // regex_phone
+                        required: 'Số điện thoại không được phép để trống',
+                    },
+                    payment_method:{
+                        required: 'Vui lòng chọn hình thức thanh toán',
                     }
                 },
                 errorClass: "invalid-alert text-danger",
