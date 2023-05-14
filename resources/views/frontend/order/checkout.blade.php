@@ -202,15 +202,15 @@
                                                 <span>{{ trans('language.total') }}</span> <span class="amount"></span>
                                             </li>
                                         </ul>
-                                        {{-- <input type="hidden" class="custom-control-input" id="customCheck4"
-                                            name="payment_method" value="{{ \App\Models\Order::PAYMENT_CASH }}"> --}}
+                                        <input type="hidden" class="custom-control-input" id="customCheck4"
+                                            name="payment_method" value="{{ \App\Models\Order::PAYMENT_CASH }}">
                                         {{-- <div class="bank-transfer">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="customCheck3">
                                         <label class="custom-control-label" for="customCheck3">Direct Bank Transfer</label>
                                     </div>
                                 </div> --}}
-                                <div class="bank-transfer">
+                                {{-- <div class="bank-transfer">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="customCheck4" name="payment_method" value="{{ \App\Models\Order::PAYMENT_CASH}}" checked>
                                         <label class="custom-control-label" for="customCheck4" >{{trans('language.cash_on_delivery')}}</label>
@@ -235,7 +235,7 @@
                                 @if ($errors->first('payment_method'))
                                     <div class="invalid-alert text-danger">{{ $errors->first('payment_method') }}
                                     </div>
-                                @endif
+                                @endif --}}
                                 {{-- <div class="paypal-method">
                                     <div class="paypal-method-flex">
                                         <div class="custom-control custom-checkbox">
@@ -252,8 +252,8 @@
                                         and conditions *</label>
                                     </div>
                                 </div> --}}
-                                        {{-- <div id="paypal-button-container"></div> --}}
-                                        {{-- <div class="text">{{ trans('language.or') }}</div> --}}
+                                        <div id="paypal-button-container"></div>
+                                        <div class="text">{{ trans('language.or') }}</div>
                                         <button type="submit" class="btn">Thanh toán</button>
                                     </div>
                                 </aside>
@@ -332,9 +332,9 @@
 
 @section('js_page')
     <script src="{{ asset('common/js/common.js') }}"></script>
-    {{-- <script
+    <script
         src="https://www.paypal.com/sdk/js?client-id=AXSWPgMvKuvMc6Qrm-H3fbEIWSHn6vMo3TJRT5SKB6ixdKqkjsF6VqfVtwowOPWHoZbEQfSh6fgnXx7G&currency=USD&disable-funding=credit,card">
-    </script> --}}
+    </script>
     <script>
         $(document).ready(function() {
 
@@ -392,9 +392,9 @@
                         required: true,
                         regex_phone: true,
                     },
-                    payment_method:{
-                        required: true,
-                    }
+                    // payment_method:{
+                    //     required: true,
+                    // }
                 },
                 messages: {
                     full_name: {
@@ -417,9 +417,9 @@
                     phone: {
                         required: 'Số điện thoại không được phép để trống',
                     },
-                    payment_method:{
-                        required: 'Vui lòng chọn hình thức thanh toán',
-                    }
+                    // payment_method:{
+                    //     required: 'Vui lòng chọn hình thức thanh toán',
+                    // }
                 },
                 errorClass: "invalid-alert text-danger",
                 errorElement: "div",
@@ -436,55 +436,49 @@
                 },
             });
 
-            // const total = {{ session('cart_total')['valueTotal'] }};
+            const total = {{ session('cart_total')['valueTotal'] }};
 
-            // paypal.Buttons({
-            //     // style: {
-            //     //     shape: 'rect',
-            //     //     color: 'gold',
-            //     //     layout: 'vertical',
-            //     //     label: 'paypal',
+            paypal.Buttons({
+                // style: {
+                //     shape: 'rect',
+                //     color: 'gold',
+                //     layout: 'vertical',
+                //     label: 'paypal',
 
-            //     // },
-            //     onClick: function(data, actions) {
-            //         // if(!val){
-            //         //     actionStatus.disable();
-            //         // }else {
-            //         //     actionStatus.enable();
-            //         // }
-            //         console.log($('.checkout-form').valid());
+                // },
+                onClick: function(data, actions) {
+                    return $('.checkout-form').valid();
+                    // if ($('.checkout-form').valid()) {
+                    //     // form is valid, enable PayPal button
+                    //     actions.enable();
+                    // } else {
+                    //     // form is invalid, disable PayPal button
+                    //     actions.disable();
+                    //     return false;
+                    // }
+                },
+                // Sets up the transaction when a payment button is clicked
+                createOrder: (data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: total // Can also reference a variable or function
+                            }
+                        }]
+                    });
+                },
 
-            //         if ($('.checkout-form').valid()) {
-            //             // form is valid, enable PayPal button
-            //             actions.enable();
-            //         } else {
-            //             // form is invalid, disable PayPal button
-            //             actions.disable();
-            //             return false;
-            //         }
-            //     },
-            //     // Sets up the transaction when a payment button is clicked
-            //     createOrder: (data, actions) => {
-            //         return actions.order.create({
-            //             purchase_units: [{
-            //                 amount: {
-            //                     value: total // Can also reference a variable or function
-            //                 }
-            //             }]
-            //         });
-            //     },
-
-            //     onApprove: (data, actions) => {
-            //         return actions.order.capture().then(function(orderData) {
-            //             console.log('Capture result', orderData, JSON.stringify(orderData, null,
-            //                 2));
-            //             const transaction = orderData.purchase_units[0].payments.captures[0];
-            //             // alert(
-            //             //     `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
-            //             // );
-            //         });
-            //     }
-            // }).render('#paypal-button-container');
+                onApprove: (data, actions) => {
+                    return actions.order.capture().then(function(orderData) {
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null,
+                            2));
+                        const transaction = orderData.purchase_units[0].payments.captures[0];
+                        // alert(
+                        //     `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
+                        // );
+                    });
+                }
+            }).render('#paypal-button-container');
 
         });
     </script>
