@@ -316,5 +316,7 @@ return [
     'top_favorite_product' => 'Top favorite products',
     'cart_empty' => 'Cart empty',
     'address' => 'address',
+    'number_favorite' => 'Number of favorites',
+
 ];
 ?>

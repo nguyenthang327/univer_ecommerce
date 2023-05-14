@@ -316,6 +316,6 @@ return [
     'browse_best_category' => 'Duyệt các danh mục tốt nhất',
     'top_favorite_product' => 'Top sản phẩm yêu thích nhất',
     'cart_empty' => 'Giỏ hàng trống',
-
+    'number_favorite' => 'Số lượt yêu thích',
 ];
 ?>

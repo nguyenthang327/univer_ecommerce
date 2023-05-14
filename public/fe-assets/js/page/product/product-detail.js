@@ -1,12 +1,11 @@
 
-
 var productNumber = $('.related-product-active > .col-xl-3').length;
 var i = 0;
 while(productNumber < 5 && productNumber > 0){
     $('.related-product-active').append(`<div class="col-xl-3">` +  $('.related-product-active > .col-xl-3').eq(i).html() + `</div>`);
     ++productNumber;
     ++i;
-    if(i == 4){
+    if(productNumber == 5){
         callBackSlider();
         break;
     }
@@ -61,7 +60,7 @@ function callBackSlider(){
         ]
     });
 }
-    
+
 /*=============================================
     =         Product Rating Active        =
 =============================================*/

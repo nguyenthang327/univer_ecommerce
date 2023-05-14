@@ -233,6 +233,7 @@
                                         and conditions *</label>
                                     </div>
                                 </div> --}}
+                                <div id="paypal-button-container"></div>
                                 <button type="submit" class="btn">Đặt hàng</button>
                             </div>
                         </aside>
@@ -345,35 +346,35 @@
 
             const total = {{session('cart_total')['valueTotal']}};
 
-            // paypal.Buttons({
-            //             // style: {
-            //             //     shape: 'rect',
-            //             //     color: 'gold',
-            //             //     layout: 'vertical',
-            //             //     label: 'paypal',
+            paypal.Buttons({
+                        // style: {
+                        //     shape: 'rect',
+                        //     color: 'gold',
+                        //     layout: 'vertical',
+                        //     label: 'paypal',
             
-            //             // },
-            //             // Sets up the transaction when a payment button is clicked
-            //     createOrder: (data, actions) => {
-            //         return actions.order.create({
-            //             purchase_units: [{
-            //                 amount: {
-            //                     value: total // Can also reference a variable or function
-            //                 }
-            //             }]
-            //         });
-            //     },
+                        // },
+                        // Sets up the transaction when a payment button is clicked
+                createOrder: (data, actions) => {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: total // Can also reference a variable or function
+                            }
+                        }]
+                    });
+                },
     
-            //     onApprove: (data, actions) => {
-            //         return actions.order.capture().then(function(orderData) {
-            //             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-            //             const transaction = orderData.purchase_units[0].payments.captures[0];
-            //             alert(
-            //                 `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
-            //             );
-            //         });
-            //     }
-            // }).render('#paypal-button-container');
+                onApprove: (data, actions) => {
+                    return actions.order.capture().then(function(orderData) {
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                        const transaction = orderData.purchase_units[0].payments.captures[0];
+                        alert(
+                            `Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`
+                        );
+                    });
+                }
+            }).render('#paypal-button-container');
         });
     </script>
 @stop

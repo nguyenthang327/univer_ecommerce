@@ -2335,7 +2335,7 @@ label {
     margin-bottom: 8px;
 }
 .exclusive-item-three .old-price {
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 .exclusive-item-three .exclusive--item--price {
     margin-bottom: 3px;

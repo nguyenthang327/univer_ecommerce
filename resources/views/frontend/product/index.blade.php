@@ -288,12 +288,17 @@
                                         </div>
                                         <div class="exclusive-item-content mb-2">
                                             <h5><a href="{{ $product->slug }}" class="line-clamp-2 product-item-name">{{ $product->name }}</a></h5>
-                                            <div class="exclusive--item--price">
-                                                @if($data['old'] )
-                                                <del class="old-price">{{ $data['old'] }}</del>
-                                                @endif
+                                            <div class="">
                                                 <span class="new-price">{{ $data['new'] }}</span>
                                             </div>
+                                            <div class="exclusive--item--price">
+                                                <del class="old-price">
+                                                @if($data['old'] )
+                                                {{ $data['old'] }}
+                                                @endif
+                                            </del>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
