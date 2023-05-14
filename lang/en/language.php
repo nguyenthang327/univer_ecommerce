@@ -194,6 +194,8 @@ return [
     'export_pdf' => 'Export PDF',
 
     'customer_id' => 'Customer ID',
+    'order_title' => 'Sales Invoice',
+    'order_id' => 'Code Order',
     'customer_account_name' => 'Customer name',
     'consignee_name' => 'Name of consignee',
     'consignee_phone' => 'Phone of consignee',

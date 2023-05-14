@@ -195,6 +195,8 @@ return [
     'export_pdf' => 'Xuất file PDF',
 
     'customer_id' => 'Mã khách hàng',
+    'order_title' => 'Hóa đơn bán hàng',
+    'order_id' => 'Mã hóa đơn',
     'customer_account_name' => 'Tên khách hàng',
     'consignee_name' => 'Tên người nhận hàng',
     'consignee_phone' => 'Số điện thoại người nhận hàng',
