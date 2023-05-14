@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title', trans('language.update_info'))
+@section('title', trans('language.self_info'))
 
 @section('css_library')
     @include('backend.libraryGroup.style-library', ['datepicker' => true, 'icheck' => true, 'select2' => true])
