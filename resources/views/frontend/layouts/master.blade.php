@@ -44,6 +44,7 @@
         <!-- preloader  -->
         @include('frontend.layouts.preloader')
         <!-- preloader end -->
+        @include('backend.user.layout.loader')
 
         <!-- Scroll-top -->
         <button class="scroll-top scroll-to-target" data-target="html">

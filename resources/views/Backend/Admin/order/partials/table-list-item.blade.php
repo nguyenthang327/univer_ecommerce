@@ -1,5 +1,5 @@
 @if (isset($order->orderDetail) && count($order->orderDetail) > 0)
-<label class="mt-2 mb-3">{{ trans('language.order.item_list')}}</label>
+<label class="mt-2 mb-3 list-product-label">{{ trans('language.order.item_list')}}</label>
 <div class="table-responsive">
     <table class="table table-hover table-striped table-bordered table-valign-middle table-custom min-width-800">
         <thead class="text-center text-nowrap">

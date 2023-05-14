@@ -37,7 +37,7 @@
     </div>
 @include('backend.user.layout.footer')
 <!-- <div id="sidebar-overlay"></div> -->
-@include('frontend.modal.modal-change-password', ['typeAccount' => \App\Enums\TypeAccountEnum::ADMIN->value])
+@include('frontend.modal.modal-change-password', ['typeAccount' => \App\Enums\TypeAccountEnum::USER->value])
 </div>
 
 

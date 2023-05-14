@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\Admin\OrderController as AdminOrderController;
 // Route user
 use App\Http\Controllers\Backend\User\Auth\LoginController as UserAuth;
 use App\Http\Controllers\Backend\User\DashboardController as UserDashboard;
+use App\Http\Controllers\Backend\User\OrderController as UserOrderController;
 use App\Http\Controllers\Backend\User\ProductController;
 use App\Http\Controllers\Backend\User\UserController as BeUser;
 use App\Http\Controllers\ChangePasswordController;
@@ -152,10 +153,10 @@ use App\Http\Controllers\Frontend\ProfileController;
             });
 
               // Order
-              Route::prefix('/order')->group(function(){
-                Route::get('/', [AdminOrderController::class, 'index'])->name('user.order.index');
-                Route::get('/{id}/edit', [AdminOrderController::class, 'edit'])->name('user.order.edit');
-                Route::put('/update/{id}', [AdminOrderController::class, 'update'])->name('user.order.update');
+            Route::prefix('/order')->group(function(){
+                Route::get('/', [UserOrderController::class, 'index'])->name('user.order.index');
+                Route::get('/{id}/edit', [UserOrderController::class, 'edit'])->name('user.order.edit');
+                Route::put('/update/{id}', [UserOrderController::class, 'update'])->name('user.order.update');
                 // Route::delete('/{id}/destroy', [AdminOrderController::class, 'destroy'])->name('admin.order.destroy');
             });
         });
@@ -239,6 +240,9 @@ Route::middleware('web')->group(function () {
         Route::prefix('/order')->group(function(){
             Route::get('/', [OrderController::class, 'checkoutView'])->name('customer.order.checkoutView');
             Route::post('/store', [OrderController::class, 'store'])->name('customer.order.store');
+            Route::get('/order-completed', [OrderController::class, 'orderCompletedView'])->name('customer.order.orderCompletedView');
+            Route::get('/order-history', [OrderController::class, 'orderHistory'])->name('customer.order.orderHistory');
+            Route::get('/{id}/show', [OrderController::class, 'getDetail'])->name('customer.order.getDetail');
         });
 
         Route::prefix('/comment')->group(function(){

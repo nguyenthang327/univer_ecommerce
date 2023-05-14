@@ -60,5 +60,9 @@ return [
     'delete_product_in_cart_successed'  => 'Xóa sản phẩm trong giỏ hàng thành công!',
     'update_product_in_cart_successed' => 'Cập nhật sản phẩm trong giỏ hàng thành công!',
     'order_successed' => 'Đặt hàng thành công!',
+    'update_successed' => 'Cập nhật đơn hàng thành công!',
+    'update_order_successed' => 'Cập nhật đơn hàng thành công!',
+    'date' => 'Ngày / tháng / năm',
+
 ]
 ?>

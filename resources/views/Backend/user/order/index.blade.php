@@ -4,7 +4,7 @@
 @stop
 
 @section('css_library')
-    @include('backend.libraryGroup.style-library', ['select2' => true, 'icheck' => true])
+    @include('backend.libraryGroup.style-library', ['datepicker' => true, 'select2' => true, 'icheck' => true])
 @stop
 
 @section('css_page')
@@ -36,7 +36,7 @@
             <div id="collapseFilter" class="collapse">
                 <div class="card mb-3">
                     <div class="card-body border-0">
-                        {{-- @include('backend.user.order.partials.form-filter') --}}
+                        @include('backend.user.order.partials.form-filter')
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
 @stop
 
 @section('js_library')
-    @include('backend.libraryGroup.script-library', ['select2' => true])
+    @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true])
 @stop
 
 @section('js_page')

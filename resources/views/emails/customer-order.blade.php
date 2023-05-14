@@ -22,7 +22,7 @@
                         {{ trans('language.mail.customer_order.content.content_1', ['date' => $order->created_at ?  (new App\Services\DateFormatService())->dateFormatLanguage($order->created_at,'H:i d/m/Y') : '']) }}
                     </td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <table class="table mb-0">
                         <thead>
                             <tr>
@@ -34,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($products as $product)
+                            @foreach ($products as $product)
                                 @php
                                     $checkVariant = $product->product_type == \App\Models\Product::TYPE_VARIANT && $product->skus->isNotEmpty();
                                     $price = [];
@@ -54,10 +54,10 @@
                                 <td class="product-price" style="color:#ff6000;">{{ $price['new'] }}</td>
                                 <td class="product-stock-status">{{$stock}}</td>
                             </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
-                </tr>
+                </tr> --}}
             </table>
         </td>
     </tr>

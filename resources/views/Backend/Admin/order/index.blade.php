@@ -36,7 +36,7 @@
             <div id="collapseFilter" class="collapse">
                 <div class="card mb-3">
                     <div class="card-body border-0">
-                        {{-- @include('backend.admin.order.partials.form-filter') --}}
+                        @include('backend.admin.order.partials.form-filter')
                     </div>
                 </div>
             </div>

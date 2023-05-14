@@ -33,7 +33,7 @@
 
                     <td class="text-center text-nowrap">
                         @if($order->deleted_at == null)
-                            <a href="{{ route('admin.order.edit',['id'=>$order->id]) }}" data-toggle='tooltip' title="{{trans('language.edit')}}" class="text-md text-primary mr-2"><i class="far fa-pen-alt"></i></a>
+                            <a href="{{ route('user.order.edit',['id'=>$order->id]) }}" data-toggle='tooltip' title="{{trans('language.edit')}}" class="text-md text-primary mr-2"><i class="far fa-pen-alt"></i></a>
                         {{-- @else
                             <a href="{{ route('admin.order.restore', ['id'=>$order->id]) }}"
                                 data-toggle='tooltip'

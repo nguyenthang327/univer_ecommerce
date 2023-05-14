@@ -115,7 +115,7 @@
                             </div>
                             <div class="viewed-item-bottom">
                                 <ul>
-                                    <li>Số lượt yêu thích : {{$product->total}}</li>
+                                    <li>{{trans('language.number_favorite')}} : {{$product->total}}</li>
                                 </ul>
                             </div>
                         </div>

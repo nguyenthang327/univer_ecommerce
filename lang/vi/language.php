@@ -195,6 +195,8 @@ return [
     'export_pdf' => 'Xuất file PDF',
 
     'customer_id' => 'Mã khách hàng',
+    'order_title' => 'Hóa đơn bán hàng',
+    'order_id' => 'Mã hóa đơn',
     'customer_account_name' => 'Tên khách hàng',
     'consignee_name' => 'Tên người nhận hàng',
     'consignee_phone' => 'Số điện thoại người nhận hàng',
@@ -316,6 +318,15 @@ return [
     'browse_best_category' => 'Duyệt các danh mục tốt nhất',
     'top_favorite_product' => 'Top sản phẩm yêu thích nhất',
     'cart_empty' => 'Giỏ hàng trống',
-
+    'number_favorite' => 'Số lượt yêu thích',
+    'order_need_process' => 'Đơn hàng cần xử lý',
+    'product_selling' => 'Sản phẩm đang bán',
+    'customer' => 'Khách hàng',
+    'employee' => 'Nhân viên',
+    'date' => 'Ngày / Tháng / Năm',
+    'address' => 'Địa chỉ',
+    'order_history' => 'Lịch sử đơn hàng',
+    'detail' => 'Chi tiết',
+    'order_detail' => 'Chi tiết đơn hàng',
 ];
 ?>

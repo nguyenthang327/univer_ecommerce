@@ -1,4 +1,20 @@
 
+@extends('frontend.layouts.master')
+@section('title', trans('language.order_completed'))
+
+@section('css_page')
+    <style>
+    </style>
+@stop
+
+@section('css_library')
+    {{-- @include('backend.libraryGroup.style-library', [
+        'datepicker' => true,
+        'icheck' => true,
+        'select2' => true,
+    ]) --}}
+@stop
+@section('content')
     <!-- main-area -->
     <main>
 
@@ -24,7 +40,7 @@
                                     Hours.</p>
                                     {{--  You will receive an
                                     email confirmation when your order is completed. --}}
-                                <a href="shop-left-sidebar.html" class="btn">CONTINUE SHOPPING</a>
+                                <a href="{{route('site.product.index')}}" class="btn">CONTINUE SHOPPING</a>
                                 <p class="get-ans">Get answers to all your <a href="#">Questions</a> you might have.
                                 </p>
                             </div>
@@ -37,3 +53,9 @@
 
     </main>
     <!-- main-area-end -->
+    @stop
+
+    @section('js_library')
+        {{-- @include('backend.libraryGroup.script-library', ['datepicker' => true, 'select2' => true]) --}}
+    @stop
+    

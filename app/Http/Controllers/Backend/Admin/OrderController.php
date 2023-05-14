@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\UpdateOrderRequest;
 use App\Logics\Admin\OrderManager;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +47,12 @@ class OrderController extends Controller
             ->leftJoin('coupons', 'coupons.id', 'orders.coupon_id')
 
             ->groupBy('orders.id');
+        if($request->input('order_status')){
+            $orders = $orders->whereIn('orders.status', $request->input('order_status'));
+        }
+        if($request->input('date')){
+            $orders = $orders->whereDate('orders.created_at', Carbon::createFromFormat('d/m/Y', $request->input('date'))->format('Y-m-d') );
+        }
             // ->orderBy('orders.created_at', 'desc');
 
         $orders = $orders = $orders->sortable()->paginate(self::TAKE);

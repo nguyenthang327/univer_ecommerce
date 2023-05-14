@@ -194,6 +194,8 @@ return [
     'export_pdf' => 'Export PDF',
 
     'customer_id' => 'Customer ID',
+    'order_title' => 'Sales Invoice',
+    'order_id' => 'Code Order',
     'customer_account_name' => 'Customer name',
     'consignee_name' => 'Name of consignee',
     'consignee_phone' => 'Phone of consignee',
@@ -316,5 +318,16 @@ return [
     'top_favorite_product' => 'Top favorite products',
     'cart_empty' => 'Cart empty',
     'address' => 'address',
+    'number_favorite' => 'Number of favorites',
+    'confirm_password' => 'Confirm password',
+    'order_need_process' => 'Order need to proccess',
+    'product_selling' => 'Order need to proccess',
+    'customer' => 'Customers',
+    'employee' => 'Employees',
+    'date' => 'Day / Month / Year',
+    'order_history' => 'Order history',
+    'detail' => 'Detail',
+    'order_detail' => 'Order detail',
+
 ];
 ?>
