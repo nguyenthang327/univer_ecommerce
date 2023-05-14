@@ -254,7 +254,7 @@
                                 </div> --}}
                                         {{-- <div id="paypal-button-container"></div> --}}
                                         {{-- <div class="text">{{ trans('language.or') }}</div> --}}
-                                        <button type="submit" class="btn">Thanh toán khi giao hàng</button>
+                                        <button type="submit" class="btn">Thanh toán</button>
                                     </div>
                                 </aside>
                             </div>
