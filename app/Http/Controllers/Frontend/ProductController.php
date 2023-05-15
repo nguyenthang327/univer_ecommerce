@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Log;
 class ProductController extends BaseController
 {
     //
-    const TAKE = 12;
+    const TAKE = 9;
     const COMMENT_PER_PAGE = 8;
     const RELATED_PRODUCT_LIMIT = 8;
 

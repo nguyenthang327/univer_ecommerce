@@ -330,5 +330,7 @@ return [
     'order_detail' => 'Order detail',
     'cart_total' => 'Cart total',
     'payment_by' => 'Payment by',
+    'all' => 'All',
+
 ];
 ?>

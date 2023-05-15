@@ -101,8 +101,11 @@ class ProductManager
                     // dd($categoryID, $categorySubID);
                 }
                 if($request->input('search_keyword')){
-                    $keyword = $stringHelper->formatStringWhereLike($request->search_keyword);
-                    $products->where('products.name', 'LIKE', '%'.$keyword.'%');
+                    $keyword = explode(' ',trim($stringHelper->formatStringWhereLike($request->search_keyword)));
+
+                    foreach($keyword as $value){
+                        $products->where('products.name', 'LIKE', '%'.$value.'%');
+                    }
                 }
             }
 
