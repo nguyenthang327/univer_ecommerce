@@ -171,7 +171,7 @@
                             <div class="col-lg-4 col-md-8">
                                 <aside class="shop-cart-sidebar checkout-sidebar">
                                     <div class="shop-cart-widget">
-                                        <h6 class="title">Cart Totals</h6>
+                                        <h6 class="title">{{trans('language.cart_total')}}</h6>
                                         <ul>
                                             <li class="order-subtotal"><span>{{ trans('language.subtotal') }}</span>
                                             </li>
@@ -252,10 +252,10 @@
                                         and conditions *</label>
                                     </div>
                                 </div> --}}
-                                    <div>Thanh toáng bằng</div>
-                                        <div id="paypal-button-container"></div>
-                                        <div class="text">{{ trans('language.or') }}</div>
-                                        <button type="submit" class="btn">Thanh toán</button>
+                                    <div><strong>{{trans('language.payment_by')}}</strong></div>
+                                        <div id="paypal-button-container" class="mt-2"></div>
+                                        <div class="text"><b>{{ trans('language.or') }}</b></div>
+                                        <button type="submit" class="btn" style="margin-top: 16px">{{trans('language.order.payment_method')[0]}}</button>
                                     </div>
                                 </aside>
                             </div>

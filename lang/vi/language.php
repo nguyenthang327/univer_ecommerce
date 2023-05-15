@@ -328,5 +328,8 @@ return [
     'order_history' => 'Lịch sử đơn hàng',
     'detail' => 'Chi tiết',
     'order_detail' => 'Chi tiết đơn hàng',
+    'cart_total' => 'Tổng giỏ hàng',
+    'payment_by' => 'Thanh toán bằng',
+
 ];
 ?>
