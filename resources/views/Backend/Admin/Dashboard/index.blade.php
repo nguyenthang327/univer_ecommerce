@@ -173,8 +173,8 @@
                                 @endphp
                                 <p class="d-flex flex-column">
                                     <span class="text-bold text-lg">{{trans('language.today')}}: {{$total['new']}}</span>
-                                    {{-- <span>Sales Over Time</span>
                                 </p>
+                                    {{-- <span>Sales Over Time</span>
                                 {{-- <p class="ml-auto d-flex flex-column text-right">
                                     <span class="text-success">
                                         <i class="fas fa-arrow-up"></i> 33.1%
@@ -184,7 +184,7 @@
                             </div>
                             <!-- /.d-flex -->
 
-                            <div class="position-relative mb-4">
+                            <div class="position-relative mb-5">
                                 <canvas id="sales-chart" height="200"></canvas>
                             </div>
 
