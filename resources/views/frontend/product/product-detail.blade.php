@@ -162,6 +162,13 @@
                                             <a href="javascript:void(0)">{{ trans('language.other') }}</a>
                                         @endif
                                     </li>
+                                    @if($product->slug)
+                                        <li>
+                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{ route('site.product.show', ['slug' => $product->slug]) }}"
+                                                onerror="this.onerror=null;this.style='display:none';"
+                                            />
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
