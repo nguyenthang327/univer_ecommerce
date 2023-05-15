@@ -330,6 +330,6 @@ return [
     'order_detail' => 'Chi tiết đơn hàng',
     'cart_total' => 'Tổng giỏ hàng',
     'payment_by' => 'Thanh toán bằng',
-
+    'all' => 'Tất cả',
 ];
 ?>

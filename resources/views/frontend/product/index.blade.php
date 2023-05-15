@@ -33,22 +33,22 @@
                                 <ul>
                                     {{-- xem xét lại --}}
                                 @if(!Request::has('categorySlug') || Request::get('categorySlug') == '')
-                                    <li><a href="{{ route('site.product.index')}}" class="mini-cate-special active">All</a>
+                                    <li><a href="{{ route('site.product.index', [ 'search_keyword' => Request::get('search_keyword') ])}}" class="mini-cate-special active">{{trans('language.all')}}</a>
                                         {{-- <span>27</span> --}}
                                     </li>
                                     @foreach($globalProductCategories as $key => $productCategory)
                                         <li>
-                                            <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}">
+                                            <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'], 'search_keyword' => Request::get('search_keyword') ] )}}">
                                                 {{ $productCategory['name'] }}
                                             </a>
                                         </li>
                                     @endforeach
                                 @else
-                                    <li><a href="{{ route('site.product.index')}}" class="mini-cate-special">All</a>
+                                    <li><a href="{{ route('site.product.index', [ 'search_keyword' => Request::get('search_keyword') ])}}" class="mini-cate-special">{{trans('language.all')}}</a>
                                     @foreach($globalProductCategories as $key => $productCategory)
                                         @if($productCategory['slug'] == Request::get('categorySlug'))
                                             <li>
-                                                <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}" 
+                                                <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'], 'search_keyword' => Request::get('search_keyword') ] )}}" 
                                                     class="mini-cate-special active">
                                                     {{ $productCategory['name'] }}
                                                 </a>
@@ -71,7 +71,7 @@
                                             @endphp
                                             @if($check == true)
                                                 <li>
-                                                    <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'] ] )}}" 
+                                                    <a href="{{ route('site.product.index', ['categorySlug' => $productCategory['slug'], 'search_keyword' => Request::get('search_keyword') ] )}}" 
                                                         class="mini-cate-special">
                                                         {{ $productCategory['name'] }}
                                                     </a>
