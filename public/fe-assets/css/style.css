@@ -2339,6 +2339,7 @@ label {
 }
 .exclusive-item-three .exclusive--item--price {
     margin-bottom: 3px;
+    min-height: 24px;
 }
 
 /* 9. Deal of the day */

@@ -293,10 +293,10 @@
                                             </div>
                                             <div class="exclusive--item--price">
                                                 <del class="old-price">
-                                                @if($data['old'] )
-                                                {{ $data['old'] }}
-                                                @endif
-                                            </del>
+                                                    @if($data['old'] )
+                                                    {{ $data['old'] }} 
+                                                    @endif
+                                                </del>
                                             </div>
                                             
                                         </div>
