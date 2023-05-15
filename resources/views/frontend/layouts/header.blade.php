@@ -14,7 +14,7 @@
                                     <span>Ship to</span>
                                     <div class="dropdown">
                                         @php
-                                            $language = \App\Models\language::where('name', session('locale'))->first();
+                                            $language = \App\Models\Language::where('name', session('locale'))->first();
                                         @endphp
                                         <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">

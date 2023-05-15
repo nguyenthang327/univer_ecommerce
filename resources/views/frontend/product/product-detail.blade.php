@@ -233,11 +233,11 @@
                                                     <img class="overlay-product-thumb" src="img/product/t_exclusive_product01.jpg" alt=""> --}}
                                                     <img src="{{ !empty($item->gallery) ? asset('storage/'.$item->gallery[0]['file_path']) : '' }}" alt="" onerror="this.onerror=null;this.src='{{ asset('images/no-image.png') }}';">
                                                 </a>
-                                                <ul class="action">
+                                                {{-- <ul class="action">
                                                     <li><a href="#"><i class="flaticon-shuffle-1"></i></a></li>
                                                     <li><a href="#"><i class="flaticon-supermarket"></i></a></li>
                                                     <li><a href="{{ route('site.product.show', ['slug' => $item->slug]) }}"><i class="flaticon-witness"></i></a></li>
-                                                </ul>
+                                                </ul> --}}
                                             </div>
                                             <div class="exclusive-item-content">
                                                 <h5><a class="line-clamp-2" href="{{ route('site.product.show', ['slug' => $item->slug]) }}">{{$item->name}}</a></h5>
