@@ -76,6 +76,7 @@ class AuthController extends BaseController
             if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
                 $customer = Customer::where('email', $request->email_login)->where('status', Customer::STATUS_ACTIVE)->first();
                 if(!$customer){
+                    Auth::guard('customer')->logout();
                     return back()->withErrors([
                         'error' => trans('message.error_login')
                     ]);
