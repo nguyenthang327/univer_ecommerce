@@ -38,7 +38,7 @@
     function getPrice(price, discount = null){
         let language = $("body").data('locales') ?? 'vi';
         let html = '';
-        discount = parseFloat(discount) ?? 0
+        discount = discount ? parseFloat(discount) : 0
         if(language == 'vi'){
             html = `${(parseFloat(price - (price * discount / 100))*23000).toLocaleString('en-US', {style : 'currency', currency : 'VND'})}`;
         }else{
