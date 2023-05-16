@@ -1,5 +1,5 @@
 @extends('backend.user.layout.master')
-@section('title',trans('language.product_category_list'))
+@section('title',trans('language.product_list'))
 @section('meta')
 @stop
 

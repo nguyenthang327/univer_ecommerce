@@ -13,7 +13,7 @@
         <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900&subset=vietnamese">
 
-		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+		{{-- <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png"> --}}
         <!-- Place favicon.ico in the root directory -->
 
 		<!-- CSS here -->

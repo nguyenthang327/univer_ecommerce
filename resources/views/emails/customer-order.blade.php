@@ -19,7 +19,7 @@
                     </td>
                 </tr>
                     <td style="padding: 20px 0 30px 0;">
-                        {{ trans('language.mail.customer_order.content.content_1', ['date' => $order->created_at ?  (new App\Services\DateFormatService())->dateFormatLanguage($order->created_at,'H:i d/m/Y') : '']) }}
+                        {{ trans('language.mail.customer_order.content.content_1', ['date' => $order->created_at ?  Carbon\Carbon::parse($order->created_at)->format('H:i d/m/Y') : '']) }}
                     </td>
                 </tr>
                 {{-- <tr>
