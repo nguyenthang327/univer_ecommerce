@@ -17,7 +17,7 @@
                             <h5 data-animation="fadeInUp" data-delay=".3s">top deal !</h5>
                             <h2 data-animation="fadeInUp" data-delay=".6s">Smart cream</h2>
                             <p data-animation="fadeInUp" data-delay=".9s">Get up to <span>50%</span> off Today Only</p>
-                            <a href="shop-left-sidebar.html" class="btn yellow-btn" data-animation="fadeInUp" data-delay="1s">Shop Now</a>
+                            <a href="{{ route('site.product.index') }}" class="btn yellow-btn" data-animation="fadeInUp" data-delay="1s">Shop Now</a>
                         </div>
                     </div>
                     {{-- <div class="single-slider slider-bg" data-background="img/slider/s_slider_bg02.jpg">
