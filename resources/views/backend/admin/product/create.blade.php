@@ -1,5 +1,5 @@
 @extends('backend.admin.layout.master')
-@section('title',trans('language.profile_info'))
+@section('title',trans('language.add_product'))
 
 @section('breadcrumb')
     <li class="nav-item d-none d-sm-inline-block">

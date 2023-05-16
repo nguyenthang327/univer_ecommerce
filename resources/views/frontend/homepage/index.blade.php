@@ -7,7 +7,7 @@
 @section('content')
  <!-- slider-area -->
  {{-- @dd(session('coupon_code')) --}}
- <section class="second-slider-area" data-background="img/slider/slider_bg.jpg">
+ <section class="second-slider-area" data-background="">
     <div class="custom-container-two">
         <div class="row justify-content-end">
             <div class="col-xl-10">
