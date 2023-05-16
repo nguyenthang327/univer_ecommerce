@@ -74,6 +74,12 @@ class AuthController extends BaseController
             }
         }elseif($request->type_account == TypeAccountEnum::CUSTOMER->value){
             if(Auth::guard('customer')->attempt($credentials, $request->has('remember_me'))){
+                $customer = Customer::where('email', $request->email_login)->where('status', Customer::STATUS_ACTIVE)->first();
+                if(!$customer){
+                    return back()->withErrors([
+                        'error' => trans('message.error_login')
+                    ]);
+                }
                 $request->session()->regenerate();
                 return redirect()->route('site.home');
             }
