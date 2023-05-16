@@ -120,7 +120,7 @@ class ProductManager
 
     public function checkProductType($productId){
         $product = Product::with(['skus'])
-            ->leftJoin('product_skus', 'product_skus.product_id', '=', 'products.id')
+            // ->leftJoin('product_skus', 'product_skus.product_id', '=', 'products.id')
             ->where('products.id', $productId)
             ->where('products.status', Product::SELL)
             ->first();
